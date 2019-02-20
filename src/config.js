@@ -67,14 +67,14 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'PHP';
   moneySplit = '$1,';
 } else {
-  domain = 'http://api.sanjinxia.com'; //  id测试接口
+  // domain = 'http://api.sanjinxia.com'; //  id测试接口
   // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
-  // domain = `https://api.getpeso.ph`; // ph 本地接口
+  domain = `https://api.getpeso.ph`; // ph 本地接口
   headerTotal = 'Go Dana'
-  lang = 'id';
-  first_unit = 'Rp';
-  last_unit = '';
+  lang = 'PHL';
+  first_unit = '';
+  last_unit = 'PHP';
 }
 
 global.config = {

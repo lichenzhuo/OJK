@@ -104,6 +104,7 @@ const actionmap = {
     back_rate_excel: 'EXPREPORT0003', // 回款率报表
     // 工作台
     admin_home: 'REPORT0004', // 工作台数据
+    REPORT0006: 'REPORT0006', // 工作台数据
     // 贷后运营
     loanOperation_list: 'REPORT0005', // 总催回报表
     note_list: 'SMSDEMO0001', // 短信模版列表

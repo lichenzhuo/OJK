@@ -435,7 +435,9 @@
         <!-- ------------ 呼叫结果开始 ------------------------ -->
         <li class="xuan-2-6" v-if="active2==5&&$store.state.common.lang!=='PHL'">
           <template v-if="orderNo">
-            <group-busy-result :type="1" :order-no="orderNo"></group-busy-result>
+            <group-busy-result :type="1" :order-no="orderNo">
+              
+            </group-busy-result>
           </template>
         </li>
       </ul>

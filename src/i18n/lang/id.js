@@ -1309,6 +1309,19 @@ const id = {
     no80:'Menolak pengembalian dana',
     no81:'Tidak ada yang menjawab',
     no82:'Kecenderungan pengaduan',
+    no83:'Waktu panggilan grup terakhir',
+    no84:'Hasil panggilan grup terakhir',
+    no85:'Terhubung',
+    no86:'Missed-call',
+    no87:'Waktu panggilan grup',
+    no88:'Hasil panggilan grup',
+    no89:'Berhasil dikirim',
+    no90:'Gagal dikirim',
+    no91:'Durasi panggilan',
+    no92:'Apakah kontak darurat',
+    no93:'Hasil panggilan suara grup',
+    no94:'Waktu panggilan',
+    no95:'Hasil panggilan',
     followStatus: {
       no1: '初审未跟踪',
       no2: '初审进行中',
@@ -1545,7 +1558,7 @@ const id = {
     no19:'ID Pesanan',
     no20:'Perubahan Status Pesanan',
     no25:'Waktu Pembuatan Pesanan',
-    no26:'恢复催收',
+    no26:'Pemulihan Koleksi',
   },
   ...idLocale
 }

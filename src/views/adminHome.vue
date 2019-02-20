@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <!-- ------------ 今日数据开始 ------------------------ -->   
-    <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
+    <!-- <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
       <el-row>
         <el-col :span="24">
           <div class="paixu">
@@ -38,6 +38,200 @@
           <li>
             <p><span class="bgc2"></span>{{$t('adminHome.no15')}}</p>
             <p class="cl2" v-if="mainData.today.repaymentCount!==''">{{mainData.today.repaymentCount}}</p>
+            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          
+        </ul>
+        <ul>
+          <li>
+            <p><span class="bgc3"></span>{{$t('new.no6')}}</p>
+            <p class="cl3" v-if="mainData.today.orderPassCount!==''">{{mainData.today.orderPassCount}}</p>
+            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc3"></span>{{$t('adminHome.no18')}}</p>
+            <p class="cl3" v-if="mainData.today.lendingToday!==''">{{mainData.today.lendingToday}}</p>
+            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc2"></span>{{$t('adminHome.no9')}}</p>
+            <p class="cl2" v-if="mainData.today.lendingCountNew!==''">{{mainData.today.lendingCountNew}}</p>
+            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc3"></span>{{$t('adminHome.no10')}}</p>
+            <p class="cl3" v-if="mainData.today.lendingCountOld!==''">{{mainData.today.lendingCountOld}}</p>
+            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc3"></span>{{$t('adminHome.no16')}}</p>
+            <p class="cl3" v-if="mainData.today.repaymentOverDueCount!==''">{{mainData.today.repaymentOverDueCount}}</p>
+            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+        </ul>
+      </div>
+    </template>  -->
+    
+    <!-- ------------ 累计数据开始 ------------------------ -->    
+    <!-- <el-row type="flex" class="row-bg" justify="space-between" :gutter="40">
+      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_ALL')">
+        <el-col  :span="12">
+          <div class="paixu">
+            <span></span><p>{{$t('adminHome.dataTotal')}}</p>
+          </div>
+          <div class="tongji">
+            <ul>
+              <li>
+                <div class="box left">
+                  <p class="cl5">{{$t('adminHome.hisPutMoneyTotal')}}</p>
+                  <p class="mgt15 cl1">
+                    <span v-if="mainData.all.lendingCount!==''">{{mainData.all.lendingCount}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                    {{$t('adminHome.unit')}}
+                  </p>
+                </div>
+                <div class="box right">
+                  <p class="cl5">{{$t('adminHome.no1')}}</p>
+                  <p class="mgt15 cl1">
+                    <span v-if="mainData.all.lendingAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.lendingAmount)}}{{$store.state.common.vi_currency}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                  </p>
+                </div>
+              </li>
+              <div class="line"></div>
+              <li>
+                <div class="box left">
+                  <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
+                  <p class="mgt15 cl1">
+                    <span v-if="mainData.all.repaymentCount!==''">{{mainData.all.repaymentCount}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                    {{$t('adminHome.unit')}}
+                  </p>
+                </div>
+                <div class="box right">
+                  <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
+                  <p class="mgt15 cl1">
+                    <span v-if="mainData.all.repaymentAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.repaymentAmount)}}{{$store.state.common.vi_currency}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-col>
+      </template>
+      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_CURRENT')">
+        <el-col :span="12">
+          <div class="paixu">
+            <span></span><p>{{$t('adminHome.nowData')}}</p>
+          </div>
+          <div class="tongji">
+            <ul>
+              <li>
+                <div class="box left">
+                  <p class="cl5">{{$t('adminHome.no3')}}</p>
+                  <p class="mgt15 cl4">
+                    <span  v-if="mainData.amount.allCount!=''">{{mainData.amount.allCount}}</span> 
+                    <span  v-else>{{$store.state.common.nullData}}</span>
+                    {{$t('adminHome.unit')}}
+                  </p>
+                </div>
+                <div class="box right">
+                  <p class="cl5">{{$t('adminHome.no4')}}</p>
+                  <p class="mgt15 cl4">
+                    <span v-if="mainData.amount.allAmount!=''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.allAmount)}}{{$store.state.common.vi_currency}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                  </p>
+                </div>
+              </li>
+              <div class="line"></div>
+              <li>
+                <div class="box left">
+                  <p class="cl5">{{$t('adminHome.no5')}}</p>
+                  <p class="mgt15 cl3">
+                    <span v-if="mainData.amount.overCount!=''">{{mainData.amount.overCount}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                    {{$t('adminHome.unit')}}
+                  </p>
+                </div>
+                <div class="box right">
+                  <p class="cl5">{{$t('adminHome.noBackMoney')}}</p>
+                  <p class="mgt15 cl3">
+                    <span v-if="mainData.amount.overAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.overAmount)}}{{$store.state.common.vi_currency}}</span> 
+                    <span v-else>{{$store.state.common.nullData}}</span>
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-col>
+      </template>
+    </el-row> -->
+
+    <!-- ------------ 图表开始 ------------------------ --> 
+    <!-- <el-row type="flex" class="row-bg mgb20" justify="center">
+      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_AREA')">
+        <el-col :md="22" :lg="22" :xl="22">
+          <div class="line">
+            <div id="myChart1" style="width:100%;height:600px;"></div>
+          </div>
+        </el-col>
+      </template>
+    </el-row> -->
+    
+    <!-- <el-row type="flex" class="row-bg" justify="center">
+      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_WEEK')">
+        <el-col :md="22" :lg="22" :xl="22">
+          <div class="line">
+            <div id="myChart2" style="width:100%;height:580px;"></div>
+          </div>
+        </el-col>
+      </template>
+    </el-row> -->
+
+
+    <!-- ------------ 今日数据开始 ------------------------ -->   
+    <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
+      <el-row>
+        <el-col :span="24">
+          <div class="paixu">
+            <span></span><p>{{$t('adminHome.todayData')}}</p>
+          </div>
+        </el-col>
+      </el-row>
+      <div class="total">
+        <ul>
+          <li>
+            <p><span class="bgc1"></span>{{$t('adminHome.todyRegisterNum')}}</p>
+            <p class="cl1" v-if="mainData.today.regCount!==''">{{mainData.today.regCount}}</p>
+            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc1"></span>{{$t('adminHome.no17')}}</p>
+            <p class="cl1" v-if="mainData.today.applyToday!==''">{{mainData.today.applyToday}}</p>
+            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc2"></span>{{$t('adminHome.no7')}}</p>
+            <p class="cl2" v-if="mainDataTwo.today.orderCountNew!==''">{{mainDataTwo.today.orderCountNew}}</p>
+            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc1"></span>{{$t('adminHome.no8')}}</p>
+            <p class="cl1" v-if="mainData.today.orderCountOld!==''">{{mainData.today.orderCountOld}}</p>
+            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+          </li>
+          <div class="line"></div>
+          <li>
+            <p><span class="bgc2"></span>{{$t('adminHome.no15')}}</p>
+            <p class="cl2" v-if="mainDataTwo.today.repaymentCount!==''">{{mainDataTwo.today.repaymentCount}}</p>
             <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
           </li>
           
@@ -135,7 +329,7 @@
                 <div class="box left">
                   <p class="cl5">{{$t('adminHome.no3')}}</p>
                   <p class="mgt15 cl4">
-                    <span  v-if="mainData.amount.allCount!=''">{{mainData.amount.allCount}}</span> 
+                    <span  v-if="mainDataTwo.amount.allCount!=''">{{mainDataTwo.amount.allCount}}</span> 
                     <span  v-else>{{$store.state.common.nullData}}</span>
                     {{$t('adminHome.unit')}}
                   </p>
@@ -143,7 +337,7 @@
                 <div class="box right">
                   <p class="cl5">{{$t('adminHome.no4')}}</p>
                   <p class="mgt15 cl4">
-                    <span v-if="mainData.amount.allAmount!=''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.allAmount)}}{{$store.state.common.vi_currency}}</span> 
+                    <span v-if="mainDataTwo.amount.allAmount!=''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainDataTwo.amount.allAmount)}}{{$store.state.common.vi_currency}}</span> 
                     <span v-else>{{$store.state.common.nullData}}</span>
                   </p>
                 </div>
@@ -220,7 +414,14 @@ export default {
       },
       data1: [], // 本周
       data2: [], // 本月
-      flag: false
+      data3: [], // 本周
+      data4: [], // 本月
+      flag: false,
+      mainDataTwo:{
+        all: '', // 累计数据
+        amount: '', // 实时数据
+        today: ''// 当日数据
+      }
     }
   },
   computed: {
@@ -239,7 +440,7 @@ export default {
     week () { // 星期国际化
       return [this.$t('adminHome.monday'), this.$t('adminHome.tuesday'), this.$t('adminHome.wednesday'), this.$t('adminHome.thursday'), this.$t('adminHome.friday'), this.$t('adminHome.saturday'), this.$t('adminHome.sunday')]
     },
-    desc () { // 星期国际化
+    desc () { // 标注国际化
       return [this.$t('adminHome.no6'), this.$t('adminHome.no7'), this.$t('adminHome.no8'), this.$t('adminHome.no9'), this.$t('adminHome.no10'), this.$t('adminHome.no11'), this.$t('adminHome.no12')]
     }
   },
@@ -259,9 +460,31 @@ export default {
           this.mainData.today = res.data.data.today
           this.data1 = res.data.data.sevenDayData
           this.data2 = res.data.data.oneMonthData
+          if(this.data1&&this.data2&&this.data3&&this.data4){
+            this.drawLine1()// 还款量统计图
+            this.drawLine2()// 放款量统计图
+          }
           
-          this.drawLine1()// 还款量统计图
-          this.drawLine2()// 放款量统计图
+        }
+      })
+    },
+    dataListTwo () { // 获取页面数据
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.REPORT0006,
+          'sessionid': this.sessionid
+        }
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.mainDataTwo.amount = res.data.data.amount
+          this.mainDataTwo.today = res.data.data.today
+          this.data3 = res.data.data.sevenDayData
+          this.data4 = res.data.data.oneMonthData
+          
+          // this.drawLine1()// 还款量统计图
+          // this.drawLine2()// 放款量统计图
         }
       })
     },
@@ -324,7 +547,7 @@ export default {
                   name:this.$t('adminHome.no7'),
                   type:'line',
                   smooth: true,
-                  data:this.data1.newApplyCountWeek
+                  data:this.data3.newApplyCountWeek
               },
               {
                   name:this.$t('adminHome.no8'),
@@ -348,7 +571,7 @@ export default {
                   name:this.$t('adminHome.no11'),
                   type:'line',
                   smooth: true,
-                  data:this.data1.repaymentWeek
+                  data:this.data3.repaymentWeek
               },
               {
                   name:this.$t('adminHome.no12'),
@@ -414,7 +637,7 @@ export default {
                   name:this.$t('adminHome.no7'),
                   type:'line',
                   smooth: true,
-                  data:this.data2.newApplyCountMonth
+                  data:this.data4.newApplyCountMonth
               },
               {
                   name:this.$t('adminHome.no8'),
@@ -438,7 +661,7 @@ export default {
                   name:this.$t('adminHome.no11'),
                   type:'line',
                   smooth: true,
-                  data:this.data2.repaymentMonth
+                  data:this.data4.repaymentMonth
               },
               {
                   name:this.$t('adminHome.no12'),
@@ -458,7 +681,10 @@ export default {
     this.$store.commit('filterPreList', {list})
     // MENU_WORKS
     if(this.$store.state.common.permiss.includes('MENU_WORKS')){
+      this.dataListTwo()
       this.dataList()
+      
+      
     }
   }
 }
