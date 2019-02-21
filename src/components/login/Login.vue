@@ -2,18 +2,18 @@
   <div class="login-container" style="background-color: #141a48;margin: 0px;overflow: hidden;">
     <div class="ms-login">
       <div class="ms-title">{{$t('login.management_system')}}</div>
-        <el-form :model="ruleForm" :rules="rule" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-          <el-form-item prop="loginName">
-              <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-              <el-input type="password" placeholder="passWord" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
-          </el-form-item>
-          <div class="login-btn">
-              <el-button type="primary" @click="submitForm('ruleForm')" :loading="logining">{{$t('login.login')}}</el-button>
-          </div>
-        </el-form>
-      </div>
+      <el-form :model="ruleForm" :rules="rule" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+        <el-form-item prop="loginName">
+            <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+            <el-input :type="text" placeholder="passWord" @focus="typeToPass" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <div class="login-btn">
+            <el-button type="primary" @click="submitForm('ruleForm')" :loading="logining">{{$t('login.login')}}</el-button>
+        </div>
+      </el-form>
+    </div>
     <div class="langSelect">
       <el-select size="small" v-model="langStyle" placeholder="请选择语言">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -32,10 +32,11 @@ export default {
         loginName: '',
         password: ''
       },
+      ruleForm1: {},
       // rules: '',
       logining: false,
       sessionid: '',
-
+      text:'text',
       langStyle: '1'// 当前选择的语言
 
     }
@@ -330,6 +331,9 @@ export default {
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
       this.$store.commit('cuihuiTotalList', {})
+    },
+    typeToPass(){
+      this.text = 'password'
     }
   },
   watch: {
@@ -376,7 +380,9 @@ export default {
   height: 100%;
   
 }
-
+.noclick{
+  display: none;
+}
 .ms-title {
   
   width: 100%;

@@ -253,7 +253,7 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="100" >
             <template slot-scope="scope">
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_MANAGEMENT_DETAIL')"
+                
                 style="color:#547ef6;cursor:pointer" 
                 @click="loanDetali(scope.row.orderNo,scope.row.userId)"
               >

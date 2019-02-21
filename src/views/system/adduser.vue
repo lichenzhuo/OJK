@@ -1,12 +1,6 @@
 <template>
   <div class="adduser">
-    <el-form :model="ruleForm2" 
-             size="small" status-icon 
-             :rules="rules" 
-             ref="ruleForm2"
-             autoComplete="off" 
-             label-width="80px" 
-             class="demo-ruleForm">
+    <el-form :model="ruleForm2" size="small" status-icon :rules="rules" ref="ruleForm2" autoComplete="off" label-width="80px" class="demo-ruleForm">
         <el-form-item :label="$t('idManage.no7')" prop="loginName">
             <el-input type="user" v-model="ruleForm2.loginName" ></el-input>
         </el-form-item>
@@ -17,13 +11,13 @@
             <el-input type="tel" v-model="ruleForm2.phone" ></el-input>
         </el-form-item>
         <el-form-item :label="$t('idManage.no9')" prop="roleId">
-            <el-select size="small" v-model="ruleForm2.roleId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
+          <el-select size="small" v-model="ruleForm2.roleId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item :label="$t('idManage.no10')" prop="password">
-            <el-input type="password".
+            <el-input type="password"
              v-model="ruleForm2.password" ></el-input>
         </el-form-item>
         <el-form-item :label="$t('new.no12')">
@@ -87,7 +81,7 @@ export default {
   },
   methods: {
     submitForm (formName) {
-      let jse = new JSEncrypt()
+      let jse = new JSEncrypt();
       jse.setPublicKey(this.$store.state.common.publicKey)
       let option = {
         header: {
@@ -97,32 +91,30 @@ export default {
         },
         ...this.ruleForm2
       }
-      option.collectionTypes = option.collectionTypes.join()
+      option.collectionTypes = option.collectionTypes.join();
       option.password = jse.encrypt(this.ruleForm2.password)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              this.$globalMsg.success(this.$t('message.success'))
+              this.$globalMsg.success(this.$t('message.success'));
               this.userlist()
             } else {
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
-            this.addclose()
+            this.addclose();
           })
         } else {
-          return false
+          return false;
         }
       })
     },
     passFocus(){
       this.$refs.passInput.type = 'password';
-      console.log(this.$refs.passInput.type)
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    console.log(this.collectionType)
+    this.sessionid = sessionStorage.getItem('sessionid');
   }
 }
 </script>
@@ -131,7 +123,6 @@ export default {
   width: 100%;
   height: 100%;
   padding: 20px 30px;
-  // background-color: rgba(246, 249, 252, 1);
   position: relative;
 }
 .demo-ruleForm{
