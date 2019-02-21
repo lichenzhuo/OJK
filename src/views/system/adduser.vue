@@ -23,7 +23,7 @@
             </el-select>
         </el-form-item>
         <el-form-item :label="$t('idManage.no10')" prop="password">
-            <el-input type="password".
+            <el-input type="password"
              v-model="ruleForm2.password" ></el-input>
         </el-form-item>
         <el-form-item :label="$t('new.no12')">
@@ -117,12 +117,10 @@ export default {
     },
     passFocus(){
       this.$refs.passInput.type = 'password';
-      console.log(this.$refs.passInput.type)
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    console.log(this.collectionType)
+    this.sessionid = sessionStorage.getItem('sessionid');
   }
 }
 </script>

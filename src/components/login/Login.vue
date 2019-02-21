@@ -7,7 +7,7 @@
               <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
           </el-form-item>
           <el-form-item prop="password">
-              <el-input type="password" placeholder="passWord" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+              <el-input :type="text" placeholder="passWord" @focus="typeToPass" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
           </el-form-item>
           <div class="login-btn">
               <el-button type="primary" @click="submitForm('ruleForm')" :loading="logining">{{$t('login.login')}}</el-button>
@@ -35,7 +35,7 @@ export default {
       // rules: '',
       logining: false,
       sessionid: '',
-
+      text:'text',
       langStyle: '1'// 当前选择的语言
 
     }
@@ -330,7 +330,11 @@ export default {
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
       this.$store.commit('cuihuiTotalList', {})
+    },
+    typeToPass(){
+      this.text = 'password'
     }
+
   },
   watch: {
     langStyle () {
@@ -353,9 +357,9 @@ export default {
     }
   },
   mounted () {
-    this.vuexData()
-    sessionStorage.clear()
-    this.lang()
+    this.vuexData();
+    sessionStorage.clear();
+    this.lang();
   }
 }
 
