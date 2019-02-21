@@ -19,34 +19,40 @@
       </div>
       <div class="right">
         <ul class="ul-one">
-          <template>
-            <li v-if="data.id!==null&&data.id!==undefined&&data.id!==''"><span>{{$t('public.userId')}}:</span> <span>{{data.id}}</span>  </li>
-            <li v-else><span>{{$t('public.userId')}}:</span> <span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.strRegTime!==null&&data.strRegTime!==undefined&&data.strRegTime!==''"><span>{{$t('public.registerDate')}}:</span> <span>{{data.strRegTime}}</span>  </li>
-            <li v-else><span>{{$t('public.registerDate')}}:</span> <span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.phone!==null&&data.phone!==undefined&&data.phone!==''"><span>{{$t('public.userPhone')}}:</span> <span>{{data.phone}}</span>  </li>
-            <li v-else><span>{{$t('public.userPhone')}}:</span> <span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.regDevice!==null&&data.regDevice!==undefined&&data.regDevice!==''"><span>{{$t('public.registerClient')}}:</span><span>{{data.regDevice | clientStatus}}</span> </li>
-            <li v-else><span>{{$t('public.registerClient')}}:</span><span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.appName!==null&&data.appName!==undefined&&data.appName!==''"><span>{{$t('new.no48')}}:</span><span>{{data.appName}}</span> </li>
-            <li v-else><span>{{$t('new.no48')}}:</span><span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.appPackage!==null&&data.appPackage!==undefined&&data.appPackage!==''"><span>{{$t('new.no49')}}:</span><span>{{data.appPackage}}</span> </li>
-            <li v-else><span>{{$t('new.no49')}}:</span><span> {{$store.state.common.nullData}} </span> </li>
-          </template>
-          <template>
-            <li v-if="data.regChannel!==null&&data.regChannel!==undefined&&data.regChannel!==''"><span>{{$t('public.registerChannel')}}:</span><span>{{data.regChannel}}</span> </li>
-            <li v-else><span>{{$t('public.registerChannel')}}:</span><span> {{$store.state.common.nullData}} </span> </li>
-          </template>
+          <li >
+            <span>{{$t('public.userId')}}:</span> 
+            <span v-if="data.id!=''">{{data.id}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
+          <li >
+            <span>{{$t('public.registerDate')}}:</span> 
+            <span v-if="data.strRegTime!=''">{{data.strRegTime}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
+          <li >
+            <span>{{$t('public.userPhone')}}:</span> 
+            <span v-if="data.phone!=''">{{data.phone}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
+          <li >
+            <span>{{$t('public.registerClient')}}:</span>
+            <span>{{$t($store.getters.clientStatus(data.regDevice))}}</span> 
+          </li>
+          <li >
+            <span>{{$t('new.no48')}}:</span> 
+            <span v-if="data.appName!=''">{{data.appName}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
+          <li >
+            <span>{{$t('new.no49')}}:</span> 
+            <span v-if="data.appPackage!=''">{{data.appPackage}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
+          <li >
+            <span>{{$t('public.registerChannel')}}:</span> 
+            <span v-if="data.regChannel!=''">{{data.regChannel}}</span>  
+            <span v-else> {{$store.state.common.nullData}} </span>
+          </li>
         </ul>
       </div>
     </div>

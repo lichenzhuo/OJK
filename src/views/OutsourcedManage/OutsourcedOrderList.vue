@@ -253,6 +253,10 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="100" >
             <template slot-scope="scope">
               <span 
+<<<<<<< HEAD
+=======
+                
+>>>>>>> 16a4f0a7440956b502bb9d4f55cb27860775f91d
                 style="color:#547ef6;cursor:pointer" 
                 @click="loanDetali(scope.row.orderNo,scope.row.userId)"
               >

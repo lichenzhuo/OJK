@@ -138,7 +138,7 @@
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_LIST')">
       <template>
         <el-table :data="tableData" size="small" stripe empty-text>
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')" width="60">
+          <el-table-column align="center" prop="id" :label="$t('public.orderId')" width="68">
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')" min-width="60">
           </el-table-column>

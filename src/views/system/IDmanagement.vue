@@ -74,12 +74,12 @@
     
     <!-- ------------ 搜索查询栏结束 -------------- -->
     <div class="search" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEIM_USER_ADD')">
-      <el-row type="flex" justify="start" :gutter="40">
-        <el-col :md="5" :lg="4" :xl="3">
+      <el-row type="flex" justify="start" >
+        <!-- <el-col :md="5" :lg="4" :xl="3"> -->
           <div class="search-add" @click="addUser">
             +{{$t('idManage.add')}}
           </div>
-        </el-col>
+        <!-- </el-col> -->
       </el-row>
       
     </div>

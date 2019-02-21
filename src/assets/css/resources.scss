@@ -1,0 +1,23 @@
+@mixin flex-cen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left2right{
+  width: 100%;
+  line-height: 22px;
+  display: flex;	
+  margin-bottom: 10px;
+  &>.left{
+    width: 120px;
+    color: #555;
+    font-weight: 600;
+    text-align: right;
+  }
+  &>.right{
+    flex: auto;
+    color: #777;
+    margin-left: 15px;
+  }			
+}
