@@ -1,19 +1,16 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no2')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('myAuditList.no3')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('myAuditList.no3')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -24,13 +21,7 @@
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
           </div>
         </el-col>
-        <!-- <el-col :md="6" :lg="4" :xl="3">
-          <div class="search-input">
-            <span>{{$t('public.orderNo')}}:</span>
-            <el-input size="small" label="orderNo" v-model="formInline.orderNo"></el-input>
-          </div>
-        </el-col> -->
-        <el-col :md="6" :lg="4" :xl="3">
+        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
@@ -48,162 +39,134 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('public.orderStatus')}}:</span>
-            <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('new.no8')}}:</span>
-            <el-select size="small" v-model="formInline.trackStatus" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>{{$t('public.orderStatus')}}:</span>
+          <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no8')}}:</span>
+          <el-select size="small" v-model="formInline.trackStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
-          <el-col :md="9" :lg="6" :xl="5">
-            <div class="search-input">
-              <span>{{$t('websiteLoans.no5')}}:</span>
-              <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </el-col>
+          <div class="search-input">
+            <span>{{$t('websiteLoans.no5')}}:</span>
+            <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
+              <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
         </template>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('public.CreateDate')}}:</span>
-            <el-date-picker 
-              id="date1"
-              size="small"
-              v-model="searchTime" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('new.no9')}}:</span>
-            <el-date-picker 
-              id="shenhe"
-              size="small"
-              v-model="searchTime1" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('new.no13')}}:</span>
-            <el-date-picker 
-              id="renling"
-              size="small"
-              v-model="searchTime2" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
-        </template>
+        <div class="search-input">
+          <span>{{$t('public.CreateDate')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no9')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime1" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no13')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime2" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input"
+          v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
       </el-row>
     </div>
 
     <template v-if="level!==1">
-      <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_CLAIM')">
-          <el-row :gutter=10>
-            <el-col :span="5">
-              <div class="search-input">
-                <el-button type="primary" class="button-color" @click="claim">{{$t('myAuditList.no4')}}</el-button>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
+      <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_CLAIM')">
+        <el-button type="primary" class="button-color" @click="claim">{{$t('myAuditList.no4')}}</el-button>
+      </div>
     </template>
-    
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe style="width: 100%"  empty-text>
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')" width="80">
+        <el-table :data="tableData" size="small" stripe >
+          <el-table-column align="center" prop="id" :label="$t('public.orderId')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.userId')" min-width="80">
+          <el-table-column align="center" prop="userId" :label="$t('public.userId')">
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')" min-width="100">
+          <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" min-width="100">
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" min-width="100">
+            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')">
               <template slot-scope="scope">
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')" min-width="90">
+            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
               <template slot-scope="scope">
-                <span v-if="scope.row.orderLoanType!==null&&scope.row.orderLoanType!==undefined&&scope.row.orderLoanType!==''">{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
+                <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" min-width="160">
+          <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" min-width="100">
+          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
-              <span v-if="scope.row.status!==null&&scope.row.status!==undefined&&scope.row.status!==''">{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="strApproveTime" :label="$t('new.no9')" min-width="160">
+          <el-table-column align="center" prop="strApproveTime" :label="$t('new.no9')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strFirstApproveAllotTime" :label="$t('new.no13')" min-width="160">
+          <el-table-column align="center" prop="strFirstApproveAllotTime" :label="$t('new.no13')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="trackStatus" :label="$t('new.no8')" min-width="100">
+          <el-table-column align="center" prop="trackStatus" :label="$t('new.no8')">
             <template slot-scope="scope">
-              <span v-if="scope.row.trackStatus!==null&&scope.row.trackStatus!==undefined&&scope.row.trackStatus!==''">{{$t($store.getters.follow_status(scope.row.trackStatus))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.follow_status(scope.row.trackStatus))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="adminName" :label="$t('public.no32')" min-width="80">
+          <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
             <template slot-scope="scope">
               <span>{{userName}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST')">
               <span
                 v-if="scope.row.status!=20"
-                style="color:#547ef6;cursor:pointer"
+                class="table_opr"
                 @click="socialDetali(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('public.no29')}}
               </span>
               <span 
                 v-else
-                style="color:#547ef6;cursor:pointer"
+                class="table_opr"
                 @click="socialDetali(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('myAuditList.no5')}}
               </span>
@@ -215,8 +178,8 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_LIST')">
-          <el-pagination
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST_LIST')">
+        <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="sizes, prev, pager, next, total,->"
@@ -225,7 +188,7 @@
             @size-change="handleSizeChange"
           :total="pageTotal?pageTotal:0">
         </el-pagination>
-        </div>
+      </div>
     </el-row>
 
     <div class="foot"></div>
@@ -234,7 +197,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'myAuditFirstList',
   data () {
     return {
       flag: true,
@@ -276,16 +239,16 @@ export default {
       this.listAll();
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.listAll();
     },
     socialDetali (orderNo, userid, orderId) { // 点击人工初审跳转
-      this.$router.push({path: '/chushendetail', query: {orderNo, userid, orderId, block: 2}})
+      this.$router.push({path: '/chushendetail', query: {orderNo, userid, orderId, block: 2}});
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('myrengongchushenList', this.formInline)
+      this.$store.commit('myrengongchushenList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.listAll();
       }
     },
@@ -300,10 +263,10 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
@@ -320,11 +283,11 @@ export default {
           operType: 1
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.listAll()
+            this.listAll();
           }else{
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
         })
       }
@@ -333,238 +296,48 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.applyTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0])
-        this.formInline.applyTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1])
+        this.formInline.applyTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.applyTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.applyTimeBegin = ''
-        this.formInline.applyTimeEnd = ''
+        this.formInline.applyTimeBegin = '';
+        this.formInline.applyTimeEnd = '';
       }
     },
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.approveTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0])
-        this.formInline.approveTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1])
+        this.formInline.approveTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.approveTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.approveTimeBegin = ''
-        this.formInline.approveTimeEnd = ''
+        this.formInline.approveTimeBegin = '';
+        this.formInline.approveTimeEnd = '';
       }
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.approvAllotTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0])
-        this.formInline.approvAllotTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1])
+        this.formInline.approvAllotTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.approvAllotTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
-        this.formInline.approvAllotTimeBegin = ''
-        this.formInline.approvAllotTimeEnd = ''
+        this.formInline.approvAllotTimeBegin = '';
+        this.formInline.approvAllotTimeEnd = '';
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.level = Number(sessionStorage.getItem('level'))
-    this.userName = sessionStorage.getItem('name')
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.level = Number(sessionStorage.getItem('level'));
+    this.userName = sessionStorage.getItem('name');
     if (JSON.stringify(this.$store.state.common.myrengongchushen_select) !== '{}') {
-      this.formInline = this.$store.state.common.myrengongchushen_select
+      this.formInline = this.$store.state.common.myrengongchushen_select;
       if(this.formInline.applyTimeBegin!==''){
-        this.searchTime.push(this.formInline.applyTimeBegin)
-        this.searchTime.push(this.formInline.applyTimeEnd)
+        this.searchTime.push(this.formInline.applyTimeBegin);
+        this.searchTime.push(this.formInline.applyTimeEnd);
       }
       
     }
-    this.listAll()
+    this.listAll();
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: auto;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-.act{
-  padding: 5px 28px 5px 5px;
-}
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-//用户详情弹窗
-.details{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 95%;
-    height: 500px;
-    margin-top: -200px;
-    background-color: #ffffff;
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 10px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 16px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: 452px;
-      .year{
-        width: 100%;
-        height: 58px;
-        display: flex;
-        padding-left: 50px;
-        align-items: flex-end;
-        .button-active{
-          background-color: #409EFF;
-        }
-      }
-      
-      .detail-table{
-        width: 100%;
-        height: 392px;
-        display: flex;
-        justify-content: space-around;
-        .detail-table-1{
-          width: 45%;
-          height: 100%;
-          .detail-table-2{
-            width: 100%;
-            height: 100%;
-            tr:nth-child(odd){
-              background-color: #Ffffff;
-            }
-            tr:nth-child(even){
-              background-color: #F4F6FB;
-            }
-            .table-head{
-              height: 50px;
-            }
-            .table-head2{
-              text-align: center;
-            }
-            .active{
-              background-color: #F4F6FB;
-            }
-          }
-        }
-      }
-    }
-  }
-} 
 
 </style>
