@@ -1,19 +1,16 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanMoney.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('yn.no14')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('yn.no14')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('yn.no14')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -30,103 +27,85 @@
             <el-input size="small" label="tel" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
+        <div class="search-input">
+          <span>{{$t('finance.putMoneyType')}}:</span>
+          <el-select size="small" v-model="formInline.loanType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('finance.channel')}}:</span>
+          <el-select size="small" v-model="formInline.thirdChannel" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('finance.status')}}:</span>
+          <el-select size="small" v-model="formInline.lendStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
           <div class="search-input">
-            <span>{{$t('finance.putMoneyType')}}:</span>
-            <el-select size="small" v-model="formInline.loanType" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            <span>{{$t('yn.no5')}}:</span>
+            <el-select size="small" v-model="formInline.dealStatus" :placeholder="$t('public.placeholder')">
+              <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('finance.channel')}}:</span>
-            <el-select size="small" v-model="formInline.thirdChannel" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('finance.status')}}:</span>
-            <el-select size="small" v-model="formInline.lendStatus" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-            <div class="search-input">
-              <span>{{$t('yn.no5')}}:</span>
-              <el-select size="small" v-model="formInline.dealStatus" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('finance.createTime')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                id="timesel"
-                size="small"
-                v-model="searchTime1" 
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('finance.successDate')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                id="successtime"
-                size="small"
-                v-model="searchTime2" 
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('yn.no18')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                id="chulidate"
-                size="small"
-                v-model="searchTime3"
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_QUERY')">
-          <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-          </div>
-        </template>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_EXP')">
-          <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-          </div>
-        </template>
+        <div class="search-input">
+          <span>{{$t('finance.createTime')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              id="timesel"
+              size="small"
+              v-model="searchTime1" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
+        <div class="search-input">
+          <span>{{$t('finance.successDate')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              id="successtime"
+              size="small"
+              v-model="searchTime2" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
+        <div class="search-input">
+          <span>{{$t('yn.no18')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              id="chulidate"
+              size="small"
+              v-model="searchTime3"
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
+        <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
+        <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_EXP')">
+          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+        </div>
         
       </el-row>
     </div>
@@ -161,25 +140,24 @@
           </el-table-column>
           <el-table-column align="center" prop="status" :label="$t('finance.status')" >
             <template slot-scope="scope">
-              <span v-if="scope.row.status!==null&&scope.row.status!==undefined&&scope.row.status!==''">{{$t($store.getters.putMoneyLogStatus(scope.row.status))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.putMoneyLogStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="orderCreateTimeStr" :label="$t('yn.no25')" width="85">
           </el-table-column>
           <el-table-column align="center" prop="lendTimeStr" :label="$t('finance.successTime')" width="85">
           </el-table-column>
-          <el-table-column align="center" prop="dealTimeStr" :label="$t('yn.no18')" >
+          <el-table-column align="center" prop="dealTimeStr" :label="$t('yn.no18')" width="85">
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('yn.no17')" >
           </el-table-column>
-          <el-table-column align="center" prop="dealStatus" :label="$t('yn.no5')" min-width="80">
+          <el-table-column align="center" prop="dealStatus" :label="$t('yn.no5')" >
             <template slot-scope="scope">
               <span v-if="scope.row.dealStatus!==null&&scope.row.dealStatus!==undefined&&scope.row.dealStatus!==''">{{$t($store.getters.handlingStatus(scope.row.dealStatus))}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="100">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
             <template slot-scope="scope">
               <span
                 v-if="scope.row.dealStatus<3&&$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_DEAL')"
@@ -474,28 +452,7 @@ export default {
   background-color: rgba(246, 249, 252, 1);
   position: relative;
 }
-.paixu {
-  width: 100%;
-  height: auto;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
+
 .search {
   width: 100%;
   height: auto;

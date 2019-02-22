@@ -72,9 +72,9 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `https://api.getpeso.ph`; // ph 本地接口
   headerTotal = 'Go Dana'
-  lang = 'PHL';
-  first_unit = '';
-  last_unit = 'PHP';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
 }
 
 global.config = {

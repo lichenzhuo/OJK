@@ -24,21 +24,6 @@ module.exports = {
 
     config.output.filename('[name].[hash].js').end();
 
-    // sass-resources-loader 提供的引入全局scss文件的方法
-    // const oneOfsMap = config.module.rule('scss').oneOfs.store
-    // oneOfsMap.forEach(item => {
-    //   item
-    //     .use('sass-resources-loader')
-    //     .loader('sass-resources-loader')
-    //     .options({
-    //       // Provide path to the file with resources
-    //       resources: './src/assets/css/resources.scss',
-
-    //       // Or array of paths
-    //       // resources: ['./path/to/vars.scss', './path/to/mixins.scss']
-    //     })
-    //     .end()
-    // })
     
   },
   css: {
@@ -47,7 +32,7 @@ module.exports = {
       sass: {
         // @/ 是 src/ 的别名
         // 所以这里假设你有 `src/variables.scss` 这个文件
-        data: `@import "src/assets/css/resources.scss";`
+        data: `@import "./src/assets/css/resources.scss";`
       }
     }
   }

@@ -8,7 +8,7 @@ import store from './store/index'
 import 'babel-polyfill'
 
 import './assets/css/main.css' // 外部样式
-// import './assets/css/public.module.scss'// 外部样式
+import './assets/css/resources.scss' // 外部样式
 
 import Blob from './vender/Blob.js'
 import Export2Excel from './vender/export2Excel.js'

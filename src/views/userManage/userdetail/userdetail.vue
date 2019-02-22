@@ -10,12 +10,6 @@
     <!-- -------------用户详情------------------------ -->
     <div class="detail">
       <div class="left">
-        <!-- <div class="headPortrait pic">
-          <img src="../../../assets/img/user.png" alt="">
-        </div>
-        <div class="sex pic">
-          <img src="../../../assets/img/man.png" alt="">
-        </div> -->
       </div>
       <div class="right">
         <ul class="ul-one">

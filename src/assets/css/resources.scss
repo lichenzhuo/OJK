@@ -21,3 +21,80 @@
     margin-left: 15px;
   }			
 }
+.public_main {
+  width: 100%;
+  height: auto;
+  padding: 20px 30px;
+  background-color: rgba(246, 249, 252, 1);
+  position: relative;
+}
+
+.list_operation{
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+
+
+
+.paixu {
+  width: 100%;
+  height: auto;
+  line-height: 48px;
+  background: rgba(224, 229, 246, 1);
+  border-radius: 4px;
+  span {
+    display: block;
+    float: left;
+    margin-top: 10px;
+    background-color: rgba(84, 126, 245, 1);
+    width: 4px;
+    height: 30px;
+    border-radius: 5px;
+  }
+  p {
+    color: rgba(84, 126, 245, 1);
+    font-size: 16px;
+    margin-left: 20px;
+  }
+}
+
+.search {
+  width: 100%;
+  height: auto;
+  background-color: #ffffff;
+  margin: 18px 0;
+  padding: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  .search-input {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    & > span {
+      padding: 0 5px;
+      font-size: 14px;
+      white-space: nowrap;
+      @include flex-cen;
+    }
+    .button-color{
+      background-color: #1D7BFF;
+      border-color: #547ef6;
+    }
+  }
+}
+
+
+.table_opr{
+  color:#547ef6;
+  cursor:pointer;
+  margin: 0 5px;
+}

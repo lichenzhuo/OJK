@@ -97,11 +97,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .gezi{
   width: 100%;
