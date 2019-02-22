@@ -235,10 +235,10 @@ export default {
       options1: this.$store.state.options.putMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       tableData: [], // 借款信息数据模拟
-      surePutFlag: true, // 详情弹窗
+      surePutFlag: false, // 详情弹窗
       orderNo: '', // 点击当前行的订单ID
-      resultStatus: '3213123', // 向支付通道返回的结果状态码
-      resultDesc: '3123213'// 向支付通道返回的结果描述
+      resultStatus: '', // 向支付通道返回的结果状态码
+      resultDesc: ''// 向支付通道返回的结果描述
     }
   },
   methods: {

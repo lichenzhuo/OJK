@@ -21,7 +21,7 @@
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
           </div>
         </el-col>
-        <el-col :md="6" :lg="4" :xl="3">
+        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
@@ -84,16 +84,13 @@
               :start-placeholder="$t('public.beginTime')" :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </form>
-
         </div>
         <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_QUERY')">
           <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
         </div>
-
         <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_EXP')">
           <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
         </div>
-
       </el-row>
     </div>
 

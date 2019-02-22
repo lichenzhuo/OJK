@@ -153,16 +153,14 @@
           </el-table-column>
           <el-table-column align="center" prop="dealStatus" :label="$t('yn.no5')" >
             <template slot-scope="scope">
-              <span v-if="scope.row.dealStatus!==null&&scope.row.dealStatus!==undefined&&scope.row.dealStatus!==''">{{$t($store.getters.handlingStatus(scope.row.dealStatus))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.handlingStatus(scope.row.dealStatus))}}</span>
             </template>
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
             <template slot-scope="scope">
               <span
                 v-if="scope.row.dealStatus<3&&$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_DEAL')"
-                class="mg5"
-                style="color:#547ef6;cursor:pointer" 
+                class="table_opr"
                 @click="handle(scope.row.orderId)"
               >
               {{$t('yn.no9')}}
@@ -190,14 +188,14 @@
 
     <!-- 处理弹窗 -->
     <el-dialog :title="$t('public.no61')" :visible.sync="handleFlag"  width="760px" :show-message="false">
-      <p class="cl-p">
-        <span class="cl-span1">{{$t('proManage.faqState')}}</span>
-        <span class="cl-span2">{{handleData.problemType==1?$t('yn.no11'):$t('yn.no12')}}</span>
-      </p>
-      <p class="cl-p">
-        <span class="cl-span1">{{$t('serviceManage.requestDes')}}</span>
-        <span class="cl-span2">{{handleData.problemDes}}</span>
-      </p>
+      <div class="left2right">
+        <span class="left">{{$t('proManage.faqState')}}:</span>
+        <span class="right">{{handleData.problemType==1?$t('yn.no11'):$t('yn.no12')}}</span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('serviceManage.requestDes')}}:</span>
+        <span class="right">{{handleData.problemDes}}</span>
+      </div>
       <div class="imgThree">
         <div v-if="handleData.pictureUrlOne" class="imgshow pic" @click="openBox({imgUrl:handleData.pictureUrlOne})">
           <img :src="handleData.pictureUrlOne" >
@@ -209,7 +207,7 @@
           <img :src="handleData.pictureUrlThree" >
         </div>
       </div>
-      <el-form :model="form" :rules="rules" ref="ruleForm" label-width="100px" size="medium">
+      <el-form :model="form" :rules="rules" ref="ruleForm" label-width="140px" size="medium">
         <el-form-item :label="$t('yn.no20')" prop="problemType" >
           <el-select v-model="form.orderStatus" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options5 " :key="i"></el-option>
@@ -241,7 +239,7 @@
 import appLightbox from '../../components/component/lightbox'// 图片点击放大组件
 
 export default {
-  name: 'userManage',
+  name: 'putMoneyAwait',
   components: {
     appLightbox
   },
@@ -297,11 +295,11 @@ export default {
   },
   methods: {
     openBox: function (obj) { // 图片放大显示
-      this.currentObj = obj
-      this.lightBoxToggle = !this.lightBoxToggle
+      this.currentObj = obj;
+      this.lightBoxToggle = !this.lightBoxToggle;
     },
     closeBox: function () { // 图片放大关闭
-      this.lightBoxToggle = false
+      this.lightBoxToggle = false;
     },
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
@@ -313,7 +311,7 @@ export default {
     },
     select () { // 点击查询按钮操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.getTableData();
       }
     },
@@ -330,7 +328,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -341,7 +339,7 @@ export default {
       }
     },
     loanDetali (orderNo, userId) { // 查看详情操作
-      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}})
+      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}});
     },
     getTableData () { // 获取借款列表
       let option = {
@@ -354,10 +352,10 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
@@ -373,10 +371,10 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.handleData = res.data.data
+          this.handleData = res.data.data;
         }
       })
-      this.handleFlag = true
+      this.handleFlag = true;
     },
     handleSubmit(ruleForm){
       this.$refs[ruleForm].validate((valid) => {
@@ -391,10 +389,10 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              this.$globalMsg.success(this.$t('message.success'))
+              this.$globalMsg.success(this.$t('message.success'));
               this.getTableData();
             } else {
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
             this.form = {};
             this.handleFlag = false;
@@ -406,225 +404,45 @@ export default {
   watch: {
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.createTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0])
-        this.formInline.createTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1])
+        this.formInline.createTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.createTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.createTimeBegin = ''
-        this.formInline.createTimeEnd = ''
+        this.formInline.createTimeBegin = '';
+        this.formInline.createTimeEnd = '';
       }
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.lendTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0])
-        this.formInline.lendTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1])
+        this.formInline.lendTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.lendTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
-        this.formInline.lendTimeBegin = ''
-        this.formInline.lendTimeEnd = ''
+        this.formInline.lendTimeBegin = '';
+        this.formInline.lendTimeEnd = '';
       }
     },
     searchTime3 () {
       if (this.searchTime3) {
-        this.formInline.dealTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0])
-        this.formInline.dealTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1])
+        this.formInline.dealTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.dealTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
       } else {
-        this.formInline.dealTimeBegin = ''
-        this.formInline.dealTimeEnd = ''
+        this.formInline.dealTimeBegin = '';
+        this.formInline.dealTimeEnd = '';
       }
     },
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.getTableData()// 获取借款列表
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.getTableData();// 获取借款列表
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-//用户详情弹窗
-.details{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 95%;
-    height: 500px;
-    margin-top: -200px;
-    background-color: #ffffff;
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 10px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 16px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: 452px;
-      .year{
-        width: 100%;
-        height: 58px;
-        display: flex;
-        padding-left: 50px;
-        align-items: flex-end;
-        .button-active{
-          background-color: #409EFF;
-        }
-      }
-      
-      .detail-table{
-        width: 100%;
-        height: 392px;
-        display: flex;
-        justify-content: space-around;
-        .detail-table-1{
-          width: 45%;
-          height: 100%;
-          .detail-table-2{
-            width: 100%;
-            height: 100%;
-            tr:nth-child(odd){
-              background-color: #Ffffff;
-            }
-            tr:nth-child(even){
-              background-color: #F4F6FB;
-            }
-            .table-head{
-              height: 50px;
-            }
-            .table-head2{
-              text-align: center;
-            }
-            .active{
-              background-color: #F4F6FB;
-            }
-          }
-        }
-      }
-    }
-  }
-} 
-.cl-p{
-  display: flex;
-  .cl-span1{
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-    font-size: 14px;
-    color: #606266;
-    padding: 0 12px 0 0;
-  }
-  .cl-span2{
-    word-break: break-all;
-    flex: 1;
-  }
-}
 .imgThree{
   width: 100%;
   padding: 10px 0 10px 40px;
   display: flex;
   flex-wrap: nowrap;
-  
   .imgshow{
     margin-right: 10px;
     width: 200px;

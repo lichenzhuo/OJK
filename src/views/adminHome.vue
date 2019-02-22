@@ -173,7 +173,7 @@
     </el-row> -->
 
     <!-- ------------ 图表开始 ------------------------ --> 
-    <!-- <el-row type="flex" class="row-bg mgb20" justify="center">
+    <!-- <el-row type="flex" class="row-bg mb20" justify="center">
       <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_AREA')">
         <el-col :md="22" :lg="22" :xl="22">
           <div class="line">
@@ -367,7 +367,7 @@
     </el-row>
 
     <!-- ------------ 图表开始 ------------------------ --> 
-    <el-row type="flex" class="row-bg mgb20" justify="center">
+    <el-row type="flex" class="row-bg mb20" justify="center">
       <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_AREA')">
         <el-col :md="22" :lg="22" :xl="22">
           <div class="line">
