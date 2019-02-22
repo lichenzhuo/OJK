@@ -85,13 +85,12 @@
       white-space: nowrap;
       @include flex-cen;
     }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
   }
 }
-
+.button-color{
+  background-color: #1D7BFF;
+  border-color: #547ef6;
+}
 
 .table_opr{
   color:#547ef6;

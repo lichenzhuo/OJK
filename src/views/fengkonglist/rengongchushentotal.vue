@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,81 +7,66 @@
       </el-breadcrumb>
     </div>
     
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('riskManage.title3')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('riskManage.title3')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" :gutter="20" justify="start">
-        <el-col :md="9" :lg="6" :xl="5">
+        <el-col :md="8" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('public.no32')}}:</span>
             <el-input size="small" label="name" v-model="formInline.name"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no20')}}:</span>
-            <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="(item,index) in options1" :key="index" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no21')}}:</span>
-            <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="(item,index) in options3" :key="index" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('riskManage.selectTime')}}:</span>
-            <el-date-picker 
-              id="date1"
-              size="small"
-              v-model="searchTime"
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
-        </template>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_EXP')">
-          <el-col :md="5" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-            </div>
-          </el-col>
-        </template>
+        <div class="search-input">
+          <span>{{$t('new.no20')}}:</span>
+          <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="(item,index) in options1" :key="index" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no21')}}:</span>
+          <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="(item,index) in options3" :key="index" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('riskManage.selectTime')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime"
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        
+        <div class="search-input"
+        v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
+        
+        <div class="search-input"
+            v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_EXP')">
+          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+        </div>
       </el-row>
     </div>
     
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_LIST')">
       <template>
-        <el-table ref="multipleTable" size="small" :data="tableData" empty-text >
+        <el-table ref="multipleTable" size="small" :data="tableData" >
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no33')" width="140">
             <template slot-scope="scope">
-              <span v-if="scope.row.strCreateTime!==null&&scope.row.strCreateTime!==undefined&&scope.row.strCreateTime!==''">{{(scope.row.strCreateTime).slice(0,10)}}</span>
+              <span v-if="scope.row.strCreateTime!=''">{{(scope.row.strCreateTime).slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
@@ -93,8 +78,7 @@
           </el-table-column>
           <el-table-column align="center" prop="approveType" :label="$t('loanMoneyDetail.opeType2')" min-width="120">
             <template slot-scope="scope">
-              <span v-if="scope.row.approveType!==null&&scope.row.approveType!==undefined&&scope.row.approveType!==''">{{$t($store.getters.auditType(scope.row.approveType))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.auditType(scope.row.approveType))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="reviewCount" :label="$t('riskManage.reviewCount')" min-width="80">
@@ -105,7 +89,7 @@
           </el-table-column>
           <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')" min-width="100">
             <template slot-scope="scope">
-              <span v-if="scope.row.successRate!==null&&scope.row.successRate!==undefined&&scope.row.successRate!==''">{{$store.getters.twoPoint(scope.row.successRate)}}%</span>
+              <span v-if="scope.row.successRate!=''">{{$store.getters.twoPoint(scope.row.successRate)}}%</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
@@ -113,7 +97,7 @@
           </el-table-column>
           <el-table-column align="center" prop="reviewSuccessRate" :label="$t('new.no7')" min-width="100">
             <template slot-scope="scope">
-              <span v-if="scope.row.reviewSuccessRate!==null&&scope.row.reviewSuccessRate!==undefined&&scope.row.reviewSuccessRate!==''">{{$store.getters.twoPoint(scope.row.reviewSuccessRate)}}%</span>
+              <span v-if="scope.row.reviewSuccessRate!=''">{{$store.getters.twoPoint(scope.row.reviewSuccessRate)}}%</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
@@ -142,7 +126,7 @@
       </el-table-column>
       <el-table-column align="center" prop="successRateCounts" :label="$t('riskManage.successRate')" min-width="100">
         <template slot-scope="scope">
-          <span v-if="scope.row.successRateCounts!==null&&scope.row.successRateCounts!==undefined&&scope.row.successRateCounts!==''">{{$store.getters.twoPoint(scope.row.successRateCounts)}}%</span>
+          <span v-if="scope.row.successRateCounts!=''">{{$store.getters.twoPoint(scope.row.successRateCounts)}}%</span>
           <span v-else>{{$store.state.common.nullData}}</span>
         </template>
       </el-table-column>
@@ -150,7 +134,7 @@
       </el-table-column>
       <el-table-column align="center" prop="reviewSuccessRateCounts" :label="$t('new.no4')" min-width="100">
         <template slot-scope="scope">
-          <span v-if="scope.row.reviewSuccessRateCounts!==null&&scope.row.reviewSuccessRateCounts!==undefined&&scope.row.reviewSuccessRateCounts!==''">{{$store.getters.twoPoint(scope.row.reviewSuccessRateCounts)}}%</span>
+          <span v-if="scope.row.reviewSuccessRateCounts!=''">{{$store.getters.twoPoint(scope.row.reviewSuccessRateCounts)}}%</span>
           <span v-else>{{$store.state.common.nullData}}</span>
         </template>
       </el-table-column>
@@ -158,8 +142,8 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_LIST')">
-          <el-pagination
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_LIST')">
+        <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="sizes, prev, pager, next, total,->"
@@ -168,7 +152,7 @@
             @size-change="handleSizeChange"
           :total="pageTotal?pageTotal:0">
         </el-pagination>
-        </div>
+      </div>
     </el-row>
 
     <div class="foot"></div>
@@ -177,7 +161,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'peopleFirstAuditTotal',
   data () {
     return {
       sessionid: '',
@@ -209,13 +193,13 @@ export default {
       this.tongji();
     },
     handleCurrentChange (val) { // 点击分页按钮操作
-      this.currentPage = val
+      this.currentPage = val;
       this.tongji();
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('rengongchushentongjiList', this.formInline)
+      this.$store.commit('rengongchushentongjiList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.tongji();
       }
     },
@@ -269,7 +253,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options1.push({value: value.id, label: value.groupName})
+            this.options1.push({value: value.id, label: value.groupName});
           })
         }
       })
@@ -286,7 +270,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options3.push({value: value.leaderId, label: value.leaderName})
+            this.options3.push({value: value.leaderId, label: value.leaderName});
           })
         }
       })
@@ -301,219 +285,31 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.applyTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0])
-        this.formInline.applyTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1])
+        this.formInline.applyTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.applyTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.applyTimeBegin = ''
-        this.formInline.applyTimeEnd = ''
+        this.formInline.applyTimeBegin = '';
+        this.formInline.applyTimeEnd = '';
       }
     }
 
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
+    this.sessionid = sessionStorage.getItem('sessionid');
     if (JSON.stringify(this.$store.state.common.rengongchushentongji_select) !== '{}') {
-      this.formInline = this.$store.state.common.rengongchushentongji_select
+      this.formInline = this.$store.state.common.rengongchushentongji_select;
       if(this.formInline.applyTimeBegin!==''){
-        this.searchTime.push(this.formInline.applyTimeBegin)
-        this.searchTime.push(this.formInline.applyTimeEnd)
+        this.searchTime.push(this.formInline.applyTimeBegin);
+        this.searchTime.push(this.formInline.applyTimeEnd);
       }
       
     }
-    this.tongji()// 获取人工审核统计列表
-    this.groupList()// 获取人工审核统计列表
-    this.leaderName_option()// 获取人工审核统计列表
+    this.tongji();// 获取人工审核统计列表
+    this.groupList();// 获取人工审核统计列表
+    this.leaderName_option();// 获取人工审核统计列表
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 440px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-//用户详情弹窗
-.details{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  z-index: 100;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 95%;
-    height: 500px;
-    margin-top: -200px;
-    background-color: #ffffff;
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 10px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 16px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: 452px;
-      .year{
-        width: 100%;
-        height: 58px;
-        display: flex;
-        padding-left: 50px;
-        align-items: flex-end;
-        .button-active{
-          background-color: #409EFF;
-        }
-      }
-      
-      .detail-table{
-        width: 100%;
-        height: 392px;
-        display: flex;
-        justify-content: space-around;
-        .detail-table-1{
-          width: 45%;
-          height: 100%;
-          .detail-table-2{
-            width: 100%;
-            height: 100%;
-            tr:nth-child(odd){
-              background-color: #Ffffff;
-            }
-            tr:nth-child(even){
-              background-color: #F4F6FB;
-            }
-            .table-head{
-              height: 50px;
-            }
-            .table-head2{
-              text-align: center;
-            }
-            .active{
-              background-color: #F4F6FB;
-            }
-          }
-        }
-      }
-    }
-  }
-} 
 
 </style>

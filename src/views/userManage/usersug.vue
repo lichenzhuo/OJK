@@ -6,15 +6,12 @@
         <el-breadcrumb-item>{{$t('userSuggest.crumbsOne')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+
     <!-- ------------------ 横条 ------------------- -->
-    <!-- <el-row> -->
-      <!-- <el-col :span="24"> -->
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('userSuggest.title')}}</p>
-        </div>
-      <!-- </el-col> -->
-    <!-- </el-row> -->
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('userSuggest.title')}}</p>
+    </div>
 
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
@@ -68,18 +65,6 @@
     </div>
     <!-- ------------ 搜索查询栏结束 -------------- -->
 
-    <!-- <div class="search act" >
-      <el-row :gutter='10'>
-        <el-col :span="5">
-          <div v-if="allFlag" class="search-input">
-            <el-button type="primary" class="button-color" @click.stop="allDataDispose">+{{$t('userSuggest.all')}}</el-button>
-          </div>
-          <div v-else class="search-input">
-            <el-button type="info" class="button-color" >+{{$t('userSuggest.all')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
-    </div> -->
 
     <!-- ------------ 列表附加功能开始 -------------- -->
     <div class="list_operation">
