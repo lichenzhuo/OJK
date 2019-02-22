@@ -1,55 +1,65 @@
 <template>
-  <div class="userSuggest">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('proManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('proManage.crumbsTwo')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+
     <!-- ------------------ 横条 ------------------- -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('proManage.title')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('proManage.title')}}</p>
+    </div>
 
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no48')}}:</span>
-            <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no49')}}:</span>
-            <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
-        </template>
+        <div class="search-input">
+          <span>{{$t('new.no48')}}:</span>
+          <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no49')}}:</span>
+          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
       </el-row>
     </div>
     <!-- ------------ 搜索查询栏结束 -------------- -->
 
     <!-- ------------搜索查询栏开始-------------- -->
-    <div class="search" >
+    <div class="list_operation">
+      <el-button 
+      v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" 
+      type="primary" class="button-color" 
+      @click.stop="addloans">
+      +{{$t('proManage.add')}}
+      </el-button>
+      <el-button 
+      v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')" 
+      type="primary" class="button-color" 
+      @click.stop="copyPro">
+      {{$t('proManage.copyPro')}}
+      </el-button>
+      <el-button 
+      v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')" 
+      type="primary" class="button-color" 
+      @click.stop="addBao">
+      {{$t('proManage.addBao')}}
+      </el-button>
+    </div>
+
+    <!-- <div class="search" >
       <el-row type="flex" justify="start" align="middle" :gutter="10">
         <el-col :span="3" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')">
           <div  class="search-add" @click="addloans">
@@ -67,74 +77,73 @@
           </div>
         </el-col>
       </el-row>
-    </div>
+    </div> -->
     <!-- ------------ 搜索查询栏结束 -------------- -->
 
     <!-- ------------ 表单栏开始 -------------- -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_LIST')">
       <template>
         <el-table :data="tableData" size="small" stripe >
-          <el-table-column align="center" prop="id" :label="$t('proManage.id')" width="100">
+          <el-table-column align="center" prop="id" :label="$t('proManage.id')">
           </el-table-column>
-          <el-table-column align="center" prop="productAmount" :label="$t('proManage.amount')" min-width="100">
+          <el-table-column align="center" prop="productAmount" :label="$t('proManage.amount')">
             <template slot-scope="scope">
               <span v-if="scope.row.productAmount!==null&&scope.row.productAmount!==undefined&&scope.row.productAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.productAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('proManage.period')+'('+$t('public.no26')+')'" min-width="100">
+          <el-table-column align="center" prop="productPeriod" :label="$t('proManage.period')">
           </el-table-column>
-          <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')"  min-width="100">
+          <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')">
             <template slot-scope="scope">
-              <span v-if="scope.row.feeRate!==null&&scope.row.feeRate!==undefined">{{$store.getters.twoPoint(scope.row.feeRate)}}%</span>
+              <span v-if="scope.row.feeRate!=''">{{$store.getters.twoPoint(scope.row.feeRate)}}%</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="dayInterest" :label="$t('proManage.dayInterest')" min-width="100">
+          <el-table-column align="center" prop="dayInterest" :label="$t('proManage.dayInterest')">
             <template slot-scope="scope">
-              <span v-if="scope.row.dayInterest!==null&&scope.row.dayInterest!==undefined">{{$store.getters.twoPoint(scope.row.dayInterest)}}%</span>
+              <span v-if="scope.row.dayInterest!=''">{{$store.getters.twoPoint(scope.row.dayInterest)}}%</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterest" :label="$t('proManage.overdueInterest')" min-width="100">
+          <el-table-column align="center" prop="overdueInterest" :label="$t('proManage.overdueInterest')">
             <template slot-scope="scope">
-              <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.getters.twoPoint(scope.row.overdueInterest)}}%</span>
+              <span v-if="scope.row.overdueInterest!=''">{{$store.getters.twoPoint(scope.row.overdueInterest)}}%</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueMaxAmount" :label="$t('proManage.overdueMaxAmount')" min-width="100">
+          <el-table-column align="center" prop="overdueMaxAmount" :label="$t('proManage.overdueMaxAmount')">
             <template slot-scope="scope">
-              <span v-if="scope.row.overdueMaxAmount!==null&&scope.row.overdueMaxAmount!==undefined&&scope.row.overdueMaxAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueMaxAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.overdueMaxAmount!=''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueMaxAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueMaxDays" :label="$t('proManage.overdueMaxDays')+'('+$t('public.no26')+')'" min-width="100">
+          <el-table-column align="center" prop="overdueMaxDays" :label="$t('proManage.overdueMaxDays')">
           </el-table-column>
-          <el-table-column align="center" prop="canAdvanceDay" :label="$t('proManage.canAdvanceDay')+'('+$t('public.no26')+')'" min-width="100">
+          <el-table-column align="center" prop="canAdvanceDay" :label="$t('proManage.canAdvanceDay')">
           </el-table-column>
-          <el-table-column align="center" prop="userGrade" :label="$t('proManage.userGrade')" min-width="100">
+          <el-table-column align="center" prop="userGrade" :label="$t('proManage.userGrade')">
             <template slot-scope="scope">
-              <span v-if="scope.row.userGrade!==null&&scope.row.userGrade!==undefined&&scope.row.userGrade!==''">{{scope.row.userGrade}}</span>
+              <span v-if="scope.row.userGrade!=''">{{scope.row.userGrade}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="appPackage" :label="$t('new.no49')" min-width="100">
+          <el-table-column align="center" prop="appPackage" :label="$t('new.no49')">
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="130">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"
-                style="color:#547ef6;cursor:pointer;margin:0 5px;" 
+                class="table_opr"
                 @click="modifyPre(scope.row.id,scope.row.productAmount,scope.row.productPeriod,scope.row.feeRate,scope.row.dayInterest,scope.row.overdueInterest,scope.row.overdueMaxAmount,scope.row.overdueMaxDays,scope.row.canAdvanceDay,scope.row.userGrade,scope.row.appPackage)">
               {{$t('public.no29')}}/{{$t('public.no51')}}
               </span>
               <span 
-                style="color:#547ef6;cursor:pointer;margin:0 5px;" 
+                class="table_opr" 
                 @click="delPro(scope.row.id)"
                 v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"
                 >{{$t('idManage.del')}}
               </span>
-              
             </template>
           </el-table-column>
         </el-table>
@@ -144,18 +153,30 @@
 
     <!-- -------------分页显示栏------------------------ -->
     <el-row  type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_LIST')">
-          <el-pagination
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_LIST')">
+        <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="total, prev, pager, next, ->"
           :total="pageTotal?pageTotal:0">
         </el-pagination>
-        </div>
+      </div>
     </el-row>
 
     <!-- ----------------------确认是否删除开始------------------ -->
-    <div v-if="del" class="del">
+    <el-dialog :title="$t('public.no48')" :visible.sync="del" width="550px">
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">确定删除该产品吗？</span>
+      </div>
+      <div class="left2right mt15">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
+    <!-- <div v-if="del" class="del">
       <div class="del-main">
         <div class="del-main-head">
           <span></span>
@@ -170,7 +191,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- ----------------------确认是否删除结束------------------- -->
     
     <!-- ----------------------添加修改产品开始------------------ -->
@@ -546,7 +567,6 @@ export default{
           brr.forEach(value => {
             this.options.push({value: value.optionValue, label: value.optionValue})
           })
-          console.log(this.options)
         }
       })
     },

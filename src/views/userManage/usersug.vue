@@ -13,7 +13,7 @@
       <p>{{$t('userSuggest.title')}}</p>
     </div>
 
-    <!-- ------------搜索查询栏开始-------------- -->
+    <!-- ------------ 搜索查询栏开始 -------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
         <el-col :md="8" :lg="6" :xl="4">
