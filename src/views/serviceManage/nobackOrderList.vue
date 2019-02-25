@@ -378,6 +378,7 @@ export default {
       redeployStatus: '', // 转派弹窗客服下拉框对应数据
       multipleSelection: [], // 可勾选表格选中项
       orderIds: [], // 选中的订单ID数组
+      userIds: [], // 选中的订单ID数组
       orderType: '', // 订单类型
       reason: ''// 转派原因描述
     }

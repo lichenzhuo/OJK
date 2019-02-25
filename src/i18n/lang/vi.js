@@ -1121,7 +1121,7 @@ const vi = {
     registerChannel: 'Kênh đăng ký',
     userName: 'Tên người dùng',
     name: 'Tên',
-    sex: 'Tình dục',
+    sex: 'Giới tính',
     birthday: 'Ngày sinh',
     approveStatus: 'Trạng thái xác thực',
     historyOrder: 'Khoản vay lịch sử',

@@ -48,7 +48,7 @@
             <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
           </div>
         </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
+        <!-- <el-col :md="9" :lg="6" :xl="5"> -->
           <div class="search-input">
             <span>{{$t('public.orderStatus')}}:</span>
             <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
@@ -56,9 +56,9 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
+        <!-- </el-col> -->
         <template v-if="$store.state.common.lang==='vi'">
-          <el-col :md="9" :lg="6" :xl="5">
+          <!-- <el-col :md="9" :lg="6" :xl="5"> -->
             <div class="search-input">
               <span>{{$t('websiteLoans.no5')}}:</span>
               <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -66,10 +66,10 @@
                 </el-option>
               </el-select>
             </div>
-          </el-col>
+          <!-- </el-col> -->
         </template>
         <template v-if="$store.state.common.lang==='id'">
-          <el-col :md="9" :lg="6" :xl="5">
+          <!-- <el-col :md="9" :lg="6" :xl="5"> -->
             <div class="search-input">
               <span>{{$t('yn.no4')}}:</span>
               <el-select size="small" v-model="formInline.dealStatus" :placeholder="$t('public.placeholder')">
@@ -77,8 +77,8 @@
                 </el-option>
               </el-select>
             </div>
-          </el-col>
-          <el-col :md="9" :lg="6" :xl="5">
+          <!-- </el-col> -->
+          <!-- <el-col :md="9" :lg="6" :xl="5"> -->
             <div class="search-input">
               <span>{{$t('yn.no5')}}:</span>
               <el-select size="small" v-model="formInline.problemType" :placeholder="$t('public.placeholder')">
@@ -86,9 +86,9 @@
                 </el-option>
               </el-select>
             </div>
-          </el-col>
+          <!-- </el-col> -->
         </template>
-        <el-col :md="14" :lg="11" :xl="7">
+        <!-- <el-col :md="14" :lg="11" :xl="7"> -->
           <div class="search-input">
             <span>{{$t('public.CreateDate')}}:</span>
             <form autocomplete="off">
@@ -105,7 +105,7 @@
             </form>
             
           </div>
-        </el-col>
+        <!-- </el-col> -->
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_QUERY')">
           <!-- <el-col :md="3" :lg="2" :xl="2"> -->
             <div class="search-input ml15">
