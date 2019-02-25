@@ -218,7 +218,7 @@ export default {
     },
     select () { // 搜索栏查询按钮点击操作
       this.tableData1 = []
-      this.$store.commit('huikuanlv', this.formInline)
+      this.$store.commit('rateOfReturn', this.formInline)
       if (this.flag) {
         this.flag = false
         this.formList();

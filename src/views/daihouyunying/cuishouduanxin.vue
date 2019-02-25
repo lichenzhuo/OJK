@@ -1,49 +1,38 @@
 <template>
-  <div class="userSuggest">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterOperation.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('loanAfterOperation.crumbsThree')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+
     <!-- ------------------ 横条 ------------------- -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanAfterOperation.title')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanAfterOperation.title')}}</p>
+    </div>
 
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
-      <el-row type="flex" justify="start" align="middle" :gutter="10">
+      <el-row type="flex" justify="start" :gutter="10">
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_ADD')">
-          <el-col :md="8" :lg="5" :xl="4">
-            <div class="search-add" @click="addNote">
-              +{{$t('loanAfterOperation.add')}}
-            </div>
-          </el-col>
-        </template>
-        
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('loanAfterOperation.noteType')}}:</span>
-            <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
+          <div class="search-add" @click="addNote">
+            +{{$t('loanAfterOperation.add')}}
           </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
         </template>
-        
+        <div class="search-input ml15">
+          <span>{{$t('loanAfterOperation.noteType')}}:</span>
+          <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <template v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_QUERY')">
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
+        </template>
       </el-row>
     </div>
     <!-- ------------ 搜索查询栏结束 -------------- -->
@@ -51,28 +40,27 @@
     <!-- ------------ 表单栏开始 -------------- -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_LIST')">
       <template>
-        <el-table :data="tableData" stripe style="width: 100%" empty-text>
-          <el-table-column align="center" prop="id" :label="$t('loanAfterOperation.id')" width="120">
+        <el-table :data="tableData" stripe size="small">
+          <el-table-column align="center" prop="id" :label="$t('loanAfterOperation.id')" >
           </el-table-column>
-          <el-table-column align="center" prop="content" :label="$t('loanAfterOperation.content')" :show-overflow-tooltip="true" min-width="400">
+          <el-table-column align="center" prop="content" :label="$t('loanAfterOperation.content')">
           </el-table-column>
-          <el-table-column align="center" prop="type" :label="$t('loanAfterOperation.type')" min-width="100">
+          <el-table-column align="center" prop="type" :label="$t('loanAfterOperation.type')" >
             <template slot-scope="scope">
-              <span v-if="scope.row.type!==null&&scope.row.type!==undefined&&scope.row.type!==''">{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="160">
+          <el-table-column align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_EDIT')"
-                style="color:#547ef6;cursor:pointer;margin:0 5px;" 
+                class="table_opr" 
                 @click="modify(scope.row.id,scope.row.type,scope.row.content)">
                 {{$t('public.no51')}}
               </span>
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_DEL')"
-                style="color:#547ef6;cursor:pointer;margin:0 5px;" 
+                class="table_opr" 
                 @click="del(scope.row.id)">
               {{$t('idManage.del')}}
               </span>
@@ -84,54 +72,44 @@
     <!-- ------------ 表单栏结束 -------------- -->
 
     <!-- ------------------ 点击修改弹窗开始 -------------------- -->
-    <div v-if="modifyFlag||addFlag" class="detail">
-      <div class="detail-main">
-        <div class="detail-main-head">
-          <span></span>
-          <p>{{$t('loanAfterOperation.addNote')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="addClose"></i>
-        </div>
-        <div class="detail-main-con">
-          <div class="detail-con-one">
-            <div class="search-input">
-              <span style="width:100px;">{{$t('loanAfterOperation.type')}}:</span>
-              <el-select size="small" v-model="noteStyle" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4">
-              {{$t('loanAfterOperation.content')}}:
-            </div>
-            <div class="detail-con-one-3">
-              <textarea class="search_input" v-model="noteCon"></textarea>
-            </div>
-          </div>
-          <div class="detail-but" @click="modifySubmit">{{$t('public.no49')}}</div>
+    <el-dialog :title="$t('loanAfterOperation.addNote')" :visible.sync="modifyOrAdd" width="650px">
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterOperation.type')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="noteStyle" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
         </div>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterOperation.content')}}:</span>
+        <div class="right">
+          <el-input type="textarea" :rows="4" v-model="noteCon"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" @click="modifySubmit">{{$t('public.no49')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
     <!-- ------------------ 点击修改弹窗结束 -------------------- -->
 
     <!-- ----------------------确认是否删除开始------------------ -->
-    <div v-if="delFlag" class="del">
-      <div class="del-main">
-        <div class="del-main-head">
-          <span></span>
-          <p>{{$t('public.no48')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="delFlag=false"></i>
-        </div>
-        <div class="del-main-con">
-          <div class="del-con-one">{{$t('loanAfterOperation.del')}}?</div>
-          <div class="del-but">
-            <div class="del-but-1" @click="delSure()">{{$t('public.no49')}}</div>
-            <div class="del-but-1 active" @click="delFlag=false">{{$t('public.no50')}}</div>
-          </div>
-        </div>
+    <el-dialog :title="$t('public.no48')" :visible.sync="delFlag" width="550px">
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">{{$t('loanAfterOperation.del')}}？</span>
       </div>
-    </div>
+      <div class="left2right mt15">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
 
     <div class="foot"></div>
 
@@ -154,29 +132,33 @@ export default{
       delFlag: false, // 删除弹窗开关
       modifyFlag: false, // 修改弹窗开关
       addFlag: false, // 添加弹窗开关
+      modifyOrAdd: false, // 添加弹窗开关
       delId: '', // 选择的是当前删除行的ID
       modifyId: '', // 选择的是当前详情行的ID
-      noteCon: ''// 短信内容
+      noteCon: '',// 短信内容
     }
   },
   methods: {
-    handleCurrentChange () { // 分页按钮第几页
+    handleCurrentChange (val) { // 分页按钮第几页
+      this.currentPage = val;
       this.noteList();
     },
     modify (id, type, content) { // 点击修改查看详情
-      this.modifyFlag = true
-      this.modifyId = id
-      this.noteStyle = String(type)
-      this.noteCon = content
+      this.modifyFlag = true;
+      this.modifyId = id;
+      this.noteStyle = String(type);
+      this.noteCon = content;
+      this.modifyOrAdd = true;
     },
     addNote () { // 添加短信模版
-      this.noteStyle = ''
-      this.noteCon = ''
-      this.addFlag = true
+      this.noteStyle = '';
+      this.noteCon = '';
+      this.addFlag = true;
+      this.modifyOrAdd = true;
     },
     modifySubmit () { // 添加修改确认操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option
         if (this.modifyFlag) {
           option = {
@@ -203,26 +185,26 @@ export default{
           }
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
-            this.noteList()
+            this.$globalMsg.success(this.$t('message.success'));
+            this.noteList();
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.noteStyle = ''
-          this.noteCon = ''
-          this.addClose()
+          this.noteStyle = '';
+          this.noteCon = '';
+          this.addClose();
         })
       }
     },
     del (id) { // 删除按钮操作
-      this.delFlag = true
-      this.delId = id
+      this.delFlag = true;
+      this.delId = id;
     },
     delSure () { // 删除确认操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -233,21 +215,21 @@ export default{
           id: this.delId
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('idManage.no3'))
-            this.noteList()
+            this.$globalMsg.success(this.$t('idManage.no3'));
+            this.noteList();
           } else {
-            this.$globalMsg.error(this.$t('idManage.no4'))
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.delFlag = false
+          this.delFlag = false;
         })
       }
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('cuishouNoteList', this.formInline)
+      this.$store.commit('cuishouNoteList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.noteList();
       }
     },
@@ -263,13 +245,14 @@ export default{
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
+          this.tableData = res.data.data;
         }
       })
     },
     addClose () {
-      this.addFlag = false
-      this.modifyFlag = false
+      this.addFlag = false;
+      this.modifyFlag = false;
+      this.modifyOrAdd = false;
     },
     getcollectionType(){ // 获取催收阶段
       let option = {

@@ -100,13 +100,12 @@ let workAnalysis = resolve => require(['../views/cuishou/workAnalysis.vue'], res
 
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
 let cuishouduanxin = resolve => require(['../views/daihouyunying/cuishouduanxin.vue'], resolve)
-let cuihuibaobiao = resolve => require(['../views/daihouyunying/cuihuibaobiao.vue'], resolve)
-// let meirirucui = resolve => require(['../views/daihouyunying/meirirucui.vue'], resolve);
+let collectionReport = resolve => require(['../views/daihouyunying/collectionReport.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
-let tongguolv = resolve => require(['../views/tongjiguanli/tongguolv.vue'], resolve)
-let shouyulv = resolve => require(['../views/tongjiguanli/shouyulv.vue'], resolve)
-let huikuanlv = resolve => require(['../views/tongjiguanli/huikuanlv.vue'], resolve)
+let passingRate = resolve => require(['../views/tongjiguanli/passingRate.vue'], resolve)
+let overdueRate = resolve => require(['../views/tongjiguanli/overdueRate.vue'], resolve)
+let rateOfReturn = resolve => require(['../views/tongjiguanli/rateOfReturn.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   系统权限相关   @@@@@@@@@@@@@@@@@@@@@@@
 let IDmanagement = resolve => require(['../views/system/IDmanagement.vue'], resolve)
@@ -241,13 +240,12 @@ const router = new Router({
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/cuishouduanxin', name: 'cuishouduanxin', component: cuishouduanxin },
-                    {path: '/cuihuibaobiao', name: 'cuihuibaobiao', component: cuihuibaobiao },
-                    // {path: '/meirirucui',name:'meirirucui', component: meirirucui },
+                    {path: '/collectionReport', name: 'collectionReport', component: collectionReport },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/tongguolv', name: 'tongguolv', component: tongguolv },
-                    {path: '/shouyulv', name: 'shouyulv', component: shouyulv },
-                    {path: '/huikuanlv', name: 'huikuanlv', component: huikuanlv },
+                    {path: '/passingRate', name: 'passingRate', component: passingRate },
+                    {path: '/overdueRate', name: 'overdueRate', component: overdueRate },
+                    {path: '/rateOfReturn', name: 'rateOfReturn', component: rateOfReturn },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   系统权限相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/idmanagement', name: 'IDmanagement', component: IDmanagement },

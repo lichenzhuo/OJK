@@ -136,7 +136,6 @@ const common = {
     kefuList_group_select: {},
     xinshenyuanList_group_select: {},
     cuishouyuanList_group1_select: {},
-    meirirucuiList_select:{}
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
@@ -337,13 +336,13 @@ const common = {
     mycuishouList (state, list) {
       state.mycuishouList_select = list
     },
-    tongguolv (state, list) {
+    passingRate (state, list) {
       state.tongguolv_select = list
     },
-    shouyulv (state, list) {
+    overdueRate (state, list) {
       state.shouyulv_select = list
     },
-    huikuanlv (state, list) {
+    rateOfReturn (state, list) {
       state.huikuanlv_select = list
     },
     idMangeList (state, list) {
@@ -385,9 +384,7 @@ const common = {
     cuishouyuanList_group_list (state, list) {
       state.cuishouyuanList_group1_select = list
     },
-    meirirucuiList (state, list) {
-      state.meirirucuiList_select = list
-    },
+    
 
   }
 

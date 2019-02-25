@@ -15,13 +15,6 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <!-- <div class="search-input">
-          <span>{{$t('new.no49')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div> -->
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <form autocomplete="off">
@@ -182,7 +175,6 @@ export default {
       }
     },
     backMoneyList (val) {
-      this.tableData1 = [];
       if(val){
         this.currentPage = val;
       }

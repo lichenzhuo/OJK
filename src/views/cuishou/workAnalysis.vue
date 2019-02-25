@@ -17,57 +17,69 @@
       <ul class="tab_content">
         <li class="tab_content_oneType" v-if="active1==1">
           <div class="oneType_line">
-            <p>{{$t('operationDetail.no30')}}:
+            <p>
+              <span>{{$t('operationDetail.no30')}}:</span>
               <span v-if="mainData.distributionMap.distributionCount!==''">{{mainData.distributionMap.distributionCount}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p>{{$t('operationDetail.no31')}}:
+            <p>
+              <span>{{$t('operationDetail.no31')}}:</span>
               <span v-if="mainData.distributionMap.distributionAmount!==null&&mainData.distributionMap.distributionAmount!==undefined&&mainData.distributionMap.distributionAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.distributionMap.distributionAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p >{{$t('operationDetail.no36')}}:
+            <p >
+              <span>{{$t('operationDetail.no36')}}:</span>
               <span v-if="mainData.dayCountAndAmount.collectionCount!==null&&mainData.dayCountAndAmount.collectionCount!==undefined&&mainData.dayCountAndAmount.collectionCount!==''">{{mainData.dayCountAndAmount.collectionCount}}</span>
               <span v-else> {{$store.state.common.nullData}} </span>
             </p>
-            <p >{{$t('operationDetail.no37')}}:
+            <p >
+              <span>{{$t('operationDetail.no37')}}:</span>
               <span v-if="mainData.dayCountAndAmount.collectionAmount!==null&&mainData.dayCountAndAmount.collectionAmount!==undefined&&mainData.dayCountAndAmount.collectionAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.dayCountAndAmount.collectionAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else> {{$store.state.common.nullData}} </span>
             </p>
           </div>
           <div class="oneType_line">
-            <p>{{$t('operationDetail.no32')}}:
+            <p>
+              <span>{{$t('operationDetail.no32')}}:</span>
               <span v-if="mainData.distributionMap.refundCount!==null&&mainData.distributionMap.refundCount!==undefined&&mainData.distributionMap.refundCount!==''">{{mainData.distributionMap.refundCount}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p>{{$t('operationDetail.no33')}}:
+            <p>
+              <span>{{$t('operationDetail.no33')}}:</span>
               <span v-if="mainData.distributionMap.refundAmount!==null&&mainData.distributionMap.refundAmount!==undefined&&mainData.distributionMap.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.distributionMap.refundAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
             <template>
-              <p>{{$t('operationDetail.no38')}}:
+              <p>
+                <span>{{$t('operationDetail.no38')}}:</span>
                 <span v-if="mainData.weekCountAndAmount.collectionCount!==null&&mainData.weekCountAndAmount.collectionCount!==undefined&&mainData.weekCountAndAmount.collectionCount!==''">{{mainData.weekCountAndAmount.collectionCount}}</span>
                 <span v-else>{{$store.state.common.nullData}}</span> 
               </p>
             </template>
-            <p>{{$t('operationDetail.no39')}}:
+            <p>
+              <span>{{$t('operationDetail.no39')}}:</span>
               <span v-if="mainData.weekCountAndAmount.collectionAmount!==null&&mainData.weekCountAndAmount.collectionAmount!==undefined&&mainData.weekCountAndAmount.collectionAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.weekCountAndAmount.collectionAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
           </div>
           <div class="oneType_line">
-            <p>{{$t('operationDetail.no34')}}:
+            <p>
+              <span>{{$t('operationDetail.no34')}}:</span>
               <span v-if="mainData.distributionMap.noRefundCount!==null&&mainData.distributionMap.noRefundCount!==undefined&&mainData.distributionMap.noRefundCount!==''">{{mainData.distributionMap.noRefundCount}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p>{{$t('operationDetail.no35')}}:
+            <p>
+              <span>{{$t('operationDetail.no35')}}:</span>
               <span v-if="mainData.distributionMap.noRefundAmount!==null&&mainData.distributionMap.noRefundAmount!==undefined&&mainData.distributionMap.noRefundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.distributionMap.noRefundAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p>{{$t('operationDetail.no40')}}:
+            <p>
+              <span>{{$t('operationDetail.no40')}}:</span>
               <span v-if="mainData.monthCountAndAmount.collectionCount!==null&&mainData.monthCountAndAmount.collectionCount!==undefined&&mainData.monthCountAndAmount.collectionCount!==''">{{mainData.monthCountAndAmount.collectionCount}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
-            <p>{{$t('operationDetail.no41')}}:
+            <p>
+              <span>{{$t('operationDetail.no41')}}:</span>
               <span v-if="mainData.monthCountAndAmount.collectionAmount!==null&&mainData.monthCountAndAmount.collectionAmount!==undefined&&mainData.monthCountAndAmount.collectionAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.monthCountAndAmount.collectionAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
@@ -275,69 +287,6 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
-$color2:#000;
-.tabControl{
-  width: 100%;
-  height: auto;
-  background-color: #fff;
-  margin-bottom: 40px;
-  .tab_title{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    li{
-      height: 100%;
-      padding: 0 20px;
-      text-align: center;
-      line-height: 60px;
-      color: #000;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      span{
-        display: block;
-        height: 40px;
-        line-height: 40px;
-      }
-    }
-    .active{
-      span{
-        border-bottom: 2px solid #547afe;
-      }
-    }
-  }
-  .tab_content{
-    width: 100%;
-    height: auto;
-    li{
-      width: 100%;
-      padding: 20px;
-    }
-    .tab_content_oneType{
-      .oneType_line{
-        margin-bottom: 26px;
-        display: flex;
-        p{
-          line-height: 24px;
-          width: 25%;
-          span:nth-child(1){
-            white-space: nowrap;
-            color: #959fb9;
-            font-size: 16px;
-          }
-          span:nth-child(2){
-            color: #000;
-            font-size: 16px;
-            margin: 0 10px;
-            word-break: break-all;
-          } 
-        }
-      }
-    }
-  }
-  
-}
 
 .line{
   width: 100%;

@@ -1,25 +1,26 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('totalManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('totalManage.crumbsFour')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('totalManage.crumbsThr')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('totalManage.crumbsFour')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('totalManage.crumbsThr')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row :gutter=10>
-        <el-col :md="14" :lg="11" :xl="7">
+      <el-row :gutter="10">
+        <el-col :md="6" :lg="4" :xl="4">
+          <div class="search-input">
+            <span>{{$t('proManage.period')}}:</span>
+            <el-input size="small" label="orderId" v-model="formInline.period"></el-input>
+          </div>
+        </el-col>
           <div class="search-input">
             <span>{{$t('totalManage.timeSelect')}}:</span>
             <el-date-picker 
@@ -34,20 +35,15 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_PASS_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+        <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_INCOME_QUERY')">
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_PASS_QUERY')">
-          <el-col :md="5" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-            </div>
-          </el-col>
+        <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_INCOME_QUERY')">
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          </div>
         </template>
       </el-row>
     </div>
@@ -55,55 +51,57 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table">
       <template>
-        <el-table :data="tableData" size="small" style="width: 100%" empty-text>
-          <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="180">
+        <el-table :data="tableData" size="small" :summary-method="getSummaries"
+          show-summary>
+          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="160">
             <template slot-scope="scope">
-              <span v-if="scope.row.strCreateTime!==null&&scope.row.strCreateTime!==undefined&&scope.row.strCreateTime!==''">{{scope.row.strCreateTime.slice(0,10)}}</span>
+              <span v-if="scope.row.strLoanTime!==null&&scope.row.strLoanTime!==undefined&&scope.row.strLoanTime!==''">{{scope.row.strLoanTime.slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="applyCount" :label="$t('totalManage.applyCount')" min-width="100">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68">
           </el-table-column>
-          <el-table-column align="center" prop="machineCount" :label="$t('totalManage.machineCount')" min-width="120">
+          <el-table-column align="center" prop="loanCount" :label="$t('totalManage.lendingCount')" min-width="100">
           </el-table-column>
-          <el-table-column align="center" prop="firstCount" :label="$t('totalManage.firstCount')" min-width="140">
+          <el-table-column align="center" prop="loanAmount" :label="$t('totalManage.amount')" min-width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="reviewCount" :label="$t('totalManage.reviewCount')" min-width="140">
+          <el-table-column align="center" prop="refundCount" :label="$t('totalManage.overCount')" min-width="100">
           </el-table-column>
-          <el-table-column align="center" prop="laveCount" :label="$t('totalManage.laveCount')" min-width="100">
+          <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" min-width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="moneyRate" :label="$t('totalManage.firstRate')+'('+$t('totalManage.money')+')'" min-width="100">
+            <template slot-scope="scope">
+              <span v-if="scope.row.moneyRate!==null&&scope.row.moneyRate!==undefined&&scope.row.moneyRate!==''">{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="countRate" :label="$t('totalManage.firstRate')+'('+$t('totalManage.order')+')'" min-width="80">
+            <template slot-scope="scope">
+              <span v-if="scope.row.countRate!==null&&scope.row.countRate!==undefined&&scope.row.countRate!==''">{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
           </el-table-column>
         </el-table>
-
-        
       </template>
     </div>
-    <el-table :data="tableData1" :row-style="rowStyle" :row-class-name="tableRowClassName" :show-header="false" size="small" style="width: 100%">
-      <el-table-column align="center"  prop="strCreateTime" :label="$t('public.CreateDate')" width="180">
-        <template slot-scope="scope">
-          <span>{{$t('public.addTotal')}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="applyCounts" :label="$t('totalManage.applyCount')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="machineCounts" :label="$t('totalManage.machineCount')" min-width="120">
-      </el-table-column>
-      <el-table-column align="center" prop="firstCounts" :label="$t('totalManage.firstCount')" min-width="140">
-      </el-table-column>
-      <el-table-column align="center" prop="reviewCounts" :label="$t('totalManage.reviewCount')" min-width="140">
-      </el-table-column>
-      <el-table-column align="center" prop="laveCounts" :label="$t('totalManage.laveCount')" min-width="100">
-      </el-table-column>
-    </el-table>
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
         <div class="pages">
           <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            layout="total, prev, pager, next, ->"
-            :total="pageTotal?pageTotal:0">
-          </el-pagination>
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          layout="total, prev, pager, next, ->"
+          :total="pageTotal?pageTotal:0">
+        </el-pagination>
         </div>
     </el-row>
 
@@ -122,13 +120,15 @@ export default {
       searchTime: [],
       // 用户查询信息数据对应字段
       formInline: {
+        period:'',
         dayBegin: '',
         dayEnd: ''
       },
-      currentPage: 1, // 当前页下标
+      // 当前页下标
+      currentPage: 1,
       // 用户信息数据模拟
-      tableData: [],
-      tableData1: [],
+      tableData:[],
+      tableData1:[],
       rowStyle:{
         backgroundColor:'rgb(241,241,241)'
       }
@@ -136,14 +136,14 @@ export default {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
-      this.formList();
+      this.currentPage = val;
+      this.getTableData();
     },
-    formList () { // 获取通过率列表
+    getTableData () { // 获取首逾率列表
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.through_rate,
+          action: this.$store.state.actionMap.first_rate,
           'page': {'index': this.currentPage, 'size': 10},
           'sessionid': this.sessionid
         },
@@ -152,17 +152,17 @@ export default {
       this.$axios.post('',option).then(res=>{
         this.flag = true;
         if(res.data.header.code==0){
-          this.tableData = res.data.data[0];
-          this.tableData1 = res.data.data[1];
+          this.tableData = res.data.data.overList;
+          this.tableData1 =res.data.data.overAll;
           this.pageTotal = res.data.header.page.total;
         }
       })
     },
     select () { // 搜索栏查询按钮点击操作
-      this.$store.commit('tongguolv', this.formInline)
+      this.$store.commit('overdueRate', this.formInline);
       if (this.flag) {
-        this.flag = false
-        this.formList();
+        this.flag = false;
+        this.getTableData();
       }
     },
     putExcel () { // excel下载操作
@@ -171,7 +171,7 @@ export default {
         let option = {
           header: {
             ...this.$base,
-            action: this.$store.state.actionMap.through_rate_excel,
+            action: this.$store.state.actionMap.first_rate_excel,
             'page': {'index': this.currentPage, 'size': 10},
             'sessionid': this.sessionid
           },
@@ -188,11 +188,18 @@ export default {
         })
       }
     },
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 0) {
-        return 'warning-row';
-      }
-      return '';
+    getSummaries() {
+      const sums = [
+        this.$t('public.addTotal'),
+        '-',
+        this.tableData1.loanCount,
+        this.$store.getters.moneySplit(this.tableData1.loanAmount),
+        this.tableData1.refundCount,
+        this.$store.getters.moneySplit(this.tableData1.refundAmount),
+        this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+        this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+      ];
+      return sums;
     }
   },
   watch: {
@@ -208,14 +215,14 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.tongguolv_select) !== '{}') {
-      this.formInline = this.$store.state.common.tongguolv_select
+    if (JSON.stringify(this.$store.state.common.shouyulv_select) !== '{}') {
+      this.formInline = this.$store.state.common.shouyulv_select
       if(this.formInline.dayBegin!==''){
         this.searchTime.push(this.formInline.dayBegin)
         this.searchTime.push(this.formInline.dayEnd)
       }
     }
-    this.formList()
+    this.getTableData()
   }
 }
 </script>

@@ -282,7 +282,7 @@
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_RPT') {
                 item.filter(index => {
                   return index.index == '11'
-                })[0].subs.push({index: 'cuihuibaobiao', title: 'sidebar.comeTable'})
+                })[0].subs.push({index: 'collectionReport', title: 'sidebar.comeTable'})
               }
 
               // 贷后管理 
@@ -427,17 +427,17 @@
               if (value.uniqueSign == 'MENU_REPORT_PASS') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'tongguolv', title: 'sidebar.passRateList'})
+                })[0].subs.push({index: 'passingRate', title: 'sidebar.passRateList'})
               }
               if (value.uniqueSign == 'MENU_REPORT_INCOME') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'shouyulv', title: 'sidebar.firstRateList'})
+                })[0].subs.push({index: 'overdueRate', title: 'sidebar.firstRateList'})
               }
               if (value.uniqueSign == 'MENU_REPORT_REPAY') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'huikuanlv', title: 'sidebar.backMoneyRateList'})
+                })[0].subs.push({index: 'rateOfReturn', title: 'sidebar.backMoneyRateList'})
               }
                       // 系统管理
               if (value.uniqueSign == 'MENU_SYSTEM') {
