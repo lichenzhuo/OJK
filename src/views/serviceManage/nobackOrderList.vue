@@ -301,7 +301,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'nobackOrderList',
   data () {
     return {
       sessionid: '',
