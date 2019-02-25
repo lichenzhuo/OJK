@@ -277,7 +277,7 @@
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_SMS') {
                 item.filter(index => {
                   return index.index == '11'
-                })[0].subs.push({index: 'cuishouduanxin', title: 'sidebar.noteTemplate'})
+                })[0].subs.push({index: 'collectionSMS', title: 'sidebar.noteTemplate'})
               }
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_RPT') {
                 item.filter(index => {

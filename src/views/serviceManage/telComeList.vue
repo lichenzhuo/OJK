@@ -1,19 +1,16 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('serviceManage.crumbsFour')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('serviceManage.crumbsFour')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('serviceManage.crumbsFour')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -24,107 +21,86 @@
             <el-input size="small" label="phone" v-model="formInline.userPhone"></el-input>
           </div>
         </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('serviceManage.isJoin')}}:</span>
-            <el-select size="small" v-model="formInline.userIsRegist" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('serviceManage.isLoan')}}:</span>
-            <el-select size="small" v-model="formInline.userHasOrder" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('serviceManage.isResult')}}:</span>
-            <el-select size="small" v-model="formInline.isSolve" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('loanMoneyDetail.opeTime')}}:</span>
-            <el-date-picker 
-              id="date1"
-              size="small"
-              v-model="searchTime" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>{{$t('serviceManage.isJoin')}}:</span>
+          <el-select size="small" v-model="formInline.userIsRegist" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('serviceManage.isLoan')}}:</span>
+          <el-select size="small" v-model="formInline.userHasOrder" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('serviceManage.isResult')}}:</span>
+          <el-select size="small" v-model="formInline.isSolve" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('loanMoneyDetail.opeTime')}}:</span>
+          <el-date-picker 
+            id="date1"
+            size="small"
+            v-model="searchTime" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
       </el-row>
     </div>
 
-    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_ADD')">
-      <el-row :gutter="10">
-        <el-col :span="5">
-          <div class="search-input" >
-            <el-button type="primary" class="button-color" @click="add=true">{{$t('serviceManage.add')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_ADD')">
+      <el-button type="primary" class="button-color" @click="add=true">{{$t('serviceManage.add')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe empty-text>
-          <!-- <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')" width="120">
-          </el-table-column> -->
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" width="120">
+        <el-table :data="tableData" size="small" stripe>
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('serviceManage.isJoin')" min-width="80">
+          <el-table-column align="center" prop="userId" :label="$t('serviceManage.isJoin')">
             <template slot-scope="scope">
-              <span v-if="scope.row.userId!==null&&scope.row.userId!==undefined&&scope.row.userId!==''">{{scope.row.userId?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{scope.row.userId?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="lastOrderId" :label="$t('serviceManage.isLoan')" min-width="80">
+          <el-table-column align="center" prop="lastOrderId" :label="$t('serviceManage.isLoan')">
             <template slot-scope="scope">
-              <span v-if="scope.row.lastOrderId!==null&&scope.row.lastOrderId!==undefined&&scope.row.lastOrderId!==''">{{scope.row.lastOrderId?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{scope.row.lastOrderId?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="question" :label="$t('serviceManage.requestDes')" min-width="140">
+          <el-table-column align="center" prop="question" :label="$t('serviceManage.requestDes')">
           </el-table-column>
-          <el-table-column align="center" prop="answer" :label="$t('serviceManage.requestRes')" min-width="140">
+          <el-table-column align="center" prop="answer" :label="$t('serviceManage.requestRes')">
           </el-table-column>
-          <el-table-column align="center" prop="isSolve" :label="$t('serviceManage.isResult')" min-width="80">
+          <el-table-column align="center" prop="isSolve" :label="$t('serviceManage.isResult')">
             <template slot-scope="scope">
-              <span v-if="scope.row.isSolve!==null&&scope.row.isSolve!==undefined&&scope.row.isSolve!==''">{{scope.row.isSolve==1?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{scope.row.isSolve==1?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="strUpdateTime" :label="$t('loanMoneyDetail.opeTime')" min-width="120">
+          <el-table-column align="center" prop="strUpdateTime" :label="$t('loanMoneyDetail.opeTime')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="serviceName" :label="$t('userSuggest.adminName')" min-width="80">
+          <el-table-column align="center" prop="serviceName" :label="$t('userSuggest.adminName')">
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="120">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_SHOW')"
-                style="color:#547ef6;cursor:pointer" 
+                class="table_opr"
                 @click="proModify(scope.row.userPhone,scope.row.userName,scope.row.question,scope.row.answer,scope.row.isSolve)"
               >
               {{$t('public.no29')}}
@@ -211,6 +187,7 @@
         </div>
       </div>
     </div>
+    
     <div v-if="modify" class="reply">
       <div class="reply-main">
         <div class="reply-main-head">

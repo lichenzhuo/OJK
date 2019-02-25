@@ -99,7 +99,7 @@ let workAnalysis = resolve => require(['../views/cuishou/workAnalysis.vue'], res
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
-let cuishouduanxin = resolve => require(['../views/daihouyunying/cuishouduanxin.vue'], resolve)
+let collectionSMS = resolve => require(['../views/daihouyunying/collectionSMS.vue'], resolve)
 let collectionReport = resolve => require(['../views/daihouyunying/collectionReport.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
@@ -239,7 +239,7 @@ const router = new Router({
                     {path: '/workanalysis', name: 'workAnalysis', component: workAnalysis },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/cuishouduanxin', name: 'cuishouduanxin', component: cuishouduanxin },
+                    {path: '/collectionSMS', name: 'collectionSMS', component: collectionSMS },
                     {path: '/collectionReport', name: 'collectionReport', component: collectionReport },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
