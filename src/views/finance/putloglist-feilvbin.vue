@@ -248,13 +248,13 @@ export default {
       this.putMoneyList();
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.putMoneyList();
     },
     select () { // 查询按钮点击操作
       this.$store.commit('putMoneyLogList', this.formInline)
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.putMoneyList();
       }
     },
@@ -269,9 +269,10 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
@@ -288,7 +289,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             window.location.href = res.data.data.fileName;
           }
