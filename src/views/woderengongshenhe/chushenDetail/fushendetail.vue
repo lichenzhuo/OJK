@@ -2011,8 +2011,6 @@ $color2:#000;
         height: 80px;
         padding-left: 20px;
         border-bottom: 1px solid #ddd;
-        // border-top: 1px solid #ddd;
-        
         .p-1{
           color: $color1;
           line-height: 34px;

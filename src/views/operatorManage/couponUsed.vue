@@ -187,27 +187,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  @mixin flex-cen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @mixin p-span {
-    p{
-      line-height: 24px;
-      span:nth-child(1){
-        white-space: nowrap;
-        color: $color1;
-        font-size: 16px;
-      }
-      span:nth-child(2),span:nth-child(3),span:nth-child(4){
-        color: $color2;
-        font-size: 16px;
-        margin: 0 10px;
-        word-break: break-all;
-      } 
-    }
-  }
+
   
   .operatorManage {
     width: 100%;

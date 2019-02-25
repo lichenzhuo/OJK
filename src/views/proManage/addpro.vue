@@ -184,8 +184,6 @@ export default {
 .adduser{
   width: 100%;
   height: 100%;
-  // padding: 20px 30px;
-  // background-color: rgba(246, 249, 252, 1);
   position: relative;
 }
 .demo-ruleForm{

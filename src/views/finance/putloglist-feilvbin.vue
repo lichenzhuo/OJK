@@ -236,6 +236,7 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
+        this.flag = true;
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;

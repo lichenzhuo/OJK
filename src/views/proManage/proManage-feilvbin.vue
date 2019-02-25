@@ -1,31 +1,25 @@
 <template>
-  <div class="userSuggest">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('proManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('proManage.crumbsTwo')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <!-- ------------------ 横条 ------------------- -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('proManage.title')}}</p>
-        </div>
-      </el-col>
-    </el-row>
 
-    <div class="search" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')">
-      <el-row type="flex" justify="start" align="middle" :gutter="10">
-        <el-col :span="3">
-          <div class="search-add" @click="addBao">
-            {{$t('proManage.addBao')}}
-          </div>
-        </el-col>
-      </el-row>
+    <!-- ------------------ 横条 ------------------- -->
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('proManage.title')}}</p>
     </div>
 
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')">
+      <el-button 
+      type="primary" class="button-color" 
+      @click.stop="addBao">
+      {{$t('proManage.addBao')}}
+      </el-button>
+    </div>
 
     <div class="tableList">
       <ul>
@@ -38,8 +32,8 @@
             </p>
             <p>
               <span v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')" class="cp" @click="copyloans(item.appPackage)">{{$t('proManage.copyPro')}}</span>
-              <span>&nbsp</span>
-              <span class="cp" style="color:#1D7BFF;"  @click="addloans(item.id)">修改数据</span>
+              <span>&nbsp;</span>
+              <span class="cp" style="color:#1D7BFF;"  @click="modifyProduct(item.id)">修改数据</span>
             </p>
           </div>
           <div class="product">
@@ -132,95 +126,82 @@
             </p>
           </div>
         </li>
-        <li v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" class="addPro" @click="modifyPre">
+        <li v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" class="addPro" @click="addProduct">
           <span class="cp">+</span>
         </li>
       </ul>
     </div>
 
     <!-- ----------------------确认是否删除开始------------------ -->
-    <div v-if="del" class="del">
-      <div class="del-main">
-        <div class="del-main-head">
-          <span></span>
-          <p>{{$t('public.no48')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="del=false"></i>
-        </div>
-        <div class="del-main-con">
-          <div class="del-con-one">确定删除该产品吗？</div>
-          <div class="del-but">
-            <div class="del-but-1" @click="delSure()">{{$t('public.no49')}}</div>
-            <div class="del-but-1 active" @click="del=false">{{$t('public.no50')}}</div>
-          </div>
-        </div>
+    <el-dialog :title="$t('public.no48')" :visible.sync="del" width="550px">
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">确定删除该产品吗？</span>
       </div>
-    </div>
+      <div class="left2right mt15">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
     <!-- ----------------------确认是否删除结束------------------- -->
     
     <!-- ----------------------确认是否上架开始------------------ -->
-    <div v-if="add" class="del">
-      <div class="del-main">
-        <div class="del-main-head">
-          <span></span>
-          <p>{{addOrEdit=='edit'?$t('proManage.edit'):$t('proManage.add')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="add=false"></i>
-        </div>
-        <div class="del-main-con">
-          <addpro :addclose="addclose" :type="addOrEdit" :productId="productId" :pro-list="proInfor" :app-name-option="appNameOption"></addpro>
-        </div>
-      </div>
-    </div>
+    <el-dialog :title="addOrEdit=='edit'?$t('proManage.edit'):$t('proManage.add')" :visible.sync="add" width="550px">
+      <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm2" label-width="140px" class="demo-ruleForm">
+        <el-form-item :label="$t('new.no49')" prop="appPackage">
+          <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名">
+            <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('yuenan.product.no1')" prop="productAmountMin">
+            <el-input type="user" v-model="ruleForm2.productAmountMin" auto-complete="off"></el-input>
+        </el-form-item>
+       <el-form-item :label="$t('yuenan.product.no2')" prop="productAmountMax">
+            <el-input type="user" v-model="ruleForm2.productAmountMax" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('yuenan.product.no3')" prop="productAmountPer">
+            <el-input type="user" v-model="ruleForm2.productAmountPer" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('yuenan.product.no4')" prop="productPeriodMin">
+            <el-input type="user" v-model="ruleForm2.productPeriodMin" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('yuenan.product.no5')" prop="productPeriodMax">
+            <el-input type="user" v-model="ruleForm2.productPeriodMax" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('yuenan.product.no6')" prop="productPeriodPer">
+            <el-input type="user" v-model="ruleForm2.productPeriodPer" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
+            <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
+          <el-input type="text" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
+          <el-input type="text" v-model="ruleForm2.overdueInterest" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.overdueMaxAmount')" prop="overdueMaxRate">
+          <el-input type="text" v-model="ruleForm2.overdueMaxRate" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.canAdvanceType')" prop="canAdvanceType">
+          <el-select v-model="ruleForm2.canAdvanceType" placeholder="请选择可提前还款类型">
+            <el-option label="固定天数" value="1"></el-option>
+            <el-option label="按比例" value="2"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
+          <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
+            <el-button @click="addclose">{{$t('public.no50')}}</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
     <!-- ----------------------确认是否上架结束------------------- -->
-
-    <!-- ------------------确认是否修改开始-------------------- -->
-    <div v-if="modify" class="modify">
-      <div class="modify-main">
-        <div class="modify-main-head">
-          <span></span>
-          <p>{{$t('public.no29')}}/{{$t('public.no51')}}{{$t('proManage.product')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="modify=false"></i>
-        </div>
-        <div class="modify-main-con">
-          <div class="modify-con">
-            <el-form class="demo-ruleForm" label-position="left" ref="ruleForm2" :rules="rules" label-width="110px" :model="ruleForm2">
-              <el-form-item :label="$t('proManage.productAmount')" prop="productAmount">
-                  <el-input type="text" v-model="ruleForm2.productAmount" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.period')" prop="productPeriod">
-                  <el-input type="text" v-model="ruleForm2.productPeriod" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
-                  <el-input type="text" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
-                  <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
-                  <el-input type="text" v-model="ruleForm2.overdueInterest" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.overdueMaxAmount')" prop="overdueMaxAmount">
-                  <el-input type="text" v-model="ruleForm2.overdueMaxAmount" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.overdueMaxDays')" prop="overdueMaxDays">
-                  <el-input type="text" v-model="ruleForm2.overdueMaxDays" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
-                  <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
-              </el-form-item>
-              <el-form-item>
-                  <el-button type="primary" @click="modifySure('ruleForm2')">{{$t('public.no41')}}</el-button>
-                  <el-button @click="reset">{{$t('public.no50')}}</el-button>
-              </el-form-item>
-            </el-form>
-          </div>
-          <!-- <div class="modify-but">
-            <div class="modify-but-1" @click="modifySure">确认</div>
-            <div class="modify-but-1 active" @click="modify=false">取消</div>
-          </div> -->
-        </div>
-      </div>
-    </div>
-    <!-- ------------------ 确认是否修改结束 -------------------- -->
 
     <!-- ------------------复制包名开始-------------------- -->
     <el-dialog :title="$t('proManage.copyPro')" :visible.sync="dialogCopyVisible"  width="600px">
@@ -267,29 +248,112 @@
   </div>
 </template>
 <script>
-import addpro from './addpro-feilvbin'
-
 export default{
-  components: {
-    addpro
-  },
   data () {
+    var validateNumber = (rule, value, callback) => {
+      let reg = /^\+?[1-9][0-9]*$/
+      if (value == '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.num')))
+        }
+      }
+    }
+    var validateNumber1 = (rule, value, callback) => {
+      let reg = /^\+?[0-9]*$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.num')))
+        }
+      }
+    }
+    var validateFloat = (rule, value, callback) => {
+      let reg = /^[0-9]+(.[0-9]{1,4})?$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.float')))
+        }
+      }
+    }
     return {
       flag: true,
       sessionid: '',
       pageTotal: 0, // 分页总数
       currentPage: 1, // 当前页下标
       productId: '', // 选中的产品ID
-      // 查看详情产品信息数据对应字段
       ruleForm2: {
-        productAmount: '',
-        productPeriod: '',
-        feeRate: '',
+        productAmountMin: '',
+        productAmountMax: '',
+        productAmountPer: '',
+        productPeriodMin: '',
+        productPeriodMax: '',
+        productPeriodPer: '',
         dayInterest: '',
-        overdueInterest: '',
+        feeRate: '',
         overdueMaxDays: '',
         canAdvanceDay: '',
-        overdueMaxAmount: ''
+        overdueInterest: '',
+        overdueMaxRate: '',
+        canAdvanceType: '',
+        appPackage: '',
+      },
+      rules: {// 验证规则
+        productAmountMin: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        productAmountMax: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        productAmountPer: [
+          { validator: validateNumber1, trigger: 'blur' }
+        ],
+        productPeriodMin: [
+          { validator: validateNumber, trigger: 'blur' }
+        ],
+        productPeriodMax: [
+          { validator: validateNumber, trigger: 'blur' }
+        ],
+        productPeriodPer: [
+          { validator: validateNumber1, trigger: 'blur' }
+        ],
+        feeRate: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        dayInterest: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        overdueMaxRate: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        overdueInterest: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        overdueMaxDays: [
+          { validator: validateNumber, trigger: 'blur' }
+        ],
+        canAdvanceDay: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        limitAmount: [
+          { validator: validateNumber1, trigger: 'blur' }
+        ],
+        canAdvanceType: [
+          { required: true, message: '请选择可提前还款类型', trigger: 'change' }
+        ],
+        appPackage: [
+          { required: true, trigger: 'change' }
+        ]
       },
       value1: {}, // 滑块1选中值
       value2: {}, // 滑块2选中值
@@ -327,32 +391,13 @@ export default{
     }
   },
   methods: {
-    handleCurrentChange (val) { // 分页按钮第几页
-      this.currentPage = val
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.pro_list,
-          'page': {'index': val, 'size': 10},
-          'sessionid': this.sessionid
-        }
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-        }
-      })
-    },
     delPro (id) { // 删除按钮弹窗
       this.del = true
       this.delId = id
     },
-    modifyPre () { // 修改按钮弹窗
-      this.addOrEdit = 'add'
-      this.add = true
-    },
-    reset () {
-      this.modify = false
+    addProduct () { // 修改按钮弹窗
+      this.addOrEdit = 'add';
+      this.add = true;
     },
     delSure () { // 删除确认操作
       let option = {
@@ -365,72 +410,23 @@ export default{
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('idManage.no3'))
-          this.proInfor()
+          this.$globalMsg.success(this.$t('idManage.no3'));
+          this.proInfor();
         }else{
-          this.$globalMsg.error(this.$t('idManage.no4'))
+          this.$globalMsg.error(this.$t('idManage.no4'));
         }
         this.del = false
       })
-    }, 
-    modifySure (formName) { // 修改确认操作
-      if (this.flag) {
-        this.flag = false
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            let option = {
-              header: {
-                action: this.$store.state.actionMap.pro_add_modify,
-                ...this.$base,
-                sessionid: this.sessionid
-              },
-              method: 'edit',
-              ...this.ruleForm2,
-              id: this.modifyId
-            }
-            this.$axios.post('', option).then(res => {
-              this.flag = true
-              if (res.data.header.code == 0) {
-                this.$globalMsg.success(this.$t('idManage.no5'))
-                this.proList()
-                this.modify = false
-              } else {
-                this.$globalMsg.error(this.$t('idManage.no6'))
-              }
-            })
-          } else {
-            this.flag = true
-            return false
-          }
-        })
-      }
     },
-    pushSure () { // 上架确认操作
-
-    },
-    addloans (id) { // 产品添加功能
-      this.addOrEdit = 'edit'
-      this.productId = id
-      this.add = true
+    modifyProduct (id) { // 产品添加功能
+      this.addOrEdit = 'edit';
+      this.productId = id;
+      this.proData ();
+      this.add = true;
     },
     addclose () {
-      this.add = false
-    },
-    proList () { // 获取产品列表
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.fpl_pro_list,
-          'sessionid': this.sessionid
-        }
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          if (res.data.data) {
-            this.tableData = res.data.data
-          }
-        }
-      })
+      this.add = false;
+      this.ruleForm2 = {};
     },
     proInfor () { // 获取产品详情
       let option = {
@@ -444,7 +440,7 @@ export default{
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if (res.data.data) {
-            this.tableData = res.data.data
+            this.tableData = res.data.data;
           }
         }
       })
@@ -544,42 +540,82 @@ export default{
           }
         }
       })
+    },
+    submitForm (formName) {
+      let option = {
+        header: {
+          action: this.$store.state.actionMap.fpl_pro_add_modify,
+          ...this.$base,
+          sessionid: this.sessionid
+        },
+        method: this.type=='edit'?'edit':'add',
+        id: this.type=='edit'?this.productId:undefined,
+        ...this.ruleForm2
+      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$axios.post('', option).then(res => {
+            if (res.data.header.code == 0) {
+              this.$globalMsg.success(this.$t('message.success'));
+            } else {
+              this.$globalMsg.error(res.data.header.msg);
+            }
+            this.addclose();
+            this.proInfor();
+          })
+        } else {
+          return false;
+        }
+      })
+    },
+    proData () {
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.fpl_pro_list,
+          'page': {'index': 1, 'size': 10},
+          'sessionid': this.sessionid
+        },
+        id:this.productId
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          if (res.data.data) {
+            this.ruleForm2.productAmountMin = res.data.data.productAmountMin
+            this.ruleForm2.productAmountMax = res.data.data.productAmountMax
+            this.ruleForm2.productAmountPer = res.data.data.productAmountPer
+            this.ruleForm2.productPeriodMin = res.data.data.productPeriodMin
+            this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax
+            this.ruleForm2.productPeriodPer = res.data.data.productPeriodPer
+            this.ruleForm2.dayInterest = res.data.data.dayInterest
+            this.ruleForm2.feeRate = res.data.data.feeRate
+            this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays
+            this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay
+            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate
+            this.ruleForm2.overdueInterest = res.data.data.overdueInterest
+            this.ruleForm2.canAdvanceType = String(res.data.data.canAdvanceType)
+            this.ruleForm2.appPackage = res.data.data.appPackage
+          }
+        }
+      })
+    }
+  },
+  watch:{
+    add(){
+      if(!this.add){
+        this.addclose();
+      }
     }
   },
   mounted () {
-    let sessionid = sessionStorage.getItem('sessionid')
-    this.sessionid = sessionid
-    this.proInfor()
-    this.getAppName()
-    this.getAppBao(2)
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.proInfor();
+    this.getAppName();
+    this.getAppBao(2);
   }
 }
 </script>
 <style scoped lang="scss">
-$color1:#1D7BFF;
-$color2:#333;
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-@mixin p-span {
-  p{
-    line-height: 24px;
-    span:nth-child(1){
-      white-space: nowrap;
-      color: $color1;
-      font-size: 16px;
-    }
-    span:nth-child(2),span:nth-child(3),span:nth-child(4){
-      color: $color2;
-      font-size: 16px;
-      margin: 0 10px;
-      word-break: break-all;
-    } 
-  }
-}
-
 .delButton{
   position: absolute;
   width: 40px;
@@ -594,102 +630,6 @@ $color2:#333;
   z-index: 1;
   cursor: pointer;
 }
-
-.userSuggest {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  margin-bottom: 20px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-bottom: 22px;
-  padding: 10px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-add{
-    width: 114px;
-    height: 100%;
-    border: 1px solid #547ef6;
-    border-radius:5px;
-    text-align: center;
-    line-height: 36px;
-    color:#547ef5;
-    margin-left: 30px;
-    cursor:pointer;
-  }
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 530px;
-}
-
-.pro-imglist{
-  width: 100px;
-  height: 68px;
-  margin: 0 auto;
-}
-
 .tableList{
   width: 100%;
   height: auto;
@@ -703,271 +643,6 @@ $color2:#333;
       margin-bottom: 20px;
       border: 1px dashed #ddd;
       position: relative;
-    }
-  }
-}
-
-.del{
-  width: 100%;
-  min-height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  z-index: 1002;
-  padding: 10px 0; 
-  background-color: rgba(182, 189, 205, 0.6);
-  .del-main{
-    width: 550px;
-    height: auto;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    .del-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .del-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .del-con-one{
-        width: 100%;
-        height: 40px;
-        padding-top: 10px;
-        color: #6b7283;
-        font-size: 16px;
-        text-align: center;
-        margin: 30px 0;
-      }
-      .del-con-two{
-        width: 100%;
-        height: 100px;
-        margin-bottom: 22px;
-        
-      }
-      .del-but{
-        width: 260px;
-        height: 38px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        .del-but-1{
-          width: 45%;
-          height: 100%;
-          background-color: #547ef5;
-          border-radius: 5px;
-          text-align: center;
-          line-height: 38px;
-          font-size: 16px;
-          color: #fff;
-          cursor: pointer;
-        }
-        .active{
-          background-color: #ebeef6;
-          color: #333;
-        }
-      }
-    }
-  }
-}
-
-.modify{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .modify-main{
-    width: 474px;
-    height: auto;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    padding-bottom: 10px;
-    .modify-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .modify-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .modify-con{
-        width: 100%;
-        color: #6b7283;
-        font-size: 14px;
-      }
-      .modify-con-two{
-        width: 100%;
-        height: 100px;
-        margin-bottom: 22px;
-      }
-      .modify-but{
-        width: 260px;
-        height: 38px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        .modify-but-1{
-          width: 45%;
-          height: 100%;
-          background-color: #547ef5;
-          border-radius: 5px;
-          text-align: center;
-          line-height: 38px;
-          font-size: 16px;
-          color: #fff;
-          cursor: pointer;
-        }
-        .active{
-          background-color: #ebeef6;
-          color: #333;
-        }
-      }
-    }
-  }
-}
-
-.reply{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .reply-main{
-    width: 694px;
-    height: 290px;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    .reply-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .reply-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .reply-con-one{
-        width: 100%;
-        height: 40px;
-        padding-top: 10px;
-        color: #6b7283;
-        font-size: 14px;
-      }
-      .reply-con-two{
-        width: 100%;
-        height: 100px;
-        margin-bottom: 22px;
-        textarea{
-          width: 100%;
-          height: 100%;
-          padding: 10px;
-          font-size: 14px;
-          background-color: #f4f6fb;
-          color: #000;
-        }
-      }
-      .reply-but{
-        width: 220px;
-        height: 38px;
-        background-color: #547ef5;
-        border-radius: 5px;
-        margin: 0 auto;
-        text-align: center;
-        line-height: 38px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-      }
     }
   }
 }

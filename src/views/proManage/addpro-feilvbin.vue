@@ -123,7 +123,6 @@ export default {
         overdueMaxRate: '',
         canAdvanceType: '',
         appPackage: '',
-        // limitAmount: ''
       },
       rules: {// 验证规则
         productAmountMin: [
