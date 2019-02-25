@@ -234,7 +234,7 @@ export default {
         if (value.id == 1701) {
           item.filter(index => {
             return index.index == '10'
-          })[0].subs.push({index: 'rucuidingdan', title: '入催订单列表'})
+          })[0].subs.push({index: 'inTheRushOrders', title: '入催订单列表'})
         }
         if (value.id == 1702) {
           item.filter(index => {

@@ -296,22 +296,22 @@
               if (value.uniqueSign == 'MENU_LOANLAST_INCOME') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'rucuidingdan', title: 'sidebar.comeOrderList'})
+                })[0].subs.push({index: 'inTheRushOrders', title: 'sidebar.comeOrderList'})
               }
               if (value.uniqueSign == 'MENU_DISTRIBUTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'meiripaidantongji', title: 'sidebar.todayOperatesTotal'})
+                })[0].subs.push({index: 'everyDaySendOrdersTotal', title: 'sidebar.todayOperatesTotal'})
               }
               if (value.uniqueSign == 'MENU_COLLECTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'meiricuihuitongji', title: 'sidebar.todaycuihuiTotal'})
+                })[0].subs.push({index: 'everyDayPushBackTotal', title: 'sidebar.todaycuihuiTotal'})
               }
               if (value.uniqueSign == 'MENU_COLLECTOR_STATISTICS') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'cuishouyuantongji', title: 'sidebar.adminTotal'})
+                })[0].subs.push({index: 'debtCollectorTotal', title: 'sidebar.adminTotal'})
               }
               if (value.uniqueSign == 'MENU_OUTSOURCING_RESOURCE_POOL') {
                 item.filter(index => {
@@ -358,7 +358,7 @@
               if (value.uniqueSign == 'MENU_COLLECT_ME') {
                 item.filter(index => {
                   return index.index == '8'
-                })[0].subs.push({index: 'wodecuishoudingdan', title: 'sidebar.myComeOrder'})
+                })[0].subs.push({index: 'myCollectionOrderList', title: 'sidebar.myComeOrder'})
               }
               if (value.uniqueSign == 'MENU_COLLECT_ME_WORK_ANALYSIS') {
                 item.filter(index => {

@@ -215,7 +215,7 @@
           </el-table-column>
           <el-table-column align="center" prop="operation" :label="$t('public.operation')" >
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_DETAIL')">
-              <span style="color:#547ef6;cursor:pointer" @click="socialDetali(scope.row.id)">{{$t('public.detail')}}</span>
+              <span class="table_opr" @click="socialDetali(scope.row.id)">{{$t('public.detail')}}</span>
             </template>
           </el-table-column>
         </el-table>

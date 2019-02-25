@@ -15,13 +15,13 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <div class="search-input">
+        <!-- <div class="search-input">
           <span>{{$t('new.no49')}}:</span>
           <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
-        </div>
+        </div> -->
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <form autocomplete="off">
@@ -50,8 +50,12 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNT_REPORT_LIST')">
       <template>
-        <el-table :data="tableData" size="small" :summary-method="getSummaries"
-    show-summary>
+        <el-table 
+          :data="tableData" 
+          size="small" 
+          :summary-method="getSummaries"
+          show-summary
+        >
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="productAmount" :label="$t('public.no54')" >
@@ -97,53 +101,6 @@
         </el-table>
       </template>
     </div>
-    <!-- <el-table v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNT_REPORT_LIST')" :data="tableData1" :row-style="rowStyle" :row-class-name="tableRowClassName" :show-header="false" size="small" style="width: 100%">
-      <el-table-column align="center"  prop="strCreateTime" :label="$t('public.CreateDate')" width="76">
-        <template slot-scope="scope">
-          <span>{{$t('public.addTotal')}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="productAmount" :label="$t('public.no54')" min-width="85">
-        <template slot-scope="scope">
-          <span v-if="scope.row.productAmount!==null&&scope.row.productAmount!==undefined&&scope.row.productAmount!==''">{{$store.getters.moneySplit(scope.row.productAmount)}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68">
-      </el-table-column>
-      <el-table-column align="center" prop="dayInterestRate" :label="$t('proManage.dayInterest')" min-width="68">
-      </el-table-column>
-      <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')" min-width="68">
-      </el-table-column>
-      <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')" min-width="68">
-      </el-table-column>
-      <el-table-column align="center" prop="loanCount" :label="$t('totalManage.lendingCount')" >
-      </el-table-column>
-      <el-table-column align="center" prop="loanAmount" :label="$t('totalManage.amount')" >
-      </el-table-column>
-      <el-table-column align="center" prop="refundCount" :label="$t('totalManage.realReturnCount')" >
-      </el-table-column>
-      <el-table-column align="center" prop="needRefundPrincipal" :label="$t('totalManage.no2')" >
-      </el-table-column>
-      <el-table-column align="center" prop="needRefundInterest" :label="$t('totalManage.no3')" >
-      </el-table-column>
-      <el-table-column align="center" prop="needRefundOverdueInterest" :label="$t('totalManage.no4')" >
-      </el-table-column>
-      <el-table-column align="center" prop="refundAmount" :label="$t('totalManage.no1')" >
-      </el-table-column>
-      <el-table-column align="center" prop="couponAmount" :label="$t('new.no63')" >
-      </el-table-column>
-      <el-table-column align="center" prop="noRefundCount" :label="$t('totalManage.noReturnCount')" >
-      </el-table-column>
-      <el-table-column align="center" prop="noRefundPrincipal" :label="$t('totalManage.no5')" >
-      </el-table-column>
-      <el-table-column align="center" prop="noRefundInterest" :label="$t('totalManage.no6')" >
-      </el-table-column>
-      <el-table-column align="center" prop="noRefundOverdueInterest" :label="$t('totalManage.no7')" >
-      </el-table-column>
-      <el-table-column align="center" prop="noRefundAmount" :label="$t('totalManage.no8')" >
-      </el-table-column>
-    </el-table> -->
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
@@ -187,10 +144,7 @@ export default {
       options1: [],// APP名
       options2: [],// APP包名
       tableData: [],
-      tableData1: {},
-      rowStyle:{
-        backgroundColor:'rgb(241,241,241)'
-      }
+      tableData1: {}
     }
   },
   methods: {
@@ -267,12 +221,6 @@ export default {
           this.addContent = true;
         }
       })
-    },
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 0) {
-        return 'warning-row';
-      }
-      return '';
     },
     getSummaries() {
       const sums = [

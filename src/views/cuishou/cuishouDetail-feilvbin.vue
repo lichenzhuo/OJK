@@ -3,14 +3,14 @@
     <div class="crumbs" v-if="type==1">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/wodecuishoudingdan'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myCollectionOrderList'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('operationList.crumbsThree')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="crumbs" v-else>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/rucuidingdan'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsThree')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>

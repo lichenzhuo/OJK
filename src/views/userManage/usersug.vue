@@ -105,7 +105,7 @@
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_USER_FEEDBACK_SHOW')"
-                style="color:#547ef6;cursor:pointer;margin:0 5px;" 
+                class="table_opr" 
                 @click="sugDetail(scope.row.id,scope.row.phone,scope.row.createTime,scope.row.content,scope.row.replyContent,scope.row.feedbackPictureUrl)"
               >
                 {{$t('public.detail')}}

@@ -85,16 +85,16 @@ let rengongfushentongji = resolve => require(['../views/fengkonglist/rengongfush
 let overdueCouponApply = resolve => require(['../views/loanafter/overdueCouponApply.vue'], resolve)
 let partialRepaymentApply = resolve => require(['../views/loanafter/partialRepaymentApply.vue'], resolve)
 
-let rucuidingdan = resolve => require(['../views/loanafter/rucuidingdan.vue'], resolve)
+let inTheRushOrders = resolve => require(['../views/loanafter/inTheRushOrders.vue'], resolve)
 let rucuixiangqing = resolve => require(['../views/loanafter/rucuixiangqing/rucuixiangqing.vue'], resolve)
-let meiricuihuitongji = resolve => require(['../views/loanafter/meiricuihuitongji.vue'], resolve)
-let meiripaidantongji = resolve => require(['../views/loanafter/meiripaidantongji.vue'], resolve)
-let cuishouyuantongji = resolve => require(['../views/loanafter/adminTotal.vue'], resolve)
+let everyDayPushBackTotal = resolve => require(['../views/loanafter/everyDayPushBackTotal.vue'], resolve)
+let everyDaySendOrdersTotal = resolve => require(['../views/loanafter/everyDaySendOrdersTotal.vue'], resolve)
+let debtCollectorTotal = resolve => require(['../views/loanafter/debtCollectorTotal.vue'], resolve)
 let paymentCode = resolve => require(['../views/loanafter/paymentCode.vue'], resolve)
 let OutsourcedResourcePool = resolve => require(['../views/loanafter/OutsourcedResourcePool.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
-let wodecuishoudingdan = resolve => require(['../views/cuishou/wodecuishoudingdan.vue'], resolve)
+let myCollectionOrderList = resolve => require(['../views/cuishou/myCollectionOrderList.vue'], resolve)
 let workAnalysis = resolve => require(['../views/cuishou/workAnalysis.vue'], resolve)
 
 
@@ -226,16 +226,16 @@ const router = new Router({
                     {path: '/partialRepaymentApply', name: 'partialRepaymentApply', component: partialRepaymentApply },
                     {path: '/outsourcedresourcepool', name: 'OutsourcedResourcePool', component: OutsourcedResourcePool },
 
-                    {path: '/rucuidingdan', name: 'rucuidingdan', component: rucuidingdan },
+                    {path: '/inTheRushOrders', name: 'inTheRushOrders', component: inTheRushOrders },
                         //  ----------------  催收订单详情订单详情   -----------------
                         {path: '/rucuixiangqing', name: 'rucuixiangqing', component: rucuixiangqing },
-                    {path: '/meiricuihuitongji', name: 'meiricuihuitongji', component: meiricuihuitongji },
-                    {path: '/meiripaidantongji', name: 'meiripaidantongji', component: meiripaidantongji },
-                    {path: '/cuishouyuantongji', name: 'cuishouyuantongji', component: cuishouyuantongji },
+                    {path: '/everyDayPushBackTotal', name: 'everyDayPushBackTotal', component: everyDayPushBackTotal },
+                    {path: '/everyDaySendOrdersTotal', name: 'everyDaySendOrdersTotal', component: everyDaySendOrdersTotal },
+                    {path: '/debtCollectorTotal', name: 'debtCollectorTotal', component: debtCollectorTotal },
                     {path: '/paymentcode', name: 'paymentCode', component: paymentCode },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/wodecuishoudingdan', name: 'wodecuishoudingdan', component: wodecuishoudingdan },
+                    {path: '/myCollectionOrderList', name: 'myCollectionOrderList', component: myCollectionOrderList },
                     {path: '/cuishoudetail', name: 'cuishouDetail', component: cuishouDetail },
                     {path: '/workanalysis', name: 'workAnalysis', component: workAnalysis },
 
