@@ -383,7 +383,7 @@ export default {
         }
       })
     },
-    rightChange (now, orientation, key) {
+    rightChange () {
       this.changeFlag = true
     }
   },

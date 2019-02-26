@@ -422,7 +422,7 @@ export default {
         }
       })
     },
-    rightChange (now, orientation, key) {
+    rightChange () {
       this.changeFlag = true
     },
     alert_leaderName_option () { // 获取弹出框组长列表

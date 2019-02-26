@@ -371,7 +371,7 @@ export default {
         }
       })
     },
-    rightChange (now, orientation, key) {
+    rightChange () {
       this.changeFlag = true
     },
     group_detail () { // 根据当前行查询弹窗所需小组成员信息

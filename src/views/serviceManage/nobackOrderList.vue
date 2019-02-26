@@ -52,27 +52,26 @@
             </el-option>
           </el-select>
         </div>
-          <div class="search-input">
-            <span>{{$t('public.orderStatus')}}:</span>
-            <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="search-input">
-            <span>{{$t('new.no34')}}:</span>
-            <el-select size="small" v-model="formInline.serviceStatus" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.no28')}}:</span>
-            <el-input size="small" style="width:50px;" v-model="formInline.overdueBegin"></el-input>
-            ~
-            <el-input size="small" style="width:50px;" v-model="formInline.overdueEnd"></el-input>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>{{$t('public.orderStatus')}}:</span>
+          <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no34')}}:</span>
+          <el-select size="small" v-model="formInline.serviceStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no28')}}:</span>
+          <el-input size="small" style="width:50px;" v-model="formInline.overdueBegin"></el-input>
+          ~
+          <el-input size="small" style="width:50px;" v-model="formInline.overdueEnd"></el-input>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
             <div class="search-input">
               <span>{{$t('websiteLoans.no5')}}:</span>
