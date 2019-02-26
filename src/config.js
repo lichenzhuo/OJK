@@ -6,7 +6,8 @@ const phDEV = 'back-ph'; // 测试环境
 const ynPRO = 'myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'kilatloan'; // 印尼包生产环境
-const vnPRO = 'mydong'; // 越南生产环境
+// const vnPRO = 'mydong'; // 越南生产环境
+const vnPRO = 'dongabc'; // 越南生产环境
 const phPRO = 'getpeso'; // 菲律宾生产环境
 
 const fullCurrentDomain = window.location.href.split('?')[0];
