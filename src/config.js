@@ -7,6 +7,7 @@ const ynPRO = 'myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'kilatloan'; // 印尼包生产环境
 const vnPRO = 'mydong'; // 越南生产环境
+// const vnPRO = 'dongabc'; // 越南生产环境
 const phPRO = 'getpeso'; // 菲律宾生产环境
 
 const fullCurrentDomain = window.location.href.split('?')[0];
@@ -55,6 +56,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
   domain = `https://api.mydong.vn`;
+  // domain = `http://api.dongabc.vn`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
@@ -72,7 +74,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `https://api.getpeso.ph`; // ph 本地接口
   headerTotal = 'Go Dana';
-  lang = 'id';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
 }

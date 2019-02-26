@@ -1,241 +1,196 @@
 <template>
   <div class="search">
     <el-row type="flex" justify="start" :gutter="10">
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('orderId')">
+      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('orderId')">
         <div class="search-input">
           <span>{{$t('filter.orderId')}}:</span>
           <el-input size="small" label="orderId" v-model="filter.orderId"></el-input>
         </div>
       </el-col>
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('messageId')">
+      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('messageId')">
         <div class="search-input">
           <span>{{$t('operatorManage.no3')}}:</span>
           <el-input size="small" label="messageId" v-model="filter.messageId"></el-input>
         </div>
       </el-col>
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('userId')">
+      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('userId')">
         <div class="search-input">
           <span>{{$t('filter.userId')}}:</span>
           <el-input size="small" label="userId" v-model="filter.userId"></el-input>
         </div>
       </el-col>
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('phone')">
+      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('phone')">
         <div class="search-input">
           <span>{{$t('filter.phone')}}:</span>
           <el-input size="small" label="phone" v-model="filter.phone"></el-input>
         </div>
       </el-col>
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('couponId')">
+      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('couponId')">
         <div class="search-input">
           <span>{{$t('filter.couponId')}}:</span>
           <el-input size="small" label="couponId" v-model="filter.couponId"></el-input>
         </div>
       </el-col>
-      <el-col :md="6" :lg="6" :xl="3" v-if="filter.hasOwnProperty('couponType')">
-        <div class="search-input">
-          <span>{{$t('filter.couponItem')}}:</span>
-          <el-select size="small" v-model="filter.couponType">
-            <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in couponTypeOption" :key="i"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('sendType')">
-        <div class="search-input">
-          <span>{{$t('operatorManage.no4')}}:</span>
-          <el-select size="small" v-model="filter.sendType">
-            <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in sendTypeOption" :key="i"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('couponTarget')">
-        <div class="search-input">
-          <span>{{$t('filter.couponTarget')}}:</span>
-          <el-select size="small" v-model="filter.couponTarget">
-            <el-option v-for="item in couponTargetOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-          <!-- <el-input size="small" label="couponTarget" v-model="filter.couponTarget"></el-input> -->
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('activityStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.activityStatus">
-            <el-option v-for="item in activityStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('couponStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.couponStatus">
-            <el-option v-for="item in couponStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('adType')">
-        <div class="search-input">
-          <span>{{$t('filter.adType')}}:</span>
-          <el-select size="small" v-model="filter.adType">
-            <el-option v-for="item in adTypeOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('adStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.adStatus">
-            <el-option v-for="item in adStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('overdueStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.overdueStatus">
-            <el-option v-for="item in overdueStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="8" :lg="6" :xl="5" v-if="filter.hasOwnProperty('appType')">
-        <div class="search-input">
-          <span>{{$t('new.no49')}}:</span>
-          <el-select size="small" clearable v-model="filter.appType" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in appNameOptions" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="8" :lg="6" :xl="5" v-if="filter.hasOwnProperty('appPackage')">
-        <div class="search-input">
-          <span>{{$t('new.no49')}}:</span>
-          <el-select size="small" clearable v-model="filter.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in appPackageOptions" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('otherCouponStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.otherCouponStatus">
-            <el-option v-for="item in otherCouponStatusOption" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('dateRange')">
-        <div class="search-input">
-          <span>{{$t('filter.dateRange')}}:</span>
-          <el-date-picker
-            size="small"
-            id="cteateTime"
-            v-model="filter.dateRange"
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth"
-            :start-placeholder="$t('public.beginTime')"
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('getDate')">
-        <div class="search-input">
-          <span>{{$t('filter.getDate')}}:</span>
-          <el-date-picker
-            size="small"
-            id="getDate"
-            v-model="filter.getDate" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth"
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('usedDate')">
-        <div class="search-input">
-          <span>{{$t('filter.usedDate')}}:</span>
-          <el-date-picker
-            size="small"
-            id="usedDate"
-            v-model="filter.usedDate" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth"
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-      </el-col>
-      <el-col :md="6" :lg="6" :xl="4" v-if="filter.hasOwnProperty('cashStatus')">
-        <div class="search-input">
-          <span>{{$t('filter.status')}}:</span>
-          <el-select size="small" v-model="filter.cashStatus">
-            <el-option v-for="item in cashStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
-          </el-select>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('cashTime')">
-        <div class="search-input">
-          <span>{{$t('filter.cashTime')}}:</span>
-          <el-date-picker
-            size="small"
-            id="cteateTime"
-            v-model="filter.cashTime" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth"
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('sendTime')">
-        <div class="search-input">
-          <span>{{$t('operatorManage.no5')}}:</span>
-          <el-date-picker
-            size="small"
-            id="cteateTime"
-            v-model="filter.sendTime" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth"
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-      </el-col>
-      <el-col :md="11" :lg="11" :xl="6" v-if="filter.hasOwnProperty('channelData')">
-        <div class="search-input">
-          <span>{{$t('filter.channelData')}}:</span>
-          <el-select v-model="filter.channelData" placeholder="请选择">
-            <el-option
-              v-for="item in channelDataOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-      </el-col>
+      <div class="search-input" v-if="filter.hasOwnProperty('couponType')">
+        <span>{{$t('filter.couponItem')}}:</span>
+        <el-select size="small" v-model="filter.couponType">
+          <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in couponTypeOption" :key="i"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('sendType')">
+        <span>{{$t('operatorManage.no4')}}:</span>
+        <el-select size="small" v-model="filter.sendType">
+          <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in sendTypeOption" :key="i"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('couponTarget')">
+        <span>{{$t('filter.couponTarget')}}:</span>
+        <el-select size="small" v-model="filter.couponTarget">
+          <el-option v-for="item in couponTargetOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+        <!-- <el-input size="small" label="couponTarget" v-model="filter.couponTarget"></el-input> -->
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('activityStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.activityStatus">
+          <el-option v-for="item in activityStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('couponStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.couponStatus">
+          <el-option v-for="item in couponStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('adType')">
+        <span>{{$t('filter.adType')}}:</span>
+        <el-select size="small" v-model="filter.adType">
+          <el-option v-for="item in adTypeOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('adStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.adStatus">
+          <el-option v-for="item in adStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('overdueStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.overdueStatus">
+          <el-option v-for="item in overdueStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('appType')">
+        <span>{{$t('new.no49')}}:</span>
+        <el-select size="small" clearable v-model="filter.appType" :placeholder="$t('public.placeholder')">
+          <el-option v-for="item in appNameOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('appPackage')">
+        <span>{{$t('new.no49')}}:</span>
+        <el-select size="small" clearable v-model="filter.appPackage" :placeholder="$t('public.placeholder')">
+          <el-option v-for="item in appPackageOptions" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('otherCouponStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.otherCouponStatus">
+          <el-option v-for="item in otherCouponStatusOption" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('dateRange')">
+        <span>{{$t('filter.dateRange')}}:</span>
+        <el-date-picker
+          size="small"
+          v-model="filter.dateRange"
+          value-format="yyyy-MM-dd" 
+          type="daterange" 
+          range-separator="~" 
+          :default-value="$store.state.common.preMonth"
+          :start-placeholder="$t('public.beginTime')"
+          :end-placeholder="$t('public.endTime')">
+        </el-date-picker>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('getDate')">
+        <span>{{$t('filter.getDate')}}:</span>
+        <el-date-picker
+          size="small"
+          v-model="filter.getDate" 
+          value-format="yyyy-MM-dd" 
+          type="daterange" 
+          range-separator="~" 
+          :default-value="$store.state.common.preMonth"
+          :start-placeholder="$t('public.beginTime')" 
+          :end-placeholder="$t('public.endTime')">
+        </el-date-picker>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('usedDate')">
+        <span>{{$t('filter.usedDate')}}:</span>
+        <el-date-picker
+          size="small"
+          v-model="filter.usedDate" 
+          value-format="yyyy-MM-dd" 
+          type="daterange" 
+          range-separator="~" 
+          :default-value="$store.state.common.preMonth"
+          :start-placeholder="$t('public.beginTime')" 
+          :end-placeholder="$t('public.endTime')">
+        </el-date-picker>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('cashStatus')">
+        <span>{{$t('filter.status')}}:</span>
+        <el-select size="small" v-model="filter.cashStatus">
+          <el-option v-for="item in cashStatusOptions" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('cashTime')">
+        <span>{{$t('filter.cashTime')}}:</span>
+        <el-date-picker
+          size="small"
+          v-model="filter.cashTime" 
+          value-format="yyyy-MM-dd" 
+          type="daterange" 
+          range-separator="~" 
+          :default-value="$store.state.common.preMonth"
+          :start-placeholder="$t('public.beginTime')" 
+          :end-placeholder="$t('public.endTime')">
+        </el-date-picker>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('sendTime')">
+        <span>{{$t('operatorManage.no5')}}:</span>
+        <el-date-picker
+          size="small"
+          v-model="filter.sendTime" 
+          value-format="yyyy-MM-dd" 
+          type="daterange" 
+          range-separator="~" 
+          :default-value="$store.state.common.preMonth"
+          :start-placeholder="$t('public.beginTime')" 
+          :end-placeholder="$t('public.endTime')">
+        </el-date-picker>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('channelData')">
+        <span>{{$t('filter.channelData')}}:</span>
+        <el-select v-model="filter.channelData" placeholder="请选择">
+          <el-option
+            v-for="item in channelDataOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
       <template>
-        <el-col :md="4" :lg="4" :xl="2" v-if="searchRight">
-          <div class="search-input">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-          </div>
-        </el-col>
+        <div class="search-input" v-if="searchRight">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
       </template>
       <template>
-        <el-col :md="4" :lg="4" :xl="2" v-if="outputRight">
-          <div class="search-input" >
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-          </div>
-        </el-col>
+        <div class="search-input" v-if="outputRight">
+          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+        </div>
       </template>
     </el-row>
   </div>
@@ -327,62 +282,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  @mixin flex-cen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .search {
-    width: 100%;
-    background-color: #ffffff;
-    margin-top: 18px;
-    margin-bottom: 22px;
-    padding: 22px 28px 22px 5px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
-    .search-add{
-      width: 114px;
-      height: 100%;
-      border: 1px solid #547ef6;
-      border-radius:5px;
-      text-align: center;
-      line-height: 36px;
-      color:#547ef5;
-      margin-left: 30px;
-      cursor:pointer;
-    }
-    .search-input {
-      height: 50px;
-      display: flex;
-      align-items: center;
-      // margin-right: 10px;
-      & > span {
-        padding: 0 5px;
-        font-size: 14px;
-        white-space: nowrap;
-        @include flex-cen;
-      }
-      .el-input {
-        flex: auto;
-        @include flex-cen;
-      }
-      .el-date-editor {
-        margin: 0 5px;
-      }
-      .el-select {
-        flex: auto;
-        @include flex-cen;
-      }
-      .el-button--primary{
-        height: 40px;
-        
-      }
-      .button-color{
-        background-color: #1D7BFF;
-        border-color: #547ef6;
-      }
-    }
-  }
+
 </style>

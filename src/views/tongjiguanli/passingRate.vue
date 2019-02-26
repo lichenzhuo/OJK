@@ -172,8 +172,8 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.dayBegin = this.searchTime[0];
-        this.formInline.dayEnd = this.searchTime[1];
+        this.formInline.dayBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.dayEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
         this.formInline.dayBegin = '';
         this.formInline.dayEnd = '';

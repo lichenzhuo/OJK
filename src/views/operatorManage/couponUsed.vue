@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('couponUsed.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('couponUsed.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('couponUsed.crumbsTwo')}}</p>
+    </div>
      
   <!-- -------------搜索查询栏------------------------ -->
   <search-filter :filter="filter" @search="search" @output="putExcel" :searchRight="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_USE_QUERY')" :outputRight="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_USE_EXP')"></search-filter>
@@ -22,7 +18,7 @@
   <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_USE_LIST')">
       <template>
-        <el-table :data="couponsList" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="couponsList" size="small" stripe>
           <el-table-column align="center" prop="userId" :label="$t('couponUsed.no1')">
           </el-table-column>
           <el-table-column align="center" prop="couponId" :label="$t('couponUsed.no2')">
@@ -81,9 +77,9 @@
   </div>
 </template>
 <script>
-import searchFilter from '../../components/component/filter'
+import searchFilter from '../../components/component/filter';
 export default {
-  name: 'operatorManage',
+  name: 'public_main',
   components: {searchFilter},
   data () {
     return {
@@ -108,7 +104,7 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData (condition) {
@@ -135,22 +131,22 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.couponsList = res.data.data
-          self.page.total = res.data.header.page.total
+          self.couponsList = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     search (condition) {
-      const self= this
-      self.page.current = 1
-      self.condition = condition
-      this.fetchData(self.condition)
+      const self= this;
+      self.page.current = 1;
+      self.condition = condition;
+      this.fetchData(self.condition);
     },
     putExcel (condition) {
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -169,7 +165,7 @@ export default {
           useTimeEnd: condition?condition.usedDate[1]?condition.usedDate[1]: '': '',
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -180,95 +176,13 @@ export default {
       }
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData(this.condition)
+      this.page.current = val;
+      this.fetchData(this.condition);
     }
   }
 }
 </script>
+
 <style scoped lang="scss">
 
-  
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('otherCoupons.crumbsOne')}}</el-breadcrumb-item>
@@ -7,45 +7,35 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('otherCoupons.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('otherCoupons.crumbsTwo')}}</p>
+    </div>
      
     <!-- ------------  搜索查询栏  -------------------- -->
     <search-filter :filter="filter" 
     :searchRight="true" :outputRight="true" @search="search" @output="putExcel"></search-filter>
   
     <!-- ------------  发放优惠券  --------------------- -->
-    <div class="search">
-      <el-row type="flex" justify="start" align="middle" :gutter="10">
-        <!-- <el-col :span="3"> -->
-          <div 
-          v-if="$store.state.common.permiss.includes('RIGHT_OTHER_COUPON_ISSUE')"
-          class="search-add" 
-          @click="sendCoupons()">
-            +{{$t('otherCoupons.edit')}}
-          </div>
-        <!-- </el-col> -->
-        <!-- <el-col :span="3"> -->
-          <div 
-          v-if="$store.state.common.permiss.includes('RIGHT_OTHER_COUPON_BATCH')"
-          class="search-add" 
-          @click="allSendCoupons()">
-            +{{$t('operatorManage.no21')}}
-          </div>
-        <!-- </el-col> -->
-      </el-row>
+    <div class="list_operation">
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_OTHER_COUPON_ISSUE')"
+        type="primary"  
+        @click="sendCoupons()">
+        +{{$t('otherCoupons.edit')}}
+      </el-button>
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_OTHER_COUPON_BATCH')"
+        type="primary"  
+        @click="allSendCoupons()">
+        +{{$t('operatorManage.no21')}}
+      </el-button>
     </div>
 
   <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table">
       <template>
-        <el-table :data="couponsList" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="couponsList" size="small" stripe>
           <el-table-column align="center" prop="userId" :label="$t('couponUsed.no1')">
           </el-table-column>
           <el-table-column align="center" :label="$t('couponUsed.no3')">
@@ -260,9 +250,9 @@
   </div>
 </template>
 <script>
-import searchFilter from '../../components/component/filter'
+import searchFilter from '../../components/component/filter';
 export default {
-  name: 'operatorManage',
+  name: 'otherCoupons',
   components: {searchFilter},
   data () {
     var validateNum = (rule, value, callback) => {
@@ -350,12 +340,12 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
-    this.fileReader = new FileReader()
+    this.fetchData();
+    this.fileReader = new FileReader();
   },
   methods: {
     fetchData (condition) {
-      const self = this
+      const self = this;
       let option = {
         header: {
           ...this.$base,
@@ -375,22 +365,22 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.couponsList = res.data.data
-          self.page.total = res.data.header.page.total
+          self.couponsList = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     search (condition) {
-      const self= this
-      self.page.current = 1
-      self.condition = condition
-      this.fetchData(self.condition)
+      const self= this;
+      self.page.current = 1;
+      self.condition = condition;
+      this.fetchData(self.condition);
     },
     putExcel (condition) {
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -409,7 +399,7 @@ export default {
           effectiveTimeEnd: condition?condition.dateRange?condition.dateRange[1]: '':'',
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -420,12 +410,12 @@ export default {
       }
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData(this.condition)
+      this.page.current = val;
+      this.fetchData(this.condition);
     },
     sendCoupons () {
-      const self = this
-      self.dialogFormVisible = true
+      const self = this;
+      self.dialogFormVisible = true;
       self.form = {
         userId: '',
         couponType: '',
@@ -437,7 +427,7 @@ export default {
       }
     },
     save () {
-      const self = this
+      const self = this;
       self.$refs.ruleForm.validate((valid) => {
         if (valid) {
           let option = {
@@ -458,22 +448,20 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              self.$message.success(self.$t('message.success'))
-              this.fetchData()
+              self.$message.success(self.$t('message.success'));
+              this.fetchData();
             }else{
-              self.$message.error(res.data.header.msg)
+              self.$message.error(res.data.header.msg);
             }
           })
-          self.dialogFormVisible = false
+          self.dialogFormVisible = false;
         } else {
-          /* eslint-disable */
-          console.log('error submit!!');
           return false;
         }
       })
     },
     allSendCoupons () {
-      this.dialogAllFormVisible = true
+      this.dialogAllFormVisible = true;
       self.allForm1 = {
         isBlack:'',
         status:'',
@@ -483,12 +471,12 @@ export default {
       }
     },
     allsave () {
-      const self = this
+      const self = this;
       self.$refs.allForm2.validate((valid) => {
         if (valid) {
           if(this.allForm1.isBlack===''&&this.allForm1.status===''&&this.allForm1.lastOrderStatus===''&&this.allForm1.loanSuccessAmount===''&&this.allForm1.overdueDays===''&&this.base64Str===''){
-            self.$message.error(self.$t('operationDetail.no20'))
-            return
+            self.$message.error(self.$t('operationDetail.no20'));
+            return;
           }
           let option = {
             header: {
@@ -511,62 +499,46 @@ export default {
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
               if(res.data.data>0){
-                self.$message.success(self.$t('message.success'))
-                this.fetchData()
+                self.$message.success(self.$t('message.success'));
+                this.fetchData();
               }else{
-                self.$message.error(self.$t('message.warning'))
+                self.$message.error(self.$t('message.warning'));
               }
-              this.fileList = []
-              this.allForm2 = {}
-              this.dialogAllFormVisible = false
+              this.fileList = [];
+              this.allForm2 = {};
+              this.dialogAllFormVisible = false;
               
             }else{
-              self.$message.error(res.data.header.msg)
+              self.$message.error(res.data.header.msg);
             }
           })
         } else {
-          /* eslint-disable */
-          console.log('error submit!!');
           return false;
         }
       })
     },
     httpRequest (options) {
-      let file = options.file
-      let filename = file.name
-      this.fileType = filename.slice(filename.lastIndexOf('.')+1)
+      let file = options.file;
+      let filename = file.name;
+      this.fileType = filename.slice(filename.lastIndexOf('.')+1);
       if (file) {
-        this.fileReader.readAsDataURL(file)
+        this.fileReader.readAsDataURL(file);
       }
       this.fileReader.onload = () => {
-        this.base64Str = this.fileReader.result.split(',')[1]
-        options.onSuccess('123',file)
-        // let option = {
-        //   header: {
-        //     ...this.$base,
-        //     action: this.$store.state.actionMap.all_picupload,
-        //     'sessionid': this.sessionid
-        //   },
-        //   imageType:base64Str.split(',')[0].split(';')[0].slice(5),
-        //   imageBase64:base64Str.split(',')[1]
-        // }
-        // this.$axios.post('', option).then(res => {
-        //   if (res.data.header.code == 0) {
-        //     options.onSuccess(res.data.data,file)
-        //   }
-        // })
+        this.base64Str = this.fileReader.result.split(',')[1];
+        options.onSuccess('123',file);
       }
     },
     removeHandler (file, fileList) {
       this.fileList=this.fileList.filter(value=>{
-        return file.uid!==value.uid
+        return file.uid!==value.uid;
       })
       
     },
     beforeUpload (file) {
       if (this.fileList.length >= 1) {
-        this.$globalMsg.error('At most 1 files')
-        return false
+        this.$globalMsg.error('At most 1 files');
+        return false;
       }
       // if (!isLt5M) {
       //   alert('The max size is 5MB')
@@ -574,23 +546,23 @@ export default {
       // }
     },
     uploadSuccess (res, file, fileList) {
-      let data = res
-      this.fileList.push({data,uid:file.uid})
+      let data = res;
+      this.fileList.push({data,uid:file.uid});
     }
   },
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.createTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0])
-        this.formInline.createTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1])
+        this.formInline.createTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.createTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.createTimeBegin = ''
-        this.formInline.createTimeEnd = ''
+        this.formInline.createTimeBegin = '';
+        this.formInline.createTimeEnd = '';
       }
     },
     dialogAllFormVisible () {
       if(!this.dialogAllFormVisible){
-        this.fileList.length = 0
+        this.fileList.length = 0;
         this.$refs.upload.clearFiles();
       }
     }
@@ -599,89 +571,6 @@ export default {
 </script>
 <style scoped lang="scss">
 
-  
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
   .allsend{
     width: 100%;
     ul{

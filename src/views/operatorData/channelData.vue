@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('channelData.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('channelData.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('channelData.crumbsTwo')}}</p>
+    </div>
      
   <!-- ------------- 搜索查询栏 ------------------------ -->
     <search-filter 
@@ -42,6 +38,7 @@
                 <el-date-picker
                   v-if="activeTab == 1"
                   id="day"
+                  size="small"
                   v-model="selectDay"
                   value-format="yyyy-MM-dd" 
                   type="daterange" 
@@ -56,12 +53,14 @@
                   v-if="activeTab == 2"    
                   v-model="weekTime"
                   type="week"
+                  size="small"
                   format="yyyy 第 WW 周"
                   :picker-options="pickerOptions"
                   @change="search">
                 </el-date-picker>
                 <el-date-picker
                   id="month"
+                  size="small"
                   v-if="activeTab == 3"
                   v-model="selectMonth"
                   value-format="yyyy-MM"
@@ -209,17 +208,17 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.fetchData();
   },
   watch: {
     weekTime (val) {
-      let date = new Date(val).getTime()
-      this.selectWeek = this.$store.getters.getYMD(date)
+      let date = new Date(val).getTime();
+      this.selectWeek = this.$store.getters.getYMD(date);
     }
   },
   methods: {
     fetchData () {
-      const self = this
+      const self = this;
       self.condition = {
         mediaSource: this.filter.channelData?this.filter.channelData:'',
         appType: this.filter.appType?this.filter.appType:'',
@@ -241,19 +240,19 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.list = res.data.data
-          self.page.total = res.data.header.page.total
+          self.list = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData()
+      this.page.current = val;
+      this.fetchData();
     },
     search () {
-      this.fetchData()
+      this.fetchData();
     },
     putExcel () {
       if (this.flag) {
@@ -278,7 +277,7 @@ export default {
           ...self.condition
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -292,105 +291,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  @mixin flex-cen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-    .tabs {
-      background: #fff;
-      padding: 20px;
-    }
-    .search-input{
-      padding: 20px;
-    }
-    .top-wrap {
-      height: 90px;
-      .checkbox-wrap  {
-        padding:10px;
-      }
+  .tabs {
+    background: #fff;
+    padding: 20px;
+  }
+  .top-wrap {
+    height: 90px;
+    .checkbox-wrap  {
+      padding:10px;
     }
   }
 </style>

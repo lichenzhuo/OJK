@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('couponSetting.crumbsOne')}}</el-breadcrumb-item>
@@ -7,30 +7,26 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('couponSetting.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('couponSetting.crumbsTwo')}}</p>
+    </div>
 
      
-    <div class="search">
-      <el-row type="flex" justify="start" align="middle" :gutter=10>
-        <el-col :span="3">
-          <div class="search-add" @click="editCoupons()" v-if="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_ADD')">
-            +{{$t('couponSetting.edit')}}
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation">
+      <el-button 
+        type="primary"  
+        @click="editCoupons()" 
+        v-if="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_ADD')"
+      >
+        +{{$t('couponSetting.edit')}}
+      </el-button>
     </div>
 
     <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_OPERATE_COUPON_LIST')">
       <template>
-        <el-table :data="couponsList" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="couponsList" size="small" stripe>
           <el-table-column align="center" prop="id" :label="$t('filter.couponId')">
           </el-table-column>
           <el-table-column align="center" prop="name" :label="$t('filter.couponName')">
@@ -110,7 +106,7 @@
 <script>
 
 export default {
-  name: 'operatorManage',
+  name: 'couponSetting',
   data () {
     var validateNum = (rule, value, callback) => {
       if ((!value || !/^[1-9]\d*$/.test(value))) {
@@ -150,11 +146,11 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData () {
-      const self = this
+      const self = this;
       let option = {
         header: {
           ...this.$base,
@@ -168,18 +164,18 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.couponsList = res.data.data
-          self.page.total = res.data.header.page.total
+          self.couponsList = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     editCoupons (obj) {
-      const self = this
-      self.dialogFormVisible = true
+      const self = this;
+      self.dialogFormVisible = true;
       if (obj) {
-        this.form = Object.assign({}, obj)
+        this.form = Object.assign({}, obj);
       }else {
         this.form = {
           name: '',
@@ -191,10 +187,10 @@ export default {
       }
     },
     save () {
-      const self = this
+      const self = this;
       self.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          self.dialogFormVisible = false
+          self.dialogFormVisible = false;
           let option = {
             header: {
               ...this.$base,
@@ -210,10 +206,10 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              self.$message.success(self.$t('message.success'))
-              this.fetchData()
+              self.$message.success(self.$t('message.success'));
+              this.fetchData();
             }else{
-              self.$message.error(res.data.header.msg)
+              self.$message.error(res.data.header.msg);
             }
           })
         } else {
@@ -225,7 +221,7 @@ export default {
       
     },
     deleteCoupons (id) {
-      const self = this
+      const self = this;
       let option = {
         header: {
           ...this.$base,
@@ -236,104 +232,20 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.$message.success(self.$t('message.success'))
-          this.fetchData()
+          self.$message.success(self.$t('message.success'));
+          this.fetchData();
         }else{
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData()
+      this.page.current = val;
+      this.fetchData();
     }
   }
 }
 </script>
 <style scoped lang="scss">
 
-  
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      height: 80px;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
 </style>

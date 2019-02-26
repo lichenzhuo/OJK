@@ -14,7 +14,7 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row :gutter="10">
+      <el-row type="flex" justify="start" :gutter="10">
         <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('proManage.period')}}:</span>
@@ -95,14 +95,14 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages">
-          <el-pagination
+      <div class="pages">
+        <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="total, prev, pager, next, ->"
           :total="pageTotal?pageTotal:0">
         </el-pagination>
-        </div>
+      </div>
     </el-row>
 
     <div class="foot"></div>
@@ -111,7 +111,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'overdueRate',
   data () {
     return {
       flag: true,
@@ -205,11 +205,11 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.dayBegin = this.searchTime[0]
-        this.formInline.dayEnd = this.searchTime[1]
+        this.formInline.dayBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.dayEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.dayBegin = ''
-        this.formInline.dayEnd = ''
+        this.formInline.dayBegin = '';
+        this.formInline.dayEnd = '';
       }
     }
   },

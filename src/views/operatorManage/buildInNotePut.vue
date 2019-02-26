@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('couponSetting.crumbsOne')}}</el-breadcrumb-item>
@@ -7,30 +7,22 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('operatorManage.no2')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('operatorManage.no2')}}</p>
+    </div>
 
   <!-- ------------  消息发送  --------------------- -->
-    <div class="search" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_ADD')">
-      <el-row type="flex" justify="start" align="middle" :gutter="10">
-        <el-col :span="3">
-          <div class="search-add" @click="sendNote()">
-            +{{$t('operatorManage.no6')}}
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_ADD')">
+      <el-button type="primary" @click="sendNote()">
+        +{{$t('operatorManage.no6')}}
+      </el-button>
     </div>
 
   <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_LIST')">
       <template>
-        <el-table :data="tableList" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="tableList" size="small" stripe>
           <el-table-column align="center" prop="messageId" :label="$t('operatorManage.no3')">
           </el-table-column>
           <el-table-column align="center" prop="sendObject" :label="$t('operatorManage.no18')">
@@ -49,11 +41,11 @@
             <template slot-scope="scope" >
               <span 
               v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_EDIT')"
-              style="color:#547ef6;cursor:pointer;" 
+              class="table_opr"
               @click="detail(scope.row)">{{$t('public.no29')}}</span>
               <span 
               v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_DELETE')"
-              style="color:#547ef6;cursor:pointer;" 
+              class="table_opr" 
               @click="del(scope.row.messageId,scope.row.sendObject)">{{$t('idManage.del')}}</span>
             </template>
           </el-table-column>
@@ -112,9 +104,9 @@
   </div>
 </template>
 <script>
-import searchFilter from '../../components/component/filter'
+import searchFilter from '../../components/component/filter';
 export default {
-  name: 'operatorManage',
+  name: 'buildInNotePut',
   components: {searchFilter},
   data () {
     return {
@@ -161,7 +153,7 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
@@ -169,7 +161,7 @@ export default {
       this.fetchData(this.condition);
     },
     fetchData (condition) {
-      const self = this
+      const self = this;
       let option = {
         header: {
           ...this.$base,
@@ -187,30 +179,30 @@ export default {
         sendTimeEnd: condition?condition.sendTime?condition.sendTime[1]: '':'',
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          self.tableList = res.data.data
-          self.page.total = res.data.header.page.total
+          self.tableList = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     search (condition) {// 查询按钮点击
-      const self= this
-      self.page.current = 1
-      self.condition = condition
+      const self= this;
+      self.page.current = 1;
+      self.condition = condition;
       if(this.flag){
         this.flag = false;
-        this.fetchData(self.condition)
+        this.fetchData(self.condition);
       }
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData(this.condition)
+      this.page.current = val;
+      this.fetchData(this.condition);
     },
     sendNote () {
-      const self = this
+      const self = this;
       self.form = {
         sendObject: '',
         title: '',
@@ -218,12 +210,12 @@ export default {
         message: '',
         messageId:''
       }
-      self.dialogFormVisible = true
+      self.dialogFormVisible = true;
     },
     save () {// 消息发送确认操作
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          this.dialogFormVisible = false
+          this.dialogFormVisible = false;
           let option = {
             header: {
               ...this.$base,
@@ -234,10 +226,10 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              this.$globalMsg.success(this.$t('message.success'))
-              this.fetchData()
+              this.$globalMsg.success(this.$t('message.success'));
+              this.fetchData();
             }else{
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
             this.form = {
               sendObject: '',
@@ -272,10 +264,10 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
-          this.fetchData()
+          this.$globalMsg.success(this.$t('message.success'));
+          this.fetchData();
         }else{
-          this.$globalMsg.error(res.data.header.msg)
+          this.$globalMsg.error(res.data.header.msg);
         }
         this.dialogDelVisible = false;
       })
@@ -287,105 +279,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
-  .odd{
-    display: flex;
-    span{
-      display: block;
-      width: 140px;
-      text-align: right;
-      padding-right: 12px;
-    }
-  }
-  .detail_con{
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-    font-size: 16px;
-    span:nth-child(1){
-      padding-left: 50px;
-      padding-right: 14px;
-    }
-  }
+
 </style>
