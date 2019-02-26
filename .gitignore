@@ -19,5 +19,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw*
+*.zip
 
 RF18022019091950077471803.ico
