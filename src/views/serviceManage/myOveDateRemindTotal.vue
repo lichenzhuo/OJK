@@ -200,12 +200,6 @@ export default {
         })
       }
     },
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 0) {
-        return 'warning-row';
-      }
-      return '';
-    },
     getServerPeople () { // 获取客服员下拉框
       let option = {
         header: {
@@ -224,7 +218,7 @@ export default {
         }
       })
     },
-    getSummaries() {
+    getSummaries() {// 总和
       let sums;
       if(this.$store.state.common.lang==='vi'){
         sums = [

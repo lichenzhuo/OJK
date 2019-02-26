@@ -118,7 +118,7 @@ const common = {
     partialRepaymentApply_select: {},
     todaypaidanList_select: {},
     todaycuihuiList_select: {},
-    cuishouyuanList_select: {},
+    collectionPeopleList_select: {},
     mycuishouList_select: {},
     tongguolv_select: {},
     shouyulv_select: {},
@@ -131,11 +131,11 @@ const common = {
     telComeList_select: {},
     payCodeList_select: {},
     kefuList_select: {},
-    xinshenyuanList_select: {},
-    cuishouyuanList_group_select: {},
+    creditAuditPeopleList_select: {},
+    collectionPeopleList_group_select: {},
     kefuList_group_select: {},
-    xinshenyuanList_group_select: {},
-    cuishouyuanList_group1_select: {},
+    creditAuditPeopleList_group_select: {},
+    collectionPeopleList_group1_select: {},
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
@@ -330,8 +330,8 @@ const common = {
     todaycuihuiList (state, list) {
       state.todaycuihuiList_select = list
     },
-    cuishouyuanList (state, list) {
-      state.cuishouyuanList_select = list
+    collectionPeopleList (state, list) {
+      state.collectionPeopleList_select = list
     },
     mycuishouList (state, list) {
       state.mycuishouList_select = list
@@ -369,20 +369,20 @@ const common = {
     kefuList_group (state, list) {
       state.kefuList_select = list
     },
-    xinshenyuanList_group (state, list) {
-      state.xinshenyuanList_select = list
+    creditAuditPeopleList_group (state, list) {
+      state.creditAuditPeopleList_select = list
     },
-    cuishouyuanList_group (state, list) {
-      state.cuishouyuanList_group_select = list
+    collectionPeopleList_group (state, list) {
+      state.collectionPeopleList_group_select = list
     },
     kefuList_group_list (state, list) {
       state.kefuList_group_select = list
     },
-    xinshenyuanList_group_list (state, list) {
-      state.xinshenyuanList_group_select = list
+    creditAuditPeopleList_group_list (state, list) {
+      state.creditAuditPeopleList_group_select = list
     },
-    cuishouyuanList_group_list (state, list) {
-      state.cuishouyuanList_group1_select = list
+    collectionPeopleList_group_list (state, list) {
+      state.collectionPeopleList_group1_select = list
     },
     
 

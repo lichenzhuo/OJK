@@ -134,12 +134,12 @@ let channelComeUnitTotal = resolve => require(['../views/channelManage/channelCo
 let channelIncomeTotal = resolve => require(['../views/channelManage/channelIncomeTotal.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   员工管理   @@@@@@@@@@@@@@@@@@@@@@@
-let xinshenyuanList = resolve => require(['../views/staffManage/xinshenyuanList.vue'], resolve)
-let xinshenxiaozu = resolve => require(['../views/staffManage/xinshenxiaozu.vue'], resolve)
-let cuishouyuanList = resolve => require(['../views/staffManage/cuishouyuanList.vue'], resolve)
-let cuishouxiaozu = resolve => require(['../views/staffManage/cuishouxiaozu.vue'], resolve)
-let kefuyuanList = resolve => require(['../views/staffManage/kefuyuanList.vue'], resolve)
-let kefuxiaozu = resolve => require(['../views/staffManage/kefuxiaozu.vue'], resolve)
+let creditAuditPeopleList = resolve => require(['../views/staffManage/creditAuditPeopleList.vue'], resolve)
+let creditAuditGroup = resolve => require(['../views/staffManage/creditAuditGroup.vue'], resolve)
+let collectionPeopleList = resolve => require(['../views/staffManage/collectionPeopleList.vue'], resolve)
+let collectionGroup = resolve => require(['../views/staffManage/collectionGroup.vue'], resolve)
+let servicePeopleList = resolve => require(['../views/staffManage/servicePeopleList.vue'], resolve)
+let serviceGroup = resolve => require(['../views/staffManage/serviceGroup.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   运营管理   @@@@@@@@@@@@@@@@@@@@@@@
 let couponSetting = resolve => require(['../views/operatorManage/couponSetting.vue'], resolve)
@@ -271,12 +271,12 @@ const router = new Router({
                     {path: '/channelincometotal', name: 'channelIncomeTotal', component: channelIncomeTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   员工管理相关   @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/xinshenyuanlist', name: 'xinshenyuanList', component: xinshenyuanList },
-                    {path: '/xinshenxiaozu', name: 'xinshenxiaozu', component: xinshenxiaozu },
-                    {path: '/cuishouyuanlist', name: 'cuishouyuanList', component: cuishouyuanList },
-                    {path: '/cuishouxiaozu', name: 'cuishouxiaozu', component: cuishouxiaozu },
-                    {path: '/kefuyuanlist', name: 'kefuyuanList', component: kefuyuanList },
-                    {path: '/kefuxiaozu', name: 'kefuxiaozu', component: kefuxiaozu },
+                    {path: '/creditAuditPeopleList', name: 'creditAuditPeopleList', component: creditAuditPeopleList },
+                    {path: '/creditAuditGroup', name: 'creditAuditGroup', component: creditAuditGroup },
+                    {path: '/collectionPeopleList', name: 'collectionPeopleList', component: collectionPeopleList },
+                    {path: '/collectionGroup', name: 'collectionGroup', component: collectionGroup },
+                    {path: '/servicePeopleList', name: 'servicePeopleList', component: servicePeopleList },
+                    {path: '/serviceGroup', name: 'serviceGroup', component: serviceGroup },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   运营管理相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/couponSetting', name: 'couponSetting', component: couponSetting },

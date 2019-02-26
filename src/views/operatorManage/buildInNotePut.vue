@@ -12,14 +12,14 @@
       <p>{{$t('operatorManage.no2')}}</p>
     </div>
 
-  <!-- ------------  消息发送  --------------------- -->
+  <!-- ***************  消息发送  *************** -->
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_ADD')">
       <el-button type="primary" @click="sendNote()">
         +{{$t('operatorManage.no6')}}
       </el-button>
     </div>
 
-  <!-- ------------  优惠券列表  ------------------------ -->
+  <!-- ***************  优惠券列表  *************** -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_LIST')">
       <template>
         <el-table :data="tableList" size="small" stripe>
@@ -53,7 +53,7 @@
       </template>
     </div>
 
-    <!-- ------------  添加活动弹框  ------------------------ -->
+    <!-- ***************  添加活动弹框  *************** -->
     <el-dialog :title="$t('operatorManage.no6')" :visible.sync="dialogFormVisible"  width="850px">
       <h4>{{$t('operatorManage.no16')}}</h4>
       <el-form :model="form" size="small" :rules="rules" ref="ruleForm" label-width="140px">
@@ -86,7 +86,7 @@
       </div>
     </el-dialog>
     
-    <!-- ------------  分页   ------------------------ -->
+    <!-- ***************  分页   *************** -->
     <el-row type="flex" justify="end">
         <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_LIST')">
           <el-pagination

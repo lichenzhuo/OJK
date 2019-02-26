@@ -460,32 +460,32 @@
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'kefuyuanlist', title: 'staffManage.crumbssix'})
+                })[0].subs.push({index: 'servicePeopleList', title: 'staffManage.crumbssix'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'kefuxiaozu', title: 'staffManage.service'})
+                })[0].subs.push({index: 'serviceGroup', title: 'staffManage.service'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'xinshenyuanlist', title: 'staffManage.crumbsTwo'})
+                })[0].subs.push({index: 'creditAuditPeopleList', title: 'staffManage.crumbsTwo'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'xinshenxiaozu', title: 'staffManage.crumbsThree'})
+                })[0].subs.push({index: 'creditAuditGroup', title: 'staffManage.crumbsThree'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'cuishouyuanlist', title: 'staffManage.crumbsFour'})
+                })[0].subs.push({index: 'collectionPeopleList', title: 'staffManage.crumbsFour'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'cuishouxiaozu', title: 'staffManage.crumbsFive'})
+                })[0].subs.push({index: 'collectionGroup', title: 'staffManage.crumbsFive'})
               }
 
               // 官网贷款

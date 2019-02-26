@@ -170,7 +170,7 @@ export default {
       })
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('cuishouyuanList', this.formInline);
+      this.$store.commit('collectionPeopleList', this.formInline);
       if (this.flag) {
         this.flag = false;
         this.dataList();
@@ -278,8 +278,8 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.cuishouyuanList_select) !== '{}') {
-      this.formInline = this.$store.state.common.cuishouyuanList_select;
+    if (JSON.stringify(this.$store.state.common.collectionPeopleList_select) !== '{}') {
+      this.formInline = this.$store.state.common.collectionPeopleList_select;
       if(this.formInline.beginTime!==''){
         this.searchTime.push(this.formInline.beginTime);
         this.searchTime.push(this.formInline.endTime);

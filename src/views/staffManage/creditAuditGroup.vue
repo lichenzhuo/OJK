@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('sidebar.system')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('staffManage.crumbsFive')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('staffManage.crumbsThree')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -11,7 +11,7 @@
       <el-col :span="24">
         <div class="paixu">
           <span></span>
-          <p>{{$t('staffManage.crumbsFive')}}</p>
+          <p>{{$t('staffManage.crumbsThree')}}</p>
         </div>
       </el-col>
     </el-row>
@@ -50,7 +50,7 @@
             </el-date-picker>
           </div>
         </el-col>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_GROUP_QUERY')">
+        <template v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_GROUP_QUERY')">
           <el-col :md="3" :lg="2" :xl="2">
             <div class="search-input">
               <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
@@ -60,7 +60,7 @@
       </el-row>
     </div>
 
-    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_GROUP_CREATE')">
+    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_GROUP_CREATE')">
       <el-row :gutter='10'>
         <el-col :span="5">
           <div class="search-input">
@@ -71,7 +71,7 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_GROUP_LIST')">
+    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_GROUP_LIST')">
       <template>
         <el-table :data="tableData" stripe style="width: 100%" empty-text>
           <el-table-column align="center" prop="id" :label="$t('new.no24')" width="160">
@@ -80,29 +80,21 @@
           </el-table-column>
           <el-table-column align="center" prop="leaderName" :label="$t('new.no19')" min-width="100">
           </el-table-column>
-          <el-table-column align="center" prop="total" :label="$t('loanAfterManage.name')" min-width="100">
+          <el-table-column align="center" prop="firstNum" :label="$t('new.no26')" min-width="120">
           </el-table-column>
-          <el-table-column align="center" prop="outSource" :label="$t('new.no70')" min-width="100">
-            <template slot-scope="scope">
-              <span v-if="scope.row.outSource!==null&&scope.row.outSource!==undefined&&scope.row.outSource!==''">{{$t($store.getters.is_addressBook1(scope.row.outSource))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="outProportion" :label="$t('new.no71')" min-width="100">
+          <el-table-column align="center" prop="secondNum" :label="$t('new.no27')" min-width="120">
           </el-table-column>
           <el-table-column align="center" prop="createTime" :label="$t('new.no28')" min-width="120">
           </el-table-column>
           <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
-              <span
-              v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_GROUP_EDIT')"
-              style="color:#547ef6;cursor:pointer" 
-              @click="detail(scope.row.groupName,scope.row.leaderId,scope.row.id,scope.row.outSource,scope.row.outProportion)">
-              {{$t('public.no51')}}
-              </span>
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_DEL')"
-                style="margin-left:10px;color:#547ef6;cursor:pointer"
+              v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_GROUP_EDIT')"
+              style="color:#547ef6;cursor:pointer" 
+              @click="detail(scope.row.groupName,scope.row.leaderId,scope.row.id)">{{$t('public.no51')}}</span>
+              <span 
+                v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_DEL')"
+                style="margin-left:10px;color:#547ef6;cursor:pointer" 
                 @click="delBegin(scope.row.id)">
                 {{$t('idManage.del')}}
               </span>
@@ -114,7 +106,7 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_COLLECTION_GROUP_LIST')">
+        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_APPROVE_GROUP_LIST')">
           <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -145,38 +137,11 @@
           <div class="detail-con-one">
             <div class="search-input1">
               <span style="width:100px;">{{$t('new.no19')}}:</span>
-              <el-select size="small" clearable  v-model="leaderId" :placeholder="$t('public.placeholder')">
+              <el-select size="small"  clearable v-model="leaderId" :placeholder="$t('public.placeholder')">
                 <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </div>
-          </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'">
-            <div class="search-input1">
-              <span style="width:100px;">{{$t('new.no70')}}:</span>
-              <el-select size="small" clearable v-model="outSource" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'&&outSource==2">
-            <div class="search-input">
-              <span style="width:100px;">{{$t('new.no71')}}:</span>
-              <el-input size="small" label="outProportion" v-model="outProportion"></el-input>
-            </div>
-          </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'&&outSource==2">
-            <span style="width:100px;">{{$t('new.no12')}}:</span>
-            <el-checkbox-group v-model="collectionTypes">
-              <div class="types">
-                <ul>
-                  <li v-for="value in collectionType" :key="value.value">
-                    <el-checkbox :label="value.value"><span>{{value.label}}</span></el-checkbox>
-                  </li>
-                </ul>
-              </div>
-            </el-checkbox-group>
           </div>
           <div class="detail-con-one">
             <div class="search-input1">
@@ -216,16 +181,17 @@ export default {
       searchTime: [], // 最后催收时间
       formInline: {// 用户查询信息数据对应字段
         groupId: '',
-        type: 2,
+        type: 1,
         leaderId: '',
         beginTime: '',
         EndTime: ''
       },
       currentPage: 1, // 当前页下标
-      options1: [], // 默认弹窗所有成员
-      options3: [], // 查询栏组长列表
+      options1: [], // 逾期类型
+      options2: [], // 组名列表
+      options3: [], // 组长列表
+      options4: [], // 弹窗组名列表
       options5: [], // 弹窗组长列表
-      options6: this.$store.state.options.isout_option, // 是否委外
       tableData: [], // 列表信息数据模拟
       modifyFlag: false, // 修改点击开关
       addFlag: false, // 窗口点击开关
@@ -234,12 +200,8 @@ export default {
       leaderId: '', // 弹窗组长选中项
       leaderName: '', // 弹窗组长选中项
       groupId: '', // 当前行小组ID
-      outSource: '', // 是否委外
-      outProportion: '', // 委外占比
-      group: [], // 穿梭框左侧值
-      value1: [], // 穿梭框右侧值
-      collectionType: [], // 催收阶段
-      collectionTypes: [], // 催收阶段选中值
+      group: [],
+      value1: [],
       defGroupInfo: {// 验证弹窗值是否被修改
         groupName: '',
         leaderId: ''
@@ -274,25 +236,20 @@ export default {
       })
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('cuishouyuanList_group_list', this.formInline)
+      this.$store.commit('creditAuditPeopleList_group_list', this.formInline)
       if (this.flag) {
         this.flag = false
         this.dataList();
       }
     },
-    detail (groupName, leaderId, groupId,outSource,outProportion) { // 点击修改操作
+    detail (groupName, leaderId, groupId) { // 点击修改操作
       this.groupId = groupId
-      this.outSource = outSource
-      this.outProportion = outProportion
       this.groupName_option()
       this.group_detail()
     },
     addGroup () { // 添加小组按钮操作
       this.groupName = ''
       this.leaderId = ''
-      this.outSource = ''
-      this.outProportion = ''
-      this.collectionTypes = []
       this.value1 = []
       this.groupName_option()
       this.addFlag = true
@@ -317,18 +274,15 @@ export default {
             'sessionid': this.sessionid
           },
           groupName: this.groupName,
-          type: 2,
+          type: 1,
           leaderId: this.leaderId,
           leaderName: this.leaderName,
-          collectTypes: this.collectionTypes.join(','),
-          outProportion: this.outProportion,
-          outSource: this.outSource,
           memberId: memberId
         }
       } else {
-        // if (this.leaderId == this.defGroupInfo.leaderId && this.groupName == this.defGroupInfo.groupName) {
-        //   return
-        // }
+        if (this.leaderId == this.defGroupInfo.leaderId && this.groupName == this.defGroupInfo.groupName && this.changeFlag == false) {
+          return
+        }
         this.value1.push(this.leaderId)
         let memberId = this.$store.getters.uniqueArray(this.value1)
         option = {
@@ -339,13 +293,10 @@ export default {
           },
           groupName: this.groupName,
           groupId: this.groupId,
-          type: 2,
+          type: 1,
           leaderId: this.leaderId,
           leaderName: this.leaderName,
-          collectTypes: this.collectionTypes.join(','),
-          memberId: memberId,
-          outProportion: this.outProportion,
-          outSource: this.outSource
+          memberId: memberId
         }
       }
       if (this.flag) {
@@ -363,52 +314,13 @@ export default {
       }
     },
     modifyClose () { // 添加修改关闭操作
-      this.groupName = '';
-      this.leaderId = '';
-      this.leaderName = '';
-      this.outProportion = '';
-      this.collectionTypes = []
-      this.outSource = '';
-      this.group = [];
-      this.value1 = [];
       this.modifyFlag = false
       this.addFlag = false
-    },
-    leaderName_option () { // 获取组长列表
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.group_leaderName,
-          'sessionid': this.sessionid
-        },
-        type: 2
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          res.data.data.forEach(value => {
-            this.options3.push({value: value.leaderId, label: value.leaderName})
-          })
-        }
-      })
-    },
-    groupName_option () { // 获取所有组员角色列表
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.little_group_group,
-          'sessionid': this.sessionid
-        },
-        type: 2
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          if (res.data.data) {
-            res.data.data.forEach(value => {
-              this.group.push({key: Number(value.id), label: value.name})
-            })
-          }
-        }
-      })
+      this.groupName = ''
+      this.leaderId = ''
+      this.leaderName = ''
+      this.group = []
+      this.value1 = []
     },
     group_detail () { // 根据当前行查询弹窗所需小组成员信息
       let option = {
@@ -418,10 +330,9 @@ export default {
           'sessionid': this.sessionid
         },
         groupId: this.groupId,
-        type: 2
+        type: 1
       }
       this.$axios.post('', option).then(res => {
-        this.value1 = []
         if (res.data.header.code == 0) {
           let arr = []
           res.data.data.groupMembers.forEach(value => {
@@ -429,7 +340,6 @@ export default {
             this.group.push({key: Number(value.adminId), label: value.name})
           })
           this.value1 = arr
-          this.collectionTypes = res.data.data.group.collectType ? res.data.data.group.collectType.split(',') : []
           this.defGroupInfo.groupName = res.data.data.group.groupName
           this.defGroupInfo.leaderId = res.data.data.group.leaderId
           this.leaderId = res.data.data.group.leaderId
@@ -439,9 +349,6 @@ export default {
         }
       })
     },
-    rightChange (now, orientation, key) {
-      this.changeFlag = true
-    },
     alert_leaderName_option () { // 获取弹出框组长列表
       let option = {
         header: {
@@ -449,7 +356,7 @@ export default {
           action: this.$store.state.actionMap.little_group_leader,
           'sessionid': this.sessionid
         },
-        type: 2
+        type: 1
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -459,29 +366,46 @@ export default {
         }
       })
     },
-    getcollectionType(){ // 获取催收阶段
+    groupName_option () { // 获取组员角色列表
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.back_reason,
+          action: this.$store.state.actionMap.little_group_group,
+          'sessionid': this.sessionid
         },
-        optionGroup:'overdue.type'
+        type: 1
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true;
         if (res.data.header.code == 0) {
-          let arr = res.data.data;
-          arr.forEach(value=>{
-            value.label = value.optionName
-            value.value = value.optionValue
+          res.data.data.forEach(value => {
+            this.group.push({key: Number(value.id), label: value.name})
           })
-          this.collectionType = arr;
         }
       })
     },
+    leaderName_option () { // 获取查询栏组长列表
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.group_leaderName,
+          'sessionid': this.sessionid
+        },
+        type: 1
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          res.data.data.forEach(value => {
+            this.options3.push({value: value.leaderId, label: value.leaderName})
+          })
+        }
+      })
+    },
+    rightChange (now, orientation, key) {
+      this.changeFlag = true
+    },
     delBegin(id) {
       this.delId = id;
-      this.haspeople(id);
+      this.haspeople(id)
     },
     haspeople(id) {// 当前小组下是否有人
       let option = {
@@ -511,7 +435,7 @@ export default {
           'sessionid': this.sessionid
         },
         groupId:this.delId,
-        type: '2'
+        type: '1'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -524,6 +448,7 @@ export default {
       })
     }
   },
+
   watch: {
     searchTime () {
       if (this.searchTime) {
@@ -540,26 +465,20 @@ export default {
           return value.value == this.leaderId
         })[0].leaderName
       }
-    },
-    outProportion(){
-      if(this.outProportion>1){
-        this.outProportion = ''
-      }
     }
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.cuishouyuanList_group1_select) !== '{}') {
-      this.formInline = this.$store.state.common.cuishouyuanList_group1_select
+    if (JSON.stringify(this.$store.state.common.creditAuditPeopleList_group_select) !== '{}') {
+      this.formInline = this.$store.state.common.creditAuditPeopleList_group_select
       if(this.formInline.beginTime!==''){
-       this.searchTime.push(this.formInline.beginTime)
-      this.searchTime.push(this.formInline.EndTime)
+        this.searchTime.push(this.formInline.beginTime)
+        this.searchTime.push(this.formInline.EndTime)
       }
-      
     }
     this.dataList()// 获取每日派单列表
     this.leaderName_option()// 获取查询栏组长下拉框列表
-    this.getcollectionType();// 获取催收阶段
+    // this.groupName_option();// 获取弹出框所有角色列表
     this.alert_leaderName_option()// 获取弹出框组长下拉框列表
   }
 }
@@ -646,7 +565,6 @@ export default {
     }
   }
 }
-
 .act{
   padding: 5px 28px 5px 5px;
 }
@@ -717,13 +635,13 @@ span.active3{
       width: 100%;
       height: auto;
       padding: 10px 30px;
+      .search-input{
+        display: flex;
+      }
       .detail-con-one{
         width: 100%;
         display: flex;
         margin: 10px 0;
-        .search-input{
-          display: flex;
-        }
         p{
           margin: 10px 40px 20px 0;
           padding-left: 14px;
@@ -769,16 +687,6 @@ span.active3{
     }
   }
 }
-.types{
-  width: 100%;
-  ul{
-    display: flex;
-    flex-wrap: nowrap;
-    li{
-      flex: 1;
-      margin-right: 20px;
-    }
-  }
-}
+
 
 </style>

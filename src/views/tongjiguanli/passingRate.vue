@@ -157,7 +157,7 @@ export default {
         })
       }
     },
-    getSummaries() {
+    getSummaries() {// 总和
       const sums = [
         this.$t('public.addTotal'),
         this.tableData1.applyCounts,

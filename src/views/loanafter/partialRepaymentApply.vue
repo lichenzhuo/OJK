@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanAfterManage.crumbsEight')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanAfterManage.crumbsEight')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -34,7 +30,6 @@
           </div>
         </el-col>
         <!-- 订单状态 -->
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderStatus')}}:</span>
             <el-select clearable size="small" v-model="formInline.oStatus" :placeholder="$t('public.placeholder')">
@@ -42,9 +37,7 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
         <!-- 还款码生成时间 -->
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('public.no81')}}</span>
             <el-date-picker
@@ -61,24 +54,19 @@
                 :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
        
         <!-- 部分还款查询 -->
         <template v-if="$store.state.common.permiss.includes('RIGHT_PARTIAL_REPAYMENT_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
             <div class="search-input">
-              <el-button size="small" type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
             </div>
-          </el-col>
         </template>
 
         <!-- execl导出 -->
         <template v-if="$store.state.common.permiss.includes('RIGHT_PARTIAL_REPAYMENT_LIST_EXP')">
-          <el-col :md="5" :lg="2" :xl="2">
             <div class="search-input">
               <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
             </div>
-          </el-col>
         </template>
         
       </el-row>
@@ -87,61 +75,60 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table"  v-if="$store.state.common.permiss.includes('RIGHT_PARTIAL_REPAYMENT_LIST')">
       <template>
-        <el-table :data="tableData" size="mini" stripe style="width: 100%" empty-text>
+        <el-table :data="tableData" size="mini" stripe>
           <!-- 订单id -->
-          <el-table-column align="center" prop="orderId" :label="$t('public.orderId')" min-width="60">
+          <el-table-column align="center" prop="orderId" :label="$t('public.orderId')">
           </el-table-column>
           <!-- 姓名 -->
-          <el-table-column align="center" prop="userName" :label="$t('public.name')" min-width="100">
+          <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
           <!-- 手机号 -->
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" min-width="90">
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
           <!-- 借款本金 -->
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" min-width="100">
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
             <template slot-scope="scope">
-              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
           <!-- 借款周期 -->
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')" min-width="100">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
           </el-table-column>
           <!-- 逾期天数 -->
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" min-width="100">
+          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
           <!-- 应还金额 -->
-          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')" min-width="100">
+          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
             <template slot-scope="scope">
-              <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
           <!-- 部分还款 -->
-          <el-table-column align="center" prop="couponAmount" :label="$t('filter.partialRepaymentApplyOption.no3')" min-width="100">
+          <el-table-column align="center" prop="couponAmount" :label="$t('filter.partialRepaymentApplyOption.no3')">
             <template slot-scope="scope">
-              <span v-if="scope.row.couponAmount!==null&&scope.row.couponAmount!==undefined&&scope.row.couponAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.couponAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.couponAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.couponAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
           <!-- 还款方式 -->
-          <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')" min-width="120">
+          <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
           </el-table-column>
           <!-- 还款码 -->
-          <el-table-column align="center" prop="paymentCode" :label="$t('loanAfterManage.paycode')" min-width="120">
+          <el-table-column align="center" prop="paymentCode" :label="$t('loanAfterManage.paycode')">
           </el-table-column>
           <!-- 还款生成时间 -->
-          <el-table-column align="center" prop="strCodeCreateTime" :label="$t('loanAfterManage.paycodetime')" min-width="100">
+          <el-table-column align="center" prop="strCodeCreateTime" :label="$t('loanAfterManage.paycodetime')" width="86">
           </el-table-column>
           <!-- 订单状态 -->
-          <el-table-column align="center" prop="oStatus" :label="$t('public.orderStatus')" min-width="100">
+          <el-table-column align="center" prop="oStatus" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
-              <span v-if="scope.row.oStatus!==null&&scope.row.oStatus!==undefined&&scope.row.oStatus!==''">{{$t($store.getters.backList_rejectStatus(scope.row.oStatus))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.backList_rejectStatus(scope.row.oStatus))}}</span>
             </template>
           </el-table-column>
           <!-- 操作 -->
-           <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_PARTIAL_REPAYMENT_REVIEW')">
               <span v-if="scope.row.status === 1"
                 style="color:#547ef6;cursor:pointer;" 
@@ -317,42 +304,42 @@ export default {
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.tableList()// 获取主列表
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.tableList();// 获取主列表
   },
   computed: {
     modifyDataReviewFlag: function () {
-      return this.modifyData.status === 1
+      return this.modifyData.status === 1;
     }
   },
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.effectiveTimeBegin =this.$store.getters.yyyy_m_d(this.searchTime[0])
-        this.formInline.effectiveTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1])
+        this.formInline.effectiveTimeBegin =this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.effectiveTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.effectiveTimeBegin = ''
-        this.formInline.effectiveTimeEnd = ''
+        this.formInline.effectiveTimeBegin = '';
+        this.formInline.effectiveTimeEnd = '';
       }
     },
     modifyFirstValue (val) { // 修改部分还款验证
       const validateNum = (value, callback) => {
         if ((!value || !/^[1-9]\d*$/.test(value))) {
-          callback(this.$t('login.num'))
+          callback(this.$t('login.num'));
         } else {
-          callback()
+          callback();
         }
       }
       validateNum(val, (msg = '') => {
-        this.$set(this.modifyErrorTips, 0, msg)
+        this.$set(this.modifyErrorTips, 0, msg);
       })
     }
   },
   methods: {
     
     handleOpen (row) { // 点开修改
-      this.modifyFlag = true
-      this.modifyData = row
+      this.modifyFlag = true;
+      this.modifyData = row;
 
       // 点开修改 查询详情
       let option = {
@@ -366,25 +353,25 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code === 0) {
-          this.modifyFirstValue = res.data.data.userCoupon.couponAmount
-          this.modifySecondValue = res.data.data.userCoupon.payType
-          this.modifyThirdValue = new Date(res.data.data.userCoupon.strEffectiveTimeEnd)
-          this.modifyFourthValue = res.data.data.userCoupon.remark
+          this.modifyFirstValue = res.data.data.userCoupon.couponAmount;
+          this.modifySecondValue = res.data.data.userCoupon.payType;
+          this.modifyThirdValue = new Date(res.data.data.userCoupon.strEffectiveTimeEnd);
+          this.modifyFourthValue = res.data.data.userCoupon.remark;
         }
       })
     },
     handleClose () { // 关闭修改
-      this.modifyFlag = false
-      this.modifyData = {}
+      this.modifyFlag = false;
+      this.modifyData = {};
 
-      this.modifyFirstValue = ''
-      this.modifySecondValue = null
+      this.modifyFirstValue = '';
+      this.modifySecondValue = null;
     },
     handleRejectOrResolve () { // 通过申请或者驳回
       // 验证字段
       for (let x in this.modifyErrorTips) {
         if (this.modifyErrorTips[x] !== '') {
-          return
+          return;
         }
       }
       let option = {
@@ -406,11 +393,11 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code === 0) {
-          this.$globalMsg.success(this.$t('message.success'))
-          this.handleClose()
-          this.tableList()
+          this.$globalMsg.success(this.$t('message.success'));
+          this.handleClose();
+          this.tableList();
         } else {
-          this.$globalMsg.error(res.data.header.msg)
+          this.$globalMsg.error(res.data.header.msg);
         }
       })
     },
@@ -420,7 +407,7 @@ export default {
       this.tableList();
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.tableList();
     },
 
@@ -437,22 +424,22 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code === 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
 
     select () { // 查询按钮点击操作
-      this.$store.commit('partialRepaymentApplyList', this.formInline)
+      this.$store.commit('partialRepaymentApplyList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.tableList();
       }
     },
     putExcel () {
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -466,7 +453,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -477,14 +464,14 @@ export default {
       }
     },
     addCodeOpen(row){
-      this.makeCodeFlag = true
-      this.makecodeId = row.id
-      this.addCodeData = row
+      this.makeCodeFlag = true;
+      this.makecodeId = row.id;
+      this.addCodeData = row;
     },
     addCodeClose(){
-      this.makeCodeFlag = false
-      this.makecodeId = ''
-      this.payValue = ''
+      this.makeCodeFlag = false;
+      this.makecodeId = '';
+      this.payValue = '';
     },
     addCodeSure(){
       let option = {
@@ -499,7 +486,7 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code === 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          this.$globalMsg.success(this.$t('message.success'));
           this.addCodeClose();
           this.tableList();
         } else {
@@ -512,93 +499,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: 100%;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-
 // 查看详情
 .detail{
   width: 100%;

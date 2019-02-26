@@ -323,7 +323,7 @@ export default {
       this.$store.commit('rucuiList', {})
       this.$store.commit('todaypaidanList', {})
       this.$store.commit('todaycuihuiList', {})
-      this.$store.commit('cuishouyuanList', {})
+      this.$store.commit('collectionPeopleList', {})
       this.$store.commit('mycuishouList', {})
       this.$store.commit('passingRate', {})
       this.$store.commit('overdueRate', {})
@@ -331,6 +331,7 @@ export default {
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
       this.$store.commit('cuihuiTotalList', {})
+      this.$store.commit('partialRepaymentApplyList', {})
     },
     typeToPass(){
       this.text = 'password'
@@ -385,7 +386,6 @@ export default {
   display: none;
 }
 .ms-title {
-  
   width: 100%;
   margin: 0 auto;
   margin-bottom: 40px;

@@ -232,7 +232,7 @@ export default {
       })
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('xinshenyuanList', this.formInline)
+      this.$store.commit('creditAuditPeopleList', this.formInline)
       if (this.flag) {
         this.flag = false
         this.dataList();
@@ -332,8 +332,8 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.xinshenyuanList_select) !== '{}') {
-      this.formInline = this.$store.state.common.xinshenyuanList_select
+    if (JSON.stringify(this.$store.state.common.creditAuditPeopleList_select) !== '{}') {
+      this.formInline = this.$store.state.common.creditAuditPeopleList_select
       if(this.formInline.beginTime!==''){
         this.searchTime.push(this.formInline.beginTime)
         this.searchTime.push(this.formInline.EndTime)
