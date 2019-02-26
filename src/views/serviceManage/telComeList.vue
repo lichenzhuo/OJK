@@ -127,66 +127,47 @@
     </el-row>
 
     <!-- ------------------确认是否修改开始-------------------- -->
-    <div v-if="add" class="reply">
-      <div class="reply-main">
-        <div class="reply-main-head">
-          <span></span>
-          <p>{{$t('loanAfterOperation.add2')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="addClose"></i>
-        </div>
-        <div class="reply-main-con">
-          <div class="reply-con-one">
-            <div class="reply-con-one-4">
-              {{$t('public.userTel')}}:
-            </div>
-            <div class="reply-con-one-3">
-              <el-input size="small" style="width:210px" label="phone" v-model="ruleForm2.userPhone"></el-input>
-            </div>
-          </div>
-          <div class="reply-con-one">
-            <div class="reply-con-one-4">
-              {{$t('public.userName')}}:
-            </div>
-            <div class="reply-con-one-3">
-              <el-input size="small" style="width:210px" label="name" v-model="ruleForm2.userName"></el-input>
-            </div>
-          </div>
-          <div class="reply-con-one">
-            <div class="reply-con-one-4">
-              {{$t('serviceManage.requestDes')}}:
-            </div>
-            <div class="reply-con-one-3">
-              <textarea class="search_input" v-model="ruleForm2.question" :placeholder="$t('new.no44')+'~'"></textarea>
-            </div>
-          </div>
-          <div class="reply-con-one">
-            <div class="reply-con-one-4">
-              {{$t('serviceManage.requestRes')}}:
-            </div>
-            <div class="reply-con-one-3">
-              <textarea class="search_input" v-model="ruleForm2.answer" :placeholder="$t('new.no45')+'~'"></textarea>
-            </div>
-          </div>
-          <div class="reply-con-one">
-            <div class="reply-con-one-4">
-              {{$t('serviceManage.isResult')}}:
-            </div>
-            <div class="reply-con-one-3">
-              <el-select size="small" v-model="ruleForm2.isSolve" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div
-            v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_ADD_SUBMIT')||$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_SHOW_SUBMIT')"
-            class="reply-but" 
-            @click="addSure">
-          {{$t('proManage.sure')}}
-          </div>
+    <el-dialog :title="$t('loanAfterOperation.add2')" :visible.sync="add" width="650px">
+      <div class="left2right">
+        <span class="left">{{$t('public.userTel')}}:</span>
+        <div class="right">
+          <el-input size="small" style="width:210px" label="phone" v-model="ruleForm2.userPhone"></el-input>
         </div>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.userName')}}:</span>
+        <div class="right">
+          <el-input size="small" style="width:210px" label="name" v-model="ruleForm2.userName"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('serviceManage.requestDes')}}:</span>
+        <div class="right">
+          <el-input type="textarea" v-model="ruleForm2.question" :placeholder="$t('new.no44')+'~'"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('serviceManage.requestRes')}}:</span>
+        <div class="right">
+          <el-input type="textarea" v-model="ruleForm2.answer" :placeholder="$t('new.no45')+'~'"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('serviceManage.isResult')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="ruleForm2.isSolve" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="left2right" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_ADD_SUBMIT')||$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_SHOW_SUBMIT')">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="addSure">{{$t('proManage.sure')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
     
     <div v-if="modify" class="reply">
       <div class="reply-main">
