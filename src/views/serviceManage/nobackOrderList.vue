@@ -47,7 +47,7 @@
         </el-col>
         <div class="search-input" v-else>
           <span>{{$t('serviceManage.service')}}:</span>
-          <el-select size="small" v-model="formInline.serviceName" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" v-model="formInline.serviceName" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>

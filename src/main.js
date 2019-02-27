@@ -24,6 +24,7 @@ import './utils/axios.js' // 请求
 import './utils/excel.js' // 输出EXCEL文件
 import './utils/makeExcel' // 前端导出excel
 
+// eslint-disable-next-line
 import JsEncrypt from 'jsencrypt/bin/jsencrypt'
 
 import i18n from './i18n/i18n'
