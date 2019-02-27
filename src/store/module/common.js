@@ -114,8 +114,6 @@ const common = {
       loanType:''
     },
     rucuiList_select: {},
-    overdueCouponApply_select: {},
-    partialRepaymentApply_select: {},
     todaypaidanList_select: {},
     todaycuihuiList_select: {},
     collectionPeopleList_select: {},
@@ -130,12 +128,6 @@ const common = {
     myOveDateRemindList_select: {},
     telComeList_select: {},
     payCodeList_select: {},
-    kefuList_select: {},
-    creditAuditPeopleList_select: {},
-    collectionPeopleList_group_select: {},
-    kefuList_group_select: {},
-    creditAuditPeopleList_group_select: {},
-    collectionPeopleList_group1_select: {},
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
@@ -317,12 +309,6 @@ const common = {
     },
     rucuiList (state, list) {
       state.rucuiList_select = list
-    },
-    overdueCouponApplyList (state, list) {
-      state.overdueCouponApply_select = list
-    },
-    partialRepaymentApplyList (state, list) {
-      state.partialRepaymentApply_select = list
     },
     todaypaidanList (state, list) {
       state.todaypaidanList_select = list

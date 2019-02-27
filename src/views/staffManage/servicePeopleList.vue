@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('sidebar.system')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('staffManage.crumbssix')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('staffManage.crumbssix')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -37,7 +33,6 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('permission.type')}}:</span>
             <el-select clearable size="small" v-model="formInline.roleId" :placeholder="$t('public.placeholder')">
@@ -45,8 +40,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('new.no20')}}:</span>
             <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
@@ -54,8 +47,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('new.no21')}}:</span>
             <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
@@ -63,8 +54,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('public.no21')}}:</span>
             <el-date-picker 
@@ -79,7 +68,6 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
         <template v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_QUERY')">
           <el-col :md="3" :lg="2" :xl="2">
             <div class="search-input">
@@ -94,7 +82,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_LIST')">
       <template>
-        <el-table :data="tableData" stripe style="width: 100%" empty-text>
+        <el-table :data="tableData" stripe >
           <el-table-column align="center" prop="adminId" :label="$t('staffManage.id')" width="160">
           </el-table-column>
           <el-table-column align="center" prop="name" :label="$t('staffManage.kefu')" min-width="120">
@@ -177,7 +165,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'servicePeopleList',
   data () {
     return {
       sessionid: '',
@@ -210,7 +198,7 @@ export default {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.dataList();
     },
     statisticsList () { // 获取客服员列表
@@ -226,26 +214,25 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('kefuList_group', this.formInline)
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.dataList();
       }
     },
     detail (groupId, memberId) { // 点击查看操作
-      this.modifyFlag = true
-      this.groupId = groupId
-      this.memberId = memberId
+      this.modifyFlag = true;
+      this.groupId = groupId;
+      this.memberId = memberId;
     },
     updateGroup () { // 确认转派操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -257,13 +244,13 @@ export default {
           type: 3
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
           } else {
-            this.$globalMsg.error(this.$t('message.warning'))
+            this.$globalMsg.error(this.$t('message.warning'));
           }
-          this.modifyFlag = false
+          this.modifyFlag = false;
         })
       }
     },
@@ -279,7 +266,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options1.push({value: value.roleId, label: value.roleName})
+            this.options1.push({value: value.roleId, label: value.roleName});
           })
         }
       })
@@ -296,7 +283,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options2.push({value: value.id, label: value.groupName})
+            this.options2.push({value: value.id, label: value.groupName});
           })
         }
       })
@@ -313,7 +300,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options3.push({value: value.leaderId, label: value.leaderName})
+            this.options3.push({value: value.leaderId, label: value.leaderName});
           })
         }
       })
@@ -322,128 +309,25 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.beginTime = this.searchTime[0]
-        this.formInline.endTime = this.searchTime[1]
+        this.formInline.beginTime = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.endTime = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.beginTime = ''
-        this.formInline.endTime = ''
+        this.formInline.beginTime = '';
+        this.formInline.endTime = '';
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.kefuList_select) !== '{}') {
-      this.formInline = this.$store.state.common.kefuList_select
-      if(this.formInline.beginTime!==''){
-        this.searchTime.push(this.formInline.beginTime)
-        this.searchTime.push(this.formInline.EndTime)
-      }
-    }
-    this.statisticsList()// 获取每日派单列表
-    this.type_option()// 获取角色下拉框列表
-    this.groupName_option()// 获取组员下拉框列表
-    this.leaderName_option()// 获取组长下拉框列表
+    this.sessionid = sessionStorage.getItem('sessionid');
+    
+    this.statisticsList();// 获取每日派单列表
+    this.type_option();// 获取角色下拉框列表
+    this.groupName_option();// 获取组员下拉框列表
+    this.leaderName_option();// 获取组长下拉框列表
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 530px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
 // 修改小组
 .detail{
   width: 100%;

@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('sidebar.system')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('staffManage.service')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('staffManage.service')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -25,7 +21,6 @@
             <el-input size="small" label="orderId" v-model="formInline.groupId"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('new.no21')}}:</span>
             <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
@@ -33,8 +28,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('new.no28')}}:</span>
             <el-date-picker 
@@ -49,31 +42,22 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
         <template v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_GROUP_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
             <div class="search-input">
               <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
             </div>
-          </el-col>
         </template>
       </el-row>
     </div>
 
-    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_GROUP_CREATE')">
-      <el-row :gutter='10'>
-        <el-col :span="5">
-          <div class="search-input">
-            <el-button type="primary" class="button-color" @click="addGroup">{{$t('new.no25')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_GROUP_CREATE')">
+      <el-button type="primary" @click="addGroup">{{$t('new.no25')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_CUSTSERVICE_GROUP_LIST')">
       <template>
-        <el-table :data="tableData" stripe style="width: 100%" empty-text>
+        <el-table :data="tableData" stripe >
           <el-table-column align="center" prop="id" :label="$t('new.no24')" width="160">
           </el-table-column>
           <el-table-column align="center" prop="groupName" :label="$t('new.no18')" min-width="100">
@@ -170,7 +154,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'serviceGroup',
   data () {
     return {
       sessionid: '',
@@ -212,7 +196,7 @@ export default {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.dataList();
     },
     dataList () { // 获取催回统计列表
@@ -228,43 +212,42 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('kefuList_group_list', this.formInline)
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.dataList();
       }
     },
     detail (groupName, leaderId, groupId) { // 点击修改操作
-      this.groupId = groupId
-      this.groupName_option()
-      this.group_detail()
+      this.groupId = groupId;
+      this.groupName_option();
+      this.group_detail();
     },
     addGroup () { // 添加小组按钮操作
-      this.groupName = ''
-      this.leaderId = ''
-      this.value1 = []
-      this.groupName_option()
-      this.addFlag = true
+      this.groupName = '';
+      this.leaderId = '';
+      this.value1 = [];
+      this.groupName_option();
+      this.addFlag = true;
     },
     modifySubmit () { // 确认添加修改操作
       if (this.groupName == '') {
-        this.$globalMsg.error(this.$t('new.no35'))
-        return
+        this.$globalMsg.error(this.$t('new.no35'));
+        return;
       }
       if (this.leaderId == '') {
-        this.$globalMsg.error(this.$t('new.no36'))
-        return
+        this.$globalMsg.error(this.$t('new.no36'));
+        return;
       }
       let option
       if (this.addFlag) {
-        this.value1.push(this.leaderId)
-        let memberId = this.$store.getters.uniqueArray(this.value1)
+        this.value1.push(this.leaderId);
+        let memberId = this.$store.getters.uniqueArray(this.value1);
         option = {
           header: {
             ...this.$base,
@@ -279,10 +262,10 @@ export default {
         }
       } else {
         if (this.leaderId == this.defGroupInfo.leaderId && this.groupName == this.defGroupInfo.groupName && this.changeFlag == false) {
-          return
+          return;
         }
-        this.value1.push(this.leaderId)
-        let memberId = this.$store.getters.uniqueArray(this.value1)
+        this.value1.push(this.leaderId);
+        let memberId = this.$store.getters.uniqueArray(this.value1);
         option = {
           header: {
             ...this.$base,
@@ -298,13 +281,13 @@ export default {
         }
       }
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.$axios.post('', option).then(res => {
           this.flag = true
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
           } else {
-            this.$globalMsg.error(this.$t('message.warning'))
+            this.$globalMsg.error(this.$t('message.warning'));
           }
           this.modifyClose();
           this.dataList();
@@ -312,13 +295,13 @@ export default {
       }
     },
     modifyClose () { // 添加修改关闭操作
-      this.modifyFlag = false
-      this.addFlag = false
-      this.groupName = ''
-      this.leaderId = ''
-      this.leaderName = ''
-      this.group = []
-      this.value1 = []
+      this.modifyFlag = false;
+      this.addFlag = false;
+      this.groupName = '';
+      this.leaderId = '';
+      this.leaderName = '';
+      this.group = [];
+      this.value1 = [];
     },
     alert_leaderName_option () { // 获取组长列表
       let option = {
@@ -332,7 +315,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options5.push({value: value.id, leaderName: value.name, label: value.name})
+            this.options5.push({value: value.id, leaderName: value.name, label: value.name});
           })
         }
       })
@@ -349,7 +332,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.group.push({key: Number(value.id), label: value.name})
+            this.group.push({key: Number(value.id), label: value.name});
           })
         }
       })
@@ -366,13 +349,13 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options3.push({value: value.leaderId, label: value.leaderName})
+            this.options3.push({value: value.leaderId, label: value.leaderName});
           })
         }
       })
     },
     rightChange () {
-      this.changeFlag = true
+      this.changeFlag = true;
     },
     group_detail () { // 根据当前行查询弹窗所需小组成员信息
       let option = {
@@ -386,24 +369,24 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = []
+          let arr = [];
           res.data.data.groupMembers.forEach(value => {
-            arr.push(value.adminId)
-            this.group.push({key: Number(value.adminId), label: value.name})
+            arr.push(value.adminId);
+            this.group.push({key: Number(value.adminId), label: value.name});
           })
-          this.value1 = arr
-          this.defGroupInfo.groupName = res.data.data.group.groupName
-          this.defGroupInfo.leaderId = res.data.data.group.leaderId
-          this.leaderId = res.data.data.group.leaderId
-          this.leaderName = res.data.data.group.leaderName
-          this.groupName = res.data.data.group.groupName
-          this.modifyFlag = true
+          this.value1 = arr;
+          this.defGroupInfo.groupName = res.data.data.group.groupName;
+          this.defGroupInfo.leaderId = res.data.data.group.leaderId;
+          this.leaderId = res.data.data.group.leaderId;
+          this.leaderName = res.data.data.group.leaderName;
+          this.groupName = res.data.data.group.groupName;
+          this.modifyFlag = true;
         }
       })
     },
     delBegin(id) {
       this.delId = id;
-      this.haspeople(id)
+      this.haspeople(id);
     },
     haspeople(id) {// 当前小组下是否有人
       let option = {
@@ -417,9 +400,9 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if(res.data.data===1){
-            this.isdel = 'new.no72'
+            this.isdel = 'new.no72';
           }else{
-            this.isdel = 'new.no73'
+            this.isdel = 'new.no73';
           }
           this.delFlag = true;
         }
@@ -437,11 +420,11 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          this.$globalMsg.success(this.$t('message.success'));
           this.dataList();
           this.delFlag = false;
         }else {
-          this.$globalMsg.success(res.data.header.msg)
+          this.$globalMsg.success(res.data.header.msg);
         }
       })
     }
@@ -449,139 +432,32 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.beginTime = this.searchTime[0]
-        this.formInline.EndTime = this.searchTime[1]
+        this.formInline.beginTime = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.endTime = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.beginTime = ''
-        this.formInline.EndTime = ''
+        this.formInline.beginTime = '';
+        this.formInline.EndTime = '';
       }
     },
     leaderId () {
       if (this.leaderId !== '') {
         this.leaderName = this.options5.filter(value => {
-          return value.value == this.leaderId
+          return value.value == this.leaderId;
         })[0].leaderName
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.kefuList_group_select) !== '{}') {
-      this.formInline = this.$store.state.common.kefuList_group_select
-      if(this.formInline.beginTime!==''){
-        this.searchTime.push(this.formInline.beginTime)
-        this.searchTime.push(this.formInline.EndTime)
-      }
-      
-    }
-    this.dataList()// 获取每日派单列表
-    this.leaderName_option()// 获取查询栏组长下拉框列表
+    this.sessionid = sessionStorage.getItem('sessionid');
+    
+    this.dataList();// 获取每日派单列表
+    this.leaderName_option();// 获取查询栏组长下拉框列表
     // this.groupName_option();// 获取弹出框所有角色列表
-    this.alert_leaderName_option()// 获取弹出框组长下拉框列表
+    this.alert_leaderName_option();// 获取弹出框组长下拉框列表
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-.act{
-  padding: 5px 28px 5px 5px;
-}
-
-.table {
-  width: 100%;
-  min-height: 530px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
 // 修改小组
 .detail{
   width: 100%;

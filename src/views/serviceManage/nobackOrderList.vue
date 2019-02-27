@@ -519,8 +519,8 @@ export default {
     },
     searchTime5 () {
       if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0];
-        this.formInline.callEndTime = this.searchTime5[1];
+        this.formInline.callStartTime = this.$store.getters.yyyy_m_d(this.searchTime5[0]);
+        this.formInline.callEndTime = this.$store.getters.yyyy_m_d(this.searchTime5[1]);
       } else {
         this.formInline.callStartTime = '';
         this.formInline.callEndTime = '';

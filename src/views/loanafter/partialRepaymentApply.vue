@@ -431,7 +431,6 @@ export default {
     },
 
     select () { // 查询按钮点击操作
-      this.$store.commit('partialRepaymentApplyList', this.formInline);
       if (this.flag) {
         this.flag = false;
         this.tableList();
