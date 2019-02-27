@@ -330,6 +330,7 @@ export default {
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
       this.$store.commit('cuihuiTotalList', {})
+      this.$store.commit('noBackOrderList', {})
     },
     typeToPass(){
       this.text = 'password'

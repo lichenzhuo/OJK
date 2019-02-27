@@ -51,7 +51,7 @@
         <el-col :md="8" :lg="5" :xl="4" v-else>
           <div class="search-input">
             <span>{{$t('serviceManage.service')}}:</span>
-            <el-select size="small" v-model="formInline.serviceName" :placeholder="$t('public.placeholder')">
+            <el-select clearable size="small" v-model="formInline.serviceName" :placeholder="$t('public.placeholder')">
               <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
@@ -559,8 +559,8 @@ export default {
     },
     searchTime5 () {
       if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0]
-        this.formInline.callEndTime = this.searchTime5[1]
+        this.formInline.callStartTime = this.$store.getters.yyyy_m_d(this.searchTime5[0])
+        this.formInline.callEndTime = this.$store.getters.yyyy_m_d(this.searchTime5[1])
       } else {
         this.formInline.callStartTime = ''
         this.formInline.callEndTime = ''
