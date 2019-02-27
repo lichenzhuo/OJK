@@ -161,12 +161,12 @@ export default {
         if (value.id == 1302) {
           item.filter(index => {
             return index.index == '5'
-          })[0].subs.push({index: 'rengongchushen', title: '人工初审列表'})
+          })[0].subs.push({index: 'peopleFirstAudit', title: '人工初审列表'})
         }
         if (value.id == 1303) {
           item.filter(index => {
             return index.index == '5'
-          })[0].subs.push({index: 'rengongfushen', title: '人工复审列表'})
+          })[0].subs.push({index: 'peopleSecondAudit', title: '人工复审列表'})
         }
         if (value.id == 1304) {
           item.filter(index => {
@@ -185,12 +185,12 @@ export default {
         if (value.id == 1401) {
           item.filter(index => {
             return index.index == '2'
-          })[0].subs.push({index: 'wodechushen', title: '我的人工初审'})
+          })[0].subs.push({index: 'myFirstAuditList', title: '我的人工初审'})
         }
         if (value.id == 1402) {
           item.filter(index => {
             return index.index == '2'
-          })[0].subs.push({index: 'wodefushen', title: '我的人工复审'})
+          })[0].subs.push({index: 'mySecondtAuditList', title: '我的人工复审'})
         }
         // 财务数据
         if (value.id == 15) {

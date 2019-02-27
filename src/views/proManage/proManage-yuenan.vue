@@ -16,7 +16,7 @@
     <!-- v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" -->
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')">
       <el-button 
-      type="primary" class="button-color" 
+      type="primary" 
       @click.stop="addBao">
       {{$t('proManage.addBao')}}
       </el-button>

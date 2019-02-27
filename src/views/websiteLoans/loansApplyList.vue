@@ -1,19 +1,15 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('websiteLoans.no1')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('websiteLoans.no4')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('websiteLoans.no4')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('websiteLoans.no4')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -36,7 +32,6 @@
             <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
           </div>
         </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('public.orderStatus')}}:</span>
             <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
@@ -44,8 +39,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
             <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -53,8 +46,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('staffManage.xinshenyuan')}}:</span>
             <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
@@ -62,13 +53,10 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('public.registerDate')}}:</span>
             <form autocomplete="off">
               <el-date-picker 
-                id="registerDate"
                 size="small"
                 v-model="searchTime" 
                 type="daterange" 
@@ -79,35 +67,22 @@
               </el-date-picker>
             </form>
           </div>
-        </el-col>
         <template v-if="$store.state.common.permiss.includes('RIGHT_PC_LOAN_LIST_QUERY')">
-          <!-- <el-col :md="3" :lg="2" :xl="2"> -->
             <div class="search-input ml15">
               <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
             </div>
-          <!-- </el-col> -->
         </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_PC_LOAN_LIST_EXP')">
-          <!-- <el-col :md="5" :lg="2" :xl="2"> -->
             <div class="search-input ml15">
               <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
             </div>
-          <!-- </el-col> -->
         </template>
       </el-row>
     </div>
 
-    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_PC_LOAN_LIST_ASSIGN')">
-      <el-row :gutter='10'>
-        <el-col :span="5">
-          <div v-if="claimFlag" class="search-input">
-            <el-button type="primary" class="button-color" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
-          </div>
-          <div v-else class="search-input">
-            <el-button type="info"  >{{$t('loanAfterManage.redeploy')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PC_LOAN_LIST_ASSIGN')">
+      <el-button v-if="claimFlag" type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
+      <el-button v-else type="info"  >{{$t('loanAfterManage.redeploy')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
@@ -116,33 +91,31 @@
         <el-table :data="tableData" size="small" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')" min-width="60">
+          <el-table-column align="center" prop="id" :label="$t('public.orderId')">
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')" min-width="60">
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')" min-width="100">
+          <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" min-width="120">
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')" min-width="100">
+          <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
             <template slot-scope="scope">
-              <span v-if="scope.row.orderLoanType!==null&&scope.row.orderLoanType!==undefined&&scope.row.orderLoanType!==''">{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('websiteLoans.no10')" min-width="100">
+          <el-table-column align="center" prop="loanAmount" :label="$t('websiteLoans.no10')">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('websiteLoans.no11')" min-width="80">
+          <el-table-column align="center" prop="productPeriod" :label="$t('websiteLoans.no11')">
           </el-table-column>
-          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" min-width="80">
+          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
-              <span v-if="scope.row.status!==null&&scope.row.status!==undefined&&scope.row.status!==''">{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="adminName" :label="$t('websiteLoans.no6')" min-width="80">
+          <el-table-column align="center" prop="adminName" :label="$t('websiteLoans.no6')">
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_PC_LOAN_LIST_DETAIL')"
@@ -174,49 +147,54 @@
     </el-row>
 
     <!-- ------------------ 点击转派弹窗开始 -------------------- -->
-    <div v-if="redeployFlag" class="detail">
-      <div class="detail-main">
-        <div class="detail-main-head">
-          <span></span>
-          <p>{{$t('loanAfterManage.redeploy')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="redeployClose"></i>
-        </div>
-        <div class="detail-main-con">
-          <div class="detail-con-one">
-            <p>{{$t('public.orderNo')}}: <span>{{orderIds}}</span> </p>
-          </div>
-          <div class="detail-con-one">
-            <p>{{$t('public.userId')}}: <span>{{userIds}}</span> </p>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4">
-              {{$t('loanAfterManage.redeployTo')}}: &nbsp;&nbsp;
-            </div>
-            <div class="detail-con-one-3" v-if="formInline.orderState=='10'||formInline.orderState=='20'">
-              <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-            <div class="detail-con-one-3" v-if="formInline.orderState=='21'||formInline.orderState=='30'">
-              <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4" style="line-height:26px;">
-              {{$t('loanAfterManage.reason')}}:
-            </div>
-            <div class="detail-con-one-3">
-              <textarea class="search_inpu" v-model="reason" :placeholder="$t('loanAfterManage.placeholder')+'~'"></textarea>
-            </div>
-          </div>
-          <div class="detail-but" @click="redeploySubmit">{{$t('loanAfterManage.sure')}}</div>
+    <el-dialog :title="$t('loanAfterManage.redeploy')" :visible.sync="redeployFlag" width="650px">
+      <div class="left2right">
+        <span class="left">{{$t('public.orderNo')}}:</span>
+        <span class="right">{{orderIds}}</span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.userId')}}:</span>
+        <span class="right">{{userIds}}</span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.redeployTo')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
         </div>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.redeployTo')}}:</span>
+        <div class="right">
+          <template v-if="formInline.orderState=='10'||formInline.orderState=='20'">
+            <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
+              <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </template>
+          <template v-if="formInline.orderState=='21'||formInline.orderState=='30'">
+            <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
+              <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </template>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.reason')}}:</span>
+        <div class="right">
+          <el-input type="textarea" :rows="4" v-model="reason" :placeholder="$t('loanAfterManage.placeholder')+'~'"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="redeploySubmit">{{$t('loanAfterManage.sure')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
     <!-- ------------------ 点击转派弹窗结束 -------------------- -->
 
     <div class="foot"></div>
@@ -225,7 +203,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'loansApplyList',
   data () {
     return {
       sessionid: '',
@@ -265,11 +243,11 @@ export default {
       this.getList();
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.getList();
     },
     detail (orderNo,userId) { // 查看详情点击操作
-      this.$router.push({path: '/loanmoneydetail',query: {userId, orderNo}})
+      this.$router.push({path: '/loanmoneydetail',query: {userId, orderNo}});
     },
     getList () { // 获取订单列表
       let option = {
@@ -284,8 +262,8 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
           if(this.formInline.orderState=='10'||this.formInline.orderState=='20'||this.formInline.orderState=='21'||this.formInline.orderState=='30'){
             this.claimFlag = true;
           }else{
@@ -296,18 +274,18 @@ export default {
     },
     select () { // 查询按钮点击操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         this.getList();
       }
     },
     redeploySubmit () { // 转派确认操作
       if (this.redeployStatus == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.adminFirst'))
-        return
+        this.$globalMsg.error(this.$t('loanAfterManage.adminFirst'));
+        return;
       }
       if (this.reason == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.placeholder'))
-        return
+        this.$globalMsg.error(this.$t('loanAfterManage.placeholder'));
+        return;
       }
       if (this.flag) {
         this.flag = false
@@ -323,48 +301,48 @@ export default {
           remark: this.reason
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.getList()
-          this.orderIds = []
-          this.multipleSelection = []
-          this.redeployStatus = ''
-          this.reason = ''
-          this.redeployFlag = false
+          this.getList();
+          this.orderIds = [];
+          this.multipleSelection = [];
+          this.redeployStatus = '';
+          this.reason = '';
+          this.redeployFlag = false;
         })
       }
     },
     handleSelectionChange (val) { // 表格选中项数据
-      this.multipleSelection = val
+      this.multipleSelection = val;
     },
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderIds == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.selFirst'))
+        this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
       } else {
-        this.redeployFlag = true
+        this.redeployFlag = true;
       }
     },
     redeployClose () {
-      this.redeployFlag = false
-      this.redeployStatus = ''
-      this.reason = ''
+      this.redeployFlag = false;
+      this.redeployStatus = '';
+      this.reason = '';
     },
     joinType () { // 订单转派弹窗对应数据处理
-      let arr = []
-      let brr = []
+      let arr = [];
+      let brr = [];
       this.multipleSelection.forEach(value => {
-        arr.push(value.id)
-        brr.push(value.userId)
+        arr.push(value.id);
+        brr.push(value.userId);
       })
-      this.orderIds = arr
-      this.userIds = brr
+      this.orderIds = arr;
+      this.userIds = brr;
     },
-    unSelect (row, index) {
-      return row.status != 100
+    unSelect (row) {
+      return row.status != 100;
     },
     chuPeople () { // 获取初审人员列表数据
       let option = {
@@ -377,12 +355,12 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options4 = arr
+          this.options4 = arr;
         }
       })
     },
@@ -397,12 +375,12 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options5 = arr
+          this.options5 = arr;
         }
       })
     },
@@ -417,18 +395,18 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options3 = arr
+          this.options3 = arr;
         }
       })
     },
     putExcel () { // excel下载操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -439,7 +417,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -453,23 +431,15 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.collectionTimeBegin = this.searchTime[0]
-        this.formInline.collectionTimeEnd = this.searchTime[1]
+        this.formInline.collectionTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.collectionTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.collectionTimeBegin = ''
-        this.formInline.collectionTimeEnd = ''
+        this.formInline.collectionTimeBegin = '';
+        this.formInline.collectionTimeEnd = '';
       }
     },
-    // 'formInline.orderState' () {
-    //   if(this.formInline.orderState=='10'||this.formInline.orderState=='20'||this.formInline.orderState=='21'||this.formInline.orderState=='30'){
-    //     this.claimFlag = true;
-    //   }else{
-    //     this.claimFlag = false;
-    //     // this.$globalMsg.error(this.$t('operationDetail.no20'))
-    //   }
-    // },
     multipleSelection () {
-      this.joinType()
+      this.joinType();
     }
   },
   mounted () {
@@ -482,207 +452,5 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.usermanage {
-  width: 100%;
-  height: 100%;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-.act{
-  padding: 5px 28px 5px 5px;
-}
-
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-
-// 查看详情
-.detail{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 694px;
-    height: auto;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    padding-bottom:5px; 
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .detail-con-one{
-        width: 100%;
-        display: flex;
-        margin: 10px 0;
-        p{
-          margin: 10px 40px 20px 0;
-          padding-left: 14px;
-          color: #999;
-          span{
-            color: #000;
-            margin: 0 5px;
-          }
-        }
-        .detail-con-one-4{
-          width: auto;
-          height: 40px;
-          text-align: center;
-          padding: 0 15px;
-          white-space: nowrap;
-          line-height: 40px;
-          color: #999;
-        }
-        .detail-con-one-3{
-          width: 100%;
-          display: flex;
-          align-items: center;
-          textarea{
-            width: 100%;
-            height: 100px;
-            padding: 5px;
-            font-size: 16px;
-          }
-        }
-      }
-      .detail-but{
-        width: 220px;
-        height: 38px;
-        background-color: #547ef5;
-        border-radius: 5px;
-        margin: 10px auto;
-        text-align: center;
-        line-height: 38px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-      }
-    }
-  }
-}
 </style>

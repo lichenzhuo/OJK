@@ -115,7 +115,7 @@
     </div>
 
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_FIRST_APPOINT')">
-      <el-button type="primary" class="button-color" @click="todayRedeploy">{{$t('new.no1')}}</el-button>
+      <el-button type="primary" @click="todayRedeploy">{{$t('new.no1')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->

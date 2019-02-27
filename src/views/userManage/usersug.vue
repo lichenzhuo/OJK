@@ -68,8 +68,8 @@
 
     <!-- ------------ 列表附加功能开始 -------------- -->
     <div class="list_operation">
-      <el-button v-if="allFlag" type="primary" class="button-color" @click.stop="allDataDispose">+{{$t('userSuggest.all')}}</el-button>
-      <el-button v-else type="info" class="button-color" >+{{$t('userSuggest.all')}}</el-button>
+      <el-button v-if="allFlag" type="primary" @click.stop="allDataDispose">+{{$t('userSuggest.all')}}</el-button>
+      <el-button v-else type="info" >+{{$t('userSuggest.all')}}</el-button>
     </div>
     <!-- ------------ 列表附加功能结束 -------------- -->
 

@@ -3,14 +3,14 @@
     <div class="crumbs" v-if="block==2">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/wodechushen'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myFirstAuditList'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="crumbs" v-else>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/rengongchushen'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/peopleFirstAudit'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -1181,7 +1181,7 @@ export default {
           if (res.data.header.code == 0) {
             this.$globalMsg.success(this.$t('auditDetail.no26'))
             setTimeout(() => {
-              this.$router.push('/wodechushen')
+              this.$router.push('/myFirstAuditList')
             }, 1000)
           } else {
             this.$globalMsg.error(res.data.header.msg)

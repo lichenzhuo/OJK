@@ -64,7 +64,7 @@
     </div>
 
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_VISIT_ADD')">
-      <el-button type="primary" class="button-color" @click="addRecord">{{$t('serviceManage.add')}}</el-button>
+      <el-button type="primary" @click="addRecord">{{$t('serviceManage.add')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->

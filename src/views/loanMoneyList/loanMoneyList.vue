@@ -135,7 +135,7 @@
                 <span >{{$t($store.getters.handlingProblem1(scope.row.problemType))}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="dealStatus" :label="$t('yn.no5')" >
+            <el-table-column align="center" prop="dealStatus" :label="$t('yn.no5')">
               <template slot-scope="scope">
                 <span>{{$t($store.getters.handlingStatus(scope.row.dealStatus))}}</span>
               </template>
@@ -146,9 +146,10 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
-              <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_SHOW')"      class="table_opr"
+              <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_SHOW')"      
+                class="table_opr"
                 @click="loanDetali(scope.row.orderNo,scope.row.userId)">
                 {{$t('public.detail')}}
               </span>

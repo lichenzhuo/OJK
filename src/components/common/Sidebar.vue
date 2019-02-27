@@ -108,22 +108,22 @@
               if (value.uniqueSign == 'MENU_RISKCONTROL_FIRST') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongchushen', title: 'sidebar.labourAuditListOne'})
+                })[0].subs.push({index: 'peopleFirstAudit', title: 'sidebar.labourAuditListOne'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongfushen', title: 'sidebar.labourAuditListTwo'})
+                })[0].subs.push({index: 'peopleSecondAudit', title: 'sidebar.labourAuditListTwo'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongchushentongji', title: 'sidebar.labourAuditTotalOne'})
+                })[0].subs.push({index: 'peopleFirstAuditTotal', title: 'sidebar.labourAuditTotalOne'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongfushentongji', title: 'sidebar.labourAuditTotalTwo'})
+                })[0].subs.push({index: 'peopleSecondAuditTotal', title: 'sidebar.labourAuditTotalTwo'})
               }
 
                       // 我的审核订单
@@ -138,12 +138,12 @@
               if (value.uniqueSign == 'MENU_ME_FIRST') {
                 item.filter(index => {
                   return index.index == '2'
-                })[0].subs.push({index: 'wodechushen', title: 'sidebar.myLabourAuditOne'})
+                })[0].subs.push({index: 'myFirstAuditList', title: 'sidebar.myLabourAuditOne'})
               }
               if (value.uniqueSign == 'MENU_ME_REVIEW') {
                 item.filter(index => {
                   return index.index == '2'
-                })[0].subs.push({index: 'wodefushen', title: 'sidebar.myLabourAuditTwo'})
+                })[0].subs.push({index: 'mySecondtAuditList', title: 'sidebar.myLabourAuditTwo'})
               }
 
                       // 财务数据

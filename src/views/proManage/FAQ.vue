@@ -35,7 +35,7 @@
     <!-- ------------ 搜索查询栏结束 -------------- -->
 
     <div class="list_operation" >
-      <el-button type="primary" class="button-color" @click="openAdd">+{{$t('proManage.crumbsThree')}}</el-button>
+      <el-button type="primary" @click="openAdd">+{{$t('proManage.crumbsThree')}}</el-button>
     </div>
 
     <!-- ------------ 表单栏开始 -------------- -->

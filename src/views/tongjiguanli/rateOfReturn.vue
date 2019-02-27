@@ -22,7 +22,6 @@
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 
-            id="date1"
             v-model="searchTime" 
             size="small"
             value-format="yyyy-MM-dd" 

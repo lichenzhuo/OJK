@@ -41,19 +41,19 @@
     <div class="list_operation">
       <el-button 
       v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" 
-      type="primary" class="button-color" 
+      type="primary" 
       @click.stop="addloans">
       +{{$t('proManage.add')}}
       </el-button>
       <el-button 
       v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')" 
-      type="primary" class="button-color" 
+      type="primary" 
       @click.stop="copyPro">
       {{$t('proManage.copyPro')}}
       </el-button>
       <el-button 
       v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')" 
-      type="primary" class="button-color" 
+      type="primary" 
       @click.stop="addBao">
       {{$t('proManage.addBao')}}
       </el-button>

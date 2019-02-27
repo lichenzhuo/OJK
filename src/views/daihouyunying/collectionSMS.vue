@@ -17,11 +17,13 @@
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOANS_OPERATES_SMS_ADD')">
-          <div class="search-add" @click="addNote">
-            +{{$t('loanAfterOperation.add')}}
+          <div class="search-input">
+            <el-button type="primary"  @click="addNote">
+              +{{$t('loanAfterOperation.add')}}
+            </el-button>
           </div>
         </template>
-        <div class="search-input ml15">
+        <div class="search-input">
           <span>{{$t('loanAfterOperation.noteType')}}:</span>
           <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -77,7 +79,7 @@
         <span class="left">{{$t('loanAfterOperation.type')}}:</span>
         <div class="right">
           <el-select size="small" v-model="noteStyle" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>

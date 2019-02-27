@@ -8,9 +8,11 @@ import store from './store/index'
 import 'babel-polyfill'
 
 import './assets/css/main.css' // 外部样式
-import './assets/css/resources.scss' // 外部样式
+import 'src/assets/css/resources.scss' // 公共样式
 
+// eslint-disable-next-line
 import Blob from './vender/Blob.js'
+// eslint-disable-next-line
 import Export2Excel from './vender/export2Excel.js'
 
 import ElementUI from 'element-ui'

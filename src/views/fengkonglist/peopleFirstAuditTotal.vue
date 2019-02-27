@@ -63,7 +63,8 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_LIST')">
       <template>
-        <el-table ref="multipleTable" size="small" :data="tableData" >
+        <el-table size="small" :data="tableData" :summary-method="getSummaries"
+          show-summary>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no33')" width="140">
             <template slot-scope="scope">
               <span v-if="scope.row.strCreateTime!=''">{{(scope.row.strCreateTime).slice(0,10)}}</span>
@@ -104,41 +105,6 @@
         </el-table>
       </template>
     </div>
-    <el-table  size="small" :row-style="rowStyle" :data="tableData1" :row-class-name="tableRowClassName" style="width:100%" :show-header="false" >
-      <el-table-column align="center" prop="strCreateTime" :label="$t('public.no33')" width="140">
-        <template slot-scope="scope">
-          <span>{{$t('public.addTotal')}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="adminName" :label="$t('public.no32')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="groupName" :label="$t('new.no18')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="leaderName" :label="$t('new.no19')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="approveType" :label="$t('loanMoneyDetail.opeType2')" min-width="120">
-      </el-table-column>
-      <el-table-column align="center" prop="reviewCounts" :label="$t('riskManage.reviewCount')" min-width="80">
-      </el-table-column>
-      <el-table-column align="center" prop="successCounts" :label="$t('riskManage.successCount')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="failCounts" :label="$t('riskManage.failCount')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="successRateCounts" :label="$t('riskManage.successRate')" min-width="100">
-        <template slot-scope="scope">
-          <span v-if="scope.row.successRateCounts!=''">{{$store.getters.twoPoint(scope.row.successRateCounts)}}%</span>
-          <span v-else>{{$store.state.common.nullData}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="reviewSuccessCounts" :label="$t('new.no3')" min-width="100">
-      </el-table-column>
-      <el-table-column align="center" prop="reviewSuccessRateCounts" :label="$t('new.no4')" min-width="100">
-        <template slot-scope="scope">
-          <span v-if="scope.row.reviewSuccessRateCounts!=''">{{$store.getters.twoPoint(scope.row.reviewSuccessRateCounts)}}%</span>
-          <span v-else>{{$store.state.common.nullData}}</span>
-        </template>
-      </el-table-column>
-    </el-table>
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
@@ -190,20 +156,20 @@ export default {
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
-      this.tongji();
+      this.getTableData();
     },
     handleCurrentChange (val) { // 点击分页按钮操作
       this.currentPage = val;
-      this.tongji();
+      this.getTableData();
     },
     select () { // 点击查询按钮操作
       this.$store.commit('rengongchushentongjiList', this.formInline);
       if (this.flag) {
         this.flag = false;
-        this.tongji();
+        this.getTableData();
       }
     },
-    tongji () { // 获取人工审核统计列表
+    getTableData () { // 获取人工审核统计列表
       let option = {
         header: {
           ...this.$base,
@@ -217,7 +183,7 @@ export default {
         this.flag = true;
         if (res.data.header.code == 0) {
           this.tableData = res.data.data[0];
-          this.tableData1 = res.data.data[1];
+          this.tableData1 = res.data.data[1][0];
           this.pageTotal = res.data.header.page.total;
         }
       })
@@ -280,6 +246,22 @@ export default {
         return 'warning-row';
       }
       return '';
+    },
+    getSummaries() {// 总和
+      const sums = [
+        this.$t('public.addTotal'),
+        '-',
+        '-',
+        '-',
+        '-',
+        this.tableData1.reviewCounts,
+        this.tableData1.successCounts,
+        this.tableData1.failCounts,
+        this.$store.getters.twoPoint(this.tableData1.successRateCounts)+'%',
+        this.tableData1.reviewSuccessCounts,
+        this.$store.getters.twoPoint(this.tableData1.reviewSuccessRateCounts)+'%',
+      ];
+      return sums;
     }
   },
   watch: {
@@ -304,7 +286,7 @@ export default {
       }
       
     }
-    this.tongji();// 获取人工审核统计列表
+    this.getTableData();// 获取人工审核统计列表
     this.groupList();// 获取人工审核统计列表
     this.leaderName_option();// 获取人工审核统计列表
   }

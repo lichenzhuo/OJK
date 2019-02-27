@@ -173,7 +173,7 @@
     </div>
     
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')">
-      <el-button type="primary" class="button-color" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
+      <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->

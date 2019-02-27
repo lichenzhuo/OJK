@@ -101,12 +101,14 @@
     </div>
 
     <div class="list_operation" >
-      <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_RESOURCE_POOL_TRANSFER')">
-        <el-button type="primary" class="button-color" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
-      </div>
-      <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_RESOURCE_POOL_OUTSOURCING')">
-        <el-button type="primary" class="button-color" @click="outBegin">{{$t('loanAfterManage.no2')}}</el-button>
-      </div>
+      <el-button 
+      v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_RESOURCE_POOL_TRANSFER')"
+      type="primary" 
+      @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
+      <el-button 
+      v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_RESOURCE_POOL_OUTSOURCING')"
+      type="primary" 
+      @click="outBegin">{{$t('loanAfterManage.no2')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->

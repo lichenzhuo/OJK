@@ -1289,7 +1289,7 @@ const filters = {
           return 'yn.no12' // 用户未收到款项
 
         default:
-          return '-' // 其它
+          return 'finance.backLog_options_status.no12' // 其它
       }
     },
     handlingStatus: () => (status) => { // 处理状态
@@ -1340,7 +1340,7 @@ const filters = {
           return 'new.no90' // 提交失败
 
         default:
-          return 'public.no91' // -
+          return 'finance.backLog_options_status.no12' // -
       }
     },
   }

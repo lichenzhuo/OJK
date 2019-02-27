@@ -74,7 +74,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `https://api.getpeso.ph`; // ph 本地接口
   headerTotal = 'Go Dana';
-  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  lang = 'id';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
 }

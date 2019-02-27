@@ -172,9 +172,7 @@
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
-              <span class="table_opr"
-               @click="detail(scope.row.orderNo,scope.row.userId)"
-               >{{$t('public.detail')}}
+              <span class="table_opr" @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}
               </span>
             </template>
           </el-table-column>
@@ -207,36 +205,13 @@
           <el-input type="textarea" :rows="4" v-model="remark" :placeholder="$t('loanMoney.placeholder')"></el-input>
         </div>
       </div>
-    </el-dialog> -->
-
-    <div v-if="backFlag" class="detail">
-      <div class="detail-main">
-        <div class="detail-main-head">
-          <span></span>
-          <p>{{$t('public.no61')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="backFlag=false"></i>
-        </div>
-        <div class="detail-main-con">
-          <div class="detail-con-one2" style="width:100%;height:auto;padding:10px 0;margin-bottom5px;">
-            <span>{{$t('public.no61')}}:</span>
-            <span>{{result?result:$store.state.common.nullData}} </span>
-          </div>
-          <div class="detail-con-one2" style="width:100%;height:auto;padding:10px 0;margin-bottom5px;">
-            <span>{{$t('public.backMoneyDate')}}:</span>
-            <span>{{resultTime?resultTime:$store.state.common.nullData}} </span>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4">
-              {{$t('public.no37')}}:
-            </div>
-            <div class="detail-con-one-3">
-              <textarea v-model="remark" :placeholder="$t('loanMoney.placeholder')"></textarea>
-            </div>
-          </div>
-          <div class="detail-but" @click="sureSubmit">{{$t('public.no61')}}</div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" @click="sureSubmit" size="small"></el-button>
         </div>
       </div>
-    </div>
+    </el-dialog> -->
 
     <div class="foot"></div>
 
@@ -454,125 +429,5 @@
 </script>
 
 <style scoped lang="scss">
-  // 查看详情
-  .detail {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    left: 0;
-    top: 0;
-    @include flex-cen;
-    background-color: rgba(182, 189, 205, 0.6);
-    .detail-main {
-      width: 694px;
-      height: auto;
-      margin-top: -150px;
-      background-color: #ffffff;
-      border-radius: 5px;
-      overflow: hidden;
-      padding-bottom: 5px;
-      .detail-main-head {
-        width: 100%;
-        height: 48px;
-        background-color: #333A4D;
-        line-height: 48px;
-        position: relative;
-        span {
-          display: block;
-          float: left;
-          margin-top: 12px;
-          margin-left: 16px;
-          background-color: rgba(255, 255, 255, 1);
-          width: 2px;
-          height: 26px;
-          border-radius: 5px;
-        }
-        p {
-          color: rgba(255, 255, 255, 1);
-          font-size: 18px;
-          margin-left: 30px;
-        }
-        .icon-color {
-          display: block;
-          color: #fff;
-          font-size: 22px;
-          position: absolute;
-          right: 16px;
-          top: 14px;
-        }
-      }
-      .detail-main-con {
-        width: 100%;
-        height: auto;
-        padding: 10px 30px;
-        .detail-con-one {
-          width: 100%; // display: flex;
-          p {
-            margin: 10px 40px 20px 0;
-            padding-left: 14px;
-            color: #999;
-            span {
-              color: #000;
-              margin: 0 5px;
-            }
-          }
-          .detail-con-one-3 {
-            width: 100%;
-            height: 100%;
-            margin-bottom: 10px;
-            textarea {
-              width: 100%;
-              height: 100px;
-              padding: 10px;
-              font-size: 16px;
-            }
-          }
-          .detail-con-one-4 {
-            width: 100px;
-            height: 40px; // text-align: center;
-            line-height: 40px;
-            color: #000;
-          }
-        }
-        .detail-con-one1 {
-          width: 200px;
-          padding: 0 5px;
-          height: 40px;
-          line-height: 40px;
-          color: #fff;
-          text-align: center;
-          background-color: #1D7BFF;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-        .detail-but {
-          width: 220px;
-          height: 38px;
-          background-color: #547ef5;
-          border-radius: 5px;
-          margin: 10px auto;
-          text-align: center;
-          line-height: 38px;
-          font-size: 16px;
-          color: #fff;
-          cursor: pointer;
-        }
-        .detail-con-one2 {
-          width: 100%;
-          display: flex;
-          span {
-            &:nth-child(1) {
-              width: 120px;
-              white-space: nowrap;
-            }
-            &:nth-child(2) {
-              padding: 0 10px;
-              word-break: break-all;
-              line-height: 24px;
-            }
-          }
-        }
-      }
-    }
-  }
+
 </style>

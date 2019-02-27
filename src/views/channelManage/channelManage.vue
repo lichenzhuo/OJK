@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('channelManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,29 +7,23 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('channelManage.crumbsOne')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('channelManage.crumbsOne')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row :gutter=10>
+      <el-row type="flex" justify="start" :gutter="10">
         <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('channelManage.name')}}:</span>
             <el-input size="small" label="orderId" v-model="formInline.name"></el-input>
           </div>
         </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('loanAfterManage.paycodetime')}}:</span>
             <el-date-picker 
-              id="date1"
               v-model="searchTime" 
               size="small"
               value-format="yyyy-MM-dd" 
@@ -40,8 +34,6 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('channelManage.name')}}:</span>
             <el-select size="small" v-model="formInline.status" :placeholder="$t('public.placeholder')">
@@ -49,46 +41,37 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
         <template >
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
       </el-row>
     </div>
 
-    <div class="search act" >
-      <el-row :gutter='10'>
-        <el-col :span="5">
-          <div class="search-input">
-            <el-button type="primary" class="button-color" @click="add=true">{{$t('channelManage.no18')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation">
+      <el-button type="primary" @click="add=true">{{$t('channelManage.no18')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table">
       <template>
-        <el-table :data="tableData" size="small" stripe style="width: 100%" empty-text>
+        <el-table :data="tableData" size="small" stripe >
           <el-table-column align="center" prop="strCreateTime" :label="$t('channelManage.no19')" width="120">
             <template slot-scope="scope">
-              <span v-if="scope.row.strCreateTime!==null&&scope.row.strCreateTime!==undefined&&scope.row.strCreateTime!==''">{{scope.row.strCreateTime.slice(0,10)}}</span>
+              <span v-if="scope.row.strCreateTime!=''">{{scope.row.strCreateTime.slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="applyCount" :label="$t('channelManage.name')" min-width="100">
+          <el-table-column align="center" prop="applyCount" :label="$t('channelManage.name')">
           </el-table-column>
-          <el-table-column align="center" prop="machineCount" :label="$t('channelManage.no20')" min-width="120">
+          <el-table-column align="center" prop="machineCount" :label="$t('channelManage.no20')">
           </el-table-column>
-          <el-table-column align="center" prop="firstCount" :label="$t('channelManage.no21')" min-width="140">
+          <el-table-column align="center" prop="firstCount" :label="$t('channelManage.no21')">
           </el-table-column>
-          <el-table-column align="center" prop="status" :label="$t('public.no22')" min-width="140">
+          <el-table-column align="center" prop="status" :label="$t('public.no22')">
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="100">
+          <el-table-column align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
               <span v-if="scope.row.status!==1" @click="del1=true">{{$t('channelManage.no22')}}</span>
               <span v-else @click="del2=true">{{$t('channelManage.no23')}}</span>
