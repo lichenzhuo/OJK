@@ -264,13 +264,14 @@
         this.backMoneyList();
       },
       handleCurrentChange(val) {
-        this.currentPage = val
+        this.currentPage = val;
         this.backMoneyList();
       },
       select() {
-        this.$store.commit('backMoneyLogList', this.formInline)
+        this.$store.commit('backMoneyLogList', this.formInline);
         if (this.flag) {
-          this.flag = false
+          this.currentPage = 1;
+          this.flag = false;
           this.backMoneyList();
         }
       },

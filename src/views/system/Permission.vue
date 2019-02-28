@@ -316,11 +316,11 @@ export default {
         })
       }
     },
-    handleCheckChange1 (data, checked, indeterminate) { // 修改角色对应的权限列表
+    handleCheckChange1 () { // 修改角色对应的权限列表
       this.keys1_parent = this.$refs.tree1.getHalfCheckedKeys(true);
       this.keys1 = this.$refs.tree1.getCheckedKeys();
     },
-    handleCheckChange2 (data, checked, indeterminate) { // 添加角色对应的权限列表
+    handleCheckChange2 () { // 添加角色对应的权限列表
       this.keys2_parent = this.$refs.tree2.getHalfCheckedKeys(true);
       this.keys2 = this.$refs.tree2.getCheckedKeys();
     },

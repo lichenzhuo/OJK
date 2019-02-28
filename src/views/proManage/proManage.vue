@@ -381,22 +381,11 @@ export default{
   methods: {
     handleCurrentChange (val) { // 分页按钮第几页
       this.currentPage = val;
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.pro_list,
-          'page': {'index': val, 'size': 10},
-          'sessionid': this.sessionid
-        }
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          this.tableData = res.data.data;
-        }
-      })
+      this.proList();
     },
     select(){
       if(this.flag){
+        this.currentPage = 1;
         this.proList();
       }
     },

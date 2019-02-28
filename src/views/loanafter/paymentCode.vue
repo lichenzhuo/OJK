@@ -211,6 +211,7 @@ export default {
     select () { // 查询按钮点击操作
       if(this.roleId==43){
         if (this.flag&&this.formInline.phone!=='') {
+          this.currentPage = 1;
           this.flag = false;
           this.payCodeList();
         }else{
@@ -218,6 +219,7 @@ export default {
         }
       }else{
         if (this.flag) {
+          this.currentPage = 1;
           this.flag = true;
           this.payCodeList();
         }

@@ -195,6 +195,7 @@ export default {
     },
     select () { // 搜索栏查询按钮点击操作
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.formList();
       }

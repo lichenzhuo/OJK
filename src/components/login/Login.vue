@@ -330,7 +330,6 @@ export default {
       this.$store.commit('rateOfReturn', {})
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
-      this.$store.commit('cuihuiTotalList', {})
       this.$store.commit('noBackOrderList', {})
     },
     typeToPass(){

@@ -411,6 +411,7 @@ export default {
     select () { // 搜索栏点击查询按钮操作
       this.$store.commit('idMangeList', this.formInline)
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.userList();
       }

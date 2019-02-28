@@ -291,6 +291,7 @@ export default{
       })
     },
     select () { // 查询按钮点击操作
+      this.currentPage = 1;
       this.faqList();
     },
     openAdd(){

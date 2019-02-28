@@ -317,6 +317,7 @@ export default {
       this.backList();
     },
     handleCurrentChange (val) { // 分页按钮操作
+      this.currentPage = 1;
       this.backList (val);
     },
     backList (val) { // 获取还款列表数据

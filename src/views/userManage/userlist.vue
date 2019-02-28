@@ -320,6 +320,7 @@ export default {
       this.radioVal = '';
       this.$store.commit('userList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.userList();
       }

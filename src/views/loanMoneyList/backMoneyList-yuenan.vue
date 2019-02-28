@@ -450,14 +450,14 @@ export default {
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
-      this.backList()
+      this.backList();
     },
     handleCurrentChange (val) { // 分页按钮操作
-      this.backList (val)
+      this.backList (val);
     },
     backList (val) { // 获取还款列表数据
       if(val){
-        this.currentPage = val
+        this.currentPage = val;
       }
       let option = {
         header: {
@@ -469,18 +469,19 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
     select () { // 点击查询操作
-      this.$store.commit('backMoneyList', this.formInline)
+      this.$store.commit('backMoneyList', this.formInline);
       if (this.flag) {
-        this.flag = false
-        this.backList ()
+        this.currentPage = 1;
+        this.flag = false;
+        this.backList ();
       }
     },
     putExcel () { // excel下载
@@ -496,7 +497,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -508,17 +509,17 @@ export default {
     },
     sure (orderNo) { // 确认还款弹窗
       if (orderNo) {
-        this.form.repayType = '',
-        this.form.amount = '',
-        this.form.repayTime = '',
-        this.form.remark = ''
-        this.form.transId = ''
-        this.orderNo_dialog = orderNo
-        this.flag1 = true
+        this.form.repayType = '';
+        this.form.amount = '';
+        this.form.repayTime = '';
+        this.form.remark = '';
+        this.form.transId = '';
+        this.orderNo_dialog = orderNo;
+        this.flag1 = true;
       }
     },
     sureSubmit () {// 确认还款操作
-      const self = this
+      const self = this;
       self.$refs.ruleForm.validate((valid) => {
         if (valid) {
           let option = {
@@ -532,10 +533,10 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              self.$message.success(self.$t('message.success'))
-              this.backList()
+              self.$message.success(self.$t('message.success'));
+              this.backList();
             }else{
-              self.$message.error(res.data.header.msg)
+              self.$message.error(res.data.header.msg);
             }
           })
           this.flag1 = false;
@@ -545,10 +546,10 @@ export default {
       })
     },
     detail (orderNo, userId) { // 跳转详情页
-      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}})
+      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}});
     },
     modify(id){
-      this.getModifyData(id)
+      this.getModifyData(id);
     },
     getModifyData(id){
       let option = {
@@ -562,7 +563,7 @@ export default {
       this.$axios.post('', option).then(res => {
         this.modifyFlag = true;
         if (res.data.header.code == 0) {
-          this.modifyData = res.data.data
+          this.modifyData = res.data.data;
         }
       })
     },
@@ -578,65 +579,65 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.$message.success(self.$t('message.success'))
-          this.backList()
+          self.$message.success(self.$t('message.success'));
+          this.backList();
         }else{
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
       this.modifyFlag = false;
     },
     tableRowChange (val) {
-      this.tableSelect = val.id
-      this.radioVal = val.id
-      this.modifyForm.btId = val.btId
-      this.modifyForm.id = val.id
-      this.modifyForm.status = val.status
-      this.modifyForm.repaymentAmount = val.repaymentAmount
-      this.modifyForm.repayTime = val.strUpdateTime
-      this.modifyForm.payType = val.payType
-      this.modifyForm.remark = val.remark
+      this.tableSelect = val.id;
+      this.radioVal = val.id;
+      this.modifyForm.btId = val.btId;
+      this.modifyForm.id = val.id;
+      this.modifyForm.status = val.status;
+      this.modifyForm.repaymentAmount = val.repaymentAmount;
+      this.modifyForm.repayTime = val.strUpdateTime;
+      this.modifyForm.payType = val.payType;
+      this.modifyForm.remark = val.remark;
     }
   },
   watch: {
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.refundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0])
-        this.formInline.refundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1])
+        this.formInline.refundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.refundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.refundTimeBegin = ''
-        this.formInline.refundTimeEnd = ''
+        this.formInline.refundTimeBegin = '';
+        this.formInline.refundTimeEnd = '';
       }
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.repayTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0])
-        this.formInline.repayTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1])
+        this.formInline.repayTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.repayTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
-        this.formInline.repayTimeBegin = ''
-        this.formInline.repayTimeEnd = ''
+        this.formInline.repayTimeBegin = '';
+        this.formInline.repayTimeEnd = '';
       }
     },
     searchTime3 () {
       if (this.searchTime3) {
-        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0])
-        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1])
+        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
       } else {
-        this.formInline.loanTimeBegin = ''
-        this.formInline.loanTimeEnd = ''
+        this.formInline.loanTimeBegin = '';
+        this.formInline.loanTimeEnd = '';
       }
     },
     modifyFlag(){
       if(!this.modifyFlag){
-        this.tableSelect = ''
-        this.radioVal = ''
-        this.modifyForm.btId = ''
-        this.modifyForm.id = ''
-        this.modifyForm.status = ''
-        this.modifyForm.repaymentAmount = ''
-        this.modifyForm.repayTime = ''
-        this.modifyForm.payType = ''
-        this.modifyForm.remark = ''
+        this.tableSelect = '';
+        this.radioVal = '';
+        this.modifyForm.btId = '';
+        this.modifyForm.id = '';
+        this.modifyForm.status = '';
+        this.modifyForm.repaymentAmount = '';
+        this.modifyForm.repayTime = '';
+        this.modifyForm.payType = '';
+        this.modifyForm.remark = '';
       }
     }
   },

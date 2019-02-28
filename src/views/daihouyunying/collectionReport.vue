@@ -129,8 +129,8 @@ export default {
       })
     },
     select () {
-      this.$store.commit('cuihuiTotalList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.dataList();
       }
@@ -160,15 +160,7 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.cuihuiTotalList_select) !== '{}') {
-      this.formInline = this.$store.state.common.cuihuiTotalList_select;
-      if(this.formInline.dayBegin!==''){
-        this.searchTime.push(this.formInline.dayBegin);
-        this.searchTime.push(this.formInline.dayEnd);
-      }
-      
-    }
-    this.dataList()
+    this.dataList();
   }
 }
 </script>

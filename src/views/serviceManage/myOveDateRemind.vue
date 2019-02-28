@@ -309,6 +309,7 @@ export default {
     select () { // 点击查询按钮操作
       this.$store.commit('myOveDateRemindList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.loansList();
       }

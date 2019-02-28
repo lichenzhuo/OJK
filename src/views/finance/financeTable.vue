@@ -149,6 +149,7 @@ export default {
       this.backMoneyList(val);
     },
     select () {
+      this.currentPage = 1;
       this.backMoneyList();
     },
     putExcel () {

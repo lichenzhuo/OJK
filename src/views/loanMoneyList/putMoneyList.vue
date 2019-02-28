@@ -253,6 +253,7 @@ export default {
     select () { // 点击查询按钮操作
       this.$store.commit('putMoneyList', this.formInline);
       if (this.clickFlag) {
+        this.currentPage = 1;
         this.clickFlag = false;
         this.putList();
       }

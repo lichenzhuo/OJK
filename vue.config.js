@@ -1,5 +1,5 @@
 const path = require('path');
-
+const fs = require('fs')
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
@@ -32,6 +32,7 @@ module.exports = {
       sass: {
         // @/ 是 src/ 的别名
         data: `@import "src/assets/css/resources.scss";`
+        // data: fs.readFileSync('src/assets/css/resources.scss', 'utf-8')
       }
     }
   }

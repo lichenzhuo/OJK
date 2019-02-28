@@ -231,6 +231,7 @@ export default{
     select () { // 查询按钮点击操作
       this.$store.commit('cuishouNoteList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.noteList();
       }

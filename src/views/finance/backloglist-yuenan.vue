@@ -299,6 +299,7 @@ export default {
     select () {
       this.$store.commit('backMoneyLogList', this.formInline)
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.backMoneyList();
       }

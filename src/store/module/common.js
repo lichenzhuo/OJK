@@ -337,9 +337,6 @@ const common = {
     cuishouNoteList (state, list) {
       state.cuishouNoteList_select = list
     },
-    cuihuiTotalList (state, list) {
-      state.cuihuiTotalList_select = list
-    },
     noBackOrderList (state, list) {
       state.noBackOrderList_select = list
     },

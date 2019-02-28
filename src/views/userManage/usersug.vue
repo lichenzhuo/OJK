@@ -354,6 +354,7 @@ export default{
     select () { // 点击查询按钮
       this.$store.commit('userSugList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.sugList();
       }

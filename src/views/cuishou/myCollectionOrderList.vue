@@ -303,6 +303,7 @@ export default {
     select () { // 查询按钮点击操作
       this.$store.commit('mycuishouList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.operationList();
       }
@@ -311,8 +312,8 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.collectionTimeBegin = this.searchTime[0];
-        this.formInline.collectionTimeEnd = this.searchTime[1];
+        this.formInline.collectionTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.collectionTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
         this.formInline.collectionTimeBegin = '';
         this.formInline.collectionTimeEnd = '';
@@ -320,8 +321,8 @@ export default {
     },
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.goCollectionTimeBegin = this.searchTime1[0];
-        this.formInline.goCollectionTimeEnd = this.searchTime1[1];
+        this.formInline.goCollectionTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.goCollectionTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
         this.formInline.goCollectionTimeBegin = '';
         this.formInline.goCollectionTimeEnd = '';
@@ -329,8 +330,8 @@ export default {
     },
     searchTime4 () {
       if (this.searchTime4) {
-        this.formInline.promiseTimeBegin = this.searchTime4[0];
-        this.formInline.promiseTimeEnd = this.searchTime4[1];
+        this.formInline.promiseTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime4[0]);
+        this.formInline.promiseTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime4[1]);
       } else {
         this.formInline.promiseTimeBegin = '';
         this.formInline.promiseTimeEnd = '';
@@ -338,8 +339,8 @@ export default {
     },
     searchTime5 () {
       if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0];
-        this.formInline.callEndTime = this.searchTime5[1];
+        this.formInline.callStartTime = this.$store.getters.yyyy_m_d(this.searchTime5[0]);
+        this.formInline.callEndTime = this.$store.getters.yyyy_m_d(this.searchTime5[1]);
       } else {
         this.formInline.callStartTime = '';
         this.formInline.callEndTime = '';
@@ -354,7 +355,6 @@ export default {
         this.searchTime.push(this.formInline.collectionTimeBegin);
         this.searchTime.push(this.formInline.collectionTimeEnd);
       }
-      
     }
     this.operationList();
   }

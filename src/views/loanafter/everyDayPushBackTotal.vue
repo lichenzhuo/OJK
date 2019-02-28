@@ -177,6 +177,7 @@ export default {
       this.tableData1 = [];
       this.$store.commit('todaycuihuiList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.rucuiList();
       }

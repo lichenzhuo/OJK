@@ -128,9 +128,10 @@ export default {
       })
     },
     select () { // 搜索栏查询按钮点击操作
-      this.$store.commit('passingRate', this.formInline)
+      this.$store.commit('passingRate', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.currentPage = 1;
+        this.flag = false;
         this.getTableData();
       }
     },

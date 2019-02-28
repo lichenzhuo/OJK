@@ -320,8 +320,8 @@ export default {
       this.dataList();
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('noBackOrderList', this.formInline);
       if (this.flag) {
+        this.currentPage = 1;
         this.flag = false;
         this.dataList();
       }
@@ -592,8 +592,8 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.collectionTimeBegin = this.searchTime[0];
-        this.formInline.collectionTimeEnd = this.searchTime[1];
+        this.formInline.collectionTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.collectionTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
         this.formInline.collectionTimeBegin = '';
         this.formInline.collectionTimeEnd = '';
@@ -601,8 +601,8 @@ export default {
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.createTimeBegin = this.searchTime2[0];
-        this.formInline.createTimeEnd = this.searchTime2[1];
+        this.formInline.createTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.createTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
         this.formInline.createTimeBegin = '';
         this.formInline.createTimeEnd = '';
@@ -610,8 +610,8 @@ export default {
     },
     searchTime3 () {
       if (this.searchTime3) {
-        this.formInline.lastRefundTimeBegin = this.searchTime3[0];
-        this.formInline.lastRefundTimeEnd = this.searchTime3[1];
+        this.formInline.lastRefundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.lastRefundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
       } else {
         this.formInline.lastRefundTimeBegin = '';
         this.formInline.lastRefundTimeEnd = '';
@@ -619,8 +619,8 @@ export default {
     },
     searchTime4 () {
       if (this.searchTime4) {
-        this.formInline.promiseTimeBegin = this.searchTime4[0];
-        this.formInline.promiseTimeEnd = this.searchTime4[1];
+        this.formInline.promiseTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime4[0]);
+        this.formInline.promiseTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime4[1]);
       } else {
         this.formInline.promiseTimeBegin = '';
         this.formInline.promiseTimeEnd = '';
@@ -632,17 +632,6 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.noBackOrderList_select) !== '{}') {
-      this.formInline = this.$store.state.common.noBackOrderList_select;
-      if(this.formInline.loanTimeBegin!==''){
-        this.searchTime.push(this.formInline.loanTimeBegin);
-        this.searchTime.push(this.formInline.loanTimeEnd);
-      }
-      if(this.formInline.mustRefundTimeBegin!==''){
-        this.searchTime1.push(this.formInline.mustRefundTimeBegin);
-        this.searchTime1.push(this.formInline.mustRefundTimeEnd);
-      }
-    }
     this.dataList();// 获取借款列表
     this.getcollectionType();
   }
