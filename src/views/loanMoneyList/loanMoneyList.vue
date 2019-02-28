@@ -383,7 +383,7 @@ export default {
         })
       }
     },
-    removeHandler(file, fileList) {
+    removeHandler(file) {
       this.fileList = this.fileList.filter(value => {
         return file.uid !== value.uid;
       })
@@ -403,7 +403,7 @@ export default {
       //   return false
       // }
     },
-    uploadSuccess(res, file, fileList) {
+    uploadSuccess(res, file) {
       let data = res;
       this.fileList.push({
         data,

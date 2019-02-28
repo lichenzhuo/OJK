@@ -141,7 +141,7 @@
                 {{$t('loanAfterManage.sel')}}
               </span>
               <span 
-                v-if="scope.row.oStatus == 43"
+                v-if="scope.row.oStatus == 43||(scope.row.oStatus == 50&&scope.row.status == 2)"
                 style="color:#547ef6;cursor:pointer;margin-left:5px" 
                 @click="addCodeOpen(scope.row)">
                 {{$t('loanAfterManage.addPaycode')}}
