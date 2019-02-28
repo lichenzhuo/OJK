@@ -8,7 +8,8 @@ import store from './store/index'
 import 'babel-polyfill'
 
 import './assets/css/main.css' // 外部样式
-import 'src/assets/css/resources.scss' // 公共样式
+import './assets/css/public.css' // 总样式
+// import 'src/assets/css/resources.scss' // 公共样式
 
 // eslint-disable-next-line
 import Blob from './vender/Blob.js'

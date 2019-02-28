@@ -121,7 +121,7 @@
           </el-table-column>
           <el-table-column align="center" prop="repaymentCode" :label="$t('yn.no16')">
           </el-table-column>
-          <el-table-column align="center" prop="repayMentTimeStr" :label="$t('public.no60')"width="86">
+          <el-table-column align="center" prop="repayMentTimeStr" :label="$t('public.no60')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="thirdChannel" :label="$t('finance.channel')">
           </el-table-column>

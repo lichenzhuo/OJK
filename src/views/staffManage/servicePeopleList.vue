@@ -199,7 +199,7 @@ export default {
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
       this.currentPage = val;
-      this.dataList();
+      this.statisticsList();
     },
     statisticsList () { // 获取客服员列表
       let option = {
@@ -223,7 +223,7 @@ export default {
       if (this.flag) {
         this.currentPage = 1;
         this.flag = false;
-        this.dataList();
+        this.statisticsList();
       }
     },
     detail (groupId, memberId) { // 点击查看操作

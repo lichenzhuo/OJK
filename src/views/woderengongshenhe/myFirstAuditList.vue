@@ -152,7 +152,7 @@
             </template>
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
-            <template slot-scope="scope">
+            <template>
               <span>{{userName}}</span>
             </template>
           </el-table-column>
