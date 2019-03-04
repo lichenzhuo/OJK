@@ -60,13 +60,13 @@
           ~
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysEnd"></el-input>
         </div>
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
           <span>{{$t('new.no77')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysBegin"></el-input>
           ~
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysEnd"></el-input>
         </div>
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
           <span>{{$t('new.no78')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.repeatCountBegin"></el-input>
           ~
@@ -243,10 +243,12 @@
               <span >{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
-          </el-table-column>
-          <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')">
-          </el-table-column>
+          <template v-if="$store.state.common.lang!=='vi'">
+            <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
+            </el-table-column>
+            <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')">
+            </el-table-column>
+          </template>
           <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="strCallTime" :label="$t('new.no83')" width="86">
             </el-table-column>
@@ -563,7 +565,7 @@ export default {
       this.orderIds = arr;
       this.orderType = crr.join();
     },
-    unSelect (row, index) {
+    unSelect (row) {
       return row.status != 100;
     },
     getcollectionType(){ // 获取催收阶段

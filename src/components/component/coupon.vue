@@ -2,7 +2,7 @@
   <div class="coupon" v-if="userId">
     <div class="table">
       <template>
-        <el-table :data="tableData" stripe >
+        <el-table :data="tableData" stripe size="small">
           <el-table-column align="center" prop="couponName" :label="$t('filter.couponName')">
           </el-table-column>
           <el-table-column align="center" prop="couponType" :label="$t('filter.couponItem')">

@@ -171,7 +171,7 @@
         </li>
         <!-- 打款账户信息 -->
         <li v-if="active==5">
-          <table class="back-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
             <tr>
               <th width="13%">{{$t('yuenan.no18')}}</th>
               <th width="13%">{{$t('public.no19')}}</th>

@@ -1,19 +1,19 @@
 <template>
-  <div class="gezi" v-if="orderNo&&userId&&type">
-    <div class="search">
-      <div class="search-input" :class="{active:activeId==1}" @click="filter('',1)">{{$t('auditDetail.no34')}}</div>
-      <div class="search-input" :class="{active:activeId==2}" @click="filter('isRelative',2)">
+  <div v-if="orderNo&&userId&&type">
+    <div class="list_operation mt0" style="margin-top:0;">
+      <el-button :class="{active:activeId==1}" type="primary" @click="filter('',1)">{{$t('auditDetail.no34')}}</el-button>
+      <el-button class="ml15" type="primary" :class="{active:activeId==2}" @click="filter('isRelative',2)">
         {{$t('auditDetail.no37')}}{{telDataNum.relativesCount?telDataNum.relativesCount:0}}{{$t('auditDetail.no40')}}
-      </div>
-      <div class="search-input" :class="{active:activeId==3}" @click="filter('isInContact',3)">
+      </el-button>
+      <el-button class="ml15" type="primary" :class="{active:activeId==3}" @click="filter('isInContact',3)">
         {{$t('auditDetail.no38')}}{{String(telDataNum.callRate?telDataNum.callRate*100:0).slice(0,5)}}%
-      </div>
-      <div class="search-input" :class="{active:activeId==4}" @click="filter('isDun',4)">
+      </el-button>
+      <el-button class="ml15" type="primary" :class="{active:activeId==4}" @click="filter('isDun',4)">
         {{$t('auditDetail.no39')}}{{telDataNum.dunCount?telDataNum.dunCount:0}}{{$t('auditDetail.no40')}}
-      </div>
+      </el-button>
     </div>
 
-    <div class="table">
+    <div >
       <template>
         <el-table :data="tableData" v-loading="loading" stripe style="width: 100%">
           <el-table-column align="center" prop="name" :label="$t('public.name')" min-width="100">
@@ -52,18 +52,16 @@
     </div>
 
     <!-- ------------  分页显示栏  ------------------------ -->
-    <el-row type="flex" justify="center">
-      <el-col :md="14" :lg="12" :xl="11">
+    <el-row type="flex" justify="end">
         <div class="pages">
           <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          layout="total, prev, pager, next, ->"
-          :total="pageTotal?pageTotal:0"
-          >
-        </el-pagination>
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            layout="total, prev, pager, next, ->"
+            :total="pageTotal?pageTotal:0"
+            >
+          </el-pagination>
         </div>
-      </el-col>
     </el-row>
 
     <!-- ------------------ 点击回复弹窗开始 -------------------- -->
@@ -265,89 +263,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.gezi{
-  width: 100%;
-  height: auto;
-  position: relative;
-}
-
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-bottom: 22px;
-  padding: 10px 10px 10px 5px;
-  display: flex;
-  justify-content: flex-start;
-  .search-input {
-    width: auto;
-    height: 50px;
-    padding: 0 30px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 16px;
-    color: #000;
-    cursor: pointer;
-  }
-  .active{
-    color: #fff;
-    background-color: #547ef5;
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-.cardTable{
-  background-color: #fff;
-  margin-bottom: 40px;
-  table{
-    border: 1px solid #eee;
-    tr{
-      width: 100%;
-      td{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        border: 1px solid #eee;
-        word-break: break-all;
-      }
-      th{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #1D7BFF;
-        color: #fff;
-      }
-    }
-  }
-  
-}
-
-.pages{
-  height: 50px;
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-}
 
 .reply{
   width: 100%;

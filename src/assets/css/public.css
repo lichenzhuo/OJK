@@ -222,17 +222,17 @@
   height: auto;
 }
 
-.tabs .tabs_main li {
+.tabs .tabs_main>li {
   width: 100%;
   padding: 20px;
 }
 
-.tabs .tabs_main li .oneLineHasOne {
+.tabs .tabs_main>li .oneLineHasOne {
   width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
 }
 
-.tabs .tabs_main li .oneLineHasOne p {
+.tabs .tabs_main>li .oneLineHasOne p {
   width: 100%;
   line-height: 22px;
   display: flex;
@@ -240,28 +240,56 @@
   font-size: 16px;
 }
 
-.tabs .tabs_main li .oneLineHasOne p span:first-child {
+.tabs .tabs_main > li .oneLineHasOne p span:first-child {
   font-weight: 600;
   white-space: nowrap;
   color: #555;
 }
 
-.tabs .tabs_main li .oneLineHasOne p span:nth-child(2),
-.tabs .tabs_main li .oneLineHasOne p span:nth-child(3),
-.tabs .tabs_main li .oneLineHasOne p span:nth-child(4) {
+.tabs .tabs_main > li .oneLineHasOne p span:nth-child(2),
+.tabs .tabs_main > li .oneLineHasOne p span:nth-child(3),
+.tabs .tabs_main > li .oneLineHasOne p span:nth-child(4) {
   flex: auto;
   color: #777;
   margin-left: 15px;
   word-break: break-all;
 }
 
-.tabs .tabs_main li .oneLineHasThree {
+.tabs .tabs_main > li .oneLineHasTwo {
   width: 100%;
   margin-bottom: 26px;
   display: flex;
 }
 
-.tabs .tabs_main li .oneLineHasThree p {
+.tabs .tabs_main > li .oneLineHasTwo p {
+  width: 50%;
+  line-height: 22px;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.tabs .tabs_main > li .oneLineHasTwo p span:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  color: #555;
+}
+
+.tabs .tabs_main > li .oneLineHasTwo p span:nth-child(2),
+.tabs .tabs_main > li .oneLineHasTwo p span:nth-child(3) {
+  flex: auto;
+  color: #777;
+  margin-left: 15px;
+  word-break: break-all;
+}
+
+.tabs .tabs_main > li .oneLineHasThree {
+  width: 100%;
+  margin-bottom: 26px;
+  display: flex;
+}
+
+.tabs .tabs_main > li .oneLineHasThree p {
   width: 33%;
   line-height: 22px;
   display: flex;
@@ -269,25 +297,53 @@
   font-size: 16px;
 }
 
-.tabs .tabs_main li .oneLineHasThree p span:first-child {
+.tabs .tabs_main > li .oneLineHasThree p span:first-child {
   font-weight: 600;
   white-space: nowrap;
   color: #555;
 }
 
-.tabs .tabs_main li .oneLineHasThree p span:nth-child(2),
-.tabs .tabs_main li .oneLineHasThree p span:nth-child(3) {
+.tabs .tabs_main > li .oneLineHasThree p span:nth-child(2),
+.tabs .tabs_main > li .oneLineHasThree p span:nth-child(3) {
   flex: auto;
   color: #777;
   margin-left: 15px;
   word-break: break-all;
 }
 
-.tabs .tabs_main li .oneType-1 {
+.tabs .tabs_main > li .oneLineHasFour {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+}
+
+.tabs .tabs_main > li .oneLineHasFour p {
+  width: 25%;
+  line-height: 22px;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.tabs .tabs_main > li .oneLineHasFour p span:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  color: #555;
+}
+
+.tabs .tabs_main > li .oneLineHasFour p span:nth-child(2),
+.tabs .tabs_main > li .oneLineHasFour p span:nth-child(3) {
+  flex: auto;
+  color: #777;
+  margin-left: 15px;
+  word-break: break-all;
+}
+
+.tabs .tabs_main > li .oneType-1 {
   width: 80%;
 }
 
-.tabs .tabs_main li .oneType-2 {
+.tabs .tabs_main > li .oneType-2 {
   width: 20%;
   display: flex;
   justify-content: center;
