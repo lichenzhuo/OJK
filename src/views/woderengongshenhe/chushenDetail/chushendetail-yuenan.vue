@@ -26,35 +26,29 @@
         <li class="xuan-2-1" v-if="active2==1">
           <div class="detail">
             <div class="detail-1">
-              <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName!==null&&data.userBase.appName!==undefined&&data.userBase.appName!==''?data.userBase.appName:$store.state.common.nullData}}</span> </p>
-              <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage!==null&&data.userBase.appPackage!==undefined&&data.userBase.appPackage!==''?data.userBase.appPackage:$store.state.common.nullData}}</span> </p>
-              <p >
+              <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName | dataIsTrue}}</span> </p>
+              <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage | dataIsTrue}}</span> </p>
+              <!-- <p >
                 <span>{{$t('new.no55')}}:</span>
                 <span v-if="data.userSelf.whatsAPP!==null&&data.userSelf.whatsAPP!==undefined&&data.userSelf.whatsAPP!==''">{{data.userSelf.whatsAPP}}</span>
                 <span v-else> {{$store.state.common.nullData}} </span>
-              </p>
+              </p> -->
             </div>
             <div class="detail-1">
-              <p><span>{{$t('public.userId')}}:</span> <span>{{data.userBase.id!==null&&data.userBase.id!==undefined&&data.userBase.id!==''?data.userBase.id:$store.state.common.nullData}}</span> </p>
-              <p><span>{{$t('public.userTel')}}:</span> <span>{{data.userBase.phone!==null&&data.userBase.phone!==undefined&&data.userBase.phone!==''?data.userBase.phone:$store.state.common.nullData}}</span> </p>
-              <p><span>{{$t('yuenan.no23')}}:</span> <span>{{data.userBase.phone!==null&&data.userBase.phone!==undefined&&data.userBase.phone!==''?$store.getters.vn_phone(data.userBase.phone):$store.state.common.nullData}}</span> </p>
-              <p><span>{{$t('yuenan.no25')}}:</span> <span>{{data.userSelf.alternativePhone!==null&&data.userSelf.alternativePhone!==undefined&&data.userSelf.alternativePhone!==''?data.userSelf.alternativePhone:$store.state.common.nullData}}</span> </p>
+              <p><span>{{$t('public.userId')}}:</span> <span>{{data.userBase.id | dataIsTrue}}</span> </p>
+              <p><span>{{$t('public.userTel')}}:</span> <span>{{data.userBase.phone | dataIsTrue}}</span> </p>
+              <p><span>{{$t('yuenan.no23')}}:</span> <span>{{$store.getters.vn_phone(data.userBase.phone)}}</span> </p>
+              <!-- <p><span>{{$t('yuenan.no25')}}:</span> <span>{{data.userSelf.alternativePhone!==null&&data.userSelf.alternativePhone!==undefined&&data.userSelf.alternativePhone!==''?data.userSelf.alternativePhone:$store.state.common.nullData}}</span> </p> -->
             </div>
             <div class="detail-1">
-              <p><span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name!==null&&data.userBase.name!==undefined&&data.userBase.name!==''?data.userBase.name:$store.state.common.nullData}}</span> </p>
-              <p><span>{{$t('public.CreateDate')}}:</span> <span>{{data.userSelf.strCreateTime!==null&&data.userSelf.strCreateTime!==undefined&&data.userSelf.strCreateTime!==''?data.userSelf.strCreateTime:$store.state.common.nullData}}</span> </p>
-              <template >
-                <p v-if="data.userSelf.marriage!==null&&data.userSelf.marriage!==undefined&&data.userSelf.marriage!==''"><span>{{$t('public.no3')}}: </span>
+              <p><span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name | dataIsTrue}}</span> </p>
+              <!-- <p><span>{{$t('public.CreateDate')}}:</span> <span>{{data.userSelf.strCreateTime | dataIsTrue}}</span> </p> -->
+                <p ><span>{{$t('public.no3')}}: </span>
                   <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
                 </p>
-                <p v-else><span>{{$t('public.no3')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userSelf.degree!==null&&data.userSelf.degree!==undefined&&data.userSelf.degree!==''"><span>{{$t('public.no5')}}: </span>
+                <p><span>{{$t('public.no5')}}: </span>
                   <span>{{$t($store.getters.vi_education(data.userSelf.degree))}}</span>
                 </p>
-                <p v-else><span>{{$t('public.no5')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
             </div>
             <div class="detail-1">
               <p >
