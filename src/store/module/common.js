@@ -32,8 +32,6 @@ const common = {
     lang: global.config.lang, // 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
     id_currency: global.config.first_unit, // 印尼金钱单位 Rp
     vi_currency: global.config.last_unit, // 越南金钱单位 VND 菲律宾金钱单位PHP
-    //     ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    //     **********      版本打包还有下方金钱处理需要修改     ******************
     permiss: filterPer(),
     preMonth: getPreMonth(),
     userList_select: {},
@@ -131,10 +129,16 @@ const common = {
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
-      return String(str).split('.').map(
-        function (val, index) {
-          return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
-        }).join('.')
+      if(str){
+        return String(str).split('.').map(
+          function (val, index) {
+            return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
+          }
+        ).join('.')
+      }else{
+        return '-';
+      }
+      
     },
     toArray: () => (obj) => {
       // let arr = []

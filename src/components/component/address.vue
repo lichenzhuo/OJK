@@ -48,21 +48,8 @@ export default {
   },
   methods: {
     handleCurrentChange (val) {
-      this.currentPage = val
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.address_list,
-          'page': {'index': val, 'size': 30},
-          'sessionid': this.sessionid
-        },
-        orderNo: this.orderNo
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-        }
-      })
+      this.currentPage = val;
+      this.tableList();
     },
     tableList () {
       let option = {
@@ -76,29 +63,25 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     }
   },
   watch: {
     activeData () {
-      this.getAddress(this.activeData)
+      this.getAddress(this.activeData);
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.tableList()
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.tableList();
   }
 }
 </script>
 <style lang="scss" scoped>
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 .gezi{
   width: 100%;
   height: auto;
@@ -128,89 +111,6 @@ span.active3{
   color: #3b56ee;
 }
 
-
-.reply{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .reply-main{
-    width: 694px;
-    height: auto;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    .reply-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .reply-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .chu-select{
-        margin: 20px 20px;
-        padding: 5px 0;
-        display: flex;
-        .chu-select-left{
-          width: 15%;
-          
-        }
-        .chu-select-right{
-          width: 85%;
-          .search_inpu{
-            width: 100%;
-            height: 150px;
-            padding: 5px;
-            font-size: 16px;
-          }
-        }
-      }
-      .reply-but{
-        width: 220px;
-        height: 38px;
-        background-color: #547ef5;
-        border-radius: 5px;
-        margin: 0 auto;
-        text-align: center;
-        line-height: 38px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-      }
-    }
-  }
-}
 .el-radio span{
   user-select: text;
 }

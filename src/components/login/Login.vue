@@ -64,11 +64,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.logining = true
-          let jse = new JSEncrypt()
-          jse.setPublicKey(this.$store.state.common.publicKey)
+          this.logining = true;
+          // eslint-disable-next-line
+          let jse = new JSEncrypt();
+          jse.setPublicKey(this.$store.state.common.publicKey);
           //   设置需要加密的字符串
-          let encrypted = jse.encrypt(this.ruleForm.password)
+          let encrypted = jse.encrypt(this.ruleForm.password);
           let option = {
             header: {
               action: this.$store.state.actionMap.login,
@@ -81,18 +82,18 @@ export default {
             this.logining = false
             if (res.data.header.code == 0) {
               this.ruleForm.password = ''
-              sessionStorage.setItem('level', res.data.data.admininfo.level)
-              sessionStorage.setItem('sessionid', res.data.data.sessionid)
-              sessionStorage.setItem('name', res.data.data.admininfo.name)
-              sessionStorage.setItem('roleId', res.data.data.admininfo.roleId)
-              sessionStorage.setItem('list', JSON.stringify(res.data.data.admininfo.rightList))
-              this.$router.push('/adminhome')
+              sessionStorage.setItem('level', res.data.data.admininfo.level);
+              sessionStorage.setItem('sessionid', res.data.data.sessionid);
+              sessionStorage.setItem('name', res.data.data.admininfo.name);
+              sessionStorage.setItem('roleId', res.data.data.admininfo.roleId);
+              sessionStorage.setItem('list', JSON.stringify(res.data.data.admininfo.rightList));
+              this.$router.push('/adminhome');
             } else {
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
           })
         } else {
-          return false
+          return false;
         }
       })
     },
@@ -330,7 +331,6 @@ export default {
       this.$store.commit('rateOfReturn', {})
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
-      this.$store.commit('cuihuiTotalList', {})
       this.$store.commit('noBackOrderList', {})
     },
     typeToPass(){

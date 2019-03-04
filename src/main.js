@@ -23,6 +23,7 @@ import './assets/icon/iconfont.css' // icon字体
 
 import './utils/fn.js' // 公共头部
 import './utils/axios.js' // 请求
+import './utils/filter.js' // 请求
 
 import './utils/excel.js' // 输出EXCEL文件
 import './utils/makeExcel' // 前端导出excel

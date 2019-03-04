@@ -1,5 +1,7 @@
 $color1:#1D7BFF;
 $color2:#333;
+$color3:#555;
+$color4:#777;
 @mixin flex-cen {
   display: flex;
   justify-content: center;
@@ -19,6 +21,27 @@ $color2:#333;
       color: $color2;
       font-size: 16px;
       margin: 0 10px;
+      word-break: break-all;
+    } 
+  }
+}
+
+@mixin p-span2($width) {
+  p{
+    width: $width;
+    line-height: 22px;
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 16px;
+    span:first-child{
+      font-weight: 600;
+      white-space: nowrap;
+      color: $color3;
+    }
+    span:nth-child(2),span:nth-child(3),span:nth-child(4){
+      flex: auto;
+      color: $color4;
+      margin-left: 15px;
       word-break: break-all;
     } 
   }
