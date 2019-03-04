@@ -6,7 +6,7 @@ const phDEV = 'back-ph'; // 测试环境
 const ynPRO = 'myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'kilatloan'; // 印尼包生产环境
-// const vnPRO = 'mydong'; // 越南生产环境
+const vnPRO1 = 'mydong'; // 越南生产环境
 const vnPRO = 'dongabc'; // 越南生产环境
 const phPRO = 'getpeso'; // 菲律宾生产环境
 
@@ -57,6 +57,13 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
   // domain = `https://api.mydong.vn`;
   domain = `http://api.dongabc.com`;
+  headerTotal = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(vnPRO1) > -1) {
+  domain = `https://api.mydong.vn`;
+  // domain = `http://api.dongabc.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
