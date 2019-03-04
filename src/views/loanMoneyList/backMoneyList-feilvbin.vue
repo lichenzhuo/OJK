@@ -387,10 +387,7 @@ export default {
         this.$axios.post('', option).then(res => {
           this.flag = true
           if (res.data.header.code == 0) {
-            let title = res.data.data.titles;
-            let fields = res.data.data.fields;
-            let data = res.data.data.data;
-            this.$export2Excel(title,fields,data);
+            window.location.href = res.data.data.fileName;
           }
         })
       }
