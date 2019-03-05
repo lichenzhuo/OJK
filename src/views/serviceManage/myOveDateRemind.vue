@@ -187,6 +187,10 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="serviceRecordTodayCount" :label="$t('fei.no15')">
+            </el-table-column>
+          </template>
           <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="strCallTime" :label="$t('new.no87')" width="86">
             </el-table-column>

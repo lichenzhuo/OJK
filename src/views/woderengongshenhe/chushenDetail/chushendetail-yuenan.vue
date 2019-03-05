@@ -522,7 +522,7 @@
             <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
           </div>
           <div class="xuan-2-1-2">
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendOneName">
+            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendOneFblink">
               <p>friends 1 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendOneName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendOnePhone | dataIsTrue}}</span> </p>
@@ -531,25 +531,25 @@
             <div v-else class="xuan-2-1-2-1">
               <p>{{$t('public.no23')}}</p>
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendTwoName">
+            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendTwoFblink">
               <p>friends 2 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendTwoName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendTwoPhone | dataIsTrue}}</span> </p>
               <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendTwoFblink | dataIsTrue}}</span> </p>
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendThreeName">
+            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendThreeFblink">
               <p>friends 3 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendThreeName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendThreePhone | dataIsTrue}}</span> </p>
               <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendThreeFblink | dataIsTrue}}</span> </p>
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFourName">
+            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFourFblink">
               <p>friends 4 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFourName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFourPhone | dataIsTrue}}</span> </p>
               <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFourFblink | dataIsTrue}}</span> </p>
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFiveName">
+            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFiveFblink">
               <p>friends 5 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFiveName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFivePhone | dataIsTrue}}</span> </p>
