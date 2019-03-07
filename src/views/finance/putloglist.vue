@@ -116,7 +116,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNT_LENDING_LIST')">
       <template>
-        <el-table :data="tableData" stripe size="small">
+        <el-table :data="tableData" stripe size="small" v-loading="loadFlag">
           <el-table-column align="center" prop="btId" :label="$t('public.putId')">
           </el-table-column>
           <el-table-column align="center" prop="orderId" :label="$t('public.orderId')">
@@ -184,6 +184,7 @@ export default {
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
@@ -231,6 +232,7 @@ export default {
       }
     },
     putMoneyList () { // 放款列表获取
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -245,6 +247,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },

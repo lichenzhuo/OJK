@@ -261,7 +261,7 @@ import appLightbox from '../../../components/component/lightbox'// 图片点击�
 import couponList from '../../../components/component/coupon'// 优惠券列表
 
 export default {
-  name: 'userManage',
+  name: 'userDetail',
   components: {
     appLightbox,
     couponList

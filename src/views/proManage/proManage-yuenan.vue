@@ -611,7 +611,7 @@ export default{
             this.ruleForm2.canAdvanceType = res.data.data.canAdvanceType;
             this.ruleForm2.appPackage = res.data.data.appPackage;
             this.ruleForm2.minSuccessRepayments = res.data.data.minSuccessRepayments;
-            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays?res.data.data.userOverdueMaxDays:'';
+            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays==-1?'':res.data.data.userOverdueMaxDays;
             this.add = true;
           }
         }

@@ -680,6 +680,7 @@ export default {
               this.flag = true;
               if (res.data.header.code == 0) {
                 this.$globalMsg.success(this.$t('message.success'));
+                this.detail();
               } else {
                 this.$globalMsg.error(res.data.header.msg);
               }

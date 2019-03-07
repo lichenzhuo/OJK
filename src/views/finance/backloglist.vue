@@ -94,9 +94,9 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNT_REPAY_LIST')">
+    <div class="table"  v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNT_REPAY_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe>
+        <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
           <el-table-column align="center" prop="repaymentNo" :label="$t('public.backId')">
           </el-table-column>
           <el-table-column align="center" prop="orderId" :label="$t('public.orderId')">
@@ -224,6 +224,7 @@
     data() {
       return {
         flag: true,
+        loadFlag: true,
         sessionid: '',
         pageTotal: 0, // 分页总数
         pageNumber: 10, // 每页条数
@@ -307,6 +308,7 @@
         }
       },
       backMoneyList() {
+        this.loadFlag = true;
         let option = {
           header: {
             ...this.$base,
@@ -324,6 +326,7 @@
           if (res.data.header.code == 0) {
             this.tableData = res.data.data;
             this.pageTotal = res.data.header.page.total;
+            this.loadFlag = false;
           }
         })
       },
