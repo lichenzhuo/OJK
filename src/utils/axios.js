@@ -18,44 +18,46 @@ Vue.prototype.$globalMsg = {
 }
 
 // 超时时间
-axios.defaults.timeout = 100000
+axios.defaults.timeout = 100000;
 // http请求拦截器
-var loadinginstace
+var loadinginstace;
 axios.interceptors.request.use(config => {
   // element ui Loading方法
-  loadinginstace = Loading.service({ fullscreen: true })
-  return config
+  loadinginstace = Loading.service({ fullscreen: true });
+  return config;
 }, error => {
-  loadinginstace.close()
+  loadinginstace.close();
   // Message.error({
   //   message: '加载超时',
   //   duration:1000
   // })
-  window.location.reload()
-  return Promise.reject(error)
+  window.location.reload();
+  return Promise.reject(error);
 })
 
 // http响应拦截器
 axios.interceptors.response.use((res) => {
-  loadinginstace.close()
   if (res.data.header.code == 0) { // 请求成功
+    loadinginstace.close();
     return (res)
   } else if (res.data.header.code == -105) {
+    loadinginstace.close();
     Message.error({
       message: res.data.header.msg,
       duration: 1000
     })
-    sessionStorage.clear()
-    window.location.reload()
+    sessionStorage.clear();
+    window.location.reload();
   } else {
-    return (res)
+    loadinginstace.close();
+    return (res);
   }
 }, (error) => {
-  loadinginstace.close()
-  return Promise.reject(error)
+  loadinginstace.close();
+  return Promise.reject(error);
 })
 
-Vue.prototype.$axios = axios
+Vue.prototype.$axios = axios;
 
 axios.defaults.baseURL = global.config.requestUrl;// 线下接口
 

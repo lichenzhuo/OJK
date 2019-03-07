@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" v-loading="loadFlag">
     <!-- ------------ 今日数据开始 ------------------------ -->   
     <!-- <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
       <el-row>
@@ -403,7 +403,7 @@ require('echarts/lib/component/grid')
 require('echarts/lib/component/legendScroll')
 // require('echarts/lib/component/legend')
 export default {
-  name: 'userManage',
+  name: 'adminHome',
   data () {
     return {
       sessionid: '',
@@ -417,6 +417,7 @@ export default {
       data3: [], // 本周
       data4: [], // 本月
       flag: false,
+      loadFlag: true,
       mainDataTwo:{
         all: '', // 累计数据
         amount: '', // 实时数据
@@ -460,6 +461,8 @@ export default {
           this.mainData.today = res.data.data.today
           this.data1 = res.data.data.sevenDayData
           this.data2 = res.data.data.oneMonthData
+          this.loadFlag = false;
+          // console.log(1);
           if(this.data1&&this.data2&&this.data3&&this.data4){
             this.drawLine1()// 还款量统计图
             this.drawLine2()// 放款量统计图

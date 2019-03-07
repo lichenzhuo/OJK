@@ -114,7 +114,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe empty-text>
+        <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
           <el-table-column align="center" prop="id" :label="$t('public.orderId')" >
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')">
@@ -252,6 +252,7 @@ export default {
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0,// 当前页数
       pageNumber: 10, // 每页条数
@@ -321,6 +322,7 @@ export default {
       this.backList (val);
     },
     backList (val) { // 获取还款列表数据
+      this.loadFlag = true;
       if(val){
         this.currentPage = val;
       }
@@ -338,6 +340,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },

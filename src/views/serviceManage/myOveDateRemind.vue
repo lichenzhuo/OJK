@@ -107,6 +107,25 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
+          <div class="search-input" v-if="$store.state.common.lang==='PHL'">
+            <!-- <el-col :md="8" :lg="5" :xl="5"> -->
+              <div class="search-input">
+                <span>{{$t('fei.no15')}}:</span>
+                <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
+              </div>
+            <!-- </el-col> -->
+            <span>{{$t('serviceManage.noticeTime')}}:</span>
+            <el-date-picker 
+              size="small"
+              v-model="searchTime3" 
+              value-format="yyyy-MM-dd" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </div>
         <template v-if="$store.state.common.lang!=='PHL'">
           <div class="search-input" >
             <span>{{$t('new.no87')}}:</span>
@@ -140,7 +159,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe>
+        <el-table :data="tableData" v-loading="loadFlag" size="small" stripe>
           <el-table-column align="center" prop="id" :label="$t('public.orderId')">
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')">
@@ -188,6 +207,8 @@
             </template>
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="strRemindTime" :label="$t('serviceManage.noticeTime')">
+            </el-table-column>
             <el-table-column align="center" prop="serviceRecordTodayCount" :label="$t('fei.no15')">
             </el-table-column>
           </template>
@@ -266,11 +287,13 @@ export default {
     return {
       sessionid: '',
       flag: true,
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [], // 还款时间
       searchTime1: [], // 应还时间
       searchTime2: [], // 派单时间
+      searchTime3: [], // 提醒时间
       searchTime5: [], // 最近群呼时间
       formInline: { // 用户查询信息数据对应字段
         orderId: '',
@@ -281,6 +304,7 @@ export default {
         serviceStatus: '',
         orderStatus: '',
         callStatus: '',
+        remindCount: '',
         callStartTime:'',
         callEndTime:'',
         serviceTimeStart: '',
@@ -289,6 +313,8 @@ export default {
         loanTimeEnd: '',
         mustRefundTimeBegin: '',
         mustRefundTimeEnd: '',
+        reminderTimeBegin: '',
+        reminderTimeEnd: '',
         overdueBegin: '',
         overdueEnd: ''
       },
@@ -322,6 +348,7 @@ export default {
       this.$router.push({path: '/telnoticedetail', query: {orderNo, userId,overdueDays,type:1}});
     },
     loansList () { // 获取借款列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -336,6 +363,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },
@@ -382,6 +410,15 @@ export default {
       } else {
         this.formInline.serviceTimeStart = '';
         this.formInline.serviceTimeEnd = '';
+      }
+    },
+    searchTime3 () {
+      if (this.searchTime3) {
+        this.formInline.reminderTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.reminderTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
+      } else {
+        this.formInline.reminderTimeBegin = '';
+        this.formInline.reminderTimeEnd = '';
       }
     },
     searchTime5 () {

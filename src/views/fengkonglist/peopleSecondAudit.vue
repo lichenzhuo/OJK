@@ -120,7 +120,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_REVIEW_LIST')">
       <template>
-        <el-table :data="tableData" stripe size="small" @selection-change="handleSelectionChange">
+        <el-table :data="tableData" stripe size="small" v-loading="loadFlag" @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('public.orderId')">
@@ -241,6 +241,8 @@ export default {
   name: 'peopleSecondAudit',
   data () {
     return {
+      flag: true, // 点击一次开关
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
@@ -269,7 +271,7 @@ export default {
       options2: this.$store.state.options.recheckOrder_option1, // 复审列表订单状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       tableData: [], // 用户信息数据模拟
-      flag: true, // 点击一次开关
+      
       multipleSelection: [],
       redeployFlag: false, // 转派弹窗开关
       redeployStatus: '', // 选中的信审员
@@ -299,6 +301,7 @@ export default {
       }
     },
     fushenList () { // 获取复审列表数据
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -313,6 +316,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },
@@ -339,7 +343,7 @@ export default {
     handleSelectionChange (val) { // 表格选中项数据
       this.multipleSelection = val;
     },
-    unSelect (row, index) {
+    unSelect (row) {
       return row.status == 21||row.status == 30;
     },
     todayRedeploy () { // 转派按钮点击操作

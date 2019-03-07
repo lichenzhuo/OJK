@@ -129,7 +129,7 @@ const common = {
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
-      if(str){
+      if(typeof str !== 'undefined' || str !== ''){
         return String(str).split('.').map(
           function (val, index) {
             return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
@@ -173,10 +173,15 @@ const common = {
       state.permiss = arr
     },
     twoPoint: () => (str) => { // 截取小数点后两位
-      var aNew
-      var re = /([0-9]+\.[0-9]{2})[0-9]*/
-      aNew = String(str * 100).replace(re, '$1')
-      return aNew
+      if(typeof str !== 'undefined' || str !== ''){
+        var aNew
+        var re = /([0-9]+\.[0-9]{2})[0-9]*/
+        aNew = String(str * 100).replace(re, '$1')
+        return aNew
+      }else{
+        return '-'
+      }
+      
     },
     dayData: () => (obj) => { // 首页数据图
       let arr = []

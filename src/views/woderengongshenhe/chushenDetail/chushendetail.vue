@@ -773,7 +773,7 @@ import auditDetail from '../../../components/component/auditdetail'
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
 
 export default {
-  name: 'userManage',
+  name: 'auditDetails',
   components: {
     telRecordList,
     noteRecordList,
@@ -1584,12 +1584,12 @@ $color2:#000;
   .xuan-2-1-2{
     width: 100%;
     .xuan-2-1-2-1{
-      margin: 20px 20px;
+      margin: 10px;
       display: flex;
       align-items: center;
       @include p-span;
       p{
-        padding-right: 50px;
+        padding-right: 10px;
       }
       .tooltip{
         width: 15px;

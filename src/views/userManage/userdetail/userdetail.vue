@@ -57,7 +57,7 @@
           </div>
           <div class="twoimgbox">
             <template>
-              <div v-if="userIdcard.idcardPhotoUrl!=''" class="idimg pic" @click="openBox({imgUrl:userIdcard.idcardPhotoUrl})">
+              <div v-if="userIdcard.idcardPhotoUrl" class="idimg pic" @click="openBox({imgUrl:userIdcard.idcardPhotoUrl})">
                 <img :src="userIdcard.idcardPhotoUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')">
               </div>
               <div v-else class="idimg pic" >
@@ -65,7 +65,7 @@
               </div>
             </template>
             <template>
-              <div v-if="userIdcard.facetimePhotoUrl!=''" class="idimg pic" @click="openBox({imgUrl:userIdcard.facetimePhotoUrl})">
+              <div v-if="userIdcard.facetimePhotoUrl" class="idimg pic" @click="openBox({imgUrl:userIdcard.facetimePhotoUrl})">
                 <img :src="userIdcard.facetimePhotoUrl" :alt="$t('pic.no2')" :title="$t('pic.no2')">
               </div>
               <div v-else class="idimg pic" >
@@ -117,7 +117,7 @@
             </div>
             <div class="oneLineHasOne">
                 <p ><span>{{$t('public.no14')}}:</span> 
-                  <span>{{userWork.companyProvinceName +"-"+ userWork.companyCityName}}</span>
+                  <span>{{userWork.companyProvinceName | dataIsTrue}} {{userWork.companyCityName | dataIsTrue}}</span>
                 </p>
             </div>
             <div class="oneLineHasOne">
@@ -128,7 +128,7 @@
           </div>
           <div class="oneType-2">
             <template>
-              <div v-if="userWork.incomePicUrl!=''" class="gongziimg pic" @click="openBox({imgUrl:userWork.incomePicUrl})">
+              <div v-if="userWork.incomePicUrl" class="gongziimg pic" @click="openBox({imgUrl:userWork.incomePicUrl})">
                 <img :src="userWork.incomePicUrl" :alt="$t('pic.no3')" :title="$t('pic.no3')">
               </div>
               <div v-else class="gongziimg pic" >

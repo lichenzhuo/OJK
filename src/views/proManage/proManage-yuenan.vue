@@ -273,7 +273,6 @@ export default{
       }
     }
     var validateFloat = (rule, value, callback) => {
-      console.log(value)
       let reg = /^[0-9]+(.[0-9]{1,4})?$/
       if (value === '') {
         callback(new Error(this.$t('login.required')))
@@ -348,9 +347,9 @@ export default{
         canAdvanceDay: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        userOverdueMaxDays: [
-          { validator: validateNumber1, trigger: 'blur' }
-        ],
+        // userOverdueMaxDays: [
+        //   { validator: validateNumber1, trigger: 'blur' }
+        // ],
         minSuccessRepayments: [
           { validator: validateNumber1, trigger: 'blur' }
         ],
@@ -612,7 +611,7 @@ export default{
             this.ruleForm2.canAdvanceType = res.data.data.canAdvanceType;
             this.ruleForm2.appPackage = res.data.data.appPackage;
             this.ruleForm2.minSuccessRepayments = res.data.data.minSuccessRepayments;
-            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays;
+            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays?res.data.data.userOverdueMaxDays:'';
             this.add = true;
           }
         }

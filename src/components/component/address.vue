@@ -1,5 +1,5 @@
 <template>
-  <div class="gezi">
+  <div class="component">
       <ul>
         <li v-for="(item,index) in tableData" :key="index">
           <el-radio-group v-model="activeData" class="radio1">
@@ -9,6 +9,9 @@
               <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99}">{{item.contactCnt?item.contactCnt:0}}{{$t('operationDetail.no15')}}</span>
               <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99}" style="margin:0 10px;" >{{item.keepTime?item.keepTime:0}}s </span>
               <span v-if="$store.state.common.lang==='PHL'" :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99}">{{item.operator?item.operator:''}}</span>
+              <template v-if="$store.state.common.lang==='PHL'&&item.isEffective">
+                <span class="mg5" >{{item.isEffective=='-1'?0:1}}</span>
+              </template>
             </el-radio>
           </el-radio-group>
         </li>
@@ -82,7 +85,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-.gezi{
+.component{
   width: 100%;
   height: auto;
   ul{

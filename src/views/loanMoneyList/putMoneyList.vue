@@ -108,7 +108,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe >
+        <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
           <el-table-column align="center" prop="id" :label="$t('public.orderId')" >
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')" >
@@ -213,6 +213,7 @@ export default {
     return {
       sessionid: '',
       clickFlag: true,
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [], // 查询时间
@@ -282,6 +283,7 @@ export default {
       }
     },
     putList () { // 放款列表数据
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -296,6 +298,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },

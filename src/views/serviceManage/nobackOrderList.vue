@@ -162,7 +162,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe @selection-change="handleSelectionChange">
+        <el-table :data="tableData" size="small" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('public.orderId')">
@@ -305,6 +305,7 @@ export default {
     return {
       sessionid: '',
       flag: true,
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [], // 还款时间
@@ -393,6 +394,7 @@ export default {
       this.$router.push({path: '/telnoticedetail', query: {userId, orderNo,type:2}});
     },
     dataList () { // 获取借款列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -407,6 +409,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },

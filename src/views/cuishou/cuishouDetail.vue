@@ -296,11 +296,8 @@
                 <el-radio v-for="(item,index) in data.orderUrgentContact" :key="index" :label="item.contactName+','+item.contactRelation+','+item.contactPhone">
                   <span>{{$t('public.name')}}：{{item.contactName}}</span>
                   <span style="margin:0 20px;">{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
-                  <span>{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}} {{$t('operationDetail.no15')}}</span>
-                  <span>{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span>
-                  <template v-if="$store.state.common.lang==='PHL'">
-                    <span class="mg5">{{$t('fei.no8')}}：{{item.operator}}</span>
-                  </template>
+                  <span class="mg5">{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}}{{$t('operationDetail.no15')}}</span>
+                  <span class="mg5">{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span>
                 </el-radio>
               </el-radio-group>
             </template>

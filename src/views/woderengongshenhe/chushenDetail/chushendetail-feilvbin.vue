@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data" class="usermanage">
+  <div v-if="data" class="public_main">
     <div class="crumbs" v-if="block==2">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
@@ -933,7 +933,7 @@ import loanList from '../../../components/component/loantable'
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
 
 export default {
-  name: 'userManage',
+  name: 'auditDetail',
   components: {
     telRecordList,
     noteRecordList,

@@ -110,7 +110,7 @@
           </el-table-column>
           <el-table-column align="center" prop="appPackage" :label="$t('new.no49')">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"

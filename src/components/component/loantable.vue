@@ -62,12 +62,12 @@
 </template>
 <script>
 export default {
-  props: {
-    orderNo: [String, Number],
-    userId: [String, Number],
-    tableData: [Object, Array],
-    tagList: [Object, Array]
-  },
+  props: [
+    'orderNo',
+    'userId',
+    'tableData',
+    'tagList'
+  ],
   data () {
     return {
       currentPage: 1, // 分页当前页下标
@@ -83,9 +83,6 @@ export default {
     }
   },
   methods: {
-    handleCurrentChange (val) {
-      this.currentPage = val
-    },
     socialDetali (orderNo) {
       this.$router.push({path: '/loanmoneydetail', query: {orderNo, userId: this.userId}})
     }

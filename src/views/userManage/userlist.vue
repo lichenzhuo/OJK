@@ -113,9 +113,10 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_LIST')">
+    <div class="table"  v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_LIST')">
       <template v-if="$store.state.common.lang==='vi'">
         <el-table 
+          v-loading="loadFlag"
           :data="tableData" 
           size="small"
           style="width: 100%"
@@ -171,6 +172,7 @@
       </template>
       <template v-else>
         <el-table 
+          v-loading="loadFlag"
           :data="tableData" 
           size="small" 
           style="width: 100%"
@@ -265,6 +267,7 @@ export default {
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
@@ -328,6 +331,7 @@ export default {
     userList () { // 获取用户列表
       this.tableSelect = '';
       this.radioVal = '';
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -342,6 +346,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },

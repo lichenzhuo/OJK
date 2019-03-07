@@ -179,7 +179,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_LIST')">
       <template>
-        <el-table :data="tableData" size="mini" stripe @selection-change="handleSelectionChange">
+        <el-table :data="tableData" size="mini" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
           <el-table-column align="center" prop="orderId" :label="$t('public.orderId')" >
@@ -332,6 +332,7 @@ export default {
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       flag: true, // 点击开关
+      loadFlag: false, // 点击开关
       searchTime: [], // 最后催收时间
       searchTime1: [], // 派单时间
       searchTime2: [], // 入催时间
@@ -396,6 +397,7 @@ export default {
       this.$router.push({path: '/cuishoudetail', query: {orderNo, type: '2'}});
     },
     operationList () { // 获取入催订单列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -410,6 +412,7 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },
