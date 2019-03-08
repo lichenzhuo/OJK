@@ -279,12 +279,12 @@
             <template v-if="data.orderUrgentContact!==null&&data.orderUrgentContact!==undefined&&data.orderUrgentContact!=''">
               <el-radio-group v-model="emeContact" class="radio1">
                 <el-radio v-for="(item,index) in data.orderUrgentContact" :key="index" :label="item.contactName+','+item.contactRelation+','+item.contactPhone">
-                  <span>{{$t('public.name')}}：{{item.contactName}}</span>
-                  <span class="mg5">{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
-                  <span class="mg5">{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}}{{$t('operationDetail.no15')}}</span>
-                  <span class="mg5">{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span>
-                  <span class="mg5">{{$t('fei.no8')}}：{{item.operator}}</span>
-                  <span class="mg5" v-if="item.isEffective">{{item.isEffective=='-1'?0:1}}</span>
+                  <span class="cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('public.name')}}：{{item.contactName}}</span>
+                  <span class="mg5 cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
+                  <span class="cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}}{{$t('operationDetail.no15')}}</span>
+                  <span class="mg5 cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span>
+                  <span class="cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('fei.no8')}}：{{item.operator}}</span>
+                  <span class="mg5 cl555" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}" v-if="item.isEffective">{{item.isEffective=='-1'?0:1}}</span>
                 </el-radio>
               </el-radio-group>
             </template>
@@ -295,8 +295,35 @@
         </li>
         <!-- ------------ 通话联系人开始------------------------ -->
         <li  v-if="active2==3">
-          <div >
-            <address-list :get-address="getLinkMan" :order-no="orderNo"></address-list>
+          <div class="component">
+            <ul>
+              <li v-for="(item,index) in tableData" :key="index">
+                <el-radio-group v-model="contact" class="radio1">
+                  <el-radio :label="item.name+','+item.relation+','+item.phone">
+                    <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99,fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.name}}</span>
+                    <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99,fw600:item.isEffective===1,cl999:item.isEffective===-1}" style="margin:0 5px;" >{{item.phone}}</span>
+                    <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99,fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.contactCnt?item.contactCnt:0}}{{$t('operationDetail.no15')}}</span>
+                    <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99,fw600:item.isEffective===1,cl999:item.isEffective===-1}" style="margin:0 5px;" >{{item.keepTime?item.keepTime:0}}s</span>
+                    <span :class="{active1:item.relation!=9&&item.relation!=98&&item.relation!=99,fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.operator?item.operator:''}}</span>
+                    <template v-if="item.isEffective">
+                      <span class="mg5" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.isEffective=='-1'?0:1}}</span>
+                    </template>
+                  </el-radio>
+                </el-radio-group>
+              </li>
+            </ul>
+            <el-row type="flex" justify="end">
+              <div class="pages">
+                <el-pagination
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage"
+                  layout="total, prev, pager, next,  ->"
+                  :total="pageTotal?pageTotal:0"
+                  :page-size="30"
+                >
+                </el-pagination>
+              </div>
+            </el-row>
           </div>
         </li>
         <!-- ------------ 公司电话开始------------------------ -->
@@ -376,7 +403,7 @@
               </el-form-item>
             </template>
             
-            <el-form-item :label="$t('public.no38')">
+            <el-form-item :label="$t('public.no38')" prop="remark">
               <el-input type="textarea" v-model="ruleForm.remark" :rows="4"></el-input>
             </el-form-item>
             <el-form-item>
@@ -503,6 +530,9 @@ export default {
   },
   data () {
     return {
+      currentPage: 1, // 分页当前页下标
+      pageTotal: 0, // 分页总数
+      tableData: [],
       sessionid: '',
       collectionId: '', // 传过来的催收ID
       orderNo: '', // 传过来的订单编号
@@ -563,6 +593,9 @@ export default {
           { required: true, message: this.$t('operationDetail.no21'), trigger: 'change' }
         ],
         money:[
+          { required: true, message: this.$t('login.required'), trigger: 'blur' }
+        ],
+        remark:[
           { required: true, message: this.$t('login.required'), trigger: 'blur' }
         ],
         time: [
@@ -681,14 +714,13 @@ export default {
               if (res.data.header.code == 0) {
                 this.$globalMsg.success(this.$t('message.success'));
                 this.detail();
+                if(this.contact !== ''){
+                  this.tableList();
+                }
+                this.$refs.ruleForm.resetFields();
               } else {
                 this.$globalMsg.error(res.data.header.msg);
               }
-              this.ruleForm.remark = '';
-              this.ruleForm.status = '';
-              this.ruleForm.contactStatus = '';
-              this.ruleForm.promiseTime = '';
-                // this.ruleForm.promise = '';
             })
           }
         } else {
@@ -820,6 +852,27 @@ export default {
           this.phoneAuditLogTwo = res.data.data
         }
       })
+    },
+    handleCurrentChange (val) {
+      this.currentPage = val;
+      this.tableList();
+    },
+    tableList () {
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.address_list,
+          'page': {'index': this.currentPage, 'size': 30},
+          'sessionid': this.sessionid
+        },
+        orderNo: this.orderNo
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
+        }
+      })
     }
   },
   watch: {
@@ -848,10 +901,11 @@ export default {
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.orderNo = this.$route.query.orderNo
-    this.type = this.$route.query.type
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.orderNo = this.$route.query.orderNo;
+    this.type = this.$route.query.type;
     this.detail();
+    this.tableList();
     
   }
 }
@@ -910,6 +964,25 @@ export default {
       cursor: pointer;
     }
   }
+}
+.component{
+  width: 100%;
+  height: auto;
+  ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    li{
+      width: 33%;
+      margin-bottom: 10px;
+      
+    }
+  }
+}
+
+span.active1{
+  color: rgb(238, 45, 55);
 }
 
 
