@@ -13,6 +13,29 @@
       <p>{{$t('proManage.title')}}</p>
     </div>
 
+    <!-- ------------搜索查询栏开始-------------- -->
+    <div class="search">
+      <el-row type="flex" justify="start" align="middle">
+        <div class="search-input">
+          <span>{{$t('new.no48')}}:</span>
+          <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no49')}}:</span>
+          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
+      </el-row>
+    </div>
+
     <!-- v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" -->
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')">
       <el-button 
@@ -86,6 +109,8 @@
           <el-table-column align="center" prop="userOverdueMaxDays" label="要求最大逾期天数">
           </el-table-column>
           <el-table-column align="center" prop="appName" label="APP名">
+          </el-table-column>
+          <el-table-column align="center" prop="appPackage" label="APP包名">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" label="操作" width="180">
             <template slot-scope="scope">
@@ -367,6 +392,7 @@ export default{
       modifyId: '', // 修改目标行数对应的id
       addOrEdit: '',
       appNameOption: [], // APP名字下拉框
+      options3: [], // APP名字下拉框
       copyOption1:[],// 有数据的包名下拉框
       copyOption2:[],// 没有数据的包名下拉框
       copyForm:{
@@ -377,12 +403,22 @@ export default{
         appPackage:'',
         appName:''
       },
+      formInline: {
+        appName: '',
+        appPackage: ''
+      },
     }
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮第几页
       this.currentPage = val;
       this.proInfor();
+    },
+    select(){
+      if(this.flag){
+        this.currentPage = 1;
+        this.proInfor();
+      }
     },
     delPro (id) { // 删除按钮弹窗
       this.del = true
@@ -451,7 +487,8 @@ export default{
           action: this.$store.state.actionMap.pro_list,
           'page': {'index': this.currentPage, 'size': 10},
           'sessionid': this.sessionid
-        }
+        },
+        ...this.formInline
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -475,6 +512,7 @@ export default{
           let arr = res.data.data.package;
           arr.forEach(value => {
             this.appNameOption.push({value: value.optionValue, label: value.optionValue});
+            this.options3.push({value: value.optionName, label: value.optionName});
           })
         }
       })
