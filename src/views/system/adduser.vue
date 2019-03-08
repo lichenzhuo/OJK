@@ -81,6 +81,7 @@ export default {
   },
   methods: {
     submitForm (formName) {
+      // eslint-disable-next-line
       let jse = new JSEncrypt();
       jse.setPublicKey(this.$store.state.common.publicKey)
       let option = {

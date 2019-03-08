@@ -122,7 +122,7 @@ let myOveDateRemindTotal = resolve => require(['../views/serviceManage/myOveDate
 let nobackOrderList = resolve => require(['../views/serviceManage/nobackOrderList.vue'], resolve)
 let telComeList = resolve => require(['../views/serviceManage/telComeList.vue'], resolve)
 let telNoticeDetail = resolve => require(['../views/serviceManage/telNoticeDetail/telNoticeDetail.vue'], resolve)
-let noBackdetail = resolve => require(['../views/serviceManage/telNoticeDetail/noBackDetail.vue'], resolve)
+
 
 // @@@@@@@@@@@@@@@@@@@@@@@   渠道管理   @@@@@@@@@@@@@@@@@@@@@@@
 // let channelManage = resolve => require(['../views/channelManage/channelManage.vue'], resolve)
@@ -259,7 +259,7 @@ const router = new Router({
                     {path: '/nobackorderlist', name: 'nobackOrderList', component: nobackOrderList },
                     {path: '/telcomelist', name: 'telComeList', component: telComeList },
                     {path: '/telnoticedetail', name: 'telNoticeDetail', component: telNoticeDetail },
-                    {path: '/nobackdetail', name: 'noBackdetail', component: noBackdetail },
+                    
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   渠道管理相关   @@@@@@@@@@@@@@@@@@@@@@@
                     // {path: '/channelmanage', name: 'channelManage', component: channelManage },

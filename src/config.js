@@ -76,13 +76,13 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'PHP';
   moneySplit = '$1,';
 } else {
-  // domain = 'http://api.sanjinxia.com'; //  id测试接口
+  domain = 'http://api.sanjinxia.com'; //  id测试接口
   // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
-  domain = `http://10.0.53.93:10025`; // vn 本地接口
+  // domain = `http://10.0.53.93:10025`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
   headerTotal = 'Go Dana';
-  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  lang = 'PHL';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
 }

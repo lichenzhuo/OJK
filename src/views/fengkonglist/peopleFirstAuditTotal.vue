@@ -242,12 +242,6 @@ export default {
         }
       })
     },
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 0) {
-        return 'warning-row';
-      }
-      return '';
-    },
     getSummaries() {// 总和
       const sums = [
         this.$t('public.addTotal'),

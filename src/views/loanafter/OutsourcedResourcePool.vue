@@ -441,7 +441,7 @@ export default {
       this.orderIds = arr;
       this.orderType = crr.join();
     },
-    unSelect (row, index) {
+    unSelect (row) {
       return row.status != 100;
     },
     redeploySubmit () { // 转派确认操作

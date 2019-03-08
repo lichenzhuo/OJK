@@ -366,7 +366,7 @@
         <!-- --------------- 电话催收开始 ------------------------ -->
         <li  v-if="active3==1">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-            <el-form-item :label="$t('fei.no16')" prop="contactStatus">
+            <el-form-item :label="$t('fei.no16')" >
               <el-select v-model="ruleForm.contactStatus" :placeholder="$t('public.placeholder')">
                 <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>

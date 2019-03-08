@@ -223,12 +223,6 @@ export default {
         })
       }
     },
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 0) {
-        return 'warning-row';
-      }
-      return '';
-    },
     getOutCompany () { // 获取委外公司名称
       let option = {
         header: {

@@ -82,17 +82,6 @@ export default {
         }
       }
     }
-    var validateZero = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(this.$t('login.required')))
-      } else {
-        if (value >= 0 && value <= 1) {
-          callback()
-        } else {
-          callback(new Error(this.$t('login.zero')))
-        }
-      }
-    }
     return {
       sessionid: '',
       ruleForm2: {

@@ -381,6 +381,7 @@ export default {
     modifySure () { // 修改密码确认操作
       if (this.flag) {
         this.flag = false;
+        // eslint-disable-next-line
         let jse = new JSEncrypt();
         jse.setPublicKey(this.$store.state.common.publicKey);
         //   设置需要加密的字符串

@@ -245,16 +245,6 @@ export default {
         this.formInline.dayEnd = ''
       }
     },
-    del1 () {
-      if (del1) {
-        this.delCon = this.$t('channelManage.no26')
-      }
-    },
-    del2 () {
-      if (del2) {
-        this.delCon = this.$t('channelManage.no27')
-      }
-    }
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
