@@ -316,8 +316,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
-          this.loadFlag = false;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     fuPeople () { // 获取复审人员名单

@@ -105,7 +105,7 @@
             </p>
             <p style="width:50%;" v-if="$store.state.common.lang==='vi'">
               <span>faceBook:</span> 
-              <span>{{data.userFaceBook.fblink | dataIsTrue}}</span>
+              <span @click="openWindow(data.orderFacebook.fblink)" class="td-ul">{{data.orderFacebook.fblink | dataIsTrue}}</span>
             </p>
           </div> 
           <div class="oneLineHasOne">
@@ -308,41 +308,56 @@
           <div class="paixu">
             <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
           </div>
-          <div class="xuan-2-1-2">
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendOneFblink">
-              <p>friends 1 </p>
-              <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendOneName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendOnePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendOneFblink | dataIsTrue}}</span> </p>
+          <template v-if="$store.state.common.lang==='vi'">
+            <div class="xuan-2-9-1" v-if="data.orderFacebook.friendOneFblink">
+              <el-radio-group v-model="fbContact" class="radio1">
+                <el-radio  :label="data.orderFacebook.friendOneName+','+'9'+','+data.orderFacebook.friendOnePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendOneName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendOnePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendOneFblink)" class="td-ul">
+                    {{data.orderFacebook.friendOneFblink}}
+                  </span>
+                </el-radio>
+                <el-radio  :label="data.orderFacebook.friendTwoName+','+'9'+','+data.orderFacebook.friendTwoPhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendTwoName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendTwoPhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendTwoFblink)" class="td-ul">
+                    {{data.orderFacebook.friendTwoFblink}}
+                  </span>
+                </el-radio>
+                <el-radio  :label="data.orderFacebook.friendThreeName+','+'9'+','+data.orderFacebook.friendThreePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendThreeName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendThreePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendThreeFblink)" class="td-ul">
+                    {{data.orderFacebook.friendOneFblink}}
+                  </span>
+                </el-radio>
+                <el-radio  :label="data.orderFacebook.friendFourName+','+'9'+','+data.orderFacebook.friendFourPhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendFourName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendOFourPhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendFourFblink)" class="td-ul">
+                    {{data.orderFacebook.friendFourFblink}}
+                  </span>
+                </el-radio>
+                <el-radio  :label="data.orderFacebook.friendFiveName+','+'9'+','+data.orderFacebook.friendFivePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendFiveName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendFivePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendFiveFblink)" class="td-ul">
+                    {{data.orderFacebook.friendFiveFblink}}
+                  </span>
+                </el-radio>
+              </el-radio-group>
             </div>
-            <div v-else class="xuan-2-1-2-1">
-              <p>{{$t('public.no23')}}</p>
+            <div v-else style="padding:0 30px">
+              {{$t('public.no23')}}
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendTwoFblink">
-              <p>friends 2 </p>
-              <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendTwoName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendTwoPhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendTwoFblink | dataIsTrue}}</span> </p>
-            </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendThreeFblink">
-              <p>friends 3 </p>
-              <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendThreeName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendThreePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendThreeFblink | dataIsTrue}}</span> </p>
-            </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFourFblink">
-              <p>friends 4 </p>
-              <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFourName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFourPhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFourFblink | dataIsTrue}}</span> </p>
-            </div>
-            <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFiveFblink">
-              <p>friends 5 </p>
-              <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFiveName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFivePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFiveFblink | dataIsTrue}}</span> </p>
-            </div>
-          </div>
+          </template>
+          
         </li>
         <!-- ------------ 通话联系人开始------------------------ -->
         <li  v-if="active2==3">
@@ -599,13 +614,14 @@ export default {
         collectionRecordList: '', // 催收记录列表
         orderUrgentContact: '', // 紧急联系人列表
         companyContact: '',// 紧急联系人列表
-        userFaceBook:'',
+        orderFacebook:'',
         orderPhoneApprove:'',
         partialShow:'',
         overCouponShow:'',
         webInfo:'',
       },
       emeContact: '', // 紧急联系人选中项
+      fbContact: '', // FB联系人选中项
       contact: '', // 通话记录联系人选中项
       ruleForm: {// 电话催收模块
         contactName: '',
@@ -712,7 +728,7 @@ export default {
           this.data.partialShow = res.data.data.partialShow;
           this.data.overCouponShow = res.data.data.overCouponShow;
           this.data.webInfo = res.data.data.webInfo;
-          this.data.userFaceBook = res.data.data.userFaceBook;
+          this.data.orderFacebook = res.data.data.orderFacebook;
           this.telAuditLogTwo('2');
         } else {
           this.data = []
@@ -721,9 +737,16 @@ export default {
     },
     submitForm (formName) { // 电话催收提交操作
       // 判断联系人字段是否填写
-      if (this.emeContact === '' && this.contact === '') {
-        this.$globalMsg.error(this.$t('operationDetail.no28'))
-        return
+      if(this.$store.state.common.lang==='vi'){
+        if (this.emeContact === '' && this.contact === ''&&this.fbContact === '') {
+          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          return
+        }
+      }else{
+        if (this.emeContact === '' && this.contact === '') {
+          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          return
+        }
       }
       // 然后表单验证
       this.$refs[formName].validate((valid) => {
@@ -891,12 +914,16 @@ export default {
           this.phoneAuditLogTwo = res.data.data
         }
       })
+    },
+    openWindow(href){
+      window.open(href);
     }
   },
   watch: {
     emeContact () {
       if (this.emeContact !== '') {
         this.contact = ''
+        this.fbContact = ''
         let arr = String(this.emeContact).split(',')
         this.ruleForm.contactName = arr[0]
         this.ruleForm.relation = arr[1]
@@ -906,7 +933,18 @@ export default {
     contact () {
       if (this.contact !== '') {
         this.emeContact = ''
+        this.fbContact = ''
         let arr = String(this.contact).split(',')
+        this.ruleForm.contactName = arr[0]
+        this.ruleForm.relation = arr[1]
+        this.ruleForm.contactPhone = arr[2]
+      }
+    },
+    fbContact () {
+      if (this.fbContact !== '') {
+        this.emeContact = ''
+        this.contact = ''
+        let arr = String(this.fbContact).split(',')
         this.ruleForm.contactName = arr[0]
         this.ruleForm.relation = arr[1]
         this.ruleForm.contactPhone = arr[2]

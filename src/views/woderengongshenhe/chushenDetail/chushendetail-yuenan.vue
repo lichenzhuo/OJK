@@ -53,7 +53,7 @@
           <div class="oneLineHasOne">
             <p>
               <span>faceBook:</span> 
-              <span>{{data.userFaceBook.fblink | dataIsTrue}}</span>
+              <span @click="openWindow(data.userFaceBook.fblink)" class="td-ul">{{data.userFaceBook.fblink | dataIsTrue}}</span>
             </p>
           </div>
           <!-- <div class="oneLineHasOne">
@@ -523,37 +523,32 @@
           </div>
           <div class="xuan-2-1-2">
             <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendOneFblink">
-              <p>friends 1 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendOneName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendOnePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendOneFblink | dataIsTrue}}</span> </p>
+              <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.userFaceBook.friendOneFblink)" class="td-ul">{{data.userFaceBook.friendOneFblink | dataIsTrue}}</span> </p>
             </div>
             <div v-else class="xuan-2-1-2-1">
               <p>{{$t('public.no23')}}</p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendTwoFblink">
-              <p>friends 2 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendTwoName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendTwoPhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendTwoFblink | dataIsTrue}}</span> </p>
+              <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.userFaceBook.friendTwoFblink)" class="td-ul">{{data.userFaceBook.friendTwoFblink | dataIsTrue}}</span> </p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendThreeFblink">
-              <p>friends 3 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendThreeName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendThreePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendThreeFblink | dataIsTrue}}</span> </p>
+              <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.userFaceBook.friendThreeFblink)" class="td-ul">{{data.userFaceBook.friendThreeFblink | dataIsTrue}}</span> </p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFourFblink">
-              <p>friends 4 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFourName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFourPhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFourFblink | dataIsTrue}}</span> </p>
+              <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.userFaceBook.friendFourFblink)" class="td-ul">{{data.userFaceBook.friendFourFblink | dataIsTrue}}</span> </p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFiveFblink">
-              <p>friends 5 </p>
               <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFiveName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFivePhone | dataIsTrue}}</span> </p>
-              <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFiveFblink | dataIsTrue}}</span> </p>
+              <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.userFaceBook.friendFiveFblink)" class="td-ul">{{data.userFaceBook.friendFiveFblink | dataIsTrue}}</span> </p>
             </div>
           </div>
         </li>
@@ -1467,6 +1462,9 @@ export default {
       this.instancyContent.contactRelation = ''
       this.instancyContent.contactName = ''
       this.instancyContent.contactPhone = ''
+    },
+    openWindow(href){
+      window.open(href);
     }
   },
   watch: {

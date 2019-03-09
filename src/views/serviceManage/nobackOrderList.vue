@@ -81,44 +81,61 @@
               </el-select>
             </div>
         </template>
-          <div class="search-input">
-            <span>{{$t('public.no58')}}:</span>
+        <div class="search-input" v-if="$store.state.common.lang==='PHL'">
+          <span>{{$t('fei.no15')}}:</span>
+          <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
+        </div>
+        <div class="search-input" v-if="$store.state.common.lang==='PHL'">
+          <span>{{$t('serviceManage.noticeTime')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime3" 
+            value-format="yyyy-MM-dd" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no58')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no59')}}:</span>
+          <el-date-picker 
+            size="small"
+            v-model="searchTime1" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no90')}}:</span>
+          <form autocomplete="off">
             <el-date-picker 
               size="small"
-              v-model="searchTime" 
+              v-model="searchTime2" 
               type="daterange" 
-              range-separator="~" 
+              range-separator="~"
               :default-value="$store.state.common.preMonth" 
               :start-placeholder="$t('public.beginTime')" 
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.no59')}}:</span>
-            <el-date-picker 
-              size="small"
-              v-model="searchTime1" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.no90')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                size="small"
-                v-model="searchTime2" 
-                type="daterange" 
-                range-separator="~"
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
+          </form>
+        </div>
         <template v-if="$store.state.common.lang!=='PHL'">
           <div class="search-input" >
             <span>{{$t('new.no87')}}:</span>
@@ -217,6 +234,12 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="strRemindTime" :label="$t('serviceManage.noticeTime')">
+            </el-table-column>
+            <el-table-column align="center" prop="serviceRecordTodayCount" :label="$t('fei.no15')">
+            </el-table-column>
+          </template>
           <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="strCallTime" :label="$t('new.no87')" width="86">
             </el-table-column>
@@ -311,6 +334,7 @@ export default {
       searchTime: [], // 还款时间
       searchTime1: [], // 应还时间
       searchTime2: [], // 派单日期
+      searchTime3: [], // 提醒时间
       searchTime5: [], // 最近群呼时间
       formInline: { // 用户查询信息数据对应字段
         orderId: '',
@@ -321,6 +345,9 @@ export default {
         orderState: '',
         serviceStatus: '',
         serviceName: '',
+        remindCount: '',
+        reminderTimeBegin:'',
+        reminderTimeEnd:'',
         loanTimeBegin: '',
         loanTimeEnd: '',
         mustRefundTimeBegin: '',
@@ -409,8 +436,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
-          this.loadFlag = false;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     chuPeople () { // 获取客服人员列表数据
@@ -519,6 +548,15 @@ export default {
       } else {
         this.formInline.serviceTimeStart = '';
         this.formInline.serviceTimeEnd = '';
+      }
+    },
+    searchTime3 () {
+      if (this.searchTime3) {
+        this.formInline.reminderTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.reminderTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
+      } else {
+        this.formInline.reminderTimeBegin = '';
+        this.formInline.reminderTimeEnd = '';
       }
     },
     searchTime5 () {

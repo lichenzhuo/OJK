@@ -108,12 +108,10 @@
             </el-date-picker>
           </div>
           <div class="search-input" v-if="$store.state.common.lang==='PHL'">
-            <!-- <el-col :md="8" :lg="5" :xl="5"> -->
-              <div class="search-input">
-                <span>{{$t('fei.no15')}}:</span>
-                <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
-              </div>
-            <!-- </el-col> -->
+            <span>{{$t('fei.no15')}}:</span>
+            <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
+          </div>
+          <div class="search-input" v-if="$store.state.common.lang==='PHL'">
             <span>{{$t('serviceManage.noticeTime')}}:</span>
             <el-date-picker 
               size="small"
@@ -363,8 +361,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
-          this.loadFlag = false;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     getcollectionType(){ // 获取催收阶段判断电话提醒按钮是否展示

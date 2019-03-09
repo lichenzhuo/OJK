@@ -18,8 +18,8 @@
             <template slot-scope="scope">
                 {{$t('operationDetail.no10')+':'+$t($store.getters.operationStatus(scope.row.status))}},
                 {{$t('operationDetail.no7')+':'+(scope.row.promise==1?$t('operationDetail.no11'):$t('operationDetail.no12'))}},
-                {{$t('operationDetail.no8')+':'+scope.row.strPromiseTime | dataIsTrue}},
-                {{$t('operationDetail.no9')+':'+scope.row.remark | dataIsTrue}}
+                {{$t('operationDetail.no8')+':'+(scope.row.strPromiseTime | dataIsTrue)}},
+                {{$t('operationDetail.no9')+':'+(scope.row.remark | dataIsTrue)}}
             </template>
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('operationDetail.no18')">

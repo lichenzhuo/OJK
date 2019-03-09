@@ -84,7 +84,7 @@
               </p>
               <p v-if="$store.state.common.lang==='vi'">
                 <span>faceBook:</span> 
-                <span>{{data.userFaceBook.fblink | dataIsTrue}}</span>
+                <span>{{data.orderFacebook.fblink | dataIsTrue}}</span>
               </p>
             </div>
             <div class="oneLineHasOne" v-if="$store.state.common.lang=='id'">
@@ -226,11 +226,7 @@
             <template v-if="data.orderUrgentContact!==null&&data.orderUrgentContact!==undefined&&data.orderUrgentContact!=''">
               <el-radio-group v-model="emeContact" class="radio1">
                 <el-radio v-for="(item,index) in data.orderUrgentContact" :key="index" :label="item.contactName+','+item.contactRelation+','+item.contactPhone">
-                  <!-- <span>{{$t('public.name')}}：{{item.contactName}}</span>
-                  <span style="margin:0 20px;">{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
-                  <span>{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}} {{$t('operationDetail.no15')}}</span>
-                  <span>{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span> -->
-
+                  
                   <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('public.name')}}:{{item.contactName}}</span>
                   <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}" style="margin:0 10px;" >{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
                   <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}} {{$t('operationDetail.no15')}}</span>
@@ -251,38 +247,33 @@
               <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
             </div>
             <div class="xuan-2-1-2">
-              <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendOneFblink">
-                <p>friends 1 </p>
-                <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendOneName | dataIsTrue}}</span> </p>
-                <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendOnePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendOneFblink | dataIsTrue}}</span> </p>
+              <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendOneFblink">
+                <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendOneName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendOnePhone | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendOneFblink | dataIsTrue}}</span> </p>
               </div>
               <div v-else class="xuan-2-1-2-1">
                 <p>{{$t('public.no23')}}</p>
               </div>
-              <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendTwoFblink">
-                <p>friends 2 </p>
-                <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendTwoName | dataIsTrue}}</span> </p>
-                <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendTwoPhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendTwoFblink | dataIsTrue}}</span> </p>
+              <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendTwoFblink">
+                <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendTwoName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendTwoPhone | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendTwoFblink | dataIsTrue}}</span> </p>
               </div>
-              <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendThreeFblink">
-                <p>friends 3 </p>
-                <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendThreeName | dataIsTrue}}</span> </p>
-                <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendThreePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendThreeFblink | dataIsTrue}}</span> </p>
+              <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendThreeFblink">
+                <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendThreeName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendThreePhone | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendThreeFblink | dataIsTrue}}</span> </p>
               </div>
-              <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFourFblink">
-                <p>friends 4 </p>
-                <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFourName | dataIsTrue}}</span> </p>
-                <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFourPhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFourFblink | dataIsTrue}}</span> </p>
+              <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendFourFblink">
+                <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendFourName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendFourPhone | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendFourFblink | dataIsTrue}}</span> </p>
               </div>
-              <div class="xuan-2-1-2-1" v-if="data.userFaceBook.friendFiveFblink">
-                <p>friends 5 </p>
-                <p>{{$t('yuenan.no34')}}: <span>{{data.userFaceBook.friendFiveName | dataIsTrue}}</span> </p>
-                <p>{{$t('public.no18')}}: <span>{{data.userFaceBook.friendFivePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.userFaceBook.friendFiveFblink | dataIsTrue}}</span> </p>
+              <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendFiveFblink">
+                <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendFiveName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendFivePhone | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendFiveFblink | dataIsTrue}}</span> </p>
               </div>
             </div>
           </template>
@@ -348,7 +339,7 @@ export default {
         collectionSmsTemplateList: '', // 短信模版
         collectionRecordList: '', // 催收记录列表
         orderUrgentContact: '', // 紧急联系人列表
-        userFaceBook:'',
+        orderFacebook:'',
         orderPhoneApprove:'',
         partialShow:'',
         overCouponShow:'',
@@ -407,7 +398,7 @@ export default {
           this.data.orderUrgentContact = res.data.data.orderUrgentContact
           this.data.partialShow = res.data.data.partialShow
           this.data.overCouponShow = res.data.data.overCouponShow
-          this.data.userFaceBook = res.data.data.userFaceBook
+          this.data.orderFacebook = res.data.data.orderFacebook
         } else {
           this.data = []
         }
@@ -497,30 +488,7 @@ export default {
     @include p-span;
     p{
       padding-right: 50px;
-    }
-    .tooltip{
-      width: 15px;
-      height: 15px;
-      img{
-        display: block;
-      }
-    }
-  }
-  .xuan-2-1-2-2{
-    margin: 20px 20px;
-    display: flex;
-    align-items: center;
-    span{
-      margin: 0 10px;
-    }
-    @include p-span;
-    
-    .tooltip{
-      width: 15px;
-      height: 15px;
-      img{
-        display: block;
-      }
+      font-size: 14px;
     }
   }
 }
