@@ -292,7 +292,6 @@ const router = new Router({
                     {path: '/usersubmitdetail', name: 'userSubmitDetail', component: userSubmitDetail },
                     {path: '/mytailafterorder', name: 'myTailafterOrder', component: myTailafterOrder },
                     {path: '/loansapplylist', name: 'loansApplyList', component: loansApplyList },
-                    {path: '/test', name: 'test', component: resolve =>require(['../views/test.vue'], resolve) },
           ]
         },
 

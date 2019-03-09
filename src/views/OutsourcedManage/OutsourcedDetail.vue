@@ -226,10 +226,19 @@
             <template v-if="data.orderUrgentContact!==null&&data.orderUrgentContact!==undefined&&data.orderUrgentContact!=''">
               <el-radio-group v-model="emeContact" class="radio1">
                 <el-radio v-for="(item,index) in data.orderUrgentContact" :key="index" :label="item.contactName+','+item.contactRelation+','+item.contactPhone">
-                  <span>{{$t('public.name')}}：{{item.contactName}}</span>
+                  <!-- <span>{{$t('public.name')}}：{{item.contactName}}</span>
                   <span style="margin:0 20px;">{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
                   <span>{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}} {{$t('operationDetail.no15')}}</span>
-                  <span>{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span>
+                  <span>{{$t('new.no57')}}:{{item.keepTime?item.keepTime:0}}s </span> -->
+
+                  <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('public.name')}}:{{item.contactName}}</span>
+                  <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}" style="margin:0 10px;" >{{$t('operationDetail.no13')}}:{{item.contactPhone}}</span>
+                  <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{$t('operationDetail.no14')}}:{{item.contactCnt?item.contactCnt:0}} {{$t('operationDetail.no15')}}</span>
+                  <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}" style="margin:0 10px;" >{{item.keepTime?item.keepTime:0}}s</span>
+                  <!-- <span :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.operator?item.operator:''}}</span> -->
+                  <template v-if="item.isEffective&&$store.state.common.lang==='PHL'">
+                    <span class="mg5" :class="{fw600:item.isEffective===1,cl999:item.isEffective===-1}">{{item.isEffective=='-1'?0:1}}</span>
+                  </template>
                 </el-radio>
               </el-radio-group>
             </template>
