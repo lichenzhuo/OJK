@@ -1417,6 +1417,9 @@ const vi = {
     no30: '是否复制',
     no31: '复制',
     no32: '不是复制',
+    no33: 'Trang cá nhân',
+    no34: 'Họ tên bạn bè',
+    no35: 'Bạn bè',
     product: {
       no1: 'Số tiền tối thiểu cho vay',
       no2: 'Số tiền vay tối đa',

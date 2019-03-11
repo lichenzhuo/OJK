@@ -55,8 +55,8 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
-  // domain = `https://api.mydong.vn`;
-  domain = `http://api.dongabc.com`;
+  domain = `https://api.mydong.vn`;
+  // domain = `http://api.dongabc.vn`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
@@ -68,7 +68,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(phPRO) > -1) {
+}  else if (fullCurrentDomain.indexOf(phPRO) > -1) {
   domain = `https://api.getpeso.ph`;
   headerTotal = 'Get Peso';
   lang = 'PHL';
@@ -76,14 +76,15 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'PHP';
   moneySplit = '$1,';
 } else {
-  domain = 'http://api.sanjinxia.com'; //  id测试接口
-  // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
+  // domain = 'http://api.sanjinxia.com'; //  id测试接口
+  domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
+  // domain = `http://10.0.53.89:10025`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
-  // domain = `https://api.getpeso.ph`; // ph 本地接口
-  headerTotal = 'Go Dana'
-  lang = 'PHL';
-  first_unit = '';
-  last_unit = 'PHP';
+  // domain = `http://api.myrupiah123.com`; // ph 本地接口
+  headerTotal = 'Go Dana';
+  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  first_unit = 'Rp';
+  last_unit = '';
 }
 
 global.config = {

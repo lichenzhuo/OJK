@@ -1,19 +1,17 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanMoney.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('loanMoney.crumbsTwo')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanMoney.title')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanMoney.title')}}</p>
+    </div>
+      
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -24,7 +22,7 @@
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
           </div>
         </el-col>
-        <el-col :md="6" :lg="4" :xl="3">
+        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
@@ -48,105 +46,87 @@
             <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
           </div>
         </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('public.orderStatus')}}:</span>
-            <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('public.no53')}}:</span>
-            <el-select size="small" v-model="formInline.isOverdue" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('public.no59')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                size="small"
-                v-model="searchTime2" 
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('public.no28')}}:</span>
-            <el-input size="small"  label="phone" v-model="formInline.overdueBegin"></el-input>
-            ~
-            <el-input size="small"  label="phone" v-model="formInline.overdueEnd"></el-input>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>{{$t('public.orderStatus')}}:</span>
+          <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no53')}}:</span>
+          <el-select size="small" v-model="formInline.isOverdue" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no59')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              size="small"
+              v-model="searchTime2" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no28')}}:</span>
+          <el-input size="small" style="width:80px" v-model="formInline.overdueBegin"></el-input>
+          ~
+          <el-input size="small" style="width:80px" v-model="formInline.overdueEnd"></el-input>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
-          <el-col :md="9" :lg="6" :xl="5">
-            <div class="search-input">
-              <span>{{$t('websiteLoans.no5')}}:</span>
-              <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </el-col>
+          <div class="search-input">
+            <span>{{$t('websiteLoans.no5')}}:</span>
+            <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
+              <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
         </template>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('public.no58')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                size="small"
-                v-model="searchTime3" 
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
-          <div class="search-input">
-            <span>{{$t('public.no60')}}:</span>
-            <form autocomplete="off">
-              <el-date-picker 
-                size="small"
-                v-model="searchTime1" 
-                type="daterange" 
-                range-separator="~" 
-                :default-value="$store.state.common.preMonth" 
-                :start-placeholder="$t('public.beginTime')" 
-                :end-placeholder="$t('public.endTime')">
-              </el-date-picker>
-            </form>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>{{$t('public.no58')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              size="small"
+              v-model="searchTime3" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no60')}}:</span>
+          <form autocomplete="off">
+            <el-date-picker 
+              size="small"
+              v-model="searchTime1" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </form>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
         
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_EXP')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input">
+            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          </div>
         </template>
       </el-row>
     </div>
@@ -154,7 +134,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe empty-text>
+        <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
           <el-table-column align="center" prop="id" :label="$t('public.orderId')" >
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')" >
@@ -225,16 +205,16 @@
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="180">
             <template slot-scope="scope">
-              <span style="color:#547ef6;cursor:pointer" @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}</span>
+              <span class="table_opr" @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}</span>
               <template>
                 <span 
                   v-if="scope.row.status!==51"
-                  style="color:#547ef6;cursor:pointer;margin:0 10px;" 
+                  class="table_opr" 
                   @click="sure(scope.row.orderNo)">
                   {{$t('public.no61')}}
                 </span>
               </template>
-              <span style="color:#547ef6;cursor:pointer" @click="modify(scope.row.id)">{{$t('public.no51')}}</span>
+              <span class="table_opr" @click="modify(scope.row.id)">{{$t('public.no51')}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -384,10 +364,11 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'backMoneyList',
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0,// 当前页数
       pageNumber: 10, // 每页条数
@@ -470,14 +451,15 @@ export default {
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
-      this.backList()
+      this.backList();
     },
     handleCurrentChange (val) { // 分页按钮操作
-      this.backList (val)
+      this.backList (val);
     },
     backList (val) { // 获取还款列表数据
+      this.loadFlag = true;
       if(val){
-        this.currentPage = val
+        this.currentPage = val;
       }
       let option = {
         header: {
@@ -489,18 +471,22 @@ export default {
         ...this.formInline
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     select () { // 点击查询操作
-      this.$store.commit('backMoneyList', this.formInline)
+      this.$store.commit('backMoneyList', this.formInline);
       if (this.flag) {
-        this.flag = false
-        this.backList ()
+        this.currentPage = 1;
+        this.flag = false;
+        this.backList ();
       }
     },
     putExcel () { // excel下载
@@ -516,7 +502,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             window.location.href = res.data.data.fileName;
           }
@@ -525,17 +511,17 @@ export default {
     },
     sure (orderNo) { // 确认还款弹窗
       if (orderNo) {
-        this.form.repayType = '',
-        this.form.amount = '',
-        this.form.repayTime = '',
-        this.form.remark = ''
-        this.form.transId = ''
-        this.orderNo_dialog = orderNo
-        this.flag1 = true
+        this.form.repayType = '';
+        this.form.amount = '';
+        this.form.repayTime = '';
+        this.form.remark = '';
+        this.form.transId = '';
+        this.orderNo_dialog = orderNo;
+        this.flag1 = true;
       }
     },
     sureSubmit () {// 确认还款操作
-      const self = this
+      const self = this;
       self.$refs.ruleForm.validate((valid) => {
         if (valid) {
           let option = {
@@ -549,10 +535,10 @@ export default {
           }
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              self.$message.success(self.$t('message.success'))
-              this.backList()
+              self.$message.success(self.$t('message.success'));
+              this.backList();
             }else{
-              self.$message.error(res.data.header.msg)
+              self.$message.error(res.data.header.msg);
             }
           })
           this.flag1 = false;
@@ -562,10 +548,10 @@ export default {
       })
     },
     detail (orderNo, userId) { // 跳转详情页
-      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}})
+      this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}});
     },
     modify(id){
-      this.getModifyData(id)
+      this.getModifyData(id);
     },
     getModifyData(id){
       let option = {
@@ -579,7 +565,7 @@ export default {
       this.$axios.post('', option).then(res => {
         this.modifyFlag = true;
         if (res.data.header.code == 0) {
-          this.modifyData = res.data.data
+          this.modifyData = res.data.data;
         }
       })
     },
@@ -595,185 +581,91 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.$message.success(self.$t('message.success'))
-          this.backList()
+          self.$message.success(self.$t('message.success'));
+          this.backList();
         }else{
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
       this.modifyFlag = false;
     },
     tableRowChange (val) {
-      this.tableSelect = val.id
-      this.radioVal = val.id
-      this.modifyForm.btId = val.btId
-      this.modifyForm.id = val.id
-      this.modifyForm.status = val.status
-      this.modifyForm.repaymentAmount = val.repaymentAmount
-      this.modifyForm.repayTime = val.strUpdateTime
-      this.modifyForm.payType = val.payType
-      this.modifyForm.remark = val.remark
+      this.tableSelect = val.id;
+      this.radioVal = val.id;
+      this.modifyForm.btId = val.btId;
+      this.modifyForm.id = val.id;
+      this.modifyForm.status = val.status;
+      this.modifyForm.repaymentAmount = val.repaymentAmount;
+      this.modifyForm.repayTime = val.strUpdateTime;
+      this.modifyForm.payType = val.payType;
+      this.modifyForm.remark = val.remark;
     }
   },
   watch: {
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.refundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0])
-        this.formInline.refundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1])
+        this.formInline.refundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.refundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.refundTimeBegin = ''
-        this.formInline.refundTimeEnd = ''
+        this.formInline.refundTimeBegin = '';
+        this.formInline.refundTimeEnd = '';
       }
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.repayTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0])
-        this.formInline.repayTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1])
+        this.formInline.repayTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.repayTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
-        this.formInline.repayTimeBegin = ''
-        this.formInline.repayTimeEnd = ''
+        this.formInline.repayTimeBegin = '';
+        this.formInline.repayTimeEnd = '';
       }
     },
     searchTime3 () {
       if (this.searchTime3) {
-        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0])
-        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1])
+        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
       } else {
-        this.formInline.loanTimeBegin = ''
-        this.formInline.loanTimeEnd = ''
+        this.formInline.loanTimeBegin = '';
+        this.formInline.loanTimeEnd = '';
       }
     },
     modifyFlag(){
       if(!this.modifyFlag){
-        this.tableSelect = ''
-        this.radioVal = ''
-        this.modifyForm.btId = ''
-        this.modifyForm.id = ''
-        this.modifyForm.status = ''
-        this.modifyForm.repaymentAmount = ''
-        this.modifyForm.repayTime = ''
-        this.modifyForm.payType = ''
-        this.modifyForm.remark = ''
+        this.tableSelect = '';
+        this.radioVal = '';
+        this.modifyForm.btId = '';
+        this.modifyForm.id = '';
+        this.modifyForm.status = '';
+        this.modifyForm.repaymentAmount = '';
+        this.modifyForm.repayTime = '';
+        this.modifyForm.payType = '';
+        this.modifyForm.remark = '';
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
+    this.sessionid = sessionStorage.getItem('sessionid');
     if (JSON.stringify(this.$store.state.common.backMoneyList_select) !== '{}') {
-      this.formInline = this.$store.state.common.backMoneyList_select
+      this.formInline = this.$store.state.common.backMoneyList_select;
       if(this.formInline.refundTimeBegin!==''){
-        this.searchTime1.push(this.formInline.refundTimeBegin)
-        this.searchTime1.push(this.formInline.refundTimeEnd)
+        this.searchTime1.push(this.formInline.refundTimeBegin);
+        this.searchTime1.push(this.formInline.refundTimeEnd);
       }
       if(this.formInline.repayTimeBegin!==''){
-        this.searchTime2.push(this.formInline.repayTimeBegin)
-        this.searchTime2.push(this.formInline.repayTimeEnd)
+        this.searchTime2.push(this.formInline.repayTimeBegin);
+        this.searchTime2.push(this.formInline.repayTimeEnd);
       }
       if(this.formInline.loanTimeBegin!==''){
-        this.searchTime3.push(this.formInline.loanTimeBegin)
-        this.searchTime3.push(this.formInline.loanTimeEnd)
+        this.searchTime3.push(this.formInline.loanTimeBegin);
+        this.searchTime3.push(this.formInline.loanTimeEnd);
       }
     }
-    this.backList()
+    this.backList();
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
 .el-dialog__body{
   padding-bottom: 0;
 }

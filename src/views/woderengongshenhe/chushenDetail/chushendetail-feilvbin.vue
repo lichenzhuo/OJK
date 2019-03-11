@@ -1,16 +1,16 @@
 <template>
-  <div v-if="data" class="usermanage">
+  <div v-if="data" class="public_main">
     <div class="crumbs" v-if="block==2">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/wodechushen'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myFirstAuditList'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="crumbs" v-else>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/rengongchushen'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/peopleFirstAudit'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -933,7 +933,7 @@ import loanList from '../../../components/component/loantable'
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
 
 export default {
-  name: 'userManage',
+  name: 'auditDetail',
   components: {
     telRecordList,
     noteRecordList,
@@ -1181,7 +1181,7 @@ export default {
           if (res.data.header.code == 0) {
             this.$globalMsg.success(this.$t('auditDetail.no26'))
             setTimeout(() => {
-              this.$router.push('/wodechushen')
+              this.$router.push('/myFirstAuditList')
             }, 1000)
           } else {
             this.$globalMsg.error(res.data.header.msg)
@@ -1490,7 +1490,7 @@ export default {
     },
     httpRequest (options) {
       let file = options.file
-      let filename = file.name
+      // let filename = file.name
       if (file) {
         this.fileReader.readAsDataURL(file)
       }
@@ -1512,7 +1512,7 @@ export default {
         })
       }
     },
-    removeHandler (file, fileList) {
+    removeHandler (file) {
       this.fileList=this.fileList.filter(value=>{
         return file.uid!==value.uid
       })
@@ -1532,7 +1532,7 @@ export default {
       //   return false
       // }
     },
-    uploadSuccess (res, file, fileList) {
+    uploadSuccess (res, file) {
       let data = res
       this.fileList.push({data,uid:file.uid})
     }

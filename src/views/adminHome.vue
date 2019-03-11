@@ -1,199 +1,5 @@
 <template>
-  <div class="main">
-    <!-- ------------ 今日数据开始 ------------------------ -->   
-    <!-- <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
-      <el-row>
-        <el-col :span="24">
-          <div class="paixu">
-            <span></span><p>{{$t('adminHome.todayData')}}</p>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="total">
-        <ul>
-          <li>
-            <p><span class="bgc1"></span>{{$t('adminHome.todyRegisterNum')}}</p>
-            <p class="cl1" v-if="mainData.today.regCount!==''">{{mainData.today.regCount}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc1"></span>{{$t('adminHome.no17')}}</p>
-            <p class="cl1" v-if="mainData.today.applyToday!==''">{{mainData.today.applyToday}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc2"></span>{{$t('adminHome.no7')}}</p>
-            <p class="cl2" v-if="mainData.today.orderCountNew!==''">{{mainData.today.orderCountNew}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc1"></span>{{$t('adminHome.no8')}}</p>
-            <p class="cl1" v-if="mainData.today.orderCountOld!==''">{{mainData.today.orderCountOld}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc2"></span>{{$t('adminHome.no15')}}</p>
-            <p class="cl2" v-if="mainData.today.repaymentCount!==''">{{mainData.today.repaymentCount}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          
-        </ul>
-        <ul>
-          <li>
-            <p><span class="bgc3"></span>{{$t('new.no6')}}</p>
-            <p class="cl3" v-if="mainData.today.orderPassCount!==''">{{mainData.today.orderPassCount}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc3"></span>{{$t('adminHome.no18')}}</p>
-            <p class="cl3" v-if="mainData.today.lendingToday!==''">{{mainData.today.lendingToday}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc2"></span>{{$t('adminHome.no9')}}</p>
-            <p class="cl2" v-if="mainData.today.lendingCountNew!==''">{{mainData.today.lendingCountNew}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc3"></span>{{$t('adminHome.no10')}}</p>
-            <p class="cl3" v-if="mainData.today.lendingCountOld!==''">{{mainData.today.lendingCountOld}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-          <div class="line"></div>
-          <li>
-            <p><span class="bgc3"></span>{{$t('adminHome.no16')}}</p>
-            <p class="cl3" v-if="mainData.today.repaymentOverDueCount!==''">{{mainData.today.repaymentOverDueCount}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
-          </li>
-        </ul>
-      </div>
-    </template>  -->
-    
-    <!-- ------------ 累计数据开始 ------------------------ -->    
-    <!-- <el-row type="flex" class="row-bg" justify="space-between" :gutter="40">
-      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_ALL')">
-        <el-col  :span="12">
-          <div class="paixu">
-            <span></span><p>{{$t('adminHome.dataTotal')}}</p>
-          </div>
-          <div class="tongji">
-            <ul>
-              <li>
-                <div class="box left">
-                  <p class="cl5">{{$t('adminHome.hisPutMoneyTotal')}}</p>
-                  <p class="mgt15 cl1">
-                    <span v-if="mainData.all.lendingCount!==''">{{mainData.all.lendingCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                    {{$t('adminHome.unit')}}
-                  </p>
-                </div>
-                <div class="box right">
-                  <p class="cl5">{{$t('adminHome.no1')}}</p>
-                  <p class="mgt15 cl1">
-                    <span v-if="mainData.all.lendingAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.lendingAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                  </p>
-                </div>
-              </li>
-              <div class="line"></div>
-              <li>
-                <div class="box left">
-                  <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
-                  <p class="mgt15 cl1">
-                    <span v-if="mainData.all.repaymentCount!==''">{{mainData.all.repaymentCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                    {{$t('adminHome.unit')}}
-                  </p>
-                </div>
-                <div class="box right">
-                  <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
-                  <p class="mgt15 cl1">
-                    <span v-if="mainData.all.repaymentAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.repaymentAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </el-col>
-      </template>
-      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_CURRENT')">
-        <el-col :span="12">
-          <div class="paixu">
-            <span></span><p>{{$t('adminHome.nowData')}}</p>
-          </div>
-          <div class="tongji">
-            <ul>
-              <li>
-                <div class="box left">
-                  <p class="cl5">{{$t('adminHome.no3')}}</p>
-                  <p class="mgt15 cl4">
-                    <span  v-if="mainData.amount.allCount!=''">{{mainData.amount.allCount}}</span> 
-                    <span  v-else>{{$store.state.common.nullData}}</span>
-                    {{$t('adminHome.unit')}}
-                  </p>
-                </div>
-                <div class="box right">
-                  <p class="cl5">{{$t('adminHome.no4')}}</p>
-                  <p class="mgt15 cl4">
-                    <span v-if="mainData.amount.allAmount!=''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.allAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                  </p>
-                </div>
-              </li>
-              <div class="line"></div>
-              <li>
-                <div class="box left">
-                  <p class="cl5">{{$t('adminHome.no5')}}</p>
-                  <p class="mgt15 cl3">
-                    <span v-if="mainData.amount.overCount!=''">{{mainData.amount.overCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                    {{$t('adminHome.unit')}}
-                  </p>
-                </div>
-                <div class="box right">
-                  <p class="cl5">{{$t('adminHome.noBackMoney')}}</p>
-                  <p class="mgt15 cl3">
-                    <span v-if="mainData.amount.overAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.overAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </el-col>
-      </template>
-    </el-row> -->
-
-    <!-- ------------ 图表开始 ------------------------ --> 
-    <!-- <el-row type="flex" class="row-bg mgb20" justify="center">
-      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_AREA')">
-        <el-col :md="22" :lg="22" :xl="22">
-          <div class="line">
-            <div id="myChart1" style="width:100%;height:600px;"></div>
-          </div>
-        </el-col>
-      </template>
-    </el-row> -->
-    
-    <!-- <el-row type="flex" class="row-bg" justify="center">
-      <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_WEEK')">
-        <el-col :md="22" :lg="22" :xl="22">
-          <div class="line">
-            <div id="myChart2" style="width:100%;height:580px;"></div>
-          </div>
-        </el-col>
-      </template>
-    </el-row> -->
-
-
+  <div class="main" v-loading="loadFlag">
     <!-- ------------ 今日数据开始 ------------------------ -->   
     <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_DAY')">
       <el-row>
@@ -367,7 +173,7 @@
     </el-row>
 
     <!-- ------------ 图表开始 ------------------------ --> 
-    <el-row type="flex" class="row-bg mgb20" justify="center">
+    <el-row type="flex" class="row-bg mb20" justify="center">
       <template v-if="$store.state.common.permiss.includes('RIGHT_WORKS_AREA')">
         <el-col :md="22" :lg="22" :xl="22">
           <div class="line">
@@ -403,7 +209,7 @@ require('echarts/lib/component/grid')
 require('echarts/lib/component/legendScroll')
 // require('echarts/lib/component/legend')
 export default {
-  name: 'userManage',
+  name: 'adminHome',
   data () {
     return {
       sessionid: '',
@@ -417,6 +223,7 @@ export default {
       data3: [], // 本周
       data4: [], // 本月
       flag: false,
+      loadFlag: true,
       mainDataTwo:{
         all: '', // 累计数据
         amount: '', // 实时数据
@@ -460,6 +267,8 @@ export default {
           this.mainData.today = res.data.data.today
           this.data1 = res.data.data.sevenDayData
           this.data2 = res.data.data.oneMonthData
+          this.loadFlag = false;
+          // console.log(1);
           if(this.data1&&this.data2&&this.data3&&this.data4){
             this.drawLine1()// 还款量统计图
             this.drawLine2()// 放款量统计图

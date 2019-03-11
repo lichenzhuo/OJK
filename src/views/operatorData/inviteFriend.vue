@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('inviteFriend.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('inviteFriend.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('inviteFriend.crumbsTwo')}}</p>
+    </div>
      
   <!-- -------------搜索查询栏------------------------ -->
   <search-filter 
@@ -28,7 +24,7 @@
   <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RECORD_INVITE_LIST')">
       <template>
-        <el-table :data="couponsList" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="couponsList" size="small" stripe >
           <el-table-column align="center" prop="inviteId" :label="$t('public.userId')">
           </el-table-column>
           <el-table-column align="center" prop="registerCount" :label="$t('public.registerUser')">
@@ -131,7 +127,7 @@ export default {
     }
   },
   mounted() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData (condition) {
@@ -150,22 +146,22 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.couponsList = res.data.data
-          self.page.total = res.data.header.page.total
+          self.couponsList = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     search (condition) {
-      const self= this
-      self.page.current = 1
-      self.condition = condition
-      this.fetchData(self.condition)
+      const self= this;
+      self.page.current = 1;
+      self.condition = condition;
+      this.fetchData(self.condition);
     },
     putExcel (condition) {
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -176,7 +172,7 @@ export default {
           inviteId: condition?parseInt(condition.userId):''
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -187,12 +183,12 @@ export default {
       }
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
-      this.fetchData(this.condition)
+      this.currentPage = val;
+      this.fetchData(this.condition);
     },
     detailed (obj) {
-      const self = this
-      self.dialogTableVisible = true
+      const self = this;
+      self.dialogTableVisible = true;
       let option = {
         header: {
           ...this.$base,
@@ -207,10 +203,10 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          self.userDetail = res.data.data
+          self.userDetail = res.data.data;
           // self.page.total = res.data.header.page.total
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     }
@@ -218,110 +214,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-  @mixin flex-cen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @mixin p-span {
-    p{
-      line-height: 24px;
-      span:nth-child(1){
-        white-space: nowrap;
-        color: $color1;
-        font-size: 16px;
-      }
-      span:nth-child(2),span:nth-child(3),span:nth-child(4){
-        color: $color2;
-        font-size: 16px;
-        margin: 0 10px;
-        word-break: break-all;
-      } 
-    }
-  }
   
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
   .el-dialog{
     width: 1200px!important;
     

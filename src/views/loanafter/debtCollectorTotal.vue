@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,68 +7,51 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('sidebar.adminTotal')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('sidebar.adminTotal')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('loanAfterManage.name')}}:</span>
-            <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('loanAfterManage.type1')}}:</span>
-            <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no20')}}:</span>
-            <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
-          <div class="search-input">
-            <span>{{$t('new.no21')}}:</span>
-            <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        
+        <div class="search-input">
+          <span>{{$t('loanAfterManage.name')}}:</span>
+          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('loanAfterManage.type1')}}:</span>
+          <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no20')}}:</span>
+          <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('new.no21')}}:</span>
+          <el-select clearable size="small" v-model="formInline.leaderId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECTOR_STATISTICS_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECTOR_STATISTICS_EXP')">
-          <el-col :md="5" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          </div>
         </template>
         
       </el-row>
@@ -77,42 +60,42 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_COLLECTOR_STATISTICS_LIST')">
       <template>
-        <el-table :data="tableData" stripe style="width: 100%" empty-text>
-          <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')" width="80">
+        <el-table :data="tableData" stripe size="small">
+          <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')">
           </el-table-column>
-          <el-table-column align="center" prop="roleName" :label="$t('loanAfterManage.type1')" min-width="80">
+          <el-table-column align="center" prop="roleName" :label="$t('loanAfterManage.type1')">
           </el-table-column>
-          <el-table-column align="center" prop="groupName" :label="$t('new.no18')" min-width="100">
+          <el-table-column align="center" prop="groupName" :label="$t('new.no18')">
           </el-table-column>
-          <el-table-column align="center" prop="leaderName" :label="$t('new.no19')" min-width="100">
+          <el-table-column align="center" prop="leaderName" :label="$t('new.no19')">
           </el-table-column>
-          <el-table-column align="center" prop="historyNumber" :label="$t('loanAfterManage.historyNum')" min-width="80">
+          <el-table-column align="center" prop="historyNumber" :label="$t('loanAfterManage.historyNum')">
           </el-table-column>
-          <el-table-column align="center" prop="historyMoney" :label="$t('loanAfterManage.historyMoney')" min-width="80">
+          <el-table-column align="center" prop="historyMoney" :label="$t('loanAfterManage.historyMoney')">
             <template slot-scope="scope">
               <span v-if="scope.row.historyMoney!==null&&scope.row.historyMoney!==undefined&&scope.row.historyMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.historyMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="collectionNumber" :label="$t('loanAfterManage.nowNum')" min-width="80">
+          <el-table-column align="center" prop="collectionNumber" :label="$t('loanAfterManage.nowNum')">
           </el-table-column>
-          <el-table-column align="center" prop="collectionMoney" :label="$t('loanAfterManage.nowMoney')" min-width="80">
+          <el-table-column align="center" prop="collectionMoney" :label="$t('loanAfterManage.nowMoney')">
             <template slot-scope="scope">
               <span v-if="scope.row.collectionMoney!==null&&scope.row.collectionMoney!==undefined&&scope.row.collectionMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.collectionMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="ReturnNumber" :label="$t('loanAfterManage.alreadyNum')" min-width="80">
+          <el-table-column align="center" prop="ReturnNumber" :label="$t('loanAfterManage.alreadyNum')">
           </el-table-column>
-          <el-table-column align="center" prop="ReturnMoney" :label="$t('loanAfterManage.alreadyMoney')" min-width="80">
+          <el-table-column align="center" prop="ReturnMoney" :label="$t('loanAfterManage.alreadyMoney')">
             <template slot-scope="scope">
               <span v-if="scope.row.ReturnMoney!==null&&scope.row.ReturnMoney!==undefined&&scope.row.ReturnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.ReturnMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="waitNumber" :label="$t('loanAfterManage.noneNum')" min-width="80">
+          <el-table-column align="center" prop="waitNumber" :label="$t('loanAfterManage.noneNum')">
           </el-table-column>
-          <el-table-column align="center" prop="waitMoney" :label="$t('loanAfterManage.noneMoney')" min-width="80">
+          <el-table-column align="center" prop="waitMoney" :label="$t('loanAfterManage.noneMoney')">
             <template slot-scope="scope">
               <span v-if="scope.row.waitMoney!==null&&scope.row.waitMoney!==undefined&&scope.row.waitMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -124,14 +107,14 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_COLLECTOR_STATISTICS_LIST')">
-          <el-pagination
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_COLLECTOR_STATISTICS_LIST')">
+        <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="total, prev, pager, next, ->"
           :total="pageTotal?pageTotal:0">
         </el-pagination>
-        </div>
+      </div>
     </el-row>
 
     <div class="foot"></div>
@@ -140,7 +123,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'debtCollectorTotal',
   data () {
     return {
       sessionid: '',
@@ -165,7 +148,7 @@ export default {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.dataList();
     },
     dataList () { // 获取入催订单列表
@@ -181,15 +164,16 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('cuishouyuanList', this.formInline)
+      this.$store.commit('collectionPeopleList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.currentPage = 1;
+        this.flag = false;
         this.dataList();
       }
     },
@@ -206,12 +190,12 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options2 = arr
+          this.options2 = arr;
         }
       })
     },
@@ -227,7 +211,7 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options3.push({value: value.id, label: value.groupName})
+            this.options3.push({value: value.id, label: value.groupName});
           })
         }
       })
@@ -244,14 +228,14 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            this.options4.push({value: value.leaderId, label: value.leaderName})
+            this.options4.push({value: value.leaderId, label: value.leaderName});
           })
         }
       })
     },
     putExcel () { // excel下载操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -262,7 +246,7 @@ export default {
           ...this.formInline
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -285,8 +269,8 @@ export default {
         if (res.data.header.code == 0) {
           let arr = res.data.data;
           arr.forEach(value=>{
-            value.label = value.optionName
-            value.value = value.optionValue
+            value.label = value.optionName;
+            value.value = value.optionValue;
           })
           this.options1 = arr;
         }
@@ -294,109 +278,23 @@ export default {
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    if (JSON.stringify(this.$store.state.common.cuishouyuanList_select) !== '{}') {
-      this.formInline = this.$store.state.common.cuishouyuanList_select
+    this.sessionid = sessionStorage.getItem('sessionid');
+    if (JSON.stringify(this.$store.state.common.collectionPeopleList_select) !== '{}') {
+      this.formInline = this.$store.state.common.collectionPeopleList_select;
       if(this.formInline.beginTime!==''){
-        this.searchTime.push(this.formInline.beginTime)
-        this.searchTime.push(this.formInline.endTime)
+        this.searchTime.push(this.formInline.beginTime);
+        this.searchTime.push(this.formInline.endTime);
       }
       
     }
-    this.dataList()// 获取入催订单列表
-    this.operationAdmin()// 获取催收员列表
-    this.groupList()// 获取组员列表
-    this.leaderName_option()// 获取组长列表
-    this.getcollectionType()// 获取催收阶段
+    this.dataList();// 获取入催订单列表
+    this.operationAdmin();// 获取催收员列表
+    this.groupList();// 获取组员列表
+    this.leaderName_option();// 获取组长列表
+    this.getcollectionType();// 获取催收阶段
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 450px;
-}
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanAfterManage.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanAfterManage.crumbsTwo')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -64,13 +60,13 @@
           ~
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysEnd"></el-input>
         </div>
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
           <span>{{$t('new.no77')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysBegin"></el-input>
           ~
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysEnd"></el-input>
         </div>
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
           <span>{{$t('new.no78')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.repeatCountBegin"></el-input>
           ~
@@ -170,78 +166,69 @@
             </el-select>
           </div>
         </template>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_QUERY')">
-          <div class="search-input">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-          </div>
-        </template>
-        
+        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
       </el-row>
     </div>
     
-    <div class="search act" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')">
-      <el-row :gutter='10'>
-        <el-col :span="5">
-          <div class="search-input">
-            <el-button type="primary" class="button-color" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')">
+      <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_LIST')">
       <template>
-        <el-table :data="tableData" size="mini" stripe @selection-change="handleSelectionChange">
+        <el-table :data="tableData" size="mini" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
-          <el-table-column align="center" prop="orderId" :label="$t('public.orderId')" min-width="60">
+          <el-table-column align="center" prop="orderId" :label="$t('public.orderId')" >
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')" min-width="100">
+          <el-table-column align="center" prop="userName" :label="$t('public.name')" >
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" min-width="90">
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" >
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" min-width="90">
+            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" >
               <template slot-scope="scope">
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" min-width="100">
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" min-width="100">
+          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')" min-width="80">
+          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')" >
             <template slot-scope="scope">
               <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" min-width="100">
+          <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" >
             <template slot-scope="scope">
               <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')" min-width="100">
+          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
             <template slot-scope="scope">
               <span v-if="scope.row.waitAmount!==null&&scope.row.waitAmount!==undefined&&scope.row.waitAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" min-width="80">
+          <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" min-width="80">
+          <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" min-width="80">
+          <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang=='PHL'">
-            <el-table-column align="center" prop="strPromiseTime" :label="$t('operationDetail.no8')" min-width="80">
+            <el-table-column align="center" prop="strPromiseTime" :label="$t('operationDetail.no8')" width="86">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="status" :label="$t('loanAfterManage.status')" min-width="100">
@@ -249,31 +236,33 @@
               <span >{{$t($store.getters.operationStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')" min-width="80">
+          <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')">
           </el-table-column>
-          <el-table-column align="center" prop="type" :label="$t('loanAfterManage.type')" min-width="80">
+          <el-table-column align="center" prop="type" :label="$t('loanAfterManage.type')">
             <template slot-scope="scope">
               <span >{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')" min-width="100">
-          </el-table-column>
-          <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')" min-width="100">
-          </el-table-column>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCallTime" :label="$t('new.no83')" min-width="86">
+          <template v-if="$store.state.common.lang!=='vi'">
+            <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
             </el-table-column>
-            <el-table-column align="center" prop="callStatus" :label="$t('new.no84')" min-width="80">
+            <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')">
+            </el-table-column>
+          </template>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <el-table-column align="center" prop="strCallTime" :label="$t('new.no83')" width="86">
+            </el-table-column>
+            <el-table-column align="center" prop="callStatus" :label="$t('new.no84')">
               <template slot-scope="scope">
                 <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="100">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_DETAIL')"
-                style="color:#547ef6;cursor:pointer;margin-left:10px;" 
+                class="table_opr" 
                 @click="detail(scope.row.orderNo)">
                 {{$t('loanAfterManage.sel')}}
               </span>
@@ -299,40 +288,35 @@
     </el-row>
 
     <!-- ------------------ 点击转派弹窗开始 -------------------- -->
-    <div v-if="redeployFlag" class="detail">
-      <div class="detail-main">
-        <div class="detail-main-head">
-          <span></span>
-          <p>{{$t('loanAfterManage.redeploy')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="redeployClose"></i>
-        </div>
-        <div class="detail-main-con">
-          <div class="detail-con-one">
-            <p>{{$t('loanAfterManage.type')}}: <span>{{orderType}}</span> </p>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4">
-              {{$t('loanAfterManage.redeployTo')}}: &nbsp;&nbsp;
-            </div>
-            <div class="detail-con-one-3">
-              <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="detail-con-one">
-            <div class="detail-con-one-4" style="line-height:26px;">
-              {{$t('loanAfterManage.reason')}}:
-            </div>
-            <div class="detail-con-one-3">
-              <textarea class="search_inpu" v-model="reason" :placeholder="$t('loanAfterManage.placeholder')+'~'"></textarea>
-            </div>
-          </div>
-          <div class="detail-but" @click="redeploySubmit">{{$t('loanAfterManage.sure')}}</div>
+    <el-dialog :title="$t('loanAfterManage.redeploy')" :visible.sync="redeployFlag" width="650px">
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.type')}}:</span>
+        <div class="right">
+          {{orderType}}
         </div>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.redeployTo')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('loanAfterManage.reason')}}:</span>
+        <div class="right">
+          <el-input type="textarea" v-model="reason" :placeholder="$t('loanAfterManage.placeholder')+'~'"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="redeploySubmit">{{$t('proManage.sure')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
     <!-- ------------------ 点击转派弹窗结束 -------------------- -->
 
     <div class="foot"></div>
@@ -341,13 +325,14 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'inTheRushOrders',
   data () {
     return {
       sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       flag: true, // 点击开关
+      loadFlag: false, // 点击开关
       searchTime: [], // 最后催收时间
       searchTime1: [], // 派单时间
       searchTime2: [], // 入催时间
@@ -399,22 +384,20 @@ export default {
       reason: ''// 转派原因描述
     }
   },
-  computed: {
-
-  },
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
       this.operationList();
     },
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
+      this.currentPage = val;
       this.operationList();
     },
     detail (orderNo) { // 查看详情点击操作
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, type: '2'}})
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, type: '2'}});
     },
     operationList () { // 获取入催订单列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -427,29 +410,33 @@ export default {
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('rucuiList', this.formInline)
+      this.$store.commit('rucuiList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.currentPage = 1;
+        this.flag = false;
         this.operationList();
       }
     },
     redeploySubmit () { // 转派确认操作
       if (this.redeployStatus == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.adminFirst'))
-        return
+        this.$globalMsg.error(this.$t('loanAfterManage.adminFirst'));
+        return;
       }
       if (this.reason == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.placeholder'))
-        return
+        this.$globalMsg.error(this.$t('loanAfterManage.placeholder'));
+        return;
       }
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -461,36 +448,36 @@ export default {
           remark: this.reason
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
           } else {
-            this.$globalMsg.error(this.$t('message.warning'))
+            this.$globalMsg.error(this.$t('message.warning'));
           }
-          this.operationList()
-          this.orderIds = []
-          this.multipleSelection = []
-          this.redeployStatus = ''
-          this.reason = ''
-          this.redeployFlag = false
+          this.operationList();
+          this.orderIds = [];
+          this.multipleSelection = [];
+          this.redeployStatus = '';
+          this.reason = '';
+          this.redeployFlag = false;
         })
       }
     },
     handleSelectionChange (val) { // 表格选中项数据
-      this.multipleSelection = val
+      this.multipleSelection = val;
     },
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderType == '') {
-        this.$globalMsg.error(this.$t('loanAfterManage.selFirst'))
+        this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
       } else {
-        this.operationAdmin1()// 获取在职催收员列表
-        this.redeployFlag = true
+        this.operationAdmin1();// 获取在职催收员列表
+        this.redeployFlag = true;
       }
     },
     redeployClose () {
-      this.redeployFlag = false
-      this.redeployStatus = ''
-      this.reason = ''
+      this.redeployFlag = false;
+      this.redeployStatus = '';
+      this.reason = '';
     },
     operationAdmin () { // 获取全部催收员列表
       let option = {
@@ -503,12 +490,12 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options2 = arr
+          this.options2 = arr;
         }
       })
     },
@@ -525,66 +512,66 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data
+          let arr = res.data.data;
           arr.forEach(value => {
-            value.value = value.id
-            value.label = value.name
+            value.value = value.id;
+            value.label = value.name;
           })
-          this.options4 = arr
+          this.options4 = arr;
         }
       })
     },
     joinType () { // 订单转派弹窗对应数据处理
       let unique = function (arr) {
-        var res = []
-        var json = {}
+        var res = [];
+        var json = {};
         for (var i = 0; i < arr.length; i++) {
           if (!json[arr[i]]) {
-            res.push(arr[i])
-            json[arr[i]] = 1
+            res.push(arr[i]);
+            json[arr[i]] = 1;
           }
         }
-        return res
+        return res;
       }
-      let arr = []
-      let brr = []
-      let crr = []
+      let arr = [];
+      let brr = [];
+      let crr = [];
       this.multipleSelection.forEach(value => {
-        arr.push(value.orderNo)
-        brr.push(value.type)
+        arr.push(value.orderNo);
+        brr.push(value.type);
       })
-      brr = unique(brr)
+      brr = unique(brr);
       brr.forEach(item => {
         if (item == 1) {
-          crr.push('S1')
+          crr.push('S1');
         }
         if (item == 2) {
-          crr.push('S2')
+          crr.push('S2');
         }
         if (item == 3) {
-          crr.push('M1')
+          crr.push('M1');
         }
         if (item == 4) {
-          crr.push('M2')
+          crr.push('M2');
         }
         if (item == 5) {
-          crr.push('M3')
+          crr.push('M3');
         }
         if (item == 6) {
-          crr.push('S3')
+          crr.push('S3');
         }
         if (item == 7) {
-          crr.push('M3+')
+          crr.push('M3+');
         }
         if (item == 0) {
-          crr.push('S1')
+          crr.push('S1');
         }
       })
-      this.orderIds = arr
-      this.orderType = crr.join()
+      this.orderIds = arr;
+      this.orderType = crr.join();
     },
-    unSelect (row, index) {
-      return row.status != 100
+    unSelect (row) {
+      return row.status != 100;
     },
     getcollectionType(){ // 获取催收阶段
       let option = {
@@ -599,8 +586,8 @@ export default {
         if (res.data.header.code == 0) {
           let arr = res.data.data;
           arr.forEach(value=>{
-            value.label = value.optionName
-            value.value = value.optionValue
+            value.label = value.optionName;
+            value.value = value.optionValue;
           })
           this.options3 = arr;
         }
@@ -610,8 +597,8 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.collectionTimeBegin = this.searchTime[0]
-        this.formInline.collectionTimeEnd = this.searchTime[1]
+        this.formInline.collectionTimeBegin = this.searchTime[0];
+        this.formInline.collectionTimeEnd = this.searchTime[1];
       } else {
         this.formInline.collectionTimeBegin = ''
         this.formInline.collectionTimeEnd = ''
@@ -619,8 +606,8 @@ export default {
     },
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.dispatchTimeBegin = this.searchTime1[0]
-        this.formInline.dispatchTimeEnd = this.searchTime1[1]
+        this.formInline.dispatchTimeBegin = this.searchTime1[0];
+        this.formInline.dispatchTimeEnd = this.searchTime1[1];
       } else {
         this.formInline.dispatchTimeBegin = ''
         this.formInline.dispatchTimeEnd = ''
@@ -628,8 +615,8 @@ export default {
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.createTimeBegin = this.searchTime2[0]
-        this.formInline.createTimeEnd = this.searchTime2[1]
+        this.formInline.createTimeBegin = this.searchTime2[0];
+        this.formInline.createTimeEnd = this.searchTime2[1];
       } else {
         this.formInline.createTimeBegin = ''
         this.formInline.createTimeEnd = ''
@@ -637,259 +624,57 @@ export default {
     },
     searchTime3 () {
       if (this.searchTime3) {
-        this.formInline.lastRefundTimeBegin = this.searchTime3[0]
-        this.formInline.lastRefundTimeEnd = this.searchTime3[1]
+        this.formInline.lastRefundTimeBegin = this.searchTime3[0];
+        this.formInline.lastRefundTimeEnd = this.searchTime3[1];
       } else {
-        this.formInline.lastRefundTimeBegin = ''
-        this.formInline.lastRefundTimeEnd = ''
+        this.formInline.lastRefundTimeBegin = '';
+        this.formInline.lastRefundTimeEnd = '';
       }
     },
     searchTime4 () {
       if (this.searchTime4) {
-        this.formInline.promiseTimeBegin = this.searchTime4[0]
-        this.formInline.promiseTimeEnd = this.searchTime4[1]
+        this.formInline.promiseTimeBegin = this.searchTime4[0];
+        this.formInline.promiseTimeEnd = this.searchTime4[1];
       } else {
-        this.formInline.promiseTimeBegin = ''
-        this.formInline.promiseTimeEnd = ''
+        this.formInline.promiseTimeBegin = '';
+        this.formInline.promiseTimeEnd = '';
       }
     },
     searchTime5 () {
       if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0]
-        this.formInline.callEndTime = this.searchTime5[1]
+        this.formInline.callStartTime = this.searchTime5[0];
+        this.formInline.callEndTime = this.searchTime5[1];
       } else {
-        this.formInline.callStartTime = ''
-        this.formInline.callEndTime = ''
+        this.formInline.callStartTime = '';
+        this.formInline.callEndTime = '';
       }
     },
     multipleSelection () {
-      this.joinType()
+      this.joinType();
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
+    this.sessionid = sessionStorage.getItem('sessionid');
     if (JSON.stringify(this.$store.state.common.rucuiList_select) !== '{}') {
-      this.formInline = this.$store.state.common.rucuiList_select
+      this.formInline = this.$store.state.common.rucuiList_select;
       if(this.formInline.collectionTimeBegin!==''){
-        this.searchTime.push(this.formInline.collectionTimeBegin)
-      this.searchTime.push(this.formInline.collectionTimeEnd)
+        this.searchTime.push(this.formInline.collectionTimeBegin);
+        this.searchTime.push(this.formInline.collectionTimeEnd);
       }
       if(this.formInline.dispatchTimeBegin!==''){
-        this.searchTime1.push(this.formInline.dispatchTimeBegin)
-      this.searchTime1.push(this.formInline.dispatchTimeEnd)
+        this.searchTime1.push(this.formInline.dispatchTimeBegin);
+        this.searchTime1.push(this.formInline.dispatchTimeEnd);
       }
       
       
     }
-    this.operationList()// 获取入催订单列表
-    this.operationAdmin()// 获取催收员列表
-    this.getcollectionType()// 获取催收阶段
+    this.operationList();// 获取入催订单列表
+    this.operationAdmin();// 获取催收员列表
+    this.getcollectionType();// 获取催收阶段
   }
 }
 </script>
 
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.usermanage {
-  width: 100%;
-  height: 100%;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-.act{
-  padding: 5px 28px 5px 5px;
-}
-
-
-.table {
-  width: 100%;
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-
-// 查看详情
-.detail{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 694px;
-    height: auto;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    padding-bottom:5px; 
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .detail-con-one{
-        width: 100%;
-        display: flex;
-        margin: 10px 0;
-        p{
-          margin: 10px 40px 20px 0;
-          padding-left: 14px;
-          color: #999;
-          span{
-            color: #000;
-            margin: 0 5px;
-          }
-        }
-        .detail-con-one-4{
-          width: auto;
-          height: 40px;
-          text-align: center;
-          padding: 0 15px;
-          white-space: nowrap;
-          line-height: 40px;
-          color: #999;
-        }
-        .detail-con-one-3{
-          width: 100%;
-          display: flex;
-          align-items: center;
-          textarea{
-            width: 100%;
-            height: 100px;
-            padding: 5px;
-            font-size: 16px;
-          }
-        }
-      }
-      .detail-but{
-        width: 220px;
-        height: 38px;
-        background-color: #547ef5;
-        border-radius: 5px;
-        margin: 10px auto;
-        text-align: center;
-        line-height: 38px;
-        font-size: 16px;
-        color: #fff;
-        cursor: pointer;
-      }
-    }
-  }
-}
 </style>

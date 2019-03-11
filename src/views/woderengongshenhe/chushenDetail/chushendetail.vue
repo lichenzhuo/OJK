@@ -3,14 +3,14 @@
     <div class="crumbs" v-if="block==2">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/wodechushen'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myFirstAuditList'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="crumbs" v-else>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/rengongchushen'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/peopleFirstAudit'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -773,7 +773,7 @@ import auditDetail from '../../../components/component/auditdetail'
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
 
 export default {
-  name: 'userManage',
+  name: 'auditDetails',
   components: {
     telRecordList,
     noteRecordList,
@@ -1013,7 +1013,7 @@ export default {
           if (res.data.header.code == 0) {
             this.$globalMsg.success(this.$t('auditDetail.no26'))
             setTimeout(() => {
-              this.$router.push('/wodechushen')
+              this.$router.push('/myFirstAuditList')
             }, 1000)
           } else {
             this.$globalMsg.error(res.data.header.msg)
@@ -1584,12 +1584,12 @@ $color2:#000;
   .xuan-2-1-2{
     width: 100%;
     .xuan-2-1-2-1{
-      margin: 20px 20px;
+      margin: 10px;
       display: flex;
       align-items: center;
       @include p-span;
       p{
-        padding-right: 50px;
+        padding-right: 10px;
       }
       .tooltip{
         width: 15px;

@@ -2,18 +2,18 @@
   <div class="login-container" style="background-color: #141a48;margin: 0px;overflow: hidden;">
     <div class="ms-login">
       <div class="ms-title">{{$t('login.management_system')}}</div>
-        <el-form :model="ruleForm" :rules="rule" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-          <el-form-item prop="loginName">
-              <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-              <el-input :type="text" placeholder="passWord" @focus="typeToPass" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
-          </el-form-item>
-          <div class="login-btn">
-              <el-button type="primary" @click="submitForm('ruleForm')" :loading="logining">{{$t('login.login')}}</el-button>
-          </div>
-        </el-form>
-      </div>
+      <el-form :model="ruleForm" :rules="rule" ref="ruleForm" label-width="0px" class="demo-ruleForm">
+        <el-form-item prop="loginName">
+            <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+            <el-input :type="text" placeholder="passWord" @focus="typeToPass" auto-complete="off" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
+        </el-form-item>
+        <div class="login-btn">
+            <el-button type="primary" @click="submitForm('ruleForm')" :loading="logining">{{$t('login.login')}}</el-button>
+        </div>
+      </el-form>
+    </div>
     <div class="langSelect">
       <el-select size="small" v-model="langStyle" placeholder="请选择语言">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
@@ -32,6 +32,7 @@ export default {
         loginName: '',
         password: ''
       },
+      ruleForm1: {},
       // rules: '',
       logining: false,
       sessionid: '',
@@ -63,11 +64,12 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          this.logining = true
-          let jse = new JSEncrypt()
-          jse.setPublicKey(this.$store.state.common.publicKey)
+          this.logining = true;
+          // eslint-disable-next-line
+          let jse = new JSEncrypt();
+          jse.setPublicKey(this.$store.state.common.publicKey);
           //   设置需要加密的字符串
-          let encrypted = jse.encrypt(this.ruleForm.password)
+          let encrypted = jse.encrypt(this.ruleForm.password);
           let option = {
             header: {
               action: this.$store.state.actionMap.login,
@@ -80,18 +82,18 @@ export default {
             this.logining = false
             if (res.data.header.code == 0) {
               this.ruleForm.password = ''
-              sessionStorage.setItem('level', res.data.data.admininfo.level)
-              sessionStorage.setItem('sessionid', res.data.data.sessionid)
-              sessionStorage.setItem('name', res.data.data.admininfo.name)
-              sessionStorage.setItem('roleId', res.data.data.admininfo.roleId)
-              sessionStorage.setItem('list', JSON.stringify(res.data.data.admininfo.rightList))
-              this.$router.push('/adminhome')
+              sessionStorage.setItem('level', res.data.data.admininfo.level);
+              sessionStorage.setItem('sessionid', res.data.data.sessionid);
+              sessionStorage.setItem('name', res.data.data.admininfo.name);
+              sessionStorage.setItem('roleId', res.data.data.admininfo.roleId);
+              sessionStorage.setItem('list', JSON.stringify(res.data.data.admininfo.rightList));
+              this.$router.push('/adminhome');
             } else {
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
           })
         } else {
-          return false
+          return false;
         }
       })
     },
@@ -160,12 +162,12 @@ export default {
         if (value.id == 1302) {
           item.filter(index => {
             return index.index == '5'
-          })[0].subs.push({index: 'rengongchushen', title: '人工初审列表'})
+          })[0].subs.push({index: 'peopleFirstAudit', title: '人工初审列表'})
         }
         if (value.id == 1303) {
           item.filter(index => {
             return index.index == '5'
-          })[0].subs.push({index: 'rengongfushen', title: '人工复审列表'})
+          })[0].subs.push({index: 'peopleSecondAudit', title: '人工复审列表'})
         }
         if (value.id == 1304) {
           item.filter(index => {
@@ -184,12 +186,12 @@ export default {
         if (value.id == 1401) {
           item.filter(index => {
             return index.index == '2'
-          })[0].subs.push({index: 'wodechushen', title: '我的人工初审'})
+          })[0].subs.push({index: 'myFirstAuditList', title: '我的人工初审'})
         }
         if (value.id == 1402) {
           item.filter(index => {
             return index.index == '2'
-          })[0].subs.push({index: 'wodefushen', title: '我的人工复审'})
+          })[0].subs.push({index: 'mySecondtAuditList', title: '我的人工复审'})
         }
         // 财务数据
         if (value.id == 15) {
@@ -233,7 +235,7 @@ export default {
         if (value.id == 1701) {
           item.filter(index => {
             return index.index == '10'
-          })[0].subs.push({index: 'rucuidingdan', title: '入催订单列表'})
+          })[0].subs.push({index: 'inTheRushOrders', title: '入催订单列表'})
         }
         if (value.id == 1702) {
           item.filter(index => {
@@ -322,14 +324,13 @@ export default {
       this.$store.commit('rucuiList', {})
       this.$store.commit('todaypaidanList', {})
       this.$store.commit('todaycuihuiList', {})
-      this.$store.commit('cuishouyuanList', {})
+      this.$store.commit('collectionPeopleList', {})
       this.$store.commit('mycuishouList', {})
-      this.$store.commit('tongguolv', {})
-      this.$store.commit('shouyulv', {})
-      this.$store.commit('huikuanlv', {})
+      this.$store.commit('passingRate', {})
+      this.$store.commit('overdueRate', {})
+      this.$store.commit('rateOfReturn', {})
       this.$store.commit('idMangeList', {})
       this.$store.commit('cuishouNoteList', {})
-      this.$store.commit('cuihuiTotalList', {})
       this.$store.commit('noBackOrderList', {})
     },
     typeToPass(){
@@ -381,9 +382,10 @@ export default {
   height: 100%;
   
 }
-
+.noclick{
+  display: none;
+}
 .ms-title {
-  
   width: 100%;
   margin: 0 auto;
   margin-bottom: 40px;

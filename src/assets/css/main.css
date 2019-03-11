@@ -72,11 +72,17 @@ span.el-breadcrumb__item{
 .el-table tr:hover{
     background: #f6faff;
 }
-.mgb20{
+.mb20{
     margin-bottom: 20px;
 }
 .ml15{
     margin-left: 15px;
+}
+.mt15{
+    margin-top: 15px;
+}
+.mt0{
+    margin-top: 0px;
 }
 
 .move-enter-active,.move-leave-active{
@@ -225,6 +231,7 @@ ul.el-pager li.active{
 .table {
     width: 100%;
     background-color: #fff;
+    min-height: 440px;
 }
 .el-row--flex {
     flex-wrap: wrap;
@@ -298,4 +305,17 @@ ul.el-pager li.active{
 
 .mg5{
     margin: 0 5px;
+}
+.fw600{
+    font-weight: 600;
+}
+.cl555{
+    color: #555;
+}
+.cl999{
+    color: #999;
+}
+.td-ul{
+    text-decoration: underline;
+    cursor: pointer;
 }

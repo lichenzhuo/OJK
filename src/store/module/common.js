@@ -32,8 +32,6 @@ const common = {
     lang: global.config.lang, // 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
     id_currency: global.config.first_unit, // 印尼金钱单位 Rp
     vi_currency: global.config.last_unit, // 越南金钱单位 VND 菲律宾金钱单位PHP
-    //     ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
-    //     **********      版本打包还有下方金钱处理需要修改     ******************
     permiss: filterPer(),
     preMonth: getPreMonth(),
     userList_select: {},
@@ -114,11 +112,9 @@ const common = {
       loanType:''
     },
     rucuiList_select: {},
-    overdueCouponApply_select: {},
-    partialRepaymentApply_select: {},
     todaypaidanList_select: {},
     todaycuihuiList_select: {},
-    cuishouyuanList_select: {},
+    collectionPeopleList_select: {},
     mycuishouList_select: {},
     tongguolv_select: {},
     shouyulv_select: {},
@@ -130,20 +126,19 @@ const common = {
     myOveDateRemindList_select: {},
     telComeList_select: {},
     payCodeList_select: {},
-    kefuList_select: {},
-    xinshenyuanList_select: {},
-    cuishouyuanList_group_select: {},
-    kefuList_group_select: {},
-    xinshenyuanList_group_select: {},
-    cuishouyuanList_group1_select: {},
-    meirirucuiList_select:{}
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
-      return String(str).split('.').map(
-        function (val, index) {
-          return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
-        }).join('.')
+      if(typeof str !== 'undefined' || str !== ''){
+        return String(str).split('.').map(
+          function (val, index) {
+            return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
+          }
+        ).join('.')
+      }else{
+        return '-';
+      }
+      
     },
     toArray: () => (obj) => {
       // let arr = []
@@ -178,10 +173,15 @@ const common = {
       state.permiss = arr
     },
     twoPoint: () => (str) => { // 截取小数点后两位
-      var aNew
-      var re = /([0-9]+\.[0-9]{2})[0-9]*/
-      aNew = String(str * 100).replace(re, '$1')
-      return aNew
+      if(typeof str !== 'undefined' || str !== ''){
+        var aNew
+        var re = /([0-9]+\.[0-9]{2})[0-9]*/
+        aNew = String(str * 100).replace(re, '$1')
+        return aNew
+      }else{
+        return '-'
+      }
+      
     },
     dayData: () => (obj) => { // 首页数据图
       let arr = []
@@ -319,31 +319,25 @@ const common = {
     rucuiList (state, list) {
       state.rucuiList_select = list
     },
-    overdueCouponApplyList (state, list) {
-      state.overdueCouponApply_select = list
-    },
-    partialRepaymentApplyList (state, list) {
-      state.partialRepaymentApply_select = list
-    },
     todaypaidanList (state, list) {
       state.todaypaidanList_select = list
     },
     todaycuihuiList (state, list) {
       state.todaycuihuiList_select = list
     },
-    cuishouyuanList (state, list) {
-      state.cuishouyuanList_select = list
+    collectionPeopleList (state, list) {
+      state.collectionPeopleList_select = list
     },
     mycuishouList (state, list) {
       state.mycuishouList_select = list
     },
-    tongguolv (state, list) {
+    passingRate (state, list) {
       state.tongguolv_select = list
     },
-    shouyulv (state, list) {
+    overdueRate (state, list) {
       state.shouyulv_select = list
     },
-    huikuanlv (state, list) {
+    rateOfReturn (state, list) {
       state.huikuanlv_select = list
     },
     idMangeList (state, list) {
@@ -351,9 +345,6 @@ const common = {
     },
     cuishouNoteList (state, list) {
       state.cuishouNoteList_select = list
-    },
-    cuihuiTotalList (state, list) {
-      state.cuihuiTotalList_select = list
     },
     noBackOrderList (state, list) {
       state.noBackOrderList_select = list
@@ -370,24 +361,22 @@ const common = {
     kefuList_group (state, list) {
       state.kefuList_select = list
     },
-    xinshenyuanList_group (state, list) {
-      state.xinshenyuanList_select = list
+    creditAuditPeopleList_group (state, list) {
+      state.creditAuditPeopleList_select = list
     },
-    cuishouyuanList_group (state, list) {
-      state.cuishouyuanList_group_select = list
+    collectionPeopleList_group (state, list) {
+      state.collectionPeopleList_group_select = list
     },
     kefuList_group_list (state, list) {
       state.kefuList_group_select = list
     },
-    xinshenyuanList_group_list (state, list) {
-      state.xinshenyuanList_group_select = list
+    creditAuditPeopleList_group_list (state, list) {
+      state.creditAuditPeopleList_group_select = list
     },
-    cuishouyuanList_group_list (state, list) {
-      state.cuishouyuanList_group1_select = list
+    collectionPeopleList_group_list (state, list) {
+      state.collectionPeopleList_group1_select = list
     },
-    meirirucuiList (state, list) {
-      state.meirirucuiList_select = list
-    },
+    
 
   }
 

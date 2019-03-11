@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import store from '../store/index'
 import Login from '../components/login/Login.vue'
 
-Vue.use(Router)
+Vue.use(Router);
 
 // @@@@@@@@@@@@@@@@@@@@@@@  系统首页  @@@@@@@@@@@@@@@@@@@@@@@
 let adminhome = resolve => require(['../views/adminHome.vue'], resolve)
@@ -52,14 +52,15 @@ if (store.state.common.lang === 'id') {
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@  我的订单审核列表  @@@@@@@@@@@@@@@@@@@@@@@
-let wodechushen = resolve => require(['../views/woderengongshenhe/woderengongchushen.vue'], resolve)
-let wodefushen = resolve => require(['../views/woderengongshenhe/woderengongfushen.vue'], resolve)
+let myFirstAuditList = resolve => require(['../views/woderengongshenhe/myFirstAuditList.vue'], resolve)
+let mySecondtAuditList = resolve => require(['../views/woderengongshenhe/mySecondtAuditList.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  财务数据  @@@@@@@@@@@@@@@@@@@@@@@
 let financeTable = resolve => require(['../views/finance/financeTable.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  产品管理  @@@@@@@@@@@@@@@@@@@@@@@
 let appPackageMag = resolve => require(['../views/proManage/appPackageMag.vue'], resolve)
+let FAQ = resolve => require(['../views/proManage/FAQ.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  用户管理  @@@@@@@@@@@@@@@@@@@@@@@
 let userList = resolve => require(['../views/userManage/userlist.vue'], resolve)
@@ -69,51 +70,46 @@ let userSug = resolve => require(['../views/userManage/usersug.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  借款列表  @@@@@@@@@@@@@@@@@@@@@@@
 let loanMoney = resolve => require(['../views/loanMoneyList/loanMoneyList.vue'], resolve)
-
 let putMoney = resolve => require(['../views/loanMoneyList/putMoneyList.vue'], resolve)
 let backMoneyAwait = resolve => require(['../views/loanMoneyList/backMoneyAwait.vue'], resolve)
 let putMoneyAwait = resolve => require(['../views/loanMoneyList/putMoneyAwait.vue'], resolve)
 
 
 //  @@@@@@@@@@@@@@@@@@@@@@@  待初审列表  @@@@@@@@@@@@@@@@@@@@@@@
-let rengongchushen = resolve => require(['../views/fengkonglist/rengongchushen.vue'], resolve)
-let rengongfushen = resolve => require(['../views/fengkonglist/rengongfushen.vue'], resolve)
-let rengongchushentongji = resolve => require(['../views/fengkonglist/rengongchushentotal.vue'], resolve)
-let rengongfushentongji = resolve => require(['../views/fengkonglist/rengongfushentotal.vue'], resolve)
+let peopleFirstAudit = resolve => require(['../views/fengkonglist/peopleFirstAudit.vue'], resolve)
+let peopleSecondAudit = resolve => require(['../views/fengkonglist/peopleSecondAudit.vue'], resolve)
+let peopleFirstAuditTotal = resolve => require(['../views/fengkonglist/peopleFirstAuditTotal.vue'], resolve)
+let peopleSecondAuditTotal = resolve => require(['../views/fengkonglist/peopleSecondAuditTotal.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后管理列表  @@@@@@@@@@@@@@@@@@@@@@@
 let overdueCouponApply = resolve => require(['../views/loanafter/overdueCouponApply.vue'], resolve)
 let partialRepaymentApply = resolve => require(['../views/loanafter/partialRepaymentApply.vue'], resolve)
-
-let rucuidingdan = resolve => require(['../views/loanafter/rucuidingdan.vue'], resolve)
+let inTheRushOrders = resolve => require(['../views/loanafter/inTheRushOrders.vue'], resolve)
 let rucuixiangqing = resolve => require(['../views/loanafter/rucuixiangqing/rucuixiangqing.vue'], resolve)
-let meiricuihuitongji = resolve => require(['../views/loanafter/meiricuihuitongji.vue'], resolve)
-let meiripaidantongji = resolve => require(['../views/loanafter/meiripaidantongji.vue'], resolve)
-let cuishouyuantongji = resolve => require(['../views/loanafter/adminTotal.vue'], resolve)
+let everyDayPushBackTotal = resolve => require(['../views/loanafter/everyDayPushBackTotal.vue'], resolve)
+let everyDaySendOrdersTotal = resolve => require(['../views/loanafter/everyDaySendOrdersTotal.vue'], resolve)
+let debtCollectorTotal = resolve => require(['../views/loanafter/debtCollectorTotal.vue'], resolve)
 let paymentCode = resolve => require(['../views/loanafter/paymentCode.vue'], resolve)
 let OutsourcedResourcePool = resolve => require(['../views/loanafter/OutsourcedResourcePool.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
-let wodecuishoudingdan = resolve => require(['../views/cuishou/wodecuishoudingdan.vue'], resolve)
+let myCollectionOrderList = resolve => require(['../views/cuishou/myCollectionOrderList.vue'], resolve)
 let workAnalysis = resolve => require(['../views/cuishou/workAnalysis.vue'], resolve)
 
-
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
-let cuishouduanxin = resolve => require(['../views/daihouyunying/cuishouduanxin.vue'], resolve)
-let cuihuibaobiao = resolve => require(['../views/daihouyunying/cuihuibaobiao.vue'], resolve)
-// let meirirucui = resolve => require(['../views/daihouyunying/meirirucui.vue'], resolve);
+let collectionSMS = resolve => require(['../views/daihouyunying/collectionSMS.vue'], resolve)
+let collectionReport = resolve => require(['../views/daihouyunying/collectionReport.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
-let tongguolv = resolve => require(['../views/tongjiguanli/tongguolv.vue'], resolve)
-let shouyulv = resolve => require(['../views/tongjiguanli/shouyulv.vue'], resolve)
-let huikuanlv = resolve => require(['../views/tongjiguanli/huikuanlv.vue'], resolve)
+let passingRate = resolve => require(['../views/tongjiguanli/passingRate.vue'], resolve)
+let overdueRate = resolve => require(['../views/tongjiguanli/overdueRate.vue'], resolve)
+let rateOfReturn = resolve => require(['../views/tongjiguanli/rateOfReturn.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   系统权限相关   @@@@@@@@@@@@@@@@@@@@@@@
 let IDmanagement = resolve => require(['../views/system/IDmanagement.vue'], resolve)
 let Permission = resolve => require(['../views/system/Permission.vue'], resolve)
 
-//  @@@@@@@@@@@@@@@@@@@@@@@  产品列表  @@@@@@@@@@@@@@@@@@@@@@@
-let FAQ = resolve => require(['../views/proManage/FAQ.vue'], resolve)
+
 
 //  @@@@@@@@@@@@@@@@@@@@@@@  委外管理  @@@@@@@@@@@@@@@@@@@@@@@
 let everyDayOutsourcedTotal = resolve => require(['../views/OutsourcedManage/everyDayOutsourcedTotal.vue'], resolve)
@@ -126,21 +122,21 @@ let myOveDateRemindTotal = resolve => require(['../views/serviceManage/myOveDate
 let nobackOrderList = resolve => require(['../views/serviceManage/nobackOrderList.vue'], resolve)
 let telComeList = resolve => require(['../views/serviceManage/telComeList.vue'], resolve)
 let telNoticeDetail = resolve => require(['../views/serviceManage/telNoticeDetail/telNoticeDetail.vue'], resolve)
-let noBackdetail = resolve => require(['../views/serviceManage/telNoticeDetail/noBackDetail.vue'], resolve)
+
 
 // @@@@@@@@@@@@@@@@@@@@@@@   渠道管理   @@@@@@@@@@@@@@@@@@@@@@@
-let channelManage = resolve => require(['../views/channelManage/channelManage.vue'], resolve)
-let channelOvedueTotal = resolve => require(['../views/channelManage/channelOvedueTotal.vue'], resolve)
-let channelComeUnitTotal = resolve => require(['../views/channelManage/channelComeUnitTotal.vue'], resolve)
-let channelIncomeTotal = resolve => require(['../views/channelManage/channelIncomeTotal.vue'], resolve)
+// let channelManage = resolve => require(['../views/channelManage/channelManage.vue'], resolve)
+// let channelOvedueTotal = resolve => require(['../views/channelManage/channelOvedueTotal.vue'], resolve)
+// let channelComeUnitTotal = resolve => require(['../views/channelManage/channelComeUnitTotal.vue'], resolve)
+// let channelIncomeTotal = resolve => require(['../views/channelManage/channelIncomeTotal.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   员工管理   @@@@@@@@@@@@@@@@@@@@@@@
-let xinshenyuanList = resolve => require(['../views/staffManage/xinshenyuanList.vue'], resolve)
-let xinshenxiaozu = resolve => require(['../views/staffManage/xinshenxiaozu.vue'], resolve)
-let cuishouyuanList = resolve => require(['../views/staffManage/cuishouyuanList.vue'], resolve)
-let cuishouxiaozu = resolve => require(['../views/staffManage/cuishouxiaozu.vue'], resolve)
-let kefuyuanList = resolve => require(['../views/staffManage/kefuyuanList.vue'], resolve)
-let kefuxiaozu = resolve => require(['../views/staffManage/kefuxiaozu.vue'], resolve)
+let creditAuditPeopleList = resolve => require(['../views/staffManage/creditAuditPeopleList.vue'], resolve)
+let creditAuditGroup = resolve => require(['../views/staffManage/creditAuditGroup.vue'], resolve)
+let collectionPeopleList = resolve => require(['../views/staffManage/collectionPeopleList.vue'], resolve)
+let collectionGroup = resolve => require(['../views/staffManage/collectionGroup.vue'], resolve)
+let servicePeopleList = resolve => require(['../views/staffManage/servicePeopleList.vue'], resolve)
+let serviceGroup = resolve => require(['../views/staffManage/serviceGroup.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   运营管理   @@@@@@@@@@@@@@@@@@@@@@@
 let couponSetting = resolve => require(['../views/operatorManage/couponSetting.vue'], resolve)
@@ -202,17 +198,17 @@ const router = new Router({
 
                     //  @@@@@@@@@@@@@@@@@@@@@@@  待初审列表  @@@@@@@@@@@@@@@@@@@@@@@
                     // {path: '/daichushen',name:'daichushen', component: resolve => require(['../views/fengkonglist/daichushen.vue'], resolve)},
-                    {path: '/rengongchushen', name: 'rengongchushen', component: rengongchushen },
-                    {path: '/rengongfushen', name: 'rengongfushen', component: rengongfushen },
-                    {path: '/rengongchushentongji', name: 'rengongchushentongji', component: rengongchushentongji },
-                    {path: '/rengongfushentongji', name: 'rengongfushentongji', component: rengongfushentongji },
+                    {path: '/peopleFirstAudit', name: 'peopleFirstAudit', component: peopleFirstAudit },
+                    {path: '/peopleSecondAudit', name: 'peopleSecondAudit', component: peopleSecondAudit },
+                    {path: '/peopleFirstAuditTotal', name: 'peopleFirstAuditTotal', component: peopleFirstAuditTotal },
+                    {path: '/peopleSecondAuditTotal', name: 'peopleSecondAuditTotal', component: peopleSecondAuditTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  我的订单审核列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/wodechushen', name: 'wodechushen', component: wodechushen },
+                    {path: '/myFirstAuditList', name: 'myFirstAuditList', component: myFirstAuditList },
                         //  ----------------  我的初审订单详情   -----------------
                         {path: '/chushendetail', name: 'chushendetail', component: chushendetail },
 
-                    {path: '/wodefushen', name: 'wodefushen', component: wodefushen },
+                    {path: '/mySecondtAuditList', name: 'mySecondtAuditList', component: mySecondtAuditList },
                         //  ----------------  我的复审订单详情   -----------------
                         {path: '/fushendetail', name: 'fushendetail', component: fushendetail },
 
@@ -226,28 +222,27 @@ const router = new Router({
                     {path: '/partialRepaymentApply', name: 'partialRepaymentApply', component: partialRepaymentApply },
                     {path: '/outsourcedresourcepool', name: 'OutsourcedResourcePool', component: OutsourcedResourcePool },
 
-                    {path: '/rucuidingdan', name: 'rucuidingdan', component: rucuidingdan },
+                    {path: '/inTheRushOrders', name: 'inTheRushOrders', component: inTheRushOrders },
                         //  ----------------  催收订单详情订单详情   -----------------
                         {path: '/rucuixiangqing', name: 'rucuixiangqing', component: rucuixiangqing },
-                    {path: '/meiricuihuitongji', name: 'meiricuihuitongji', component: meiricuihuitongji },
-                    {path: '/meiripaidantongji', name: 'meiripaidantongji', component: meiripaidantongji },
-                    {path: '/cuishouyuantongji', name: 'cuishouyuantongji', component: cuishouyuantongji },
+                    {path: '/everyDayPushBackTotal', name: 'everyDayPushBackTotal', component: everyDayPushBackTotal },
+                    {path: '/everyDaySendOrdersTotal', name: 'everyDaySendOrdersTotal', component: everyDaySendOrdersTotal },
+                    {path: '/debtCollectorTotal', name: 'debtCollectorTotal', component: debtCollectorTotal },
                     {path: '/paymentcode', name: 'paymentCode', component: paymentCode },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/wodecuishoudingdan', name: 'wodecuishoudingdan', component: wodecuishoudingdan },
+                    {path: '/myCollectionOrderList', name: 'myCollectionOrderList', component: myCollectionOrderList },
                     {path: '/cuishoudetail', name: 'cuishouDetail', component: cuishouDetail },
                     {path: '/workanalysis', name: 'workAnalysis', component: workAnalysis },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/cuishouduanxin', name: 'cuishouduanxin', component: cuishouduanxin },
-                    {path: '/cuihuibaobiao', name: 'cuihuibaobiao', component: cuihuibaobiao },
-                    // {path: '/meirirucui',name:'meirirucui', component: meirirucui },
+                    {path: '/collectionSMS', name: 'collectionSMS', component: collectionSMS },
+                    {path: '/collectionReport', name: 'collectionReport', component: collectionReport },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  统计数据列表  @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/tongguolv', name: 'tongguolv', component: tongguolv },
-                    {path: '/shouyulv', name: 'shouyulv', component: shouyulv },
-                    {path: '/huikuanlv', name: 'huikuanlv', component: huikuanlv },
+                    {path: '/passingRate', name: 'passingRate', component: passingRate },
+                    {path: '/overdueRate', name: 'overdueRate', component: overdueRate },
+                    {path: '/rateOfReturn', name: 'rateOfReturn', component: rateOfReturn },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   系统权限相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/idmanagement', name: 'IDmanagement', component: IDmanagement },
@@ -264,21 +259,21 @@ const router = new Router({
                     {path: '/nobackorderlist', name: 'nobackOrderList', component: nobackOrderList },
                     {path: '/telcomelist', name: 'telComeList', component: telComeList },
                     {path: '/telnoticedetail', name: 'telNoticeDetail', component: telNoticeDetail },
-                    {path: '/nobackdetail', name: 'noBackdetail', component: noBackdetail },
+                    
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   渠道管理相关   @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/channelmanage', name: 'channelManage', component: channelManage },
-                    {path: '/channeloveduetotal', name: 'channelOvedueTotal', component: channelOvedueTotal },
-                    {path: '/channelcomeunittotal', name: 'channelComeUnitTotal', component: channelComeUnitTotal },
-                    {path: '/channelincometotal', name: 'channelIncomeTotal', component: channelIncomeTotal },
+                    // {path: '/channelmanage', name: 'channelManage', component: channelManage },
+                    // {path: '/channeloveduetotal', name: 'channelOvedueTotal', component: channelOvedueTotal },
+                    // {path: '/channelcomeunittotal', name: 'channelComeUnitTotal', component: channelComeUnitTotal },
+                    // {path: '/channelincometotal', name: 'channelIncomeTotal', component: channelIncomeTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   员工管理相关   @@@@@@@@@@@@@@@@@@@@@@@
-                    {path: '/xinshenyuanlist', name: 'xinshenyuanList', component: xinshenyuanList },
-                    {path: '/xinshenxiaozu', name: 'xinshenxiaozu', component: xinshenxiaozu },
-                    {path: '/cuishouyuanlist', name: 'cuishouyuanList', component: cuishouyuanList },
-                    {path: '/cuishouxiaozu', name: 'cuishouxiaozu', component: cuishouxiaozu },
-                    {path: '/kefuyuanlist', name: 'kefuyuanList', component: kefuyuanList },
-                    {path: '/kefuxiaozu', name: 'kefuxiaozu', component: kefuxiaozu },
+                    {path: '/creditAuditPeopleList', name: 'creditAuditPeopleList', component: creditAuditPeopleList },
+                    {path: '/creditAuditGroup', name: 'creditAuditGroup', component: creditAuditGroup },
+                    {path: '/collectionPeopleList', name: 'collectionPeopleList', component: collectionPeopleList },
+                    {path: '/collectionGroup', name: 'collectionGroup', component: collectionGroup },
+                    {path: '/servicePeopleList', name: 'servicePeopleList', component: servicePeopleList },
+                    {path: '/serviceGroup', name: 'serviceGroup', component: serviceGroup },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   运营管理相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/couponSetting', name: 'couponSetting', component: couponSetting },
@@ -297,7 +292,6 @@ const router = new Router({
                     {path: '/usersubmitdetail', name: 'userSubmitDetail', component: userSubmitDetail },
                     {path: '/mytailafterorder', name: 'myTailafterOrder', component: myTailafterOrder },
                     {path: '/loansapplylist', name: 'loansApplyList', component: loansApplyList },
-                    {path: '/test', name: 'test', component: resolve =>require(['../views/test.vue'], resolve) },
           ]
         },
 
@@ -316,7 +310,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-router.afterEach((to, from) => {
+router.afterEach(() => {
   window.scrollTo(0, 0)
 })
 

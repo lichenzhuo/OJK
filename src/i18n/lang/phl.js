@@ -1361,6 +1361,8 @@ const phl = {
     no12:'Number of children',
     no13:'Bank account picture',
     no14:'latest follow up',
+    no15: '提醒次数',
+    no16: 'Epektibo ba ito',
   },
   couponSetting: {
     crumbsOne: '运营管理',

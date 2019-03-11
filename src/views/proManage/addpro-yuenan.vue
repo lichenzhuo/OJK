@@ -104,7 +104,6 @@ export default {
     }
     return {
       sessionid: '',
-      productId: '',
       ruleForm2: {
         productAmountMin: '',
         productAmountMax: '',
@@ -184,15 +183,15 @@ export default {
         if (valid) {
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
-              this.$globalMsg.success(this.$t('message.success'))
+              this.$globalMsg.success(this.$t('message.success'));
             } else {
-              this.$globalMsg.error(res.data.header.msg)
+              this.$globalMsg.error(res.data.header.msg);
             }
-            this.addclose()
-            this.proList()
+            this.addclose();
+            this.proList();
           })
         } else {
-          return false
+          return false;
         }
       })
     },
@@ -209,31 +208,41 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if (res.data.data) {
-            this.ruleForm2.productAmountMin = res.data.data.productAmountMin
-            this.ruleForm2.productAmountMax = res.data.data.productAmountMax
-            this.ruleForm2.productAmountPer = res.data.data.productAmountPer
-            this.ruleForm2.productPeriodMin = res.data.data.productPeriodMin
-            this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax
-            this.ruleForm2.productPeriodPer = res.data.data.productPeriodPer
-            this.ruleForm2.dayInterest = res.data.data.dayInterest
-            this.ruleForm2.feeRate = res.data.data.feeRate
-            this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays
-            this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay
-            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate
-            this.ruleForm2.overdueInterest = res.data.data.overdueInterest
-            this.ruleForm2.canAdvanceType = String(res.data.data.canAdvanceType)
-            this.ruleForm2.appPackage = res.data.data.appPackage
+            this.ruleForm2.productAmountMin = res.data.data.productAmountMin;
+            this.ruleForm2.productAmountMax = res.data.data.productAmountMax;
+            this.ruleForm2.productAmountPer = res.data.data.productAmountPer;
+            this.ruleForm2.productPeriodMin = res.data.data.productPeriodMin;
+            this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax;
+            this.ruleForm2.productPeriodPer = res.data.data.productPeriodPer;
+            this.ruleForm2.dayInterest = res.data.data.dayInterest;
+            this.ruleForm2.feeRate = res.data.data.feeRate;
+            this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays;
+            this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay;
+            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate;
+            this.ruleForm2.overdueInterest = res.data.data.overdueInterest;
+            this.ruleForm2.canAdvanceType = String(res.data.data.canAdvanceType);
+            this.ruleForm2.appPackage = res.data.data.appPackage;
           }
         }
       })
     }
 
   },
+  watch:{
+    type(){
+      if(this.type=='edit'){
+        this.proData();
+      }else{
+        this.ruleForm2 = {};
+        console.log(this.ruleForm2)
+      }
+      console.log(this.type)
+    }
+  },
   mounted () {
-    let sessionid = sessionStorage.getItem('sessionid')
-    this.sessionid = sessionid
+    this.sessionid = sessionStorage.getItem('sessionid');
     if(this.type=='edit'){
-      this.proData()
+      this.proData();
     }
   }
 }

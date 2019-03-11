@@ -1,5 +1,5 @@
 <template>
-  <div class="operatorManage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('popularizeList.crumbsOne')}}</el-breadcrumb-item>
@@ -7,33 +7,25 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('popularizeList.crumbsTwo')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('popularizeList.crumbsTwo')}}</p>
+    </div>
      
   <!-- -------------搜索查询栏------------------------ -->
   <search-filter :filter="filter" @search="search" @output="putExcel" :searchRight="$store.state.common.permiss.includes('MENU_PROMOT_PLAN_QUERY')" :outputRight="$store.state.common.permiss.includes('RIGHT_PROMOT_PLAN_EXP')"></search-filter>
   
   <!-- ------------  添加活动  ------------------------ -->
-    <div class="search" v-if="$store.state.common.permiss.includes('RIGHT_PROMOT_PLAN_ADD')">
-      <el-row type="flex" justify="start" align="middle" :gutter=10>
-        <el-col :span="3">
-          <div class="search-add" @click="edit()">
-            +{{$t('popularizeList.edit')}}
-          </div>
-        </el-col>
-      </el-row>
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PROMOT_PLAN_ADD')">
+      <el-button type="primary" @click="edit()">
+        +{{$t('popularizeList.edit')}}
+      </el-button>
     </div>
 
   <!-- ------------  优惠券列表  ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('MENU_PROMOT_PLAN_LIST')">
       <template>
-        <el-table :data="list" size="small" stripe style="width: 100%"  empty-text>
+        <el-table :data="list" size="small" stripe>
           <el-table-column align="center" prop="id" :label="$t('popularizeList.id')">
           </el-table-column>
           <el-table-column align="center" prop="position" :label="$t('filter.adType')">
@@ -136,7 +128,7 @@
 import searchFilter from '../../components/component/filter'
 import ImageFile from '../../utils/image-file'
 export default {
-  name: 'operatorManage',
+  name: 'popularizeList',
   components: {searchFilter},
   data () {
     return {
@@ -166,11 +158,11 @@ export default {
     }
   },
   mounted () {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData (condition) {
-      const self = this
+      const self = this;
       let option = {
         header: {
           ...this.$base,
@@ -186,27 +178,27 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let date = new Date()
-          date = self.$store.getters.getYMD(date)
+          let date = new Date();
+          date = self.$store.getters.getYMD(date);
           res.data.data.forEach((item) => {
             if (date < item.strBeginTime) {
-              item.status = '未开始'
+              item.status = '未开始';
             } else if (date === item.strBeginTime || (date > item.strBeginTime && (date < item.strEndTime || date === item.strEndTime))) {
-              item.status = '进行中'
+              item.status = '进行中';
             } else if (date > item.strEndTime) {
-              item.status = '已结束'
+              item.status = '已结束';
             }
           })
-          self.list = res.data.data
-          self.page.total = res.data.header.page.total
+          self.list = res.data.data;
+          self.page.total = res.data.header.page.total;
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     edit (id) {
-      const self = this
-      self.dialogFormVisible = true
+      const self = this;
+      self.dialogFormVisible = true;
       if (id) {
         let option = {
           header: {
@@ -239,12 +231,12 @@ export default {
       }
     },
     save (id) {
-      const self = this
-      let method = 'add'
+      const self = this;
+      let method = 'add';
       if (typeof (id) === 'number') {
-        method = 'edit'
+        method = 'edit';
       } else {
-        id = ''
+        id = '';
       }
       let option = {
         header: {
@@ -267,38 +259,38 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0 && res.data.data === 1) {
-          self.dialogFormVisible = false
-          self.$message.success('操作成功！')
+          self.dialogFormVisible = false;
+          self.$message.success('操作成功！');
           self.fetchData()
         } else {
-          self.$message.error(res.data.header.msg)
+          self.$message.error(res.data.header.msg);
         }
       })
     },
     imgChange (e) {
-      const self = this
+      const self = this;
       // let e = window.event || arguments[0]
-      let image = new ImageFile()
+      let image = new ImageFile();
       image.compress({file: e.target.files[0]}).then(res => {
-        const imgRes = res
+        const imgRes = res;
         if(imgRes.blob.size>(400*1024)){
-          self.$message.error(this.$t('public.imgLimit'))
+          self.$message.error(this.$t('public.imgLimit'));
         }else{
-          self.form.imgType = imgRes.blob.type
-          self.form.imgBase64 = imgRes.dataURL
+          self.form.imgType = imgRes.blob.type;
+          self.form.imgBase64 = imgRes.dataURL;
           
         }
       })
     },
     search (condition) {
-      const self= this
-      self.page.current = 1
-      self.condition = condition
-      this.fetchData(self.condition)
+      const self= this;
+      self.page.current = 1;
+      self.condition = condition;
+      this.fetchData(self.condition);
     },
     putExcel (condition) {
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -310,7 +302,7 @@ export default {
           status: condition ? condition.adStatus : ''
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
             let title = res.data.data.titles;
             let fields = res.data.data.fields;
@@ -322,117 +314,13 @@ export default {
     },
 
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val
-      this.fetchData(this.condition)
+      this.page.current = val;
+      this.fetchData(this.condition);
     }
   }
 }
 </script>
 <style scoped lang="scss">
-  @mixin flex-cen {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @mixin p-span {
-    p{
-      line-height: 24px;
-      span:nth-child(1){
-        white-space: nowrap;
-        color: $color1;
-        font-size: 16px;
-      }
-      span:nth-child(2),span:nth-child(3),span:nth-child(4){
-        color: $color2;
-        font-size: 16px;
-        margin: 0 10px;
-        word-break: break-all;
-      } 
-    }
-  }
-  
-  .operatorManage {
-    width: 100%;
-    height: auto;
-    padding: 20px 30px;
-    background-color: rgba(246, 249, 252, 1);
-    position: relative;
-    .paixu {
-      width: 100%;
-      height: 48px;
-      line-height: 48px;
-      background: rgba(224, 229, 246, 1);
-      border-radius: 4px;
-      span {
-        display: block;
-        float: left;
-        margin-top: 10px;
-        background-color: rgba(84, 126, 245, 1);
-        width: 4px;
-        height: 30px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(84, 126, 245, 1);
-        font-size: 16px;
-        margin-left: 20px;
-      }
-      
-    }
-    .search {
-      width: 100%;
-      background-color: #ffffff;
-      margin-top: 18px;
-      margin-bottom: 22px;
-      padding: 22px 28px 22px 5px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-      justify-content: space-between;
-      .search-add{
-        width: 114px;
-        height: 100%;
-        border: 1px solid #547ef6;
-        border-radius:5px;
-        text-align: center;
-        line-height: 36px;
-        color:#547ef5;
-        margin-left: 30px;
-        cursor:pointer;
-      }
-      .search-input {
-        height: 50px;
-        display: flex;
-        align-items: center;
-        // margin-right: 10px;
-        & > span {
-          padding: 0 5px;
-          font-size: 14px;
-          white-space: nowrap;
-          @include flex-cen;
-        }
-        .el-input {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-date-editor {
-          margin: 0 5px;
-        }
-        .el-select {
-          flex: auto;
-          @include flex-cen;
-        }
-        .el-button--primary{
-          height: 40px;
-          
-        }
-        .button-color{
-          background-color: #1D7BFF;
-          border-color: #547ef6;
-        }
-      }
-    }
-  }
   .add-btn {
     width: 320px;
     display: block;

@@ -1,19 +1,16 @@
 <template>
-  <div class="usermanage">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('serviceManage.crumbsThree')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('serviceManage.crumbsThree')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('serviceManage.crumbsThree')}}</p>
+    </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
@@ -24,7 +21,7 @@
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
           </div>
         </el-col>
-        <el-col :md="6" :lg="4" :xl="3">
+        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
@@ -42,7 +39,6 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('new.no34')}}:</span>
             <el-select size="small" v-model="formInline.serviceStatus" :placeholder="$t('public.placeholder')">
@@ -50,8 +46,6 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="9" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('public.orderStatus')}}:</span>
             <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
@@ -59,17 +53,13 @@
               </el-option>
             </el-select>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.no28')}}:</span>
-            <el-input size="small"  label="phone" v-model="formInline.overdueBegin"></el-input>
+            <el-input size="small"  style="width:50px;" v-model="formInline.overdueBegin"></el-input>
             ~
-            <el-input size="small"  label="phone" v-model="formInline.overdueEnd"></el-input>
+            <el-input size="small"  style="width:50px;" v-model="formInline.overdueEnd"></el-input>
           </div>
-        </el-col>
         <template v-if="$store.state.common.lang==='vi'">
-          <el-col :md="9" :lg="6" :xl="5">
             <div class="search-input">
               <span>{{$t('websiteLoans.no5')}}:</span>
               <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -77,9 +67,7 @@
                 </el-option>
               </el-select>
             </div>
-          </el-col>
         </template>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('public.no58')}}:</span>
             <el-date-picker 
@@ -93,8 +81,6 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('public.no59')}}:</span>
             <el-date-picker 
@@ -108,8 +94,6 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
           <div class="search-input">
             <span>{{$t('serviceManage.paidantime')}}:</span>
             <el-date-picker 
@@ -123,7 +107,23 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
+          <div class="search-input" v-if="$store.state.common.lang==='PHL'">
+            <span>{{$t('fei.no15')}}:</span>
+            <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
+          </div>
+          <div class="search-input" v-if="$store.state.common.lang==='PHL'">
+            <span>{{$t('serviceManage.noticeTime')}}:</span>
+            <el-date-picker 
+              size="small"
+              v-model="searchTime3" 
+              value-format="yyyy-MM-dd" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
+          </div>
         <template v-if="$store.state.common.lang!=='PHL'">
           <div class="search-input" >
             <span>{{$t('new.no87')}}:</span>
@@ -147,74 +147,73 @@
           </div>
         </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_QUERY')">
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
+          <div class="search-input ml15">
+            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          </div>
         </template>
-        
-        
       </el-row>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_LIST')">
       <template>
-        <el-table :data="tableData" size="small" stripe empty-text>
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')" width="60">
+        <el-table :data="tableData" v-loading="loadFlag" size="small" stripe>
+          <el-table-column align="center" prop="id" :label="$t('public.orderId')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.userId')" min-width="80">
+          <el-table-column align="center" prop="userId" :label="$t('public.userId')">
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')" min-width="100">
+          <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" min-width="120">
+          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" min-width="120">
+            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')">
               <template slot-scope="scope">
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')" min-width="90">
+            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
               <template slot-scope="scope">
-                <span v-if="scope.row.orderLoanType!==null&&scope.row.orderLoanType!==undefined&&scope.row.orderLoanType!==''">{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
+                <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" min-width="100">
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="90">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" min-width="60">
+          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="85">
+          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="85">
+          <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strServiceAllotTime" :label="$t('serviceManage.paidantime')" width="85">
+          <el-table-column align="center" prop="strServiceAllotTime" :label="$t('serviceManage.paidantime')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="serviceStatus" :label="$t('new.no34')" min-width="80">
+          <el-table-column align="center" prop="serviceStatus" :label="$t('new.no34')">
             <template slot-scope="scope">
-              <span v-if="scope.row.serviceStatus!==null&&scope.row.serviceStatus!==undefined&&scope.row.serviceStatus!==''">{{$t($store.getters.myoveNoticeStatus(scope.row.serviceStatus))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.myoveNoticeStatus(scope.row.serviceStatus))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="status" :label="$t('public.no22')" min-width="80">
+          <el-table-column align="center" prop="status" :label="$t('public.no22')">
             <template slot-scope="scope">
-              <span v-if="scope.row.status!==null&&scope.row.status!==undefined&&scope.row.status!==''">{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCallTime" :label="$t('new.no87')" min-width="86">
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="strRemindTime" :label="$t('serviceManage.noticeTime')">
             </el-table-column>
-            <el-table-column align="center" prop="callStatus" :label="$t('new.no88')" min-width="80">
+            <el-table-column align="center" prop="serviceRecordTodayCount" :label="$t('fei.no15')">
+            </el-table-column>
+          </template>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <el-table-column align="center" prop="strCallTime" :label="$t('new.no87')" width="86">
+            </el-table-column>
+            <el-table-column align="center" prop="callStatus" :label="$t('new.no88')">
               <template slot-scope="scope">
                 <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
               </template>
@@ -226,13 +225,13 @@
                 <template v-if="$store.state.common.lang==='vi'">
                   <span 
                     v-if="scope.row.status==51||scope.row.overdueDays>isover"
-                    style="color:#CFCFCF"
+                    class="table_opr"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
                   <span 
                     v-else
-                    style="color:#547ef6;cursor:pointer" 
+                    class="table_opr"
                     @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.overdueDays)"
                   >
                   {{$t('serviceManage.telNotice')}}
@@ -241,14 +240,14 @@
                 <template v-else>
                   <span 
                     v-if="scope.row.status!=51"
-                    style="color:#547ef6;cursor:pointer" 
+                    class="table_opr"
                     @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.overdueDays)"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
                   <span 
                     v-else
-                    style="color:#CFCFCF"
+                    class="table_opr"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
@@ -281,16 +280,18 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'myOveDateRemind',
   data () {
     return {
       sessionid: '',
       flag: true,
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [], // 还款时间
       searchTime1: [], // 应还时间
       searchTime2: [], // 派单时间
+      searchTime3: [], // 提醒时间
       searchTime5: [], // 最近群呼时间
       formInline: { // 用户查询信息数据对应字段
         orderId: '',
@@ -301,6 +302,7 @@ export default {
         serviceStatus: '',
         orderStatus: '',
         callStatus: '',
+        remindCount: '',
         callStartTime:'',
         callEndTime:'',
         serviceTimeStart: '',
@@ -309,6 +311,8 @@ export default {
         loanTimeEnd: '',
         mustRefundTimeBegin: '',
         mustRefundTimeEnd: '',
+        reminderTimeBegin: '',
+        reminderTimeEnd: '',
         overdueBegin: '',
         overdueEnd: ''
       },
@@ -327,20 +331,22 @@ export default {
       this.loansList();
     },
     handleCurrentChange (val) { // 分页按钮操作
-      this.currentPage = val
+      this.currentPage = val;
       this.loansList();
     },
     select () { // 点击查询按钮操作
-      this.$store.commit('myOveDateRemindList', this.formInline)
+      this.$store.commit('myOveDateRemindList', this.formInline);
       if (this.flag) {
-        this.flag = false
+        this.currentPage = 1;
+        this.flag = false;
         this.loansList();
       }
     },
     loanDetali (orderNo, userId,overdueDays) { // 查看详情操作
-      this.$router.push({path: '/telnoticedetail', query: {orderNo, userId,overdueDays,type:1}})
+      this.$router.push({path: '/telnoticedetail', query: {orderNo, userId,overdueDays,type:1}});
     },
     loansList () { // 获取借款列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -349,13 +355,16 @@ export default {
           'sessionid': this.sessionid
         },
         ...this.formInline
-      }
+      };
       this.$axios.post('', option).then(res => {
-        this.flag = true
+        this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     getcollectionType(){ // 获取催收阶段判断电话提醒按钮是否展示
@@ -365,7 +374,7 @@ export default {
           action: this.$store.state.actionMap.back_reason,
         },
         optionGroup:'overdue.type'
-      }
+      };
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
@@ -378,253 +387,73 @@ export default {
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.loanTimeBegin = this.searchTime[0]
-        this.formInline.loanTimeEnd = this.searchTime[1]
+        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
+        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
       } else {
-        this.formInline.loanTimeBegin = ''
-        this.formInline.loanTimeEnd = ''
+        this.formInline.loanTimeBegin = '';
+        this.formInline.loanTimeEnd = '';
       }
     },
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.mustRefundTimeBegin = this.searchTime1[0]
-        this.formInline.mustRefundTimeEnd = this.searchTime1[1]
+        this.formInline.mustRefundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.mustRefundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.mustRefundTimeBegin = ''
-        this.formInline.mustRefundTimeEnd = ''
+        this.formInline.mustRefundTimeBegin = '';
+        this.formInline.mustRefundTimeEnd = '';
       }
     },
     searchTime2 () {
       if (this.searchTime2) {
-        this.formInline.serviceTimeStart = this.searchTime2[0]
-        this.formInline.serviceTimeEnd = this.searchTime2[1]
+        this.formInline.serviceTimeStart = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
+        this.formInline.serviceTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
       } else {
-        this.formInline.serviceTimeStart = ''
-        this.formInline.serviceTimeEnd = ''
+        this.formInline.serviceTimeStart = '';
+        this.formInline.serviceTimeEnd = '';
+      }
+    },
+    searchTime3 () {
+      if (this.searchTime3) {
+        this.formInline.reminderTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
+        this.formInline.reminderTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
+      } else {
+        this.formInline.reminderTimeBegin = '';
+        this.formInline.reminderTimeEnd = '';
       }
     },
     searchTime5 () {
       if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0]
-        this.formInline.callEndTime = this.searchTime5[1]
+        this.formInline.callStartTime = this.$store.getters.yyyy_m_d(this.searchTime5[0]);
+        this.formInline.callEndTime = this.$store.getters.yyyy_m_d(this.searchTime5[1]);
       } else {
-        this.formInline.callStartTime = ''
-        this.formInline.callEndTime = ''
+        this.formInline.callStartTime = '';
+        this.formInline.callEndTime = '';
       }
     },
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
+    this.sessionid = sessionStorage.getItem('sessionid');
     if (JSON.stringify(this.$store.state.common.myOveDateRemindList_select) !== '{}') {
-      this.formInline = this.$store.state.common.myOveDateRemindList_select
+      this.formInline = this.$store.state.common.myOveDateRemindList_select;
       if(this.formInline.serviceTimeStart!==''){
-        this.searchTime2.push(this.formInline.serviceTimeStart)
-        this.searchTime2.push(this.formInline.serviceTimeEnd)
+        this.searchTime2.push(this.formInline.serviceTimeStart);
+        this.searchTime2.push(this.formInline.serviceTimeEnd);
       }
       if(this.formInline.mustRefundTimeBegin!==''){
-        this.searchTime1.push(this.formInline.mustRefundTimeBegin)
-        this.searchTime1.push(this.formInline.mustRefundTimeEnd)
+        this.searchTime1.push(this.formInline.mustRefundTimeBegin);
+        this.searchTime1.push(this.formInline.mustRefundTimeEnd);
       }
       if(this.formInline.loanTimeBegin!==''){
-        this.searchTime.push(this.formInline.loanTimeBegin)
-        this.searchTime.push(this.formInline.loanTimeEnd)
+        this.searchTime.push(this.formInline.loanTimeBegin);
+        this.searchTime.push(this.formInline.loanTimeEnd);
       }
-      
-      
-      
     }
-    this.loansList()// 获取借款列表
-    this.getcollectionType()// 获取借款列表
+    this.loansList();// 获取借款列表
+    this.getcollectionType();// 获取借款列表
   }
 }
 </script>
 
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: auto;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-  
-}
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  margin-top: 18px;
-  margin-bottom: 22px;
-  padding: 22px 28px 22px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  min-height: 540px;
-}
-span.active1{
-  color: #FF6700;
-}
-span.active2{
-  color: #8FD78D;
-}
-span.active3{
-  color: #3b56ee;
-}
-
-
-//用户详情弹窗
-.details{
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .detail-main{
-    width: 95%;
-    height: 500px;
-    margin-top: -200px;
-    background-color: #ffffff;
-    .detail-main-head{
-      width: 100%;
-      height: 48px;
-      background-color: #333A4D;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 10px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 16px;
-        margin-left: 30px;
-      }
-      .icon-color{
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .detail-main-con{
-      width: 100%;
-      height: 452px;
-      .year{
-        width: 100%;
-        height: 58px;
-        display: flex;
-        padding-left: 50px;
-        align-items: flex-end;
-        .button-active{
-          background-color: #409EFF;
-        }
-      }
-      
-      .detail-table{
-        width: 100%;
-        height: 392px;
-        display: flex;
-        justify-content: space-around;
-        .detail-table-1{
-          width: 45%;
-          height: 100%;
-          .detail-table-2{
-            width: 100%;
-            height: 100%;
-            tr:nth-child(odd){
-              background-color: #Ffffff;
-            }
-            tr:nth-child(even){
-              background-color: #F4F6FB;
-            }
-            .table-head{
-              height: 50px;
-            }
-            .table-head2{
-              text-align: center;
-            }
-            .active{
-              background-color: #F4F6FB;
-            }
-          }
-        }
-      }
-    }
-  }
-} 
 
 </style>

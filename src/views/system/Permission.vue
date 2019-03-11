@@ -1,5 +1,5 @@
 <template>
-  <div class="jurisdiction">
+  <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('idManage.crumbsOne')}}</el-breadcrumb-item>
@@ -7,14 +7,10 @@
       </el-breadcrumb>
     </div>
     <!-- ------------------ 横条 ------------------- -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('permission.title')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('permission.title')}}</p>
+    </div>
 
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search" v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_RIGHT_ADD')">
@@ -25,7 +21,6 @@
           </div>
         </el-col>
       </el-row>
-
     </div>
     <!-- ------------ 搜索查询栏结束 -------------- -->
 
@@ -61,22 +56,18 @@
     <!-- ------------ 表单栏结束 -------------- -->
 
     <!-- ----------------------确认是否删除开始------------------ -->
-    <div v-if="del" class="del">
-      <div class="del-main">
-        <div class="del-main-head">
-          <span></span>
-          <p>{{$t('public.no48')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="del=false"></i>
-        </div>
-        <div class="del-main-con">
-          <div class="del-con-one">{{$t('permission.delUser')}}？</div>
-          <div class="del-but">
-            <div class="del-but-1" @click="delSure()">{{$t('public.no49')}}</div>
-            <div class="del-but-1 active" @click="del=false">{{$t('public.no50')}}</div>
-          </div>
-        </div>
+    <el-dialog :title="$t('public.no48')" :visible.sync="del" width="550px">
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">{{$t('permission.delUser')}}？</span>
       </div>
-    </div>
+      <div class="left2right mt15">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
     <!-- ----------------------确认是否删除结束------------------- -->
 
     <!-- ------------------确认是否修改开始-------------------- -->
@@ -147,14 +138,14 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages"  v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_RIGHT_LIST')">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            layout="total, prev, pager, next, ->"
-            :total="pageTotal?pageTotal:0">
-          </el-pagination>
-        </div>
+      <div class="pages"  v-if="$store.state.common.permiss.includes('RIGHT_SYSTEM_RIGHT_LIST')">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          layout="total, prev, pager, next, ->"
+          :total="pageTotal?pageTotal:0">
+        </el-pagination>
+      </div>
     </el-row> 
 
 
@@ -199,28 +190,16 @@ export default {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
-      this.currentPage = val
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.role_list,
-          'page': {'index': val, 'size': 10},
-          'sessionid': this.sessionid
-        }
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-        }
-      })
+      this.currentPage = val;
+      this.getPerList();
     },
     delPre (id) { // 删除按钮弹窗
-      this.del = true
-      this.delId = id
+      this.del = true;
+      this.delId = id;
     },
     delSure () { // 删除确认操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -230,22 +209,22 @@ export default {
           id: this.delId
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('idManage.no3'))
+            this.$globalMsg.success(this.$t('idManage.no3'));
             this.tableData = this.tableData.filter(value => {
-              return value.id != this.delId
+              return value.id != this.delId;
             })
-            this.del = false
+            this.del = false;
           } else {
-            this.$globalMsg.error(this.$t('idManage.no4'))
+            this.$globalMsg.error(res.data.header.msg);
           }
         })
       }
     },
     modifyPre (id, name) { // 修改按钮弹窗
-      this.modifyId = id
-      this.roleName = name
+      this.modifyId = id;
+      this.roleName = name;
       let option = {
         header: {
           ...this.$base,
@@ -255,38 +234,38 @@ export default {
         id: this.modifyId
       }
       this.$axios.post('', option).then(res => {
-        this.modify = true
+        this.modify = true;
         if (res.data.header.code == 0) {
           if (res.data.data.roleRights != '') {
-            let defArr = []
+            let defArr = [];
             res.data.data.roleRights.forEach(value => {
-              defArr.push(value.rightId)
-            })
-            let brr = []
-            let crr = []
-            let drr = []
+              defArr.push(value.rightId);
+            });
+            let brr = [];
+            let crr = [];
+            let drr = [];
             brr = defArr.filter(value => {
               if (Number(value) <= 1100) {
-                return String(value).length >= 3
+                return String(value).length >= 3;
               }
             })
             crr = defArr.filter(value => {
               if (Number(value) > 1100) {
-                return String(value).length >= 5
+                return String(value).length >= 5;
               }
             })
-            drr = brr.concat(crr)
-            this.defCheKeys = drr
+            drr = brr.concat(crr);
+            this.defCheKeys = drr;
           } else {
-            this.defCheKeys = []
+            this.defCheKeys = [];
           }
         }
       })
     },
     modifySure () { // 修改确认操作
       if (this.flag) {
-        this.flag = false
-        let arr = this.keys1.concat(this.keys1_parent)
+        this.flag = false;
+        let arr = this.keys1.concat(this.keys1_parent);
         let option = {
           header: {
             ...this.$base,
@@ -298,24 +277,24 @@ export default {
           rightIds: arr
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('idManage.no5'))
-            this.modify = false
+            this.$globalMsg.success(this.$t('idManage.no5'));
+            this.modify = false;
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
         })
       }
     },
     modifyClose () { // 修改弹窗关闭
-      this.modify = false
-      this.keys1 = []
+      this.modify = false;
+      this.keys1 = [];
     },
     addSure () { // 添加账号确认操作
       if (this.flag) {
-        this.flag = false
-        let arr = this.keys2.concat(this.keys2_parent)
+        this.flag = false;
+        let arr = this.keys2.concat(this.keys2_parent);
         let option = {
           header: {
             ...this.$base,
@@ -326,24 +305,24 @@ export default {
           rightIds: arr
         }
         this.$axios.post('', option).then(res => {
-          this.flag = true
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
-            this.getPerList()
-            this.addRole = false
+            this.$globalMsg.success(this.$t('message.success'));
+            this.getPerList();
+            this.addRole = false;
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
         })
       }
     },
-    handleCheckChange1 (data, checked, indeterminate) { // 修改角色对应的权限列表
-      this.keys1_parent = this.$refs.tree1.getHalfCheckedKeys(true)
-      this.keys1 = this.$refs.tree1.getCheckedKeys()
+    handleCheckChange1 () { // 修改角色对应的权限列表
+      this.keys1_parent = this.$refs.tree1.getHalfCheckedKeys(true);
+      this.keys1 = this.$refs.tree1.getCheckedKeys();
     },
-    handleCheckChange2 (data, checked, indeterminate) { // 添加角色对应的权限列表
-      this.keys2_parent = this.$refs.tree2.getHalfCheckedKeys(true)
-      this.keys2 = this.$refs.tree2.getCheckedKeys()
+    handleCheckChange2 () { // 添加角色对应的权限列表
+      this.keys2_parent = this.$refs.tree2.getHalfCheckedKeys(true);
+      this.keys2 = this.$refs.tree2.getCheckedKeys();
     },
     getPerList () { // 获取角色列表
       let option = {
@@ -356,8 +335,8 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.tableData = res.data.data
-          this.pageTotal = res.data.header.page.total
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
         }
       })
     },
@@ -368,25 +347,25 @@ export default {
           action: this.$store.state.actionMap.permission,
           'sessionid': this.sessionid
         }
-      }
-      let permission = []
+      };
+      let permission = [];
       this.$axios.post('', option1).then(res => {
         if (res.data.header.code == 0) {
-          permission = res.data.data
+          permission = res.data.data;
           permission.forEach(value => {
-            value.label = value.rightName
+            value.label = value.rightName;
             if (value.children) {
               value.children.forEach(item => {
-                item.label = item.rightName
+                item.label = item.rightName;
                 if (item.children) {
                   item.children.forEach(value1 => {
-                    value1.label = value1.rightName
+                    value1.label = value1.rightName;
                   })
                 }
               })
             }
           })
-          this.data = permission
+          this.data = permission;
         }
       })
     },
@@ -399,77 +378,42 @@ export default {
           sessionid: this.sessionid,
           page: {index: 1, size: 1000}
         }
-      }
-      let options = []
+      };
+      let options = [];
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           res.data.data.forEach(value => {
-            options.push({value: value.id, label: value.roleName})
+            options.push({value: value.id, label: value.roleName});
           })
         }
       })
-      this.options = options
+      this.options = options;
     }
   },
   watch: {
     searchTime () {
       if (this.searchTime) {
-        this.formInline.applyTimeBegin = this.searchTime[0]
-        this.formInline.applyTimeEnd = this.searchTime[1]
+        this.formInline.applyTimeBegin = this.searchTime[0];
+        this.formInline.applyTimeEnd = this.searchTime[1];
       } else {
-        this.formInline.applyTimeBegin = ''
-        this.formInline.applyTimeEnd = ''
+        this.formInline.applyTimeBegin = '';
+        this.formInline.applyTimeEnd = '';
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-
-    this.getPerList()// 获取权限列表
-    this.getPerTree()// 获取所有权限列表树
-    // this.roleList();
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.getPerList();// 获取权限列表
+    this.getPerTree();// 获取所有权限列表树
   }
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.jurisdiction {
-  width: 100%;
-  height: 100%;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  span {
-    display: block;
-    float: left;
-    margin-top: 10px;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-  }
-}
+
 .search {
   width: 100%;
   height: 80px;
   background-color: #ffffff;
-  margin-top: 18px;
   margin-bottom: 22px;
   padding: 22px 28px 22px 5px;
   display: flex;
@@ -487,160 +431,6 @@ export default {
     color: #547ef5;
     margin-left: 30px;
     cursor: pointer;
-  }
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    // margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary {
-      height: 40px;
-      
-    }
-    .button-color {
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
-}
-
-.table {
-  width: 100%;
-  min-height: 450px;
-  position: relative;
-  .recycle {
-    width: 100px;
-    height: 40px;
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    .recycle-png {
-      width: 18px;
-      height: 16px;
-    }
-    .recycle-title {
-      padding-left: 5px;
-      font-size: 16px;
-      color: #547ef6;
-      height: 40px;
-      line-height: 40px;
-    }
-  }
-}
-
-.switch {
-  width: 24px;
-  height: 16px;
-  display: inline-block;
-}
-
-.del {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 100;
-  @include flex-cen;
-  background-color: rgba(182, 189, 205, 0.6);
-  .del-main {
-    width: 474px;
-    height: 240px;
-    // margin-top: -450px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    overflow: hidden;
-    .del-main-head {
-      width: 100%;
-      height: 48px;
-      background-color: #333a4d;
-      line-height: 48px;
-      position: relative;
-      span {
-        display: block;
-        float: left;
-        margin-top: 12px;
-        margin-left: 16px;
-        background-color: rgba(255, 255, 255, 1);
-        width: 2px;
-        height: 26px;
-        border-radius: 5px;
-      }
-      p {
-        color: rgba(255, 255, 255, 1);
-        font-size: 18px;
-        margin-left: 30px;
-      }
-      .icon-color {
-        display: block;
-        color: #fff;
-        font-size: 22px;
-        position: absolute;
-        right: 16px;
-        top: 14px;
-      }
-    }
-    .del-main-con {
-      width: 100%;
-      height: auto;
-      padding: 10px 30px;
-      .del-con-one {
-        width: 100%;
-        height: 40px;
-        padding-top: 10px;
-        color: #6b7283;
-        font-size: 16px;
-        text-align: center;
-        margin: 30px 0;
-      }
-      .del-con-two {
-        width: 100%;
-        height: 100px;
-        margin-bottom: 22px;
-      }
-      .del-but {
-        width: 260px;
-        height: 38px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        .del-but-1 {
-          width: 45%;
-          height: 100%;
-          background-color: #547ef5;
-          border-radius: 5px;
-          text-align: center;
-          line-height: 38px;
-          font-size: 16px;
-          color: #fff;
-          cursor: pointer;
-        }
-        .active {
-          background-color: #ebeef6;
-          color: #333;
-        }
-      }
-    }
   }
 }
 

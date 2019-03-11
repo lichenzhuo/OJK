@@ -108,22 +108,22 @@
               if (value.uniqueSign == 'MENU_RISKCONTROL_FIRST') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongchushen', title: 'sidebar.labourAuditListOne'})
+                })[0].subs.push({index: 'peopleFirstAudit', title: 'sidebar.labourAuditListOne'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongfushen', title: 'sidebar.labourAuditListTwo'})
+                })[0].subs.push({index: 'peopleSecondAudit', title: 'sidebar.labourAuditListTwo'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongchushentongji', title: 'sidebar.labourAuditTotalOne'})
+                })[0].subs.push({index: 'peopleFirstAuditTotal', title: 'sidebar.labourAuditTotalOne'})
               }
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
-                })[0].subs.push({index: 'rengongfushentongji', title: 'sidebar.labourAuditTotalTwo'})
+                })[0].subs.push({index: 'peopleSecondAuditTotal', title: 'sidebar.labourAuditTotalTwo'})
               }
 
                       // 我的审核订单
@@ -138,12 +138,12 @@
               if (value.uniqueSign == 'MENU_ME_FIRST') {
                 item.filter(index => {
                   return index.index == '2'
-                })[0].subs.push({index: 'wodechushen', title: 'sidebar.myLabourAuditOne'})
+                })[0].subs.push({index: 'myFirstAuditList', title: 'sidebar.myLabourAuditOne'})
               }
               if (value.uniqueSign == 'MENU_ME_REVIEW') {
                 item.filter(index => {
                   return index.index == '2'
-                })[0].subs.push({index: 'wodefushen', title: 'sidebar.myLabourAuditTwo'})
+                })[0].subs.push({index: 'mySecondtAuditList', title: 'sidebar.myLabourAuditTwo'})
               }
 
                       // 财务数据
@@ -277,12 +277,12 @@
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_SMS') {
                 item.filter(index => {
                   return index.index == '11'
-                })[0].subs.push({index: 'cuishouduanxin', title: 'sidebar.noteTemplate'})
+                })[0].subs.push({index: 'collectionSMS', title: 'sidebar.noteTemplate'})
               }
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_RPT') {
                 item.filter(index => {
                   return index.index == '11'
-                })[0].subs.push({index: 'cuihuibaobiao', title: 'sidebar.comeTable'})
+                })[0].subs.push({index: 'collectionReport', title: 'sidebar.comeTable'})
               }
 
               // 贷后管理 
@@ -296,22 +296,22 @@
               if (value.uniqueSign == 'MENU_LOANLAST_INCOME') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'rucuidingdan', title: 'sidebar.comeOrderList'})
+                })[0].subs.push({index: 'inTheRushOrders', title: 'sidebar.comeOrderList'})
               }
               if (value.uniqueSign == 'MENU_DISTRIBUTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'meiripaidantongji', title: 'sidebar.todayOperatesTotal'})
+                })[0].subs.push({index: 'everyDaySendOrdersTotal', title: 'sidebar.todayOperatesTotal'})
               }
               if (value.uniqueSign == 'MENU_COLLECTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'meiricuihuitongji', title: 'sidebar.todaycuihuiTotal'})
+                })[0].subs.push({index: 'everyDayPushBackTotal', title: 'sidebar.todaycuihuiTotal'})
               }
               if (value.uniqueSign == 'MENU_COLLECTOR_STATISTICS') {
                 item.filter(index => {
                   return index.index == '10'
-                })[0].subs.push({index: 'cuishouyuantongji', title: 'sidebar.adminTotal'})
+                })[0].subs.push({index: 'debtCollectorTotal', title: 'sidebar.adminTotal'})
               }
               if (value.uniqueSign == 'MENU_OUTSOURCING_RESOURCE_POOL') {
                 item.filter(index => {
@@ -358,7 +358,7 @@
               if (value.uniqueSign == 'MENU_COLLECT_ME') {
                 item.filter(index => {
                   return index.index == '8'
-                })[0].subs.push({index: 'wodecuishoudingdan', title: 'sidebar.myComeOrder'})
+                })[0].subs.push({index: 'myCollectionOrderList', title: 'sidebar.myComeOrder'})
               }
               if (value.uniqueSign == 'MENU_COLLECT_ME_WORK_ANALYSIS') {
                 item.filter(index => {
@@ -427,17 +427,17 @@
               if (value.uniqueSign == 'MENU_REPORT_PASS') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'tongguolv', title: 'sidebar.passRateList'})
+                })[0].subs.push({index: 'passingRate', title: 'sidebar.passRateList'})
               }
               if (value.uniqueSign == 'MENU_REPORT_INCOME') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'shouyulv', title: 'sidebar.firstRateList'})
+                })[0].subs.push({index: 'overdueRate', title: 'sidebar.firstRateList'})
               }
               if (value.uniqueSign == 'MENU_REPORT_REPAY') {
                 item.filter(index => {
                   return index.index == '9'
-                })[0].subs.push({index: 'huikuanlv', title: 'sidebar.backMoneyRateList'})
+                })[0].subs.push({index: 'rateOfReturn', title: 'sidebar.backMoneyRateList'})
               }
                       // 系统管理
               if (value.uniqueSign == 'MENU_SYSTEM') {
@@ -460,32 +460,32 @@
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'kefuyuanlist', title: 'staffManage.crumbssix'})
+                })[0].subs.push({index: 'servicePeopleList', title: 'staffManage.crumbssix'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'kefuxiaozu', title: 'staffManage.service'})
+                })[0].subs.push({index: 'serviceGroup', title: 'staffManage.service'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'xinshenyuanlist', title: 'staffManage.crumbsTwo'})
+                })[0].subs.push({index: 'creditAuditPeopleList', title: 'staffManage.crumbsTwo'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'xinshenxiaozu', title: 'staffManage.crumbsThree'})
+                })[0].subs.push({index: 'creditAuditGroup', title: 'staffManage.crumbsThree'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'cuishouyuanlist', title: 'staffManage.crumbsFour'})
+                })[0].subs.push({index: 'collectionPeopleList', title: 'staffManage.crumbsFour'})
               }
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
-                })[0].subs.push({index: 'cuishouxiaozu', title: 'staffManage.crumbsFive'})
+                })[0].subs.push({index: 'collectionGroup', title: 'staffManage.crumbsFive'})
               }
 
               // 官网贷款
