@@ -1464,7 +1464,9 @@ export default {
       this.instancyContent.contactPhone = ''
     },
     openWindow(href){
-      window.open(href);
+      if(href){
+        window.open(href);
+      }
     }
   },
   watch: {

@@ -916,7 +916,9 @@ export default {
       })
     },
     openWindow(href){
-      window.open(href);
+      if(href){
+        window.open(href);
+      }
     }
   },
   watch: {

@@ -84,7 +84,7 @@
               </p>
               <p v-if="$store.state.common.lang==='vi'">
                 <span>faceBook:</span> 
-                <span>{{data.orderFacebook.fblink | dataIsTrue}}</span>
+                <span @click="openWindow(data.orderFacebook.fblink)" class="td-ul">{{data.orderFacebook.fblink | dataIsTrue}}</span>
               </p>
             </div>
             <div class="oneLineHasOne" v-if="$store.state.common.lang=='id'">
@@ -250,7 +250,7 @@
               <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendOneFblink">
                 <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendOneName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendOnePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendOneFblink | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.orderFacebook.friendOneFblink)" class="td-ul">{{data.orderFacebook.friendOneFblink | dataIsTrue}}</span> </p>
               </div>
               <div v-else class="xuan-2-1-2-1">
                 <p>{{$t('public.no23')}}</p>
@@ -258,22 +258,22 @@
               <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendTwoFblink">
                 <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendTwoName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendTwoPhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendTwoFblink | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.orderFacebook.friendTwoFblink)" class="td-ul">{{data.orderFacebook.friendTwoFblink | dataIsTrue}}</span> </p>
               </div>
               <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendThreeFblink">
                 <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendThreeName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendThreePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendThreeFblink | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.orderFacebook.friendThreeFblink)" class="td-ul">{{data.orderFacebook.friendThreeFblink | dataIsTrue}}</span> </p>
               </div>
               <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendFourFblink">
                 <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendFourName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendFourPhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendFourFblink | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.orderFacebook.friendFourFblink)" class="td-ul">{{data.orderFacebook.friendFourFblink | dataIsTrue}}</span> </p>
               </div>
               <div class="xuan-2-1-2-1" v-if="data.orderFacebook.friendFiveFblink">
                 <p>{{$t('yuenan.no34')}}: <span>{{data.orderFacebook.friendFiveName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{data.orderFacebook.friendFivePhone | dataIsTrue}}</span> </p>
-                <p>{{$t('yuenan.no33')}}: <span>{{data.orderFacebook.friendFiveFblink | dataIsTrue}}</span> </p>
+                <p>{{$t('yuenan.no33')}}: <span @click="openWindow(data.orderFacebook.friendFiveFblink)" class="td-ul">{{data.orderFacebook.friendFiveFblink | dataIsTrue}}</span> </p>
               </div>
             </div>
           </template>
@@ -409,6 +409,11 @@ export default {
     },
     getLinkMan (val) {
       this.contact = val
+    },
+    openWindow(href){
+      if(href){
+        window.open(href);
+      }
     }
   },
   watch: {
