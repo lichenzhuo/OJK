@@ -53,45 +53,46 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            layout="total, prev, pager, next, ->"
-            :total="pageTotal?pageTotal:0"
-            >
-          </el-pagination>
-        </div>
+      <div class="pages">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          layout="total, prev, pager, next, ->"
+          :total="pageTotal?pageTotal:0"
+          >
+        </el-pagination>
+      </div>
     </el-row>
 
     <!-- ------------------ 点击回复弹窗开始 -------------------- -->
-    <div v-if="flag" class="reply">
-      <div class="reply-main">
-        <div class="reply-main-head">
-          <span></span>
-          <p>{{$t('auditDetail.no42')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="flag=false"></i>
-        </div>
-        <div class="reply-main-con">
-          <div class="chu-select">
-            <div class="chu-select-left">{{$t('auditDetail.no43')}}</div>
-            <div class="chu-select-right">
-              <el-select size="small" v-model="status1" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="chu-select">
-            <div class="chu-select-left">{{$t('public.no37')}}</div>
-            <div class="chu-select-right">
-              <textarea class="search_inpu" v-model="remark" :placeholder="$t('public.no42')+'~'"></textarea>
-            </div>
-          </div>
-          <div class="reply-but" @click="telSubmit">{{$t('public.no41')}}</div>
+    
+
+    <el-dialog :title="$t('auditDetail.no42')" :visible.sync="telOpenFlag" width="750px">
+      <el-button @click="callPhone" v-if="telTip" style="margin-left:30px">
+        {{$t('yn.no46')}}
+      </el-button>
+      <div class="left2right mt15">
+        <span class="left">{{$t('auditDetail.no43')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="status1" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
         </div>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.no37')}}:</span>
+        <div class="right">
+          <el-input type="textarea" :rows="4" v-model="remark"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="telSubmit">{{$t('public.no41')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
     <!-- ------------------ 点击回复弹窗结束 -------------------- -->
 
   </div>
@@ -113,7 +114,8 @@ export default {
       pageTotal: 0, // 分页总数
       tableData: [], // 表格信息数据模拟
       currentPage: 1, // 分页当前页下标
-      flag: false, // 弹窗开关
+      telOpenFlag: false, // 弹窗开关
+      telTip: false, // 弹窗开关
       options: this.$store.state.options.telStatus_select, // 下拉选框内容
       keywords: '', // 当前选中的关键词
       remark: '', // 电话审核备注提交
@@ -133,7 +135,10 @@ export default {
   },
   methods: {
     socialDetali (phone, relation, name) { // 点击查看详情
-      this.flag = true
+      if(phone){
+        this.telTip = true;
+      }
+      this.telOpenFlag = true
       this.phone = phone
       this.relation = relation
       this.name = name
@@ -239,7 +244,7 @@ export default {
           } else {
             this.$globalMsg.error(res.data.header.msg)
           }
-          this.flag = false
+          this.telOpenFlag = false
           this.remark = ''
           this.status1 = ''
           setTimeout(() => {
@@ -249,6 +254,27 @@ export default {
       } else {
         this.$globalMsg.error(this.$t('public.no42'))
       }
+    },
+    callPhone(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.TELEPHONE0001,
+          'sessionid': this.sessionid
+        },
+        orderId:this.orderId,
+        phone:this.phone,
+        type:1
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.telHref = 'sip:'+this.phone+','+res.data.data;
+          window.location.href = this.telHref;
+          // this.$refs.aHref.click();
+        }else{
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
     }
   },
   mounted () {

@@ -245,14 +245,19 @@ const common = {
       return `${Y}${M}${D} ${H}:${Mi}:${S}`
     },
     getAge: () => (str) => { // 根据时间获取年龄
-      var strBirthdayArr = str.split('-')
-      var birthYear = strBirthdayArr[0]
+      if(typeof str !== 'undefined' || str !== ''){
+        var strBirthdayArr = String(str).split('-')
+        var birthYear = strBirthdayArr[0]
 
-      var d = new Date()
-      var nowYear = d.getFullYear()
+        var d = new Date()
+        var nowYear = d.getFullYear()
 
-      var age = nowYear - birthYear
-      return age
+        var age = nowYear - birthYear
+        return age
+      }else{
+        return '-'
+      }
+      
     }
   },
   mutations: {

@@ -174,7 +174,7 @@
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_FIRST_DETAIL')"
                 class="table_opr"
-                @click="detail(scope.row.orderNo,scope.row.userId)">
+                @click="detail(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('public.detail')}}
               </span>
             </template>
@@ -287,8 +287,8 @@ export default {
       this.currentPage = val;
       this.chushenList();
     },
-    detail (orderNo, userid) { // 点击查看详情
-      this.$router.push({path: '/chushendetail', query: {userid, orderNo, block: 1}});
+    detail (orderNo, userid, orderId) { // 点击查看详情
+      this.$router.push({path: '/chushendetail', query: {userid, orderNo, orderId, block: 1}});
     },
     select () { // 点击查询按钮操作
       this.$store.commit('rengongchushenList', this.formInline);

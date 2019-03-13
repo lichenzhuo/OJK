@@ -539,11 +539,8 @@ export default {
       type: '', // 传过来的订单编号
       lightBoxToggle: false, // 图片放大显示层开关
       flag: true,
-      // arr1:['用户信息','借款信息'],// 第一个选项卡
       active1: 1, // 第一个选项卡当前选中项
-      // arr2:['催收记录','紧急联系人','通话联系人'],// 第二个选项卡
       active2: 1, // 第二个选项卡当前选中项
-      // arr3:['电话催收','短信催收'],// 第三个选项卡
       active3: 1, // 第三个选项卡当前选中项
       data: {// 页面信息汇总
         orderLending: '',
@@ -756,9 +753,7 @@ export default {
           this.flag = true
           if (res.data.header.code == 0) {
             this.$globalMsg.success(this.$t('message.success'))
-            setTimeout(() => {
-              this.$router.push('/cuishoudetail')
-            }, 1000)
+            this.detail();
           } else {
             this.$globalMsg.error(res.data.header.msg)
           }

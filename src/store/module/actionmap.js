@@ -250,6 +250,9 @@ const actionmap = {
     PRODUCT0014:'PRODUCT0014',// app包管理确定按钮
     MECOLLECTION00011:'MECOLLECTION00011',// 催收列表获取语音结果
 
+    TELEPHONE0001:'TELEPHONE0001',// 录音列表获取ID
+    TELEPHONE0002:'TELEPHONE0002',// 录音列表获取
+
   }
 
 }

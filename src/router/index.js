@@ -85,7 +85,7 @@ let peopleSecondAuditTotal = resolve => require(['../views/fengkonglist/peopleSe
 let overdueCouponApply = resolve => require(['../views/loanafter/overdueCouponApply.vue'], resolve)
 let partialRepaymentApply = resolve => require(['../views/loanafter/partialRepaymentApply.vue'], resolve)
 let inTheRushOrders = resolve => require(['../views/loanafter/inTheRushOrders.vue'], resolve)
-let rucuixiangqing = resolve => require(['../views/loanafter/rucuixiangqing/rucuixiangqing.vue'], resolve)
+// let rucuixiangqing = resolve => require(['../views/loanafter/rucuixiangqing/rucuixiangqing.vue'], resolve)
 let everyDayPushBackTotal = resolve => require(['../views/loanafter/everyDayPushBackTotal.vue'], resolve)
 let everyDaySendOrdersTotal = resolve => require(['../views/loanafter/everyDaySendOrdersTotal.vue'], resolve)
 let debtCollectorTotal = resolve => require(['../views/loanafter/debtCollectorTotal.vue'], resolve)
@@ -156,6 +156,10 @@ let userSubmitDetail = resolve => require(['../views/websiteLoans/userSubmitDeta
 let myTailafterOrder = resolve => require(['../views/websiteLoans/myTailafterOrder.vue'], resolve)
 let loansApplyList = resolve => require(['../views/websiteLoans/loansApplyList.vue'], resolve)
 
+
+let badMannersAudit = resolve => require(['../views/examineAndVerify/badMannersAudit.vue'], resolve)
+let otherBackAudit = resolve => require(['../views/examineAndVerify/otherBackAudit.vue'], resolve)
+
 const router = new Router({
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
@@ -224,11 +228,15 @@ const router = new Router({
 
                     {path: '/inTheRushOrders', name: 'inTheRushOrders', component: inTheRushOrders },
                         //  ----------------  催收订单详情订单详情   -----------------
-                        {path: '/rucuixiangqing', name: 'rucuixiangqing', component: rucuixiangqing },
+                        // {path: '/rucuixiangqing', name: 'rucuixiangqing', component: rucuixiangqing },
                     {path: '/everyDayPushBackTotal', name: 'everyDayPushBackTotal', component: everyDayPushBackTotal },
                     {path: '/everyDaySendOrdersTotal', name: 'everyDaySendOrdersTotal', component: everyDaySendOrdersTotal },
                     {path: '/debtCollectorTotal', name: 'debtCollectorTotal', component: debtCollectorTotal },
                     {path: '/paymentcode', name: 'paymentCode', component: paymentCode },
+
+                    // @@@@@@@@@@@@@@@@@@@@@@@  审核管理列表  @@@@@@@@@@@@@@@@@@@@@@@
+                    {path: '/badMannersAudit', name: 'badMannersAudit', component: badMannersAudit },
+                    {path: '/otherBackAudit', name: 'otherBackAudit', component: otherBackAudit },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/myCollectionOrderList', name: 'myCollectionOrderList', component: myCollectionOrderList },

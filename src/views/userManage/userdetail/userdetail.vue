@@ -81,19 +81,14 @@
             <p><span>{{$t('public.no3')}}:</span> <span>{{$t($store.getters.marriage(userSelf.marriage))}}</span></p>
           </div>
           <div class="oneLineHasThree">
-            <template>
               <p><span>{{$t('public.no2')}}:</span> <span>{{userIdcard.idCard | dataIsTrue}}</span></p>
-            </template>
-            <template v-if="$store.state.common.lang=='id'">
               <p><span>{{$t('public.no4')}}:</span> <span>{{$t($store.getters.birthState(userSelf.bear))}}</span></p>
-            </template>
-            <template>
               <p><span>{{$t('public.no5')}}:</span> <span>{{$t($store.getters.education(userSelf.degree))}}</span></p>
-            </template>
           </div> 
           <div class="oneLineHasThree">
               <p><span>{{$t('public.no8')}}:</span> <span>{{$t($store.getters.liveTime(userSelf.liveTime))}}</span> </p>
               <p><span>{{$t('public.birthday')}}:</span> <span>{{userBase.birthday | dataIsTrue}}</span> </p>
+              
           </div> 
           <div class="oneLineHasOne">
               <p ><span>{{$t('public.no6')}}:</span>
@@ -114,6 +109,7 @@
             <div class="oneLineHasThree">
                 <p><span>{{$t('public.no11')}}:</span> <span>{{userWork.title | dataIsTrue}}</span> </p>
                 <p><span>{{$t('public.no12')}}:</span> <span>{{userWork.companyPhone | dataIsTrue}}</span> </p>
+                <p><span>{{$t('yn.no27')}}:</span> <span>{{userWork.payDate}}</span> </p>
             </div>
             <div class="oneLineHasOne">
                 <p ><span>{{$t('public.no14')}}:</span> 

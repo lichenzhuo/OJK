@@ -2,18 +2,17 @@
   <div class="groupBusyResult" >
 
     <!-- -------------搜索查询栏------------------------ -->
-    <div class="search">
+    <div class="search" style="margin-top:0">
       <el-row type="flex" justify="start" >
-        <div class="search-input" >
+        <div class="search-input">
             <span>{{$t('new.no94')}}:</span>
             <el-date-picker 
-              id="latecollection"
               size="small"
-              v-model="searchTime5" 
-              value-format="yyyy-MM-dd" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
+              v-model="searchTime5"
+              value-format="yyyy-MM-dd"
+              type="daterange"
+              range-separator="~"
+              :default-value="$store.state.common.preMonth"
               :start-placeholder="$t('public.beginTime')" 
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
@@ -145,65 +144,11 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .groupBusyResult {
   width: 100%;
   height: auto;
-  // padding: 10px;
-  // background-color: rgba(246, 249, 252, 1);
   position: relative;
-}
-
-.search {
-  width: 100%;
-  height: auto;
-  background-color: #ffffff;
-  // margin-top: 18px;
-  margin-bottom: 22px;
-  // padding: 6px 28px 6px 5px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: space-between;
-  .search-input {
-    height: 50px;
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    & > span {
-      padding: 0 5px;
-      font-size: 14px;
-      white-space: nowrap;
-      @include flex-cen;
-    }
-    // .margin{
-    //   margin-left: 15px;
-    // }
-    .el-input {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-date-editor {
-      margin: 0 5px;
-    }
-    .el-select {
-      flex: auto;
-      @include flex-cen;
-    }
-    .el-button--primary{
-      height: 40px;
-      
-    }
-    .button-color{
-      background-color: #1D7BFF;
-      border-color: #547ef6;
-    }
-  }
 }
 
 .table {

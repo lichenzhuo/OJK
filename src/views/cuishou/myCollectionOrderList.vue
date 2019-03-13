@@ -15,7 +15,7 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" >
-        <el-col :md="6" :lg="4" :xl="4">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
@@ -194,12 +194,20 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope">
               <span 
-              v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))"
-              class="table_opr"
-              @click="socialDetali(scope.row.orderNo)">{{$t('operationList.no1')}}</span>
+                v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))"
+                class="table_opr"
+                @click="socialDetali(scope.row.orderNo,scope.row.orderId)">
+                {{$t('operationList.no1')}}
+              </span>
+              <template v-if="$store.state.common.lang==='id'">
+                <span class="table_opr" @click="openAudit('1')"
+                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
+                <span class="table_opr" @click="openAudit('2')"
+                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
+              </template>
             </template>
           </el-table-column>
         </el-table>
@@ -223,6 +231,21 @@
 
     <div class="foot"></div>
 
+    <el-dialog :title="auditTitle" :visible.sync="auditFlag" width="650px">
+      <div class="left2right">
+        <span class="left">{{$t('public.no37')}}:</span>
+        <div class="right">
+          <el-input type="textarea" :rows="4" v-model="remark"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="auditSubmit">{{$t('public.no41')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -238,6 +261,9 @@ export default {
       searchTime4: [], // 承诺还款时间
       searchTime5: [], // 最近群呼时间
       flag: true,
+      auditFlag: false,
+      sign: '',
+      auditTitle: '',
       // 用户查询信息数据对应字段
       formInline: {
         collectionId: '',
@@ -264,6 +290,7 @@ export default {
         refundAmountIsZero: ''
       },
       currentPage: 1, // 当前页下标
+      remark: '', // 弹窗备注内容
       options1: this.$store.state.options.collection_option, // 入催状态下拉选框信息
       options2: this.$store.state.options.returnMoney_option, // 已还金额下拉选框信息
       options3: this.$store.state.options.groupCalls_options, // 群呼结果下拉选框信息
@@ -279,8 +306,8 @@ export default {
       this.currentPage = val;
       this.operationList();
     },
-    socialDetali (orderNo) { // 查看详情
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, type: '1'}});
+    socialDetali (orderNo,orderId) { // 查看详情
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '1'}});
     },
     operationList () { // 入催订单列表
       let option = {
@@ -307,6 +334,35 @@ export default {
         this.flag = false;
         this.operationList();
       }
+    },
+    openAudit(str){// 审核弹窗
+      if(str==='1'){
+        this.auditTitle = this.$t('yn.no43');
+      }
+      if(str==='2'){
+        this.auditTitle = this.$t('yn.no44');
+      }
+      this.sign = str;
+      this.auditFlag = true;
+    },
+    auditSubmit(){// 审核确认操作
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.sug_all_submit,
+          'sessionid': this.sessionid
+        },
+        replyContent: this.remark,
+        status: 4,
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('userSuggest.success'));
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
     }
   },
   watch: {

@@ -1464,7 +1464,7 @@ $color2:#000;
   }
 }
 .pai-active{
-  margin: 30px 0 0;
+  margin: 16px 0 0;
 }
 .mt15{
   margin-top: 15px;
@@ -1530,21 +1530,18 @@ $color2:#000;
   background-color: #fff;
   .xuan-1{
     width: 100%;
-    height: 60px;
     display: flex;
     li{
       height: 100%;
-      padding: 0 20px;
+      margin: 10px 12px;
       text-align: center;
-      line-height: 60px;
       color: $color2;
       display: flex;
       align-items: center;
       cursor: pointer;
       span{
         display: block;
-        height: 40px;
-        line-height: 40px;
+        padding-bottom: 10px;
       }
     }
     .active{

@@ -13,64 +13,53 @@
         <ul>
           <li>
             <p><span class="bgc1"></span>{{$t('adminHome.todyRegisterNum')}}</p>
-            <p class="cl1" v-if="mainData.today.regCount!==''">{{mainData.today.regCount}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl1">{{mainData.today.regCount | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc1"></span>{{$t('adminHome.no17')}}</p>
-            <p class="cl1" v-if="mainData.today.applyToday!==''">{{mainData.today.applyToday}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl1">{{mainData.today.applyToday | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc2"></span>{{$t('adminHome.no7')}}</p>
-            <p class="cl2" v-if="mainDataTwo.today.orderCountNew!==''">{{mainDataTwo.today.orderCountNew}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl2">{{mainDataTwo.today.orderCountNew | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc1"></span>{{$t('adminHome.no8')}}</p>
-            <p class="cl1" v-if="mainData.today.orderCountOld!==''">{{mainData.today.orderCountOld}}</p>
-            <p class="cl1" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl1">{{mainData.today.orderCountOld | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc2"></span>{{$t('adminHome.no15')}}</p>
-            <p class="cl2" v-if="mainDataTwo.today.repaymentCount!==''">{{mainDataTwo.today.repaymentCount}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl2">{{mainDataTwo.today.repaymentCount | dataIsTrue}}</p>
           </li>
-          
         </ul>
         <ul>
           <li>
             <p><span class="bgc3"></span>{{$t('new.no6')}}</p>
-            <p class="cl3" v-if="mainData.today.orderPassCount!==''">{{mainData.today.orderPassCount}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl3">{{mainData.today.orderPassCount | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc3"></span>{{$t('adminHome.no18')}}</p>
-            <p class="cl3" v-if="mainData.today.lendingToday!==''">{{mainData.today.lendingToday}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl3">{{mainData.today.lendingToday | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc2"></span>{{$t('adminHome.no9')}}</p>
-            <p class="cl2" v-if="mainData.today.lendingCountNew!==''">{{mainData.today.lendingCountNew}}</p>
-            <p class="cl2" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl2">{{mainData.today.lendingCountNew | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc3"></span>{{$t('adminHome.no10')}}</p>
-            <p class="cl3" v-if="mainData.today.lendingCountOld!==''">{{mainData.today.lendingCountOld}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl3">{{mainData.today.lendingCountOld | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
             <p><span class="bgc3"></span>{{$t('adminHome.no16')}}</p>
-            <p class="cl3" v-if="mainData.today.repaymentOverDueCount!==''">{{mainData.today.repaymentOverDueCount}}</p>
-            <p class="cl3" v-else>{{$store.state.common.nullData}}</p>
+            <p class="cl3">{{mainData.today.repaymentOverDueCount | dataIsTrue}}</p>
           </li>
         </ul>
       </div>
@@ -89,16 +78,14 @@
                 <div class="box left">
                   <p class="cl5">{{$t('adminHome.hisPutMoneyTotal')}}</p>
                   <p class="mgt15 cl1">
-                    <span v-if="mainData.all.lendingCount!==''">{{mainData.all.lendingCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{mainData.all.lendingCount | dataIsTrue}}</span>
                     {{$t('adminHome.unit')}}
                   </p>
                 </div>
                 <div class="box right">
                   <p class="cl5">{{$t('adminHome.no1')}}</p>
                   <p class="mgt15 cl1">
-                    <span v-if="mainData.all.lendingAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.lendingAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.lendingAmount)}}{{$store.state.common.vi_currency}}</span>
                   </p>
                 </div>
               </li>
@@ -107,16 +94,14 @@
                 <div class="box left">
                   <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
                   <p class="mgt15 cl1">
-                    <span v-if="mainData.all.repaymentCount!==''">{{mainData.all.repaymentCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{mainData.all.repaymentCount | dataIsTrue}}</span>
                     {{$t('adminHome.unit')}}
                   </p>
                 </div>
                 <div class="box right">
                   <p class="cl5">{{$t('adminHome.hisBackMoneyTotal')}}</p>
                   <p class="mgt15 cl1">
-                    <span v-if="mainData.all.repaymentAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.repaymentAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.all.repaymentAmount)}}{{$store.state.common.vi_currency}}</span>
                   </p>
                 </div>
               </li>
@@ -135,16 +120,14 @@
                 <div class="box left">
                   <p class="cl5">{{$t('adminHome.no3')}}</p>
                   <p class="mgt15 cl4">
-                    <span  v-if="mainDataTwo.amount.allCount!=''">{{mainDataTwo.amount.allCount}}</span> 
-                    <span  v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{mainDataTwo.amount.allCount | dataIsTrue}}</span>
                     {{$t('adminHome.unit')}}
                   </p>
                 </div>
                 <div class="box right">
                   <p class="cl5">{{$t('adminHome.no4')}}</p>
                   <p class="mgt15 cl4">
-                    <span v-if="mainDataTwo.amount.allAmount!=''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainDataTwo.amount.allAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainDataTwo.amount.allAmount)}}{{$store.state.common.vi_currency}}</span>
                   </p>
                 </div>
               </li>
@@ -153,16 +136,14 @@
                 <div class="box left">
                   <p class="cl5">{{$t('adminHome.no5')}}</p>
                   <p class="mgt15 cl3">
-                    <span v-if="mainData.amount.overCount!=''">{{mainData.amount.overCount}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{mainData.amount.overCount | dataIsTrue}}</span>
                     {{$t('adminHome.unit')}}
                   </p>
                 </div>
                 <div class="box right">
                   <p class="cl5">{{$t('adminHome.noBackMoney')}}</p>
                   <p class="mgt15 cl3">
-                    <span v-if="mainData.amount.overAmount!==''">{{$store.state.common.id_currency}} {{$store.getters.moneySplit(mainData.amount.overAmount)}}{{$store.state.common.vi_currency}}</span> 
-                    <span v-else>{{$store.state.common.nullData}}</span>
+                    <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(mainData.amount.overAmount)}}{{$store.state.common.vi_currency}}</span> 
                   </p>
                 </div>
               </li>
@@ -223,7 +204,7 @@ export default {
       data3: [], // 本周
       data4: [], // 本月
       flag: false,
-      loadFlag: true,
+      loadFlag: false,
       mainDataTwo:{
         all: '', // 累计数据
         amount: '', // 实时数据
@@ -490,6 +471,7 @@ export default {
     this.$store.commit('filterPreList', {list})
     // MENU_WORKS
     if(this.$store.state.common.permiss.includes('MENU_WORKS')){
+      this.loadFlag = true;
       this.dataListTwo()
       this.dataList()
       

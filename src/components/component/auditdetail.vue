@@ -14,6 +14,9 @@
             <span>{{$t('new.no55')}}:</span>
             <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
           </p>
+          <p><span>{{$t('yn.no27')}}:</span>
+            <span>{{data.userWork.payDate | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('public.userId')}}:</span> <span>{{data.userBase.id | dataIsTrue}}</span> </p>
@@ -29,7 +32,6 @@
           <p><span>{{$t('public.no3')}}: </span>
             <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
           </p>
-        
           <p><span>{{$t('public.no4')}}: </span>
             <span>{{$t($store.getters.birthState(data.userSelf.bear))}}</span>
           </p>
@@ -55,9 +57,9 @@
           </p>
         </div>
         <div class="oneLineHasOne">
-            <p><span>{{$t('public.no6')}}: </span>
-              <span>{{data.userSelf.liveProvinceName+'-'+data.userSelf.liveCityName}}</span>
-            </p>
+          <p><span>{{$t('public.no6')}}: </span>
+            <span>{{data.userSelf.liveProvinceName | dataIsTrue}}-{{data.userSelf.liveCityName | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasOne">
           <p><span>{{$t('public.no7')}}:</span> <span>{{data.userSelf.liveAddress | dataIsTrue}}</span> </p>
@@ -72,6 +74,8 @@
           <span>{{data.orderExtra.appName | dataIsTrue}}</span> </p>
           <p><span>{{$t('new.no49')}}:</span>
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
+          <p><span>{{$t('yn.no28')}}:</span>
+          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span> </p>
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('operationDetail.no2')}}:</span>
@@ -83,6 +87,7 @@
           <p><span>{{$t('public.no31')}}:</span>
             <span>{{data.order.productPeriod | dataIsTrue}}</span>
           </p>
+          
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('proManage.feeRate')}}:</span>

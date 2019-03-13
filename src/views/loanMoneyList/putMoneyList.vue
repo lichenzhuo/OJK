@@ -39,6 +39,12 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <template v-if="$store.state.common.lang==='vi'">
           <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
@@ -134,6 +140,10 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="productPeriod" :label="$t('fei.no17')" >
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no82')" width="86">
