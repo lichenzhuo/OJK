@@ -610,7 +610,7 @@ const options = {
     ],
     auditResult_options: [// 审核是否通过结果
       {value: 1, label: 'yn.no40'}, // 同意
-      {value: 2, label: 'yn.no41'}, // 驳回
+      {value: -1, label: 'yn.no41'}, // 驳回
     ],
   }
 }

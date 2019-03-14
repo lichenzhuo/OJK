@@ -421,7 +421,7 @@
         </li>
       </ul>
     </div>
-
+    <div class="foot"></div>
     <!-- ------------ 电话催收、短信催收开始------------------------ -->
     <div class="tabs" v-if="type==1">
       <ul class="tabs_title">
@@ -707,8 +707,6 @@ export default {
         if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_COLLECTION_RECORDING')){
           arr.push({id: 7, title: this.$t('yn.no30')})
         }
-        
-        
       }
       return  arr;
     },
@@ -1040,7 +1038,7 @@ export default {
 }
 
 .foot{
-  height: 40px;
+  height: 16px;
 }
 
 .back{

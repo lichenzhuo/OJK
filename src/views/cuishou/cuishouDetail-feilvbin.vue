@@ -354,7 +354,7 @@
         </li>
       </ul>
     </div>
-
+    <div class="foot"></div>
     <!-- ------------ 电话催收、短信催收开始------------------------ -->
     <div class="tabs" v-if="type==1">
       <ul class="tabs_title">
@@ -941,7 +941,7 @@ export default {
   user-select: text;
 }
 .foot{
-  height: 40px;
+  height: 16px;
 }
 
 .back{

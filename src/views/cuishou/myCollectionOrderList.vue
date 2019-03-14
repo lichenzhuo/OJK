@@ -202,10 +202,10 @@
                 @click="socialDetali(scope.row.orderNo,scope.row.orderId)">
                 {{$t('operationList.no1')}}
               </span>
-              <template v-if="$store.state.common.lang==='id'">
-                <span class="table_opr" @click="openAudit('1')"
+              <template v-if="$store.state.common.lang==='id'&&scope.row.blackStatus===0">
+                <span class="table_opr" @click="openAudit('1',scope.row.userId,scope.row.orderId)"
                 v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
-                <span class="table_opr" @click="openAudit('2')"
+                <span class="table_opr" @click="openAudit('2',scope.row.userId,scope.row.orderId)"
                 v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
               </template>
             </template>
@@ -290,11 +290,13 @@ export default {
         refundAmountIsZero: ''
       },
       currentPage: 1, // 当前页下标
-      remark: '', // 弹窗备注内容
       options1: this.$store.state.options.collection_option, // 入催状态下拉选框信息
       options2: this.$store.state.options.returnMoney_option, // 已还金额下拉选框信息
       options3: this.$store.state.options.groupCalls_options, // 群呼结果下拉选框信息
-      tableData: []// 列表数据模拟
+      tableData: [],// 列表数据模拟
+      remark: '', // 弹窗备注内容
+      orderId: '',// 他人还款或者态度恶劣选中行订单ID
+      userId: '',// 他人还款或者态度恶劣选中行用户ID
     }
   },
   methods: {
@@ -335,7 +337,7 @@ export default {
         this.operationList();
       }
     },
-    openAudit(str){// 审核弹窗
+    openAudit( str, userId, orderId){// 审核弹窗
       if(str==='1'){
         this.auditTitle = this.$t('yn.no43');
       }
@@ -343,25 +345,31 @@ export default {
         this.auditTitle = this.$t('yn.no44');
       }
       this.sign = str;
+      this.userId = userId;
+      this.orderId = orderId;
       this.auditFlag = true;
     },
     auditSubmit(){// 审核确认操作
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.sug_all_submit,
+          action: this.$store.state.actionMap.MECOLLECTION00012,
           'sessionid': this.sessionid
         },
-        replyContent: this.remark,
-        status: 4,
+        blackStatus: this.sign,
+        remark: this.remark,
+        orderId: this.orderId,
+        userId: this.userId,
       }
       this.$axios.post('', option).then(res => {
-        this.flag = true;
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('userSuggest.success'));
+          this.operationList();
+          this.remark = '';
         } else {
           this.$globalMsg.error(res.data.header.msg);
         }
+        this.auditFlag = false;
       })
     }
   },
@@ -405,13 +413,13 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
-      this.formInline = this.$store.state.common.mycuishouList_select;
-      if(this.formInline.collectionTimeBegin!==''){
-        this.searchTime.push(this.formInline.collectionTimeBegin);
-        this.searchTime.push(this.formInline.collectionTimeEnd);
-      }
-    }
+    // if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
+    //   this.formInline = this.$store.state.common.mycuishouList_select;
+    //   if(this.formInline.collectionTimeBegin!==''){
+    //     this.searchTime.push(this.formInline.collectionTimeBegin);
+    //     this.searchTime.push(this.formInline.collectionTimeEnd);
+    //   }
+    // }
     this.operationList();
   }
 }

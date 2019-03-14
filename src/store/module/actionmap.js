@@ -252,6 +252,9 @@ const actionmap = {
 
     TELEPHONE0001:'TELEPHONE0001',// 录音列表获取ID
     TELEPHONE0002:'TELEPHONE0002',// 录音列表获取
+    MECOLLECTION00014:'MECOLLECTION00014',// 提交他人还款或态度恶劣审核结果
+    MECOLLECTION00013:'MECOLLECTION00013',// 获取态度恶劣和他人还款人员列表
+    MECOLLECTION00012:'MECOLLECTION00012',// 提交态度恶劣或他人还款的用户
 
   }
 

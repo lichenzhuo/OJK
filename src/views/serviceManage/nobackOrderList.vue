@@ -66,7 +66,7 @@
             </el-option>
           </el-select>
         </div>
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
           <span>{{$t('public.no28')}}:</span>
           <el-input size="small" style="width:50px;" v-model="formInline.overdueBegin"></el-input>
           ~
@@ -210,8 +210,10 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
-          </el-table-column>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">

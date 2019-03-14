@@ -34,10 +34,10 @@
           <span>{{data.userBase.contractNo | dataIsTrue}}</span>  
         </p>
         <p><span>{{$t('public.registerDate')}}:</span>
-          <span>{{data.userBase.strRegTime}}</span>
+          <span>{{data.userBase.strRegTime | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.registerChannel')}}:</span>
-          <span>{{data.userBase.regChannel}}</span>
+          <span>{{data.userBase.regChannel | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">
@@ -61,10 +61,10 @@
           <span v-else>{{$store.state.common.nullData}}</span>   
         </p>
         <p><span>{{$t('yuenan.no2')}}:</span>
-          <span>{{data.userSelf.liveProvinceName}}</span>
+          <span>{{data.userSelf.liveProvinceName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('yuenan.no17')}}:</span>
-          <span>{{data.userSelf.liveCityName}}</span>
+          <span>{{data.userSelf.liveCityName | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasOne">
@@ -99,7 +99,7 @@
           <span>{{data.order.orderNo | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.CreateDate')}}:</span>
-          <span>{{data.order.strCreateTime}}</span>
+          <span>{{data.order.strCreateTime | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.no58')}}:</span>
           <span>{{data.order.strLoanTime | dataIsTrue}}</span>
@@ -114,7 +114,7 @@
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.loanAmount)}}{{$store.state.common.vi_currency}}</span>
         </p>
         <p><span>{{$t('public.no31')}}:</span>
-          <span>{{data.order.productPeriod}}</span>
+          <span>{{data.order.productPeriod | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('proManage.dayInterest')}}:</span>
           <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
@@ -150,7 +150,7 @@
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('filter.couponName')}}:</span>
-          <span>{{data.coupon.couponName}}</span>
+          <span>{{data.coupon.couponName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('filter.couponItem')}}:</span>
           <span>{{$t($store.getters.couponTypeState(data.coupon.couponType))}}</span>
@@ -167,7 +167,7 @@
       </div>
       <div class="oneLineHasOne">
         <p><span>{{$t('public.no34')}}:</span>
-          <span>{{data.order.orderAddress}}</span>
+          <span>{{data.order.orderAddress | dataIsTrue}}</span>
         </p>
       </div> 
     </div>

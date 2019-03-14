@@ -1343,6 +1343,16 @@ const filters = {
           return 'finance.backLog_options_status.no12' // -
       }
     },
+    reviewResult_status: () => (status) => { // 群呼结果
+      switch (status) {
+        case 1:
+          return 'yn.no40' // 同意
+        case -1:
+          return 'yn.no41' // 驳回
+        case 0:
+          return 'yn.no48' // 待审核
+      }
+    },
     loanUse_status: () => (status) => { // 群呼结果
       switch (status) {
         case 1:

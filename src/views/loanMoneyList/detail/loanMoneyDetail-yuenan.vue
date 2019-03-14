@@ -37,18 +37,18 @@
           <span>{{data.userBase.strRegTime | dataIsTrue}}</span>
         </p>
         <p>{{$t('public.registerChannel')}}: 
-          <span>{{data.userBase.regChannel}}</span>
+          <span>{{data.userBase.regChannel | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.no18')}}:</span>
-          <span>{{data.userBase.phone}}</span>
+          <span>{{data.userBase.phone | dataIsTrue}}</span>
         </p>
         <p>{{$t('yuenan.no23')}}: 
           <span>{{$store.getters.vn_phone(data.userBase.phone)}}</span>
         </p>
         <p><span>{{$t('yuenan.no25')}}:</span>
-          <span>{{data.userSelf.alternativePhone}}</span> 
+          <span>{{data.userSelf.alternativePhone | dataIsTrue}}</span> 
         </p>
         <p>
           <span>{{$t('public.sex')}}:</span>
@@ -57,11 +57,11 @@
       </div> 
       <div class="oneLineHasFour">
         <p><span>{{$t('public.no2')}}:</span>
-          <span>{{data.order.idCard}}</span>
+          <span>{{data.order.idCard | dataIsTrue}}</span>
         </p>
         <p>
           <span>{{$t('yuenan.no1')}}:</span>
-          <span>{{data.userSelf.strIdCardAwardTime}}</span> 
+          <span>{{data.userSelf.strIdCardAwardTime | dataIsTrue}}</span> 
         </p>
       </div> 
       <div class="oneLineHasFour">
@@ -78,7 +78,7 @@
       <div class="oneLineHasOne">
         <p><span>{{$t('public.no63')}}:</span>
           <span>
-            {{data.userSelf.liveAddress}}
+            {{data.userSelf.liveAddress | dataIsTrue}}
           </span>
         </p>
       </div> 
@@ -110,7 +110,7 @@
           <span>{{data.order.strCreateTime | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.no58')}}:</span>
-          <span>{{data.order.strLoanTime}}</span>
+          <span>{{data.order.strLoanTime | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.CreateTime')}}:</span>
           <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
@@ -156,26 +156,26 @@
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.refundAmount)}}{{$store.state.common.vi_currency}}</span>
         </p>
         <p><span>{{$t('public.no66')}}:</span>
-          <span>{{data.order.strLastRefundTime}}</span>
+          <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('yuenan.no18')}}:</span>
-          <span>{{data.userBank.bankType}}</span>
+          <span>{{data.userBank.bankType | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.no19')}}:</span>
-          <span>{{data.userBank.bankName}}</span>
+          <span>{{data.userBank.bankName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.no20')}}:</span>
-          <span>{{data.userBank.bankAccount}}</span>
+          <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('yuenan.no19')}}:</span>
-          <span>{{data.userBank.email}}</span>
+          <span>{{data.userBank.email | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('filter.couponName')}}:</span>
-          <span>{{data.coupon.couponName}}</span>
+          <span>{{data.coupon.couponName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('filter.couponItem')}}:</span>
           <span>{{$t($store.getters.couponTypeState(data.coupon.couponType))}}</span>
@@ -223,8 +223,8 @@
             <td>{{$t('loanMoneyDetail.loanMoney')}}</td>
             <td>{{value.strApproveTime | dataIsTrue}}</td>
             <td>
-              {{value.notApproveReason}}
-              {{value.notApproveSubReason}}
+              {{value.notApproveReason | dataIsTrue}}
+              {{value.notApproveSubReason | dataIsTrue}}
             </td>
             <td>{{$t($store.getters.loanMoneyRecordStatus(value.approveType))}}</td>
             <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
@@ -260,7 +260,7 @@
             <td>-</td>
             <td>-</td>
             <td>{{$t($store.getters.backMoneyResultStatus(value.status))}}</td>
-            <td>{{value.remark}}</td>
+            <td>{{value.remark | dataIsTrue}}</td>
           </tr>
         </template>
       </template>

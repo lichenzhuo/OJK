@@ -131,16 +131,16 @@
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('loanMoneyDetail.bankName')}}:</span>
-          <span>{{data.userBank.bankName}}</span>
+          <span>{{data.userBank.bankName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('loanMoneyDetail.bankNo')}}:</span>
-          <span>{{data.userBank.bankAccount}}</span>
+          <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.no65')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.refundAmount)}}{{$store.state.common.vi_currency}}</span>
         </p>
         <p><span>{{$t('public.no66')}}:</span>
-          <span>{{data.order.strLastRefundTime}}</span>
+          <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">

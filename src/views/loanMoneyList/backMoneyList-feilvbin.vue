@@ -13,7 +13,7 @@
     </div>
       
 
-    <!-- -------------搜索查询栏------------------------ -->
+    <!-- ------------- 搜索查询栏 ------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
         <el-col :md="6" :lg="4" :xl="4">
@@ -40,10 +40,10 @@
             <el-input size="small"  v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('fei.no17')}}:</span>
-            <el-input size="small"  v-model="formInline.phone"></el-input>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
           </div>
         </el-col>
         <div class="search-input">
@@ -61,7 +61,7 @@
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('public.no59')}}:</span>
+          <span>{{$t('fei.no19')}}:</span>
           <form autocomplete="off">
             <el-date-picker 
               size="small"
@@ -75,7 +75,7 @@
           </form>
         </div>
         <div class="search-input">
-          <span>{{$t('public.no28')}}:</span>
+          <span>{{$t('fei.no20')}}:</span>
           <el-input size="small" style="width:80px" v-model="formInline.overdueBegin"></el-input>
           ~
           <el-input size="small" style="width:80px" v-model="formInline.overdueEnd"></el-input>
@@ -117,7 +117,7 @@
       </el-row>
     </div>
 
-    <!-- -------------表单显示栏------------------------ -->
+    <!-- ------------- 表单显示栏 ------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_LIST')">
       <template>
         <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
@@ -137,19 +137,9 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="currentInterest" :label="$t('public.no55')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.currentInterest!==null&&scope.row.currentInterest!==undefined&&scope.row.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
+          <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
+          <el-table-column align="center" prop="returnMoney" :label="$t('fei.no18')">
             <template slot-scope="scope">
               <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -163,13 +153,13 @@
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
+          <el-table-column align="center" prop="strMustRefundTime" :label="$t('fei.no19')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no43')">
+          <el-table-column align="center" prop="overdueDays" :label="$t('fei.no20')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.overDue(scope.row.overdueDays!=0?1:-1))}}</span>
             </template>
