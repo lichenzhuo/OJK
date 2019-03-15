@@ -1,6 +1,6 @@
 <template>
   <div v-if="orderNo">
-    <div class="tagList">
+    <div class="tagList" v-if="$store.state.common.lang!=='PHL'">
       <el-tag>{{$t('new.no74')}}:{{tagList.isFirst==1?$t('auditDetail.isAdressBook.no1'):$t('auditDetail.isAdressBook.no2')}}</el-tag>
       <el-tag class="ml15">{{$t('new.no75')}}:{{tagList.loanCount}}</el-tag>
       <el-tag class="ml15">{{$t('new.no76')}}:{{tagList.overdueCount}}</el-tag>
@@ -8,7 +8,7 @@
     </div>
     
     <div class="table">
-      <template>
+      <template v-if="$store.state.common.lang!=='PHL'">
         <el-table :data="tableData" stripe size="small">
           <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')" >
           </el-table-column>
@@ -36,7 +36,42 @@
           </el-table-column>
           <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="100">
             <template slot-scope="scope">
-              <span style="color:#547ef6;cursor:pointer;margin:0 5px;" @click="socialDetali(scope.row.orderNo)">{{$t('public.no29')}}</span>
+              <span class="table_opr" @click="socialDetali(scope.row.orderNo)">{{$t('public.no29')}}</span>
+            </template>
+          </el-table-column>
+        </el-table>
+      </template>
+      <template v-else>
+        <el-table :data="tableData" stripe size="small">
+          <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')" >
+          </el-table-column>
+          <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.CreateDate')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" >
+          </el-table-column>
+          <el-table-column align="center" prop="willPayBackCount" :label="$t('fei.no24')" >
+          </el-table-column>
+          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')" >
+          </el-table-column>
+          <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="isOverdue" :label="$t('public.no43')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.overDue(scope.row.isOverdue))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="complaintTendencyCount" :label="$t('fei.no20')" >
+          </el-table-column>
+          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="operation" :label="$t('public.operation')">
+            <template slot-scope="scope">
+              <span class="table_opr" @click="socialDetali(scope.row.orderNo)">{{$t('public.no29')}}</span>
             </template>
           </el-table-column>
         </el-table>

@@ -1353,6 +1353,20 @@ const filters = {
           return 'yn.no48' // 待审核
       }
     },
+    instalment_status: () => (status) => { // 群呼结果
+      switch (status) {
+        case 1:
+          return 'fei.status.no1' // 未到期
+        case -1:
+          return 'fei.status.no2' // 到期已还
+        case 0:
+          return 'fei.status.no3' // 部分还款
+        case 2:
+          return 'fei.status.no4' // 逾期已还
+        case 3:
+          return 'fei.status.no5' // 逾期未还
+      }
+    },
     loanUse_status: () => (status) => { // 群呼结果
       switch (status) {
         case 1:

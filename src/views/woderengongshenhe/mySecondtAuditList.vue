@@ -45,6 +45,12 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('new.no8')}}:</span>
           <el-select size="small" v-model="formInline.trackStatus" :placeholder="$t('public.placeholder')">
@@ -140,6 +146,10 @@
               <template slot-scope="scope">
                 <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
+            </el-table-column>
+          </template>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">

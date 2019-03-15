@@ -171,7 +171,7 @@ export default {
         uploadTimeBegin: '',
         uploadTimeEnd: '',
       },
-      options: this.$store.state.options.collection_option, // 同意审核下拉选框信息
+      options: this.$store.state.options.auditResult_options, // 同意审核下拉选框信息
       tableData: [],// 列表数据模拟
       auditStatus: '',// 审核是否同意
       remark: '', // 弹窗备注内容

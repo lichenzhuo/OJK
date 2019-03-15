@@ -14,7 +14,7 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row type="flex" justify="start" :gutter="10">
+      <el-row type="flex" justify="start">
         <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
@@ -27,16 +27,22 @@
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
             <el-input size="small" label="name" v-model="formInline.name"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userTel')}}:</span>
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
+          </div>
+        </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
           </div>
         </el-col>
         <div class="search-input">
@@ -61,7 +67,7 @@
               </el-option>
             </el-select>
           </div>
-          <el-col :md="8" :lg="6" :xl="5">
+          <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
               <span>{{$t('public.no2')}}:</span>
               <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
@@ -160,6 +166,8 @@
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="strPromiseTime" :label="$t('fei.no14')" width="86">
+            </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">

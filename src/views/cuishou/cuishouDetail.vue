@@ -93,6 +93,9 @@
             <p><span>{{$t('public.no9')}}:</span>
               <span>{{data.orderUserWork.company | dataIsTrue}}</span>
             </p>
+            <p><span>Email:</span>
+              <span>{{data.orderUserSelf.email | dataIsTrue}}</span>
+            </p>
           </div>
           <div class="oneLineHasTwo">
             <p><span>{{$t('operationDetail.no1')}}:</span>
@@ -720,11 +723,11 @@ export default {
   },
   methods: {
     openBox: function (obj) { // 图片放大显示
-      this.currentObj = obj
-      this.lightBoxToggle = !this.lightBoxToggle
+      this.currentObj = obj;
+      this.lightBoxToggle = !this.lightBoxToggle;
     },
     closeBox: function () { // 图片放大关闭
-      this.lightBoxToggle = false
+      this.lightBoxToggle = false;
     },
     detail () { // 获取详情页数据
       let option = {
@@ -763,12 +766,12 @@ export default {
       // 判断联系人字段是否填写
       if(this.$store.state.common.lang==='vi'){
         if (this.emeContact === '' && this.contact === ''&&this.fbContact === '') {
-          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
           return
         }
       }else{
         if (this.emeContact === '' && this.contact === '') {
-          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
           return
         }
       }
@@ -776,7 +779,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.ruleForm.promise == 1 && this.ruleForm.promiseTime == '') {
-            this.$globalMsg.error(this.$t('operationDetail.no27'))
+            this.$globalMsg.error(this.$t('operationDetail.no27'));
             return
           }
           if (this.flag) {
@@ -794,12 +797,12 @@ export default {
             this.$axios.post('', option).then(res => {
               this.flag = true
               if (res.data.header.code == 0) {
-                this.$globalMsg.success(this.$t('message.success'))
+                this.$globalMsg.success(this.$t('message.success'));
                 setTimeout(() => {
-                  this.$router.push('/myCollectionOrderList')
+                  this.$router.push('/myCollectionOrderList');
                 }, 1000)
               } else {
-                this.$globalMsg.error(res.data.header.msg)
+                this.$globalMsg.error(res.data.header.msg);
               }
               this.emeContact = '';
               this.contact = '';
@@ -809,21 +812,21 @@ export default {
             })
           }
         } else {
-          return false
+          return false;
         }
       })
     },
     noteSubmit () { // 短信模版发送
       if (this.emeContact === '' && this.contact === '') {
-        this.$globalMsg.error(this.$t('operationDetail.no28'))
+        this.$globalMsg.error(this.$t('operationDetail.no28'));
         return
       }
       if (this.noteSel === '') {
-        this.$globalMsg.error(this.$t('operationDetail.no29'))
+        this.$globalMsg.error(this.$t('operationDetail.no29'));
         return
       }
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -840,16 +843,16 @@ export default {
         this.$axios.post('', option).then(res => {
           this.flag = true
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
             setTimeout(() => {
-              this.$router.push('/cuishoudetail')
+              this.$router.push('/cuishoudetail');
             }, 1000)
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.emeContact = ''
-          this.contact = ''
-          this.noteSel = ''
+          this.emeContact = '';
+          this.contact = '';
+          this.noteSel = '';
         })
       }
     },

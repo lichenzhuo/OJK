@@ -101,7 +101,8 @@ const options = {
     ],
     thirdChannel: [// 第三方通道
       {value: '', label: 'public.placeholder'},
-      {value: 'bluepay', label: 'finance.thirdChannel_options.no1'}// bluepay
+      {value: 'bluepay', label: 'finance.thirdChannel_options.no1'},// bluepay
+      {value: 'dokypay', label: 'finance.thirdChannel_options.no3'},// dokypay
     ],
     thirdChannel_vi: [// 第三方通道
       {value: '', label: 'public.placeholder'},
@@ -166,11 +167,13 @@ const options = {
       {value: 2, label: 'loanMoney.isOverdue_options.no1'}, // 是
       {value: 1, label: 'loanMoney.isOverdue_options.no2'}// 否
     ],
-    partialRepaymentApplyPayTypeOption: [
+    partialRepaymentApplyPayTypeOption: [// 还款方式
       {value: 'permata', label: 'finance.partialRepaymentApplyPayTypeOption.no1'},
       {value: 'mandiri', label: 'finance.partialRepaymentApplyPayTypeOption.no2'},
       {value: 'bni', label: 'finance.partialRepaymentApplyPayTypeOption.no3'},
-      {value: 'otc', label: 'finance.partialRepaymentApplyPayTypeOption.no4'}
+      {value: 'otc', label: 'finance.partialRepaymentApplyPayTypeOption.no4'},
+      {value: 'dandan', label: 'finance.partialRepaymentApplyPayTypeOption.no5'},
+      {value: 'lawson', label: 'finance.partialRepaymentApplyPayTypeOption.no6'},
     ],
     backMoneyType_option: [// 还款方式
       {value: '', label: 'public.placeholder'},

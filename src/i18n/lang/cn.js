@@ -648,7 +648,9 @@ const cn = {
       no1: 'permata',
       no2: 'mandiri',
       no3: 'bni',
-      no4: 'otc'
+      no4: 'otc',
+      no5: 'dandan',
+      no6: 'lawson',
     },
     backMoneyType_options: {
       no1: 'ATM',
@@ -663,7 +665,8 @@ const cn = {
     },
     thirdChannel_options: {
       no1: 'BluePay',
-      no2: 'NganLuong'
+      no2: 'NganLuong',
+      no3: 'dokypay',
     },
     putType: {
       no1: '借款',
@@ -1503,6 +1506,22 @@ const cn = {
     no18: '到期应还金额',
     no19: '最近应还日期',
     no20: '最大逾期天数',
+    no21: '总逾期费',
+    no22: '借款用途',
+    no23: '分期还款计划',
+    no24: '期数',
+    no25: '每期逾期费',
+    no26: '每期应还金额',
+    no27: '每期已还金额',
+    no28: '注册',
+    no29: '申请',
+    status:{
+      no1: '未到期',
+      no2: '到期已还',
+      no3: '部分还款',
+      no4: '逾期已还',
+      no5: '逾期未还',
+    }
   },
   couponSetting: {
     crumbsOne: '运营管理',

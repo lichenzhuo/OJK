@@ -38,20 +38,19 @@
 
 .paixu {
   width: 100%;
-  height: auto;
-  line-height: 48px;
+  height: 40px;
   background: rgba(224, 229, 246, 1);
   border-radius: 4px;
-
+  display: flex;
+  align-items: center;
 }
 
 .paixu span {
   display: block;
   float: left;
-  margin-top: 10px;
   background-color: rgba(84, 126, 245, 1);
   width: 4px;
-  height: 30px;
+  height: 26px;
   border-radius: 5px;
 }
 

@@ -25,6 +25,9 @@
         <p style="width:50%"><span>{{$t('new.no49')}}:</span>
           <span>{{data.userBase.appPackage | dataIsTrue}}</span>  
         </p>
+        <p><span>Email:</span>
+          <span>{{data.userSelf.email | dataIsTrue}}</span>
+        </p>
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.userId')}}:</span>
@@ -86,6 +89,7 @@
         <p><span>{{$t('new.no49')}}:</span>
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> 
         </p>
+        
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.orderNo')}}:</span>

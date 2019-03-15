@@ -39,6 +39,12 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('public.no32')}}:</span>
           <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
@@ -159,6 +165,8 @@
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="strPromiseTime" :label="$t('fei.no14')" width="86">
+            </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">

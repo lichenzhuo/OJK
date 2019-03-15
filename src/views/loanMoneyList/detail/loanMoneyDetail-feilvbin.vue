@@ -104,10 +104,6 @@
         <p><span>{{$t('public.no58')}}:</span>
           <span>{{data.order.strLoanTime | dataIsTrue}}</span>
         </p>
-        <p><span>{{$t('public.CreateTime')}}:</span>
-          <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
-        </p>
-        
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.no24')}}:</span>
@@ -124,11 +120,11 @@
         </p>
       </div> 
       <div class="oneLineHasFour">
-        <p><span>{{$t('public.no28')}}:</span>
-          <span>{{data.order.overdueDays | dataIsTrue}}</span>
+        <p><span>{{$t('fei.no21')}}:</span>
+          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
         </p>
-        <p><span>{{$t('loanMoneyDetail.overdueInterest')}}:</span>
-          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+        <p><span>{{$t('fei.no22')}}:</span>
+          <span>{{$store.getters.moneySplit(data.order.currentInterest)}}</span>
         </p>
         <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -143,9 +139,6 @@
         </p>
         <p><span>{{$t('public.no65')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-        </p>
-        <p><span>{{$t('public.no66')}}:</span>
-          <span>{{data.order.strLastRefundTime}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">
@@ -172,10 +165,49 @@
       </div> 
     </div>
 
+    <el-row>
+      <el-col :span="24">
+        <div class="paixu mt15">
+          <span></span>
+          <p>{{$t('fei.no23')}}</p>
+        </div>
+      </el-col>
+    </el-row>
+    <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+      <tr>
+        <th width="10%">{{$t('fei.no24')}}</th>
+        <th width="12%">{{$t('public.no59')}}</th>
+        <th width="12%">{{$t('public.no28')}}</th>
+        <th width="12%">{{$t('fei.no25')}}</th>
+        <th width="12%">{{$t('fei.no26')}}</th>
+        <th width="14%">{{$t('public.no66')}}</th>
+        <th width="14%">{{$t('fei.no27')}}</th>
+        <th width="14%">{{$t('public.orderStatus')}}</th>
+      </tr>
+      <template v-if="data.orderApproveList">
+        <tr v-for="value in data.orderApproveList" :key="value.id">
+          <td>{{value.adminName | dataIsTrue}}</td>
+          <td>{{$t('loanMoneyDetail.loanMoney')}}</td>
+          <td>{{value.strApproveTime | dataIsTrue}}</td>
+          <td>
+            {{value.notApproveReason | dataIsTrue}}
+          </td>
+          <td>{{$t($store.getters.loanMoneyRecordStatus(value.approveType))}}</td>
+          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+        </tr>
+      </template>
+      <template v-else>
+        <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+          {{$t('public.no23')}}
+        </div>
+      </template>
+    </table>
     <!-- ------------  审核记录栏  ------------------------ -->
     <el-row>
       <el-col :span="24">
-        <div class="paixu">
+        <div class="paixu mt15">
           <span></span>
           <p>{{$t('loanMoneyDetail.opeHistory')}}</p>
         </div>

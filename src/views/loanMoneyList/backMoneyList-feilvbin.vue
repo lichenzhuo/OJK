@@ -61,6 +61,12 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('fei.no20')}}:</span>
+          <el-input size="small" style="width:80px" v-model="formInline.overdueBegin"></el-input>
+          ~
+          <el-input size="small" style="width:80px" v-model="formInline.overdueEnd"></el-input>
+        </div>
+        <div class="search-input">
           <span>{{$t('fei.no19')}}:</span>
           <form autocomplete="off">
             <el-date-picker 
@@ -73,12 +79,6 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </form>
-        </div>
-        <div class="search-input">
-          <span>{{$t('fei.no20')}}:</span>
-          <el-input size="small" style="width:80px" v-model="formInline.overdueBegin"></el-input>
-          ~
-          <el-input size="small" style="width:80px" v-model="formInline.overdueEnd"></el-input>
         </div>
         <div class="search-input">
           <span>{{$t('public.no58')}}:</span>

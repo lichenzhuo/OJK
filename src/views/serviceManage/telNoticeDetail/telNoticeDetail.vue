@@ -9,110 +9,92 @@
     </div>
 
     <!-- ------------ 用户信息、借款信息开始------------------------ -->
-    <div class="xuanxiangka">
-      <ul class="xuan-1">
+    <div class="tabs">
+      <ul class="tab_title">
         <li v-for="(value,index) in arr1" :key="index" :class="{active:active1==value.id}" @click="active1=value.id">
           <span>{{value.title}}</span>
         </li>
       </ul>
-      <ul class="xuan-2">
-        <li class="xuan-2-2" v-if="active1==1">
-          <div class="xuan-2-2-1">
-            <p>{{$t('new.no48')}}: 
-              <span v-if="data.userBase.appName!==null&&data.userBase.appName!==undefined&&data.userBase.appName!==''">{{data.userBase.appName}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+      <ul class="tabs_main">
+        <li  v-if="active1==1">
+          <div class="oneLineHasFour">
+            <p><span>{{$t('new.no48')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
             </p>
-            <p>{{$t('new.no49')}}: 
-              <span v-if="data.userBase.appPackage!==null&&data.userBase.appPackage!==undefined&&data.userBase.appPackage!==''">{{data.userBase.appPackage}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>   
+            <p><span>{{$t('new.no49')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>   
             </p>
-            <p v-if="$store.state.common.lang=='PHL'">{{$t('loanAfterManage.paycode')}}: 
-              <span v-if="data.order.contractNo!==null&&data.order.contractNo!==undefined&&data.order.contractNo!==''">{{data.order.contractNo}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>   
+            <p v-if="$store.state.common.lang=='PHL'"><span>{{$t('loanAfterManage.paycode')}}:</span>
+              <span>{{data.order.contractNo | dataIsTrue}}</span>
             </p>
-            <p>{{$t('websiteLoans.no5')}}:
-              <span v-if="data.order.orderLoanType!==null&&data.order.orderLoanType!==undefined&&data.order.orderLoanType!==''">{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+            <p><span>{{$t('websiteLoans.no5')}}:</span>
+              <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
             </p>
           </div>
-          <div class="xuan-2-2-1">
-            <p>{{$t('public.userId')}}:
-              <span v-if="data.userSelf.userId!==null&&data.userSelf.userId!==undefined&&data.userSelf.userId!==''">{{data.userSelf.userId}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.userId')}}:</span>
+              <span>{{data.userSelf.userId | dataIsTrue}}</span>
             </p>
-            <p>{{$t('public.no1')}}:
-              <span v-if="data.userBase.name!==null&&data.userBase.name!==undefined&&data.userBase.name!==''">{{data.userBase.name}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no1')}}:</span>
+              <span>{{data.userBase.name | dataIsTrue}}</span>
             </p>
-            <p>{{$t('public.no18')}}:
-              <span v-if="data.userBase.phone!==null&&data.userBase.phone!==undefined&&data.userBase.phone!==''">{{data.userBase.phone}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no18')}}:</span>
+              <span>{{data.userBase.phone | dataIsTrue}}</span>
             </p>
             <template v-if="$store.state.common.lang=='id'">
-              <p>{{$t('public.no4')}}:
-                <span v-if="data.userSelf.bear!==null&&data.userSelf.bear!==undefined&&data.userSelf.bear!==''">{{$t($store.getters.birthState(data.userSelf.bear))}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span> 
+              <p><span>{{$t('public.no4')}}:</span>
+                <span>{{$t($store.getters.birthState(data.userSelf.bear))}}</span>
               </p>
             </template>
             <template v-if="$store.state.common.lang=='PHL'">
-              <p>facebook:
-                <span v-if="data.userSelf.facebook!==null&&data.userSelf.facebook!==undefined&&data.userSelf.facebook!==''">{{data.userSelf.facebook}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span> 
+              <p><span>facebook:</span>
+                <span>{{data.userSelf.facebook | dataIsTrue}}</span>
               </p>
             </template>
           </div>
-          <div class="xuan-2-2-1">
-            <p>{{$t('public.no2')}}:
-              <span v-if="data.order.idCard!==null&&data.order.idCard!==undefined&&data.order.idCard!==''">{{data.order.idCard}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.no2')}}:</span>
+              <span>{{data.order.idCard | dataIsTrue}}</span>
             </p>
-            <p>{{$t('public.birthday')}}:
-              <span v-if="data.userSelf.birthday!==null&&data.userSelf.birthday!==undefined&&data.userSelf.birthday!==''">{{data.userSelf.birthday}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.birthday')}}:</span>
+              <span>{{data.userSelf.birthday | dataIsTrue}}</span>
             </p>
-            <p>{{$t('public.no3')}}:
-              <span v-if="data.userSelf.marriage!==null&&data.userSelf.marriage!==undefined&&data.userSelf.marriage!==''">{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no3')}}:</span>
+              <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
             </p>
-            <p>{{$t('public.sex')}}:
-              <span v-if="data.userSelf.sex!==null&&data.userSelf.sex!==undefined&&data.userSelf.sex!==''">{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.sex')}}:</span>
+              <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
             </p>
           </div>
-          <div class="xuan-2-2-1" v-if="$store.state.common.lang==='vi'">
+          <div class="oneLineHasFour" v-if="$store.state.common.lang==='vi'">
             <p >
-              {{$t('yuenan.no23')}}:
-              <span v-if="data.userBase.phone!==null&&data.userBase.phone!==undefined&&data.userBase.phone!==''">{{$store.getters.vn_phone(data.userBase.phone)}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+              <span>{{$t('yuenan.no23')}}:</span>
+              <span>{{$store.getters.vn_phone(data.userBase.phone)}}</span>
             </p>
             <p >
-              {{$t('yuenan.no25')}}:
-              <span v-if="data.userSelf.alternativePhone!==null&&data.userSelf.alternativePhone!==undefined&&data.userSelf.alternativePhone!==''">{{data.userSelf.alternativePhone}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+              <span>{{$t('yuenan.no25')}}:</span>
+              <span>{{data.userSelf.alternativePhone}}</span>
             </p>
           </div>
-          <div class="xuan-2-2-1" v-if="$store.state.common.lang=='id'">
-            <p style="width:100%">{{$t('operationDetail.no1')}}:
-              <span v-if="data.userIdcard.ocrAddress!==null&&data.userIdcard.ocrAddress!==undefined&&data.userIdcard.ocrAddress!==''">{{data.userIdcard.ocrAddress}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasOne" v-if="$store.state.common.lang=='id'">
+            <p><span>{{$t('operationDetail.no1')}}:</span>
+              <span>{{data.userIdcard.ocrAddress | dataIsTrue}}</span>
             </p>
           </div> 
-          <div class="xuan-2-2-1">
-            <p style="width:100%">{{$t('public.no6')}}:
-              <span v-if="data.userSelf.liveAddress!==null&&data.userSelf.liveAddress!==undefined&&data.userSelf.liveAddress!==''">{{data.userSelf.liveAddress}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasOne">
+            <p><span>{{$t('public.no6')}}:</span>
+              <span>{{data.userSelf.liveAddress | dataIsTrue}}</span>
             </p>
           </div> 
-          <div class="xuan-2-2-1">
-            <p style="width:100%">{{$t('public.no9')}}:
-              <span v-if="data.userWork.company!==null&&data.userWork.company!==undefined&&data.userWork.company!==''">{{data.userWork.company}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.no9')}}:</span>
+              <span>{{data.userWork.company | dataIsTrue}}</span>
             </p>
           </div> 
           <div class="xuan-2-2-2">
             <span>{{$t('pic.no1')}}:</span>
             <template >
-              <div v-if="data.userIdcard.idcardPhotoUrl!==null&&data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
+              <div v-if="data.userIdcard.idcardPhotoUrl" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
                 <img :src="data.userIdcard.idcardPhotoUrl"  :alt="$t('pic.no1')" :title="$t('pic.no1')">
               </div>
               <div v-else class="xuan-2-2-2-1 pic" >
@@ -121,7 +103,7 @@
             </template>
             <span>{{$t('pic.no2')}}:</span>
             <template >
-              <div v-if="data.userIdcard.facetimePhotoUrl!==null&&data.userIdcard.facetimePhotoUrl!==undefined&&data.userIdcard.facetimePhotoUrl!==''" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
+              <div v-if="data.userIdcard.facetimePhotoUrl" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
                 <img :src="data.userIdcard.facetimePhotoUrl"  :alt="$t('pic.no2')" :title="$t('pic.no2')">
               </div>
               <div v-else class="xuan-2-2-2-1 pic" >
@@ -130,7 +112,7 @@
             </template>
             <span>{{$t('pic.no3')}}:</span>
             <template >
-              <div v-if="data.userWork.incomePicUrl!==null&&data.userWork.incomePicUrl!==undefined&&data.userWork.incomePicUrl!==''" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+              <div v-if="data.userWork.incomePicUrl" class="xuan-2-2-2-1 pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
                 <img :src="data.userWork.incomePicUrl"  :alt="$t('pic.no2')" :title="$t('pic.no2')">
               </div>
               <div v-else class="xuan-2-2-2-1 pic" >
@@ -139,93 +121,88 @@
             </template>
           </div>
         </li>
-        <li class="xuan-2-2" v-if="active1==2">
-          <div class="xuan-2-2-1">
-            <p>{{$t('new.no48')}}: 
-              <span v-if="data.userBase.appName!==null&&data.userBase.appName!==undefined&&data.userBase.appName!==''">{{data.userBase.appName}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+        <li  v-if="active1==2">
+          <div class="oneLineHasFour">
+            <p><span>{{$t('new.no48')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
             </p>
-            <p>{{$t('new.no49')}}: 
-              <span v-if="data.userBase.appPackage!==null&&data.userBase.appPackage!==undefined&&data.userBase.appPackage!==''">{{data.userBase.appPackage}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>   
+            <p><span>{{$t('new.no49')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span> 
             </p>
           </div>
-          <div class="xuan-2-2-1">
-            <p>{{$t('operationDetail.no2')}}:
-              <span v-if="data.order.id!==null&&data.order.id!==undefined&&data.order.id!==''">{{data.order.id}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('operationDetail.no2')}}:</span>
+              <span>{{data.order.id | dataIsTrue}}</span>
             </p>
-            <p>{{$t('public.no30')}}:
-              <span v-if="data.order.loanAmount!==null&&data.order.loanAmount!==undefined&&data.order.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no30')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.loanAmount)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
-            <p>{{$t('public.no31')}}:
-              <span v-if="data.order.productPeriod!==null&&data.order.productPeriod!==undefined&&data.order.productPeriod!==''">{{data.order.productPeriod}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no31')}}:</span>
+              <span>{{data.order.productPeriod | dataIsTrue}}</span>
             </p>
-            <p>{{$t('operationDetail.no6')}}:
-              <span v-if="data.order.amount!==null&&data.order.amount!==undefined&&data.order.amount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.amount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('operationDetail.no6')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.amount)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
           </div>
-          <div class="xuan-2-2-1">
-            <p>{{$t('proManage.feeRate')}}:
-              <span v-if="data.order.feeRate!==null&&data.order.feeRate!==undefined&&data.order.feeRate!==''">{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('proManage.feeRate')}}:</span>
+              <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
             </p>
-            <p>{{$t('loanMoneyDetail.feeAmount')}}:
-              <span v-if="data.order.feeAmount!==null&&data.order.feeAmount!==undefined&&data.order.feeAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.feeAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.feeAmount)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
-            <p>{{$t('operationDetail.no4')}}:
-              <span v-if="data.order.overdueInterestRate!==null&&data.order.overdueInterestRate!==undefined&&data.order.overdueInterestRate!==''">{{$store.getters.twoPoint(data.order.overdueInterestRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('operationDetail.no4')}}:</span>
+              <span>{{$store.getters.twoPoint(data.order.overdueInterestRate)}}%</span>
             </p>
-            <p>{{$t('operationDetail.no5')}}:
-              <span v-if="data.order.overdueInterest!==null&&data.order.overdueInterest!==undefined&&data.order.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
-            </p>
-          </div> 
-          <div class="xuan-2-2-1">
-            <p>{{$t('public.no27')}}:
-              <span v-if="data.order.returnMoney!==null&&data.order.returnMoney!==undefined&&data.order.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.returnMoney)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
-            </p>
-            <p>{{$t('public.no65')}}:
-              <span v-if="data.order.refundAmount!==null&&data.order.refundAmount!==undefined&&data.order.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
-            </p>
-            <p>{{$t('public.CreateDate')}}:
-              <span v-if="data.order.strCreateTime!==null&&data.order.strCreateTime!==undefined&&data.order.strCreateTime!==''">{{data.order.strCreateTime}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
-            </p>
-            <p>{{$t('public.no66')}}:
-              <span v-if="data.order.strLastRefundTime!==null&&data.order.strLastRefundTime!==undefined&&data.order.strLastRefundTime!==''">{{data.order.strLastRefundTime}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('operationDetail.no5')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.overdueInterest)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
           </div> 
-          <div class="xuan-2-2-1">
-            <p>{{$t('operationDetail.no3')}}:
-              <span v-if="data.order.dayInterestRate!==null&&data.order.dayInterestRate!==undefined&&data.order.dayInterestRate!==''">{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.no27')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.returnMoney)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
-            <p>{{$t('loanMoneyDetail.currentInterest')}}:
-              <span v-if="data.order.currentInterest!==null&&data.order.currentInterest!==undefined&&data.order.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.no65')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.refundAmount)}}
+                {{$store.state.common.vi_currency}}</span>
             </p>
-            <p>{{$t('public.no28')}}:
-              <span v-if="data.order.overdueDays!==null&&data.order.overdueDays!==undefined&&data.order.overdueDays!==''">{{data.order.overdueDays}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+            <p><span>{{$t('public.CreateDate')}}:</span>
+              <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no66')}}:</span>
+              <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
             </p>
           </div> 
-          <div class="xuan-2-2-1">
-            <p>{{$t('public.no58')}}:
-              <span v-if="data.order.strLoanTime!==null&&data.order.strLoanTime!==undefined&&data.order.strLoanTime!==''">{{data.order.strLoanTime}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('operationDetail.no3')}}:</span>
+              <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
             </p>
-            <p>{{$t('public.CreateTime')}}: 
-              <span v-if="data.order.strMustRefundTime!==null&&data.order.strMustRefundTime!==undefined&&data.order.strMustRefundTime!==''">{{data.order.strMustRefundTime}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+            <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(data.order.currentInterest)}}
+                {{$store.state.common.vi_currency}}</span>
+            </p>
+            <p><span>{{$t('public.no28')}}:</span>
+              <span>{{data.order.overdueDays | dataIsTrue}}</span> 
+            </p>
+          </div> 
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.no58')}}:</span>
+              <span>{{data.order.strLoanTime | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.CreateTime')}}:</span>
+              <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
             </p>
           </div> 
           
@@ -236,17 +213,17 @@
     <template v-if="$store.state.common.lang==='vi'&&data.order.orderLoanType!==1">
       <div class="paixu mt15 pb10">
         <span></span>
-        <p>{{$t('websiteLoans.no9')}}：</p>
+        <p>{{$t('websiteLoans.no9')}}:</p>
       </div>
       <div class="loansTypeImg">
         <template >
-          <div v-if="data.webInfo.onePicUrlStr!==null&&data.webInfo.onePicUrlStr!==undefined&&data.webInfo.onePicUrlStr!==''" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.onePicUrlStr})">
+          <div v-if="data.webInfo.onePicUrlStr" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.onePicUrlStr})">
             <img :src="data.webInfo.onePicUrlStr"  :alt="$t('websiteLoans.no9')">
           </div>
-          <div v-if="data.webInfo.twoPicUrlStr!==null&&data.webInfo.twoPicUrlStr!==undefined&&data.webInfo.twoPicUrlStr!==''" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.twoPicUrlStr})">
+          <div v-if="data.webInfo.twoPicUrlStr" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.twoPicUrlStr})">
             <img :src="data.webInfo.twoPicUrlStr"  :alt="$t('websiteLoans.no9')">
           </div>
-          <div v-if="data.webInfo.threePicUrlStr!==null&&data.webInfo.threePicUrlStr!==undefined&&data.webInfo.threePicUrlStr!==''" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.threePicUrlStr})">
+          <div v-if="data.webInfo.threePicUrlStr" class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.webInfo.threePicUrlStr})">
             <img :src="data.webInfo.threePicUrlStr"  :alt="$t('websiteLoans.no9')">
           </div>
         </template>
@@ -255,60 +232,47 @@
 
     <!-- ------------ 呼叫结果开始 ------------------------ -->
     <div class="xuanxiangka" v-if="$store.state.common.lang!=='PHL'">
-      <el-row>
-        <el-col :span="24">
-          <div class="paixu">
-            <span></span>
-            <p>{{$t('new.no93')}}</p>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="xuan-2">
-        <div class="xuan-2-6">
-          <table class="loan-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
-            <tr>
-              <th width="25%">{{$t('public.name')}}</th>
-              <th width="10%">{{$t('public.no17')}}</th>
-              <th width="10%">{{$t('public.no18')}}</th>
-              <th width="25%">{{$t('new.no94')}}</th>
-              <th width="10%">{{$t('new.no95')}}</th>
-              <th width="10%">{{$t('new.no91')}}</th>
-              <th width="10%">{{$t('new.no92')}}</th>
-            </tr>
-            <template v-if="tableData!=''">
-              <tr v-for="(value,index) in tableData" :key="index">
-                <template>
-                  <td v-if="value.name!=''">{{value.name}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.relationName!=''">{{value.relationName}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.phone!=''">{{value.phone}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.strCallTime!=''">{{value.strCallTime}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <td >{{$t($store.getters.callStatus_status(value.status))}}</td>
-                <template>
-                  <td v-if="value.duration!=''">{{value.duration}}s</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <td >{{$t($store.getters.is_addressBook(value.isUrgentContact))}}</td>
-              </tr>
-            </template>
-            <template v-else>
-              <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-                {{$t('public.no23')}}
-              </div>
-            </template>
-          </table>
-        </div>
+      <div class="paixu">
+        <span></span>
+        <p>{{$t('new.no93')}}</p>
       </div>
+      <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
+        <tr>
+          <th width="25%">{{$t('public.name')}}</th>
+          <th width="10%">{{$t('public.no17')}}</th>
+          <th width="10%">{{$t('public.no18')}}</th>
+          <th width="25%">{{$t('new.no94')}}</th>
+          <th width="10%">{{$t('new.no95')}}</th>
+          <th width="10%">{{$t('new.no91')}}</th>
+          <th width="10%">{{$t('new.no92')}}</th>
+        </tr>
+        <template v-if="tableData!=''">
+          <tr v-for="(value,index) in tableData" :key="index">
+            <template>
+              <td>{{value.name | dataIsTrue}}</td>
+            </template>
+            <template>
+              <td>{{value.relationName | dataIsTrue}}</td>
+            </template>
+            <template>
+              <td>{{value.phone | dataIsTrue}}</td>
+            </template>
+            <template>
+              <td>{{value.strCallTime | dataIsTrue}}</td>
+            </template>
+            <td >{{$t($store.getters.callStatus_status(value.status))}}</td>
+            <template>
+              <td>{{value.duration | dataIsTrue}}s</td>
+            </template>
+            <td >{{$t($store.getters.is_addressBook(value.isUrgentContact))}}</td>
+          </tr>
+        </template>
+        <template v-else>
+          <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
+            {{$t('public.no23')}}
+          </div>
+        </template>
+      </table>
     </div>
     
     
@@ -372,7 +336,7 @@
     </div>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
-    <div class="xuanxiangka" v-if="$store.state.common.lang=='vi'&&overdueDays>=1">
+    <div class="xuanxiangka" v-if="$store.state.common.lang=='vi'&&overdueDays>=0">
       <ul class="xuan-1">
         <li v-for="(value,index) in arr2" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
           <span>{{value.title}}</span>
@@ -865,16 +829,7 @@ $color2:#000;
       
         
       }
-      .xuan-2-2-2{
-        width: 100%;
-        display: flex;
-        align-items: center;
-        .xuan-2-2-2-1{
-          width: 200px;
-          height: 110px;
-          margin-right: 40px;
-        }
-      }
+      
     }
     .xuan-2-9{
       .xuan-2-9-1{
@@ -1016,6 +971,16 @@ $color2:#000;
       font-weight: bold;
       cursor: pointer;
     }
+  }
+}
+.xuan-2-2-2{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  .xuan-2-2-2-1{
+    width: 200px;
+    height: 110px;
+    margin-right: 40px;
   }
 }
 </style>
