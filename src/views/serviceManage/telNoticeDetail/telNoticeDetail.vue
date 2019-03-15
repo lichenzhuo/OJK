@@ -372,7 +372,7 @@
     </div>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
-    <div class="xuanxiangka" v-if="$store.state.common.lang=='vi'&&overdueDays>=1">
+    <div class="xuanxiangka" v-if="$store.state.common.lang=='vi'&&overdueDays>=0">
       <ul class="xuan-1">
         <li v-for="(value,index) in arr2" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
           <span>{{value.title}}</span>
