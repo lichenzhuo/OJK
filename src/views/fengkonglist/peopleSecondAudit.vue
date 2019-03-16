@@ -47,7 +47,7 @@
         </el-col>
         <div class="search-input">
           <span>{{$t('public.no32')}}:</span>
-          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" filterable v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>

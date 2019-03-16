@@ -42,7 +42,7 @@
         </div>
         <div class="search-input">
           <span>{{$t('loanAfterManage.name')}}:</span>
-          <el-select clearable size="small" v-model="adminId" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" filterable v-model="adminId" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in adminOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
