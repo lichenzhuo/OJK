@@ -1622,6 +1622,10 @@ const vi = {
     no6: 'Trạng thái quy đổi thành tiền mặt ',
     id: 'ID phiếu  ưu đãi'
   },
+  add:{
+    no1:'Loại phản hồi',
+    no2: 'Số tiền vay',
+  },
   ...yuenan
 }
 export default vi

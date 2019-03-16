@@ -176,7 +176,7 @@
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_REVIEW_DETAIL')"

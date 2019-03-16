@@ -203,7 +203,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="180">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <span class="table_opr" @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}</span>
               <template>

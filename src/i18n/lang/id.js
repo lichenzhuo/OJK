@@ -253,6 +253,12 @@ const id = {
       no3: 'sudah respon',
       no4: 'sudah mengajuk'
     },
+    sugType:{
+      no1: 'Masalah pembayaran',
+      no2: 'Masalah koleksi',
+      no3: 'Gunakan masalah',
+      no4: 'Lainnya'
+    },
     title1: 'Pengecekan',
     title2: 'isi respon',
     sugReply: 'feedback',
@@ -622,7 +628,7 @@ const id = {
     putType: {
       no1: 'Pinjaman',
       no2: 'Penarikan Tunai'
-    }
+    },
   },
   riskManage: {// 风控审核管理
     crumbsOne: 'Pengelolaan pemeriksaan pengendalian resiko',
@@ -1595,6 +1601,10 @@ const id = {
       'no10':'beli mobil',
       'no11':'main saham',
     }
+  },
+  add:{
+    no1: 'Jenis umpan balik',
+    no2: 'Jumlah pinjaman dana',
   },
   ...idLocale
 }

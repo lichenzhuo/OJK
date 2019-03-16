@@ -156,7 +156,7 @@
               <span>{{$t($store.getters.handlingStatus(scope.row.dealStatus))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span
                 v-if="scope.row.dealStatus<3&&$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_DEAL')"

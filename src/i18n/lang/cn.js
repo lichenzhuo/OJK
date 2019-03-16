@@ -558,7 +558,6 @@ const cn = {
     loanMoney: '借款',
     putMoney: '放款',
     backMoney: '还款',
-
     loanMoneyRecordStatus: {
       no1: '机审',
       no2: '人工初审',
@@ -643,14 +642,6 @@ const cn = {
       no5: '放款中',
       no6: '放款成功',
       no7: '其它'
-    },
-    partialRepaymentApplyPayTypeOption: {
-      no1: 'permata',
-      no2: 'mandiri',
-      no3: 'bni',
-      no4: 'otc',
-      no5: 'dandan',
-      no6: 'lawson',
     },
     backMoneyType_options: {
       no1: 'ATM',
@@ -849,7 +840,9 @@ const cn = {
       no1: 'otc',
       no2: 'BNI',
       no3: 'Permate(BCA)',
-      no4: 'Mandiri'
+      no4: 'Mandiri',
+      no5: 'dandan',
+      no6: 'lawson',
     },
     collection_option: {
       no1: '挂断',
@@ -1515,6 +1508,7 @@ const cn = {
     no27: '每期已还金额',
     no28: '注册',
     no29: '申请',
+    no30: '分期期数',
     status:{
       no1: '未到期',
       no2: '到期已还',
@@ -1774,6 +1768,10 @@ const cn = {
       'no10':'购车',
       'no11':'炒股票',
     }
+  },
+  add:{
+    no1:'反馈类型',
+    no2: '借款金额',
   },
   ...zhLocale
 }

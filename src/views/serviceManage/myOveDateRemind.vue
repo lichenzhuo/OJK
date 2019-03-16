@@ -219,7 +219,7 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_REMIND')">
                 <template v-if="$store.state.common.lang==='vi'">

@@ -166,7 +166,7 @@
               <span>{{userName}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST')">
               <span
                 v-if="scope.row.status!=20"

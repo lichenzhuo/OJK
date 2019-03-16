@@ -51,7 +51,7 @@
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('yuenan.no22')}}:</span>
+          <span>{{$t('add.no1')}}:</span>
           <el-select size="small" v-model="formInline.feedbackType" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
@@ -94,7 +94,7 @@
               <span>{{$t($store.getters.sugStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="feedbackType" :label="$t('yuenan.no22')" >
+          <el-table-column align="center" prop="feedbackType" :label="$t('add.no1')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.sugTypeStatus(scope.row.feedbackType))}}</span>
             </template>

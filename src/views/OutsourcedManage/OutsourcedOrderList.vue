@@ -259,7 +259,7 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="100" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
                 style="color:#547ef6;cursor:pointer" 

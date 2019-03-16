@@ -258,7 +258,7 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_DETAIL')"

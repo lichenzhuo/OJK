@@ -169,7 +169,7 @@
               <span>{{$t($store.getters.backList_rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span class="table_opr"  @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}</span>
               <template >

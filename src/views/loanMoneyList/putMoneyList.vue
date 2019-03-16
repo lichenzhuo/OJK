@@ -153,7 +153,7 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope" >
               <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'" class="table_opr"  @click="sure(scope.row.orderNo)">{{$t('public.no67')}}</span>
               <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_SHOW')" class="table_opr"  @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.no29')}}</span>

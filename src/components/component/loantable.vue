@@ -43,28 +43,28 @@
       </template>
       <template v-else>
         <el-table :data="tableData" stripe size="small">
-          <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')" >
+          <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" >
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="willPayBackCount" :label="$t('fei.no24')" >
+          <el-table-column align="center" prop="willPayBackCount" :label="$t('fei.no17')">
           </el-table-column>
-          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')" >
+          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="isOverdue" :label="$t('public.no43')" >
+          <el-table-column align="center" prop="isOverdue" :label="$t('public.no43')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.overDue(scope.row.isOverdue))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="complaintTendencyCount" :label="$t('fei.no20')" >
+          <el-table-column align="center" prop="complaintTendencyCount" :label="$t('fei.no20')">
           </el-table-column>
-          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" >
+          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>

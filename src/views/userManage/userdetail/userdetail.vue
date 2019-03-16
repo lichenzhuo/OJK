@@ -89,8 +89,8 @@
               <p><span>{{$t('public.no8')}}:</span> <span>{{$t($store.getters.liveTime(userSelf.liveTime))}}</span> </p>
               <p><span>{{$t('public.birthday')}}:</span> <span>{{userBase.birthday | dataIsTrue}}</span> </p>
               <p><span>Email:</span>
-              <span>{{userSelf.email | dataIsTrue}}</span>
-            </p>
+                <span>{{userSelf.email | dataIsTrue}}</span>
+              </p>
           </div> 
           <div class="oneLineHasOne">
               <p ><span>{{$t('public.no6')}}:</span>
