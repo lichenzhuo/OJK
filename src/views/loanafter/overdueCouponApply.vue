@@ -152,7 +152,7 @@
           <!-- 还款方式 -->
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
             <template slot-scope="scope">
-              <span>{{scope.row.payType}}</span>
+              <span>{{scope.row.bankName?scope.row.bankName:scope.row.payType}}</span>
             </template>
           </el-table-column>
           <!-- 订单状态 -->

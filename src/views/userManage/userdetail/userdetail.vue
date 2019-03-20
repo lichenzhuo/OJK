@@ -160,6 +160,22 @@
                 <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactThreePhone | dataIsTrue}}</span> </p>
             </div>
           </div>
+          <div class="xuan-2-4-1">
+            <p class="xuan-2-4-1-1"><span></span>{{$t('public.no16')}}4</p>
+            <div class="xuan-2-4-1-2">
+                <p>{{$t('public.no17')}}: <span>{{userUrgentContact.contactFourRelationName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.name')}}: <span>{{userUrgentContact.contactFourName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactFourPhone | dataIsTrue}}</span> </p>
+            </div>
+          </div>
+          <div class="xuan-2-4-1">
+            <p class="xuan-2-4-1-1"><span></span>{{$t('public.no16')}}5</p>
+            <div class="xuan-2-4-1-2">
+              <p>{{$t('public.no17')}}: <span>{{userUrgentContact.contactFiveRelationName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.name')}}: <span>{{userUrgentContact.contactFiveName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactFivePhone | dataIsTrue}}</span> </p>
+            </div>
+          </div>
         </li>
         <li v-if="active==5">
           <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">

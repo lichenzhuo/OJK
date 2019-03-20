@@ -4,16 +4,34 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/myCollectionOrderList'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('operationList.crumbsThree')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="crumbs" v-else>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsThree')}}</el-breadcrumb-item>
-      </el-breadcrumb>
+    <div v-if="type==2">
+      
+      <div class="crumbs" v-if="from==1">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/otherBackAudit'}">{{$t('yn.no36')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="crumbs" v-else-if="from==2">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/badMannersAudit'}">{{$t('yn.no37')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="crumbs" v-else>
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
     </div>
+    
 
     <!-- ------------ 用户信息、借款信息开始------------------------ -->
     <div class="tabs mb20">
@@ -686,6 +704,7 @@ export default {
       phoneAuditLogTwo:'',
       telHref:'',
       telTip:false,
+      from:'',// 从哪个页面打开的
     }
   },
   computed: {
@@ -1013,6 +1032,7 @@ export default {
     this.orderNo = this.$route.query.orderNo;
     this.orderId = this.$route.query.orderId;
     this.type = this.$route.query.type;
+    this.from = this.$route.query.from;
     this.detail();
     
   }

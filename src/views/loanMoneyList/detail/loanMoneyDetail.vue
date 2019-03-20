@@ -89,7 +89,6 @@
         <p><span>{{$t('new.no49')}}:</span>
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> 
         </p>
-        
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.orderNo')}}:</span>
@@ -134,11 +133,11 @@
         </p>
       </div>
       <div class="oneLineHasFour">
-        <p><span>{{$t('loanMoneyDetail.bankName')}}:</span>
-          <span>{{data.userBank.bankName | dataIsTrue}}</span>
+        <p><span>{{$t('public.no86')}}:</span>
+          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueServiceFee)}}{{$store.state.common.vi_currency}}</span>
         </p>
-        <p><span>{{$t('loanMoneyDetail.bankNo')}}:</span>
-          <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
+        <p><span>{{$t('yn.no28')}}:</span>
+          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
         </p>
         <p><span>{{$t('public.no65')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.refundAmount)}}{{$store.state.common.vi_currency}}</span>
@@ -164,12 +163,12 @@
           <span>{{$store.getters.moneySplit(data.order.couponAmount)}}</span>
         </p>
       </div>
-      <div class="oneLineHasFour">
-        <p><span>{{$t('public.no86')}}:</span>
-          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueServiceFee)}}{{$store.state.common.vi_currency}}</span>
+      <div class="oneLineHasTwo">
+        <p><span>{{$t('loanMoneyDetail.bankName')}}:</span>
+          <span>{{data.userBank.bankName | dataIsTrue}}</span>
         </p>
-        <p><span>{{$t('yn.no28')}}:</span>
-          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
+        <p><span>{{$t('loanMoneyDetail.bankNo')}}:</span>
+          <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
         </p>
       </div>
       <div class="oneLineHasOne">
@@ -329,6 +328,12 @@ export default {
   margin-bottom: 14px;
   display: flex;
   @include p-span2(25%);
+}
+ .oneLineHasTwo {
+  width: 100%;
+  margin-bottom: 14px;
+  display: flex;
+  @include p-span2(50%);
 }
  .oneLineHasOne {
   width: 100%;

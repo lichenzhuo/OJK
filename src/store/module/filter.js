@@ -1391,7 +1391,7 @@ const filters = {
           return 'yn.loanUse.no10' // 购车
         case 11:
           return 'yn.loanUse.no11' // 炒股票
-        case 12:
+        case 99:
           return 'loanAfterManage.collection_option.no18' // 其他
         default:
           return 'finance.backLog_options_status.no12' // -

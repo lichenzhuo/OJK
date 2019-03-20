@@ -61,6 +61,7 @@ let financeTable = resolve => require(['../views/finance/financeTable.vue'], res
 // @@@@@@@@@@@@@@@@@@@@@@@  产品管理  @@@@@@@@@@@@@@@@@@@@@@@
 let appPackageMag = resolve => require(['../views/proManage/appPackageMag.vue'], resolve)
 let FAQ = resolve => require(['../views/proManage/FAQ.vue'], resolve)
+let overdueStages = resolve => require(['../views/proManage/overdueStages.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  用户管理  @@@@@@@@@@@@@@@@@@@@@@@
 let userList = resolve => require(['../views/userManage/userlist.vue'], resolve)
@@ -182,6 +183,7 @@ const router = new Router({
                     {path: '/promanage', name: 'proManage', component: proManage },
                     {path: '/apppackagemag', name: 'appPackageMag', component: appPackageMag },
                     {path: '/faq', name: 'Faq', component: FAQ },
+                    {path: '/overdueStages', name: 'overdueStages', component: overdueStages },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  用户管理  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/userlist', name: 'userList', component: userList },

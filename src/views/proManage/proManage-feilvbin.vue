@@ -63,15 +63,14 @@
         <el-table :data="tableData" size="small" stripe >
           <el-table-column align="center" prop="id" label="产品ID">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no54')">
+          <el-table-column align="center" prop="loanAmount" label="借款本金">
             <template slot-scope="scope">
-              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('fei.no17')">
+          <el-table-column align="center" prop="productPeriod" label="分期期数">
           </el-table-column>
           <el-table-column align="center" prop="dayInterest" label="日利率">
             <template slot-scope="scope">
@@ -93,14 +92,7 @@
               <span>{{$store.getters.twoPoint(scope.row.overdueMaxRate)}}%</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueMaxDays" label="逾期最大天数">
-          </el-table-column>
-          <el-table-column align="center" prop="canAdvanceType" label="可提前还款类型">
-            <template slot-scope="scope">
-              <span>{{scope.row.canAdvanceType==1?$t('new.no47'):$t('new.no46')}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="canAdvanceDay" label="可提前还款天数">
+          <el-table-column align="center" prop="overdueMaxDays" label="逾期管理费">
           </el-table-column>
           <el-table-column align="center" prop="minSuccessRepayments" label="要求成功还款次数">
           </el-table-column>
@@ -110,7 +102,7 @@
           </el-table-column>
           <el-table-column align="center" prop="appPackage" label="APP包名">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" label="操作" width="180">
+          <el-table-column fixed="right" align="center" prop="operation" label="操作" min-width="180">
             <template slot-scope="scope">
               <span 
                 class="table_opr"
@@ -153,7 +145,7 @@
       <div class="left2right mt15">
         <span class="left"></span>
         <span class="right">
-          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
+          <el-button type="primary" @click="delSure">{{$t('public.no49')}}</el-button>
         </span>
       </div>
     </el-dialog>
@@ -168,52 +160,41 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item :label="$t('yuenan.product.no1')" prop="productAmountMin">
+        <el-form-item label="借款本金" prop="productAmountMin">
             <el-input type="text" v-model="ruleForm2.productAmountMin" ></el-input>
         </el-form-item>
-       <el-form-item :label="$t('yuenan.product.no2')" prop="productAmountMax">
+       <el-form-item label="借款周期" prop="productAmountMax">
             <el-input type="text" v-model="ruleForm2.productAmountMax" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('yuenan.product.no3')" prop="productAmountPer">
-            <el-input type="text" v-model="ruleForm2.productAmountPer" ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('yuenan.product.no4')" prop="productPeriodMin">
-            <el-input type="text" v-model="ruleForm2.productPeriodMin" ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('yuenan.product.no5')" prop="productPeriodMax">
-            <el-input type="text" v-model="ruleForm2.productPeriodMax" ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('yuenan.product.no6')" prop="productPeriodPer">
-            <el-input type="text" v-model="ruleForm2.productPeriodPer" ></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
+        <el-form-item label="服务费率" prop="dayInterest">
             <el-input type="text" v-model="ruleForm2.dayInterest" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
+        <el-form-item label="逾期费率" prop="feeRate">
           <el-input type="text" v-model="ruleForm2.feeRate" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
+        <el-form-item label="逾期封顶" prop="overdueInterest">
           <el-input type="text" v-model="ruleForm2.overdueInterest" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.overdueMaxAmount')" prop="overdueMaxRate">
+        <el-form-item label="分期期数" prop="overdueMaxRate">
           <el-input type="text" v-model="ruleForm2.overdueMaxRate" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.overdueMaxDays')" prop="overdueMaxDays">
+        <el-form-item label="日利率" prop="overdueMaxDays">
           <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.canAdvanceType')" prop="canAdvanceType">
-          <el-select v-model="ruleForm2.canAdvanceType" placeholder="请选择可提前还款类型">
-            <el-option label="固定天数" :value="1"></el-option>
-            <el-option label="按比例" :value="2"></el-option>
-          </el-select>
+        <el-form-item label="逾期管理费" prop="overdueMaxDays">
+          <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
+        <el-form-item label="最多逾期天数" prop="canAdvanceDay">
           <el-input type="text" v-model="ruleForm2.canAdvanceDay" ></el-input>
         </el-form-item>
-        <el-form-item label="最小成功还款次数" prop="minSuccessRepayments">
+        <el-form-item label="可提前还款天数" prop="canAdvanceDay">
+          <el-input type="text" v-model="ruleForm2.canAdvanceDay" ></el-input>
+        </el-form-item>
+        <p class="mb20">*用户要求（用户需满足以下要求才能申请该产品）</p>
+        <el-form-item label="成功还款次数" prop="minSuccessRepayments">
           <el-input type="text" v-model="ruleForm2.minSuccessRepayments" ></el-input>
         </el-form-item>
-        <el-form-item label="最大逾期天数" prop="userOverdueMaxDays">
+        <el-form-item label="要求最大逾期天数" prop="userOverdueMaxDays">
           <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" ></el-input>
         </el-form-item>
         <el-form-item>
@@ -423,9 +404,6 @@ export default{
       this.delId = id
     },
     addProduct () { // 添加按钮弹窗
-    
-    // console.log(this.$refs.ruleForm)
-      // this.$refs.ruleForm.resetFields();
       this.addOrEdit = 'add';
       this.add = true;
     },

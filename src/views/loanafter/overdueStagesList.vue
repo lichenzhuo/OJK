@@ -3,13 +3,13 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('add.no3')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
     <div class="paixu">
       <span></span>
-      <p>{{$t('loanAfterManage.crumbsTwo')}}</p>
+      <p>{{$t('add.no3')}}</p>
     </div>
 
     <!-- -------------搜索查询栏------------------------ -->
@@ -33,7 +33,7 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('fei.no17')}}:</span>
             <el-input size="small"  v-model="formInline.fenqi"></el-input>
@@ -54,36 +54,10 @@
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('loanAfterManage.type')}}:</span>
-          <el-select size="small" clearable v-model="formInline.type" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-        <div class="search-input">
-          <span>{{$t('public.no28')}}:</span>
-          <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysBegin"></el-input>
-          ~
-          <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysEnd"></el-input>
-        </div>
-        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
           <span>{{$t('new.no77')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysBegin"></el-input>
           ~
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.maxOverdueDaysEnd"></el-input>
-        </div>
-        <div class="search-input" v-if="$store.state.common.lang!=='vi'">
-          <span>{{$t('new.no78')}}:</span>
-          <el-input size="small" style="width:50px"  label="phone" v-model="formInline.repeatCountBegin"></el-input>
-          ~
-          <el-input size="small" style="width:50px"  label="phone" v-model="formInline.repeatCountEnd"></el-input>
-        </div>
-        <div class="search-input" v-if="$store.state.common.lang==='PHL'">
-          <span>{{$t('public.no65')}}:</span>
-          <el-select size="small" v-model="formInline.refundAmountIsZero" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options5" :key="item.value" :label="$t(item.label)" :value="item.value">
-            </el-option>
-          </el-select>
         </div>
         <div class="search-input">
           <span>{{$t('loanAfterManage.time')}}:</span>
@@ -99,33 +73,7 @@
           </el-date-picker>
         </div>
         <div class="search-input">
-          <span>{{$t('loanAfterManage.paidanTime')}}:</span>
-          <el-date-picker 
-            size="small"
-            v-model="searchTime1" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth" 
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-        <div class="search-input">
-          <span>{{$t('public.no71')}}:</span>
-          <el-date-picker 
-            size="small"
-            v-model="searchTime2" 
-            value-format="yyyy-MM-dd" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth" 
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-        <div class="search-input">
-          <span>{{$t('public.backMoneyDate')}}:</span>
+          <span>{{$t('fei.no19')}}:</span>
           <el-date-picker 
             size="small"
             v-model="searchTime3" 
@@ -137,7 +85,7 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
-        <div class="search-input" v-if="$store.state.common.lang=='PHL'">
+        <div class="search-input">
           <span>{{$t('operationDetail.no8')}}:</span>
           <el-date-picker 
             size="small"
@@ -150,34 +98,12 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
-        <template v-if="$store.state.common.lang!=='PHL'">
-          <div class="search-input" >
-            <span>{{$t('new.no83')}}:</span>
-            <el-date-picker 
-              size="small"
-              v-model="searchTime5" 
-              value-format="yyyy-MM-dd" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-          <div class="search-input" >
-            <span>{{$t('new.no84')}}:</span>
-            <el-select size="small" v-model="formInline.callStatus" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </template>
         <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_QUERY')">
           <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>
-    
+
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')">
       <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
     </div>
@@ -194,63 +120,23 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" >
           </el-table-column>
-          <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" >
-              <template slot-scope="scope">
-                <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
-              </template>
-            </el-table-column>
-          </template>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
-            <template slot-scope="scope">
-              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
+          <el-table-column align="center" prop="userPhone" :label="$t('add.no4')" >
           </el-table-column>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
-            </el-table-column>
-            <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')" >
-              <template slot-scope="scope">
-                <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" >
-              <template slot-scope="scope">
-                <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
-              </template>
-            </el-table-column>
-          </template>
+          <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')" >
+          </el-table-column>
+          <el-table-column align="center" prop="userPhone" :label="$t('fei.no37')">
+          </el-table-column>
           <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
             <template slot-scope="scope">
-              <span v-if="scope.row.waitAmount!==null&&scope.row.waitAmount!==undefined&&scope.row.waitAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
-            </el-table-column>
-          </template>
-          <template v-if="$store.state.common.lang==='PHL'">
-            <el-table-column align="center" prop="strLastRefundTime" :label="$t('fei.no19')" width="86">
-            </el-table-column>
-          </template>
-          <template v-else>
-            <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" width="86">
-            </el-table-column>
-          </template>
-          <template v-if="$store.state.common.lang==='PHL'">
-            <el-table-column align="center" prop="strPromiseTime" :label="$t('operationDetail.no8')" width="86">
-            </el-table-column>
-            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
-            </el-table-column>
-            <el-table-column align="center" prop="userPhone" :label="$t('fei.no37')">
-            </el-table-column>
-          </template>
+          <el-table-column align="center" prop="strLastRefundTime" :label="$t('fei.no19')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="strPromiseTime" :label="$t('operationDetail.no8')" width="86">
+          </el-table-column>
           <el-table-column align="center" prop="status" :label="$t('loanAfterManage.status')" min-width="100">
             <template slot-scope="scope">
               <span >{{$t($store.getters.operationStatus(scope.row.status))}}</span>
@@ -258,34 +144,12 @@
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')">
           </el-table-column>
-          <el-table-column align="center" prop="type" :label="$t('loanAfterManage.type')">
-            <template slot-scope="scope">
-              <span >{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
-            </template>
-          </el-table-column>
-          <template v-if="$store.state.common.lang!=='vi'">
-            <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
-            </el-table-column>
-          </template>
-          <template v-if="$store.state.common.lang==='id'">
-            <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')">
-            </el-table-column>
-          </template>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCallTime" :label="$t('new.no83')" width="86">
-            </el-table-column>
-            <el-table-column align="center" prop="callStatus" :label="$t('new.no84')">
-              <template slot-scope="scope">
-                <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
-              </template>
-            </el-table-column>
-          </template>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_DETAIL')"
                 class="table_opr" 
-                @click="detail(scope.row.orderNo,scope.row.orderId)">
+                @click="detail(scope.row.orderNo, scope.row.orderId)">
                 {{$t('loanAfterManage.sel')}}
               </span>
             </template>
@@ -314,7 +178,7 @@
       <div class="left2right">
         <span class="left">{{$t('loanAfterManage.type')}}:</span>
         <div class="right">
-          {{orderType}}
+          {{$t('fei.no31')}}
         </div>
       </div>
       <div class="left2right">
@@ -441,7 +305,6 @@ export default {
       })
     },
     select () { // 查询按钮点击操作
-      this.$store.commit('rucuiList', this.formInline);
       if (this.flag) {
         this.currentPage = 1;
         this.flag = false;
@@ -489,7 +352,7 @@ export default {
       this.multipleSelection = val;
     },
     todayRedeploy () { // 转派按钮点击操作
-      if (this.orderType == '') {
+      if (this.orderIds == '') {
         this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
       } else {
         this.operationAdmin1();// 获取在职催收员列表
@@ -544,77 +407,15 @@ export default {
       })
     },
     joinType () { // 订单转派弹窗对应数据处理
-      let unique = function (arr) {
-        var res = [];
-        var json = {};
-        for (var i = 0; i < arr.length; i++) {
-          if (!json[arr[i]]) {
-            res.push(arr[i]);
-            json[arr[i]] = 1;
-          }
-        }
-        return res;
-      }
       let arr = [];
-      let brr = [];
-      let crr = [];
       this.multipleSelection.forEach(value => {
         arr.push(value.orderNo);
-        brr.push(value.type);
-      })
-      brr = unique(brr);
-      brr.forEach(item => {
-        if (item == 1) {
-          crr.push('S1');
-        }
-        if (item == 2) {
-          crr.push('S2');
-        }
-        if (item == 3) {
-          crr.push('M1');
-        }
-        if (item == 4) {
-          crr.push('M2');
-        }
-        if (item == 5) {
-          crr.push('M3');
-        }
-        if (item == 6) {
-          crr.push('S3');
-        }
-        if (item == 7) {
-          crr.push('M3+');
-        }
-        if (item == 0) {
-          crr.push('S1');
-        }
       })
       this.orderIds = arr;
-      this.orderType = crr.join();
     },
     unSelect (row) {
       return row.status != 100;
     },
-    getcollectionType(){ // 获取催收阶段
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.back_reason,
-        },
-        optionGroup:'overdue.type'
-      }
-      this.$axios.post('', option).then(res => {
-        this.flag = true;
-        if (res.data.header.code == 0) {
-          let arr = res.data.data;
-          arr.forEach(value=>{
-            value.label = value.optionName;
-            value.value = value.optionValue;
-          })
-          this.options3 = arr;
-        }
-      })
-    }
   },
   watch: {
     searchTime () {
@@ -624,24 +425,6 @@ export default {
       } else {
         this.formInline.collectionTimeBegin = ''
         this.formInline.collectionTimeEnd = ''
-      }
-    },
-    searchTime1 () {
-      if (this.searchTime1) {
-        this.formInline.dispatchTimeBegin = this.searchTime1[0];
-        this.formInline.dispatchTimeEnd = this.searchTime1[1];
-      } else {
-        this.formInline.dispatchTimeBegin = ''
-        this.formInline.dispatchTimeEnd = ''
-      }
-    },
-    searchTime2 () {
-      if (this.searchTime2) {
-        this.formInline.createTimeBegin = this.searchTime2[0];
-        this.formInline.createTimeEnd = this.searchTime2[1];
-      } else {
-        this.formInline.createTimeBegin = ''
-        this.formInline.createTimeEnd = ''
       }
     },
     searchTime3 () {
@@ -660,15 +443,6 @@ export default {
       } else {
         this.formInline.promiseTimeBegin = '';
         this.formInline.promiseTimeEnd = '';
-      }
-    },
-    searchTime5 () {
-      if (this.searchTime5) {
-        this.formInline.callStartTime = this.searchTime5[0];
-        this.formInline.callEndTime = this.searchTime5[1];
-      } else {
-        this.formInline.callStartTime = '';
-        this.formInline.callEndTime = '';
       }
     },
     multipleSelection () {

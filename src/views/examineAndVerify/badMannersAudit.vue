@@ -189,7 +189,7 @@ export default {
       this.getTableList();
     },
     jumpDetali (orderNo,orderId) { // 查看详情
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2'}});
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2', from: '2'}});
     },
     getTableList () { // 列表数据
       let option = {

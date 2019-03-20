@@ -147,16 +147,22 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no37')">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
           <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
-            <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')">
@@ -166,6 +172,10 @@
           </el-table-column>
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
+          <template>
+            <el-table-column align="center" prop="strLastTime" :label="$t('fei.no38')" width="86">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
@@ -202,6 +212,12 @@
                 <span class="table_opr" @click="openAudit('1',scope.row.userId,scope.row.orderId)"
                 v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
                 <span class="table_opr" @click="openAudit('2',scope.row.userId,scope.row.orderId)"
+                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
+              </template>
+              <template v-else>
+                <span class="table_opr cl777" 
+                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
+                <span class="table_opr cl777" 
                 v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
               </template>
             </template>
@@ -422,5 +438,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.cl777{
+  color: #777;
+}
 </style>

@@ -114,6 +114,9 @@
           </el-table-column>
           <!-- 还款方式 -->
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
+            <template slot-scope="scope">
+              <span>{{scope.row.bankName?scope.row.bankName:scope.row.payType}}</span>
+            </template>
           </el-table-column>
           <!-- 还款码 -->
           <el-table-column align="center" prop="paymentCode" :label="$t('loanAfterManage.paycode')">

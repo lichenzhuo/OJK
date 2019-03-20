@@ -181,8 +181,8 @@ const options = {
       {value: 'bni', label: 'loanAfterManage.paycompany.no2'}, // BNI
       {value: 'permata', label: 'loanAfterManage.paycompany.no3'}, // Permate(BCA)
       {value: 'mandiri', label: 'loanAfterManage.paycompany.no4'},// Mandiri
-      {value: 'permata', label: 'loanAfterManage.paycompany.no5'}, // dandan
-      {value: 'mandiri', label: 'loanAfterManage.paycompany.no6'}// lawson
+      {value: 'dandan', label: 'loanAfterManage.paycompany.no5'}, // dandan
+      {value: 'lawson', label: 'loanAfterManage.paycompany.no6'}// lawson
     ],
     backMoneyType_option: [// 还款方式
       {value: '', label: 'public.placeholder'},

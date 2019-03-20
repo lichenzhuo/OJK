@@ -212,6 +212,12 @@
                   return index.index == '6'
                 })[0].subs.push({index: 'apppackagemag', title: 'proManage.crumbsFour'})
               }
+              // 逾期分期
+              // if (value.uniqueSign == 'MENU_PRODUCT_APP_PACKAGE_MANAGE') {
+              //   item.filter(index => {
+              //     return index.index == '6'
+              //   })[0].subs.push({index: 'overdueStages', title: 'proManage.crumbsFive'})
+              // }
 
               // 运营管理
               if (value.uniqueSign == 'MENU_OPERATE') {

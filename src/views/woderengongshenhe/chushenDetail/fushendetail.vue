@@ -144,63 +144,73 @@
           </div>
           <div class="xuan-2-1-2">
             <div class="xuan-2-1-2-1">
-              <p>{{$t('public.no16')}}1</p>
+              <p>1</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span></p>
-              <template v-if="data.contactOne!==undefined&&data.contactOne!==0">
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/lv.png" alt="">
-                  </div>
-              </template>
-              <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
-              </template>
-              <p v-if="data.order.status==30&&block==2" style="margin-left:20px;cursor:pointer;color:#1D7BFF" 
+              <div class="tooltip pic">
+                <img v-if="data.contactOne!==undefined&&data.contactOne!==0" src="../../../assets/img/lv.png" alt="">
+                <img v-else src="../../../assets/img/hong.png" alt="">
+              </div>
+              <p v-if="data.order.status==30&&block==2" style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               @click="openTelWindow(data.userUrgentContact.contactOnePhone,'3')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactOne+$t('auditDetail.no9')}}</p>
+              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactOne+$t('auditDetail.no9')}}</p>
             </div>
             <div class="xuan-2-1-2-1">
-              <p>{{$t('public.no16')}}2</p>
+              <p>2</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactTwoPhone}}</span></p>
-              <template v-if="data.contactTwo!==undefined&&data.contactTwo!==0">
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/lv.png" alt="">
-                  </div>
-              </template>
-              <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
-              </template>
-              <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" 
+              <div class="tooltip pic">
+                <img v-if="data.contactTwo!==undefined&&data.contactTwo!==0" src="../../../assets/img/lv.png" alt="">
+                <img v-else src="../../../assets/img/hong.png" alt="">
+              </div>
+              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2"
               @click="openTelWindow(data.userUrgentContact.contactTwoPhone,'4')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactTwo+$t('auditDetail.no9')}}</p>
+              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactTwo+$t('auditDetail.no9')}}</p>
             </div>
             <div class="xuan-2-1-2-1">
-              <p>{{$t('public.no16')}}3</p>
+              <p>3</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span></p>
-              <template v-if="data.contactThree!==undefined&&data.contactThree!==0">
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/lv.png" alt="">
-                  </div>
-              </template>
-              <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
-              </template>
-              <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" 
+              <div class="tooltip pic">
+                <img v-if="data.contactThree!==undefined&&data.contactThree!==0" src="../../../assets/img/lv.png" alt="">
+                <img v-else src="../../../assets/img/hong.png" alt="">
+              </div>
+              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2" 
               @click="openTelWindow(data.userUrgentContact.contactThreePhone,'5')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactThree+$t('auditDetail.no9')}}</p>
+              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactThree+$t('auditDetail.no9')}}</p>
+            </div>
+            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFourName">
+              <p>4</p>
+              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFourRelationName | dataIsTrue}}</span></p>
+              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFourName | dataIsTrue}}</span></p>
+              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFourPhone | dataIsTrue}}</span></p>
+              <div class="tooltip pic">
+                <img v-if="data.contactFour!==undefined&&data.contactFour!==0" src="../../../assets/img/lv.png" alt="">
+                <img v-else src="../../../assets/img/hong.png" alt="">
+              </div>
+              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
+              v-if="data.order.status==30&&block==2" 
+              @click="openTelWindow(data.userUrgentContact.contactFourPhone,'8')">{{$t('auditDetail.no42')}}</p>
+              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactFour+$t('auditDetail.no9')}}</p>
+            </div>
+            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFiveName">
+              <p>5</p>
+              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFiveRelationName | dataIsTrue}}</span></p>
+              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFiveName | dataIsTrue}}</span></p>
+              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFivePhone | dataIsTrue}}</span></p>
+              <div class="tooltip pic">
+                <img v-if="data.contactFive!==undefined&&data.contactFive!==0" src="../../../assets/img/lv.png" alt="">
+                <img v-else src="../../../assets/img/hong.png" alt="">
+              </div>
+              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
+              v-if="data.order.status==30&&block==2" 
+              @click="openTelWindow(data.userUrgentContact.contactFivePhone,'9')">{{$t('auditDetail.no42')}}</p>
+              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactFive+$t('auditDetail.no9')}}</p>
             </div>
           </div>
           <!-- 第四行 -->
@@ -247,7 +257,6 @@
         <li  v-if="active==3">
           <note-record-list :order-no="orderNo" :user-id="userId"></note-record-list>
         </li>
-        
         <!------------------------ OCR身份检测 ---------------------------->
         <li class="xuan-2-5" v-if="active==5">
           <div v-if="data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''" class="xuan-2-5-1 pic" >
@@ -424,7 +433,7 @@
                         <li 
                           v-if="companyCheckStr.data.googleCompanyInfoList.length>1"
                           style="cursor:pointer;padding:5px;" 
-                          @click="flag2=true">
+                          @click="moreCompanyFlag=true">
                           {{$t('auditDetail.no64')}}
                         </li>
                       </template>
@@ -440,28 +449,20 @@
         </li>
         <!------------------------ 多平台检测 ---------------------------->
         <li class="xuan-2-7" v-if="active==7">
-          <template v-if="data.orderMultiCheck!==null&&data.orderMultiCheck!==undefined&&data.orderMultiCheck!==''">
-            <div class="cardTable">
-              <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-                <tr>
-                  <th width="25%">{{$t('auditDetail.no60')}}</th>
-                  <th width="75%">{{$t('auditDetail.no61')}}</th>
-                </tr>
-                <tr>
-                  <template>
-                    <td v-if="data.orderMultiCheck.checkResult!==null&&data.orderMultiCheck.checkResult!==undefined&&data.orderMultiCheck.checkResult!==''">{{$t($store.getters.orderMultiCheckStatus(data.orderMultiCheck.checkResult))}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                  <template>
-                    <td v-if="data.orderMultiCheck.remark!==null&&data.orderMultiCheck.remark!==undefined&&data.orderMultiCheck.remark!==''">{{data.orderMultiCheck.remark}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                </tr>
-              </table>
-            </div>
+          <template v-if="data.orderMultiCheck!==undefined&&data.orderMultiCheck!==''">
+            <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+              <tr>
+                <th width="25%">{{$t('auditDetail.no60')}}</th>
+                <th width="75%">{{$t('auditDetail.no61')}}</th>
+              </tr>
+              <tr>
+                <td>{{$t($store.getters.orderMultiCheckStatus(data.orderMultiCheck.checkResult))}}</td>
+                <td>{{data.orderMultiCheck.remark | dataIsTrue}}</td>
+              </tr>
+            </table>
             <div class="foot"></div>
-            <div class="cardTable" v-if="data.orderMultiCheck.checkResult!==null&&data.orderMultiCheck.checkResult!==undefined&&data.orderMultiCheck.checkResult=='1'">
-              <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <template  v-if="data.orderMultiCheck.checkResult!==undefined&&data.orderMultiCheck.checkResult=='1'">
+              <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
                 <tr>
                   <th width="33.3%">{{$t('auditDetail.no57')}}</th>
                   <th width="33.3%">{{$t('auditDetail.no58')}}</th>
@@ -478,20 +479,18 @@
                   {{$t('public.no23')}}
                 </div>
               </table>
-            </div>
+            </template>
           </template>
           <div v-else style="textAlign:center;width:100%;height:40px;lineHeight:40px">
             {{$t('public.no23')}}
           </div>
-          
-          
-          
         </li>
         <!------------------------ 反欺诈分 ---------------------------->
         <li class="xuan-2-8" v-if="active==8">
           <Gauge></Gauge>
         </li>
-        <li class="xuan-2-8" v-if="active==9">
+        <!------------------------ 电审录音 ---------------------------->
+        <li  v-if="active==9">
           <audit-record type="1" :orderId="orderId"></audit-record>
         </li>
       </ul>
@@ -542,7 +541,7 @@
     <!------------------------ 初审结果展示结束 ---------------------------->
 
 
-    <div class="foot" style="height:40px"></div>
+    <div class="foot" style="height:16px"></div>
 
 
     <!------------------------ 跟踪记录结果展示开始 ---------------------------->
@@ -574,7 +573,7 @@
     </table>
     <!------------------------ 跟踪记录结果展示结束 ---------------------------->
 
-    <div class="foot" style="height:40px"></div>
+    <div class="foot" style="height:16px"></div>
 
     <!------------------------ 复审提交操作开始 ---------------------------->
     <template>
@@ -727,32 +726,24 @@
     </template>
     
     <!-- ------------------ 点击公司检测更多弹窗开始 -------------------- -->
-    <div v-if="flag2" class="more">
+    <div v-if="moreCompanyFlag" class="more">
       <div class="more-main">
         <div class="more-main-head">
           <span></span>
           <p>{{$t('auditDetail.no64')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="flag2=false"></i>
+          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="moreCompanyFlag=false"></i>
         </div>
         <div class="more-main-con">
-          <div class="cardTable1">
-            <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-              <tr>
-                <th width="25%">{{$t('public.no39')}}</th>
-                <th width="25%">{{$t('public.no18')}}</th>
-              </tr>
-              <tr v-for="(item,index) in companyCheckStr.data.googleCompanyInfoList" :key="index">
-                <template>
-                  <td v-if="item.companyName!==null&&item.companyName!==undefined&&item.companyName!==''">{{item.companyName}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="item.address!==null&&item.address!==undefined&&item.address!==''">{{item.address}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-              </tr>
-            </table>
-          </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="25%">{{$t('public.no39')}}</th>
+              <th width="25%">{{$t('public.no18')}}</th>
+            </tr>
+            <tr v-for="(item,index) in companyCheckStr.data.googleCompanyInfoList" :key="index">
+              <td>{{item.companyName | dataIsTrue}}</td>
+              <td>{{item.address | dataIsTrue}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -766,7 +757,7 @@
     </transition>
 
     <!-- ------------------ 点击电话审核弹窗开始 -------------------- -->
-    <div v-if="telFlag||telFlag1||telFlag2||telFlag3||telFlag4" class="reply">
+    <div v-if="telFlag||telFlag1||telFlag2||telFlag3||telFlag4||telFlag7||telFlag8" class="reply">
       <div class="reply-main">
         <div class="reply-main-head">
           <span></span>
@@ -833,6 +824,8 @@ export default {
       telFlag2: false,
       telFlag3: false,
       telFlag4: false,
+      telFlag7: false,
+      telFlag8: false,
       sessionid: '',
       userId: '', // 上个页面传过来的用户ID
       orderNo: '', // 上个页面传过来的订单ID
@@ -851,7 +844,9 @@ export default {
         userOrderCount: {},
         contactOne: '',
         contactTwo: '',
-        contactThree: ''
+        contactThree: '',
+        contactFour: '',
+        contactFive: '',
       },
       // arr1:['用户信息','通话记录信息','短信信息记录','历史借款记录','OCR身份检测','公司检测','多平台检测','反欺诈'],
       active: 4, // 第一个当前点中的选项卡
@@ -876,7 +871,7 @@ export default {
       machine_audit: '', // 机审结果数据
       peopleOne_audit: '', // 人工初审结果数据
       peopleTwo_audit: '', // 人工复审结果数据
-      flag2: false, // 公司检测点击更多弹窗
+      moreCompanyFlag: false, // 公司检测点击更多弹窗
       telTip: false, // 电话呼叫按钮是否展示
       companyCheckStr: '', // 公司检测信息
       orderMultiCheckStr: '', // 多平台检测信息
@@ -969,21 +964,23 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.data = res.data.data
-          this.data.userBase = res.data.data.userBase
-          this.data.userBank = res.data.data.userBank
-          this.data.userIdcard = res.data.data.userIdcard
-          this.data.userSelf = res.data.data.userSelf
-          this.data.userWork = res.data.data.userWork
-          this.data.order = res.data.data.order
-          this.data.orderExtra = res.data.data.orderExtra
-          this.data.orderList = res.data.data.orderList
-          this.data.orderMultiCheck = res.data.data.orderMultiCheck
-          this.data.userUrgentContact = res.data.data.userUrgentContact
-          this.data.contactOne = res.data.data.contactOne
-          this.data.contactTwo = res.data.data.contactTwo
-          this.data.contactThree = res.data.data.contactThree
-          this.data.userOrderCount = res.data.data.userOrderCount
+          this.data = res.data.data;
+          this.data.userBase = res.data.data.userBase;
+          this.data.userBank = res.data.data.userBank;
+          this.data.userIdcard = res.data.data.userIdcard;
+          this.data.userSelf = res.data.data.userSelf;
+          this.data.userWork = res.data.data.userWork;
+          this.data.order = res.data.data.order;
+          this.data.orderExtra = res.data.data.orderExtra;
+          this.data.orderList = res.data.data.orderList;
+          this.data.orderMultiCheck = res.data.data.orderMultiCheck;
+          this.data.userUrgentContact = res.data.data.userUrgentContact;
+          this.data.contactOne = res.data.data.contactOne;
+          this.data.contactTwo = res.data.data.contactTwo;
+          this.data.contactThree = res.data.data.contactThree;
+          this.data.contactFour = res.data.data.contactFour;
+          this.data.contactFive = res.data.data.contactFive;
+          this.data.userOrderCount = res.data.data.userOrderCount;
           if (res.data.data.userWork.companyCheckStr !== null && res.data.data.userWork.companyCheckStr !== undefined && res.data.data.userWork.companyCheckStr !== '') {
             this.companyCheckStr = JSON.parse(res.data.data.userWork.companyCheckStr)
           }
@@ -1213,6 +1210,16 @@ export default {
         option.relation = this.data.userUrgentContact.contactThreeRelation ? this.data.userUrgentContact.contactThreeRelation : ''
         option.userName = this.data.userUrgentContact.contactThreeName ? this.data.userUrgentContact.contactThreeName : ''
       }
+      if (this.telFlag7) {
+        option.phone = this.data.userUrgentContact.contactFourPhone ? this.data.userUrgentContact.contactFourPhone : '';
+        option.relation = this.data.userUrgentContact.contactFourRelation ? this.data.userUrgentContact.contactFourRelation : '';
+        option.userName = this.data.userUrgentContact.contactFourName ? this.data.userUrgentContact.contactFourName : '';
+      }
+      if (this.telFlag8) {
+        option.phone = this.data.userUrgentContact.contactFivePhone ? this.data.userUrgentContact.contactFivePhone : '';
+        option.relation = this.data.userUrgentContact.contactFiveRelation ? this.data.userUrgentContact.contactFiveRelation : '';
+        option.userName = this.data.userUrgentContact.contactFiveName ? this.data.userUrgentContact.contactFiveName : '';
+      }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'))
@@ -1229,6 +1236,8 @@ export default {
       this.telFlag2 = false;
       this.telFlag3 = false;
       this.telFlag4 = false;
+      this.telFlag7 = false;
+      this.telFlag8 = false;
       this.telTip = false;
       this.telStatus = '';
       this.telHref = '';
@@ -1304,6 +1313,12 @@ export default {
         case '5':
           this.telFlag4 = true;
           break;
+        case '8':
+          this.telFlag7 = true;
+          break;
+        case '9':
+          this.telFlag8 = true;
+          break;
       }
       
       
@@ -1372,11 +1387,6 @@ export default {
   justify-content: center;
   align-items: center;
 }
-@mixin flex-main {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
 @mixin p-span {
   p{
     line-height: 24px;
@@ -1395,13 +1405,7 @@ export default {
 }
 $color1:#959fb9;
 $color2:#000;
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
+
 
 .more{
   width: 100%;
@@ -1410,7 +1414,9 @@ $color2:#000;
   left: 0;
   top: 0;
   z-index: 100;
-  @include flex-main;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   background-color: rgba(182, 189, 205, 0.6);
   .more-main{
     width: 694px;
@@ -1491,102 +1497,8 @@ $color2:#000;
   }
 }
 
-// 分割样式
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  span {
-    display: block;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin: 0 20px;
-  }
-  .tooltip{
-    width: 15px;
-    height: 15px;
-    img{
-      display: block;
-    }
-  }
-}
 .pai-active{
-  margin: 30px 0 0;
-}
-
-.detail{
-  width: 100%;
-  height: auto;
-  padding: 10px 20px;
-  background-color: #fff;
-  margin-bottom: 30px;
-  .detail-1{
-    margin-bottom: 24px;
-    display: flex;
-    @include p-span;
-    p{
-      width: 25%;
-    }
-  }
-}
-
-.cardTable{
-  background-color: #fff;
-  table{
-    border: 1px solid #eee;
-    tr{
-      width: 100%;
-      td{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        border: 1px solid #eee;
-        word-break: break-all;
-      }
-      th{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #1D7BFF;
-        color: #fff;
-      }
-    }
-  }
-  
-}
-.cardTable1{
-  background-color: #fff;
-  table{
-    border: 1px solid #eee;
-    tr{
-      width: 100%;
-      td{
-        height: 40px;
-        text-align: center;
-        color: #333;
-        border: 1px solid #eee;
-        word-break: break-all;
-      }
-      th{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #fff;
-        color: #333;
-      }
-    }
-  }
-  
+  margin: 16px 0 0;
 }
 
 .xuanxiangka{
@@ -1686,16 +1598,9 @@ $color2:#000;
       p{
         padding-right: 10px;
       }
-      .tooltip{
-        width: 15px;
-        height: 15px;
-        img{
-          display: block;
-        }
-      }
+      
     }
   }
-  
   .idimgbox{
     width: 410px;
     height: auto;
@@ -1707,61 +1612,6 @@ $color2:#000;
       height: auto;
     }
   }
-}
-.xuan-2-2{
-  .xuan-2-2-1{
-    margin-bottom: 24px;
-    display: flex;
-    @include p-span;
-  }
-}
-.xuan-2-3{
-  display: flex;
-  .xuan-2-3-1{
-    width: 80%;
-    .xuan-2-3-1-1{
-      margin-bottom: 24px;
-      display: flex;
-      @include p-span;
-    }
-  }
-  .xuan-2-3-2{
-    width: 20%;
-    @include flex-cen;
-    .gongziimg{
-      width: 95%;
-    }
-  }
-}
-.xuan-2-4{
-  .xuan-2-4-1{
-    width: 100%;
-    height: auto;
-    margin-bottom: 24px;  
-    border-bottom: 1px solid #ddd;
-    .xuan-2-4-1-1{
-      color: #333;
-      display: flex;
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      span{
-        display: block;
-        width: 4px;
-        height: 40px;
-        background-color: #1D7BFF;
-        border-radius: 5px;
-        margin: 0px 10px;
-
-      }      
-    }
-    .xuan-2-4-1-2{
-      display: flex;
-      @include p-span;
-    }
-  }
-  
-  
 }
 .xuan-2-5{
   .xuan-2-5-1{
@@ -2003,6 +1853,12 @@ $color2:#000;
   }
 }
 
-
+.tooltip{
+  width: 15px;
+  height: 15px;
+  img{
+    display: block;
+  }
+}
 
 </style>

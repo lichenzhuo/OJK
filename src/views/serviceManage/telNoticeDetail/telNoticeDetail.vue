@@ -1,5 +1,5 @@
 <template>
-  <div class="usermanage" v-if="data">
+  <div class="public_main" v-if="data">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
@@ -10,7 +10,7 @@
 
     <!-- ------------ 用户信息、借款信息开始------------------------ -->
     <div class="tabs">
-      <ul class="tab_title">
+      <ul class="tabs_title">
         <li v-for="(value,index) in arr1" :key="index" :class="{active:active1==value.id}" @click="active1=value.id">
           <span>{{value.title}}</span>
         </li>
@@ -144,7 +144,7 @@
             </p>
             <p><span>{{$t('operationDetail.no6')}}:</span>
               <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.amount)}}
+                {{$store.getters.moneySplit(data.order.lendingAmount)}}
                 {{$store.state.common.vi_currency}}</span>
             </p>
           </div>
