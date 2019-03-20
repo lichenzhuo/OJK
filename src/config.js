@@ -6,14 +6,19 @@ const phDEV = 'back-ph'; // 测试环境
 const ynPRO = 'admin.myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'admin.kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'admin.kilatloan'; // 印尼包生产环境
-const ynBACK = 'back.myrupiah123'; // 印尼包生产环境
+
 const vnPRO1 = 'admin.mydong'; // 越南生产环境
-const vnBACK = 'back.mydong'; // 越南生产环境
+
 const vnPRO = 'dongabc'; // 越南生产环境
 const phPRO = 'admin.getpeso'; // 菲律宾生产环境
+
+const ynBACK = 'back.myrupiah123'; // 印尼包生产环境
+const vnBACK = 'back.mydong'; // 越南生产环境
 const phBACK = 'back.getpeso'; // 菲律宾生产环境
 
 const fullCurrentDomain = window.location.href.split('?')[0];
+console.log(fullCurrentDomain)
+console.log(fullCurrentDomain.indexOf(ynBACK) > -1)
 let domain = '';
 let headerTotal = '';
 let lang = '';
@@ -81,7 +86,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-}  else if (fullCurrentDomain.indexOf(phPRO) > -1) {
+} else if (fullCurrentDomain.indexOf(phPRO) > -1) {
   domain = `https://api.getpeso.ph`;
   headerTotal = 'Get Peso';
   lang = 'PHL';
