@@ -160,32 +160,32 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="借款本金" prop="productAmountMin">
-            <el-input type="text" v-model="ruleForm2.productAmountMin" ></el-input>
-        </el-form-item>
-       <el-form-item label="借款周期" prop="productAmountMax">
+        <el-form-item label="借款本金" prop="productAmountMax">
             <el-input type="text" v-model="ruleForm2.productAmountMax" ></el-input>
         </el-form-item>
-        <el-form-item label="服务费率" prop="dayInterest">
-            <el-input type="text" v-model="ruleForm2.dayInterest" ></el-input>
+       <el-form-item label="借款周期" prop="productPeriodMax">
+            <el-input type="text" v-model="ruleForm2.productPeriodMax" ></el-input>
         </el-form-item>
-        <el-form-item label="逾期费率" prop="feeRate">
-          <el-input type="text" v-model="ruleForm2.feeRate" ></el-input>
+        <el-form-item label="服务费率" prop="feeRate">
+            <el-input type="text" v-model="ruleForm2.feeRate" ></el-input>
         </el-form-item>
-        <el-form-item label="逾期封顶" prop="overdueInterest">
+        <el-form-item label="逾期费率" prop="overdueInterest">
           <el-input type="text" v-model="ruleForm2.overdueInterest" ></el-input>
         </el-form-item>
-        <el-form-item label="分期期数" prop="overdueMaxRate">
+        <el-form-item label="逾期封顶" prop="overdueMaxRate">
           <el-input type="text" v-model="ruleForm2.overdueMaxRate" ></el-input>
         </el-form-item>
-        <el-form-item label="日利率" prop="overdueMaxDays">
-          <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
+        <el-form-item label="分期期数" prop="instalment">
+          <el-input type="text" v-model="ruleForm2.instalment" ></el-input>
         </el-form-item>
-        <el-form-item label="逾期管理费" prop="overdueMaxDays">
-          <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
+        <el-form-item label="日利率" prop="dayInterest">
+          <el-input type="text" v-model="ruleForm2.dayInterest" ></el-input>
         </el-form-item>
-        <el-form-item label="最多逾期天数" prop="canAdvanceDay">
-          <el-input type="text" v-model="ruleForm2.canAdvanceDay" ></el-input>
+        <el-form-item label="逾期管理费" prop="overdueServiceFee">
+          <el-input type="text" v-model="ruleForm2.overdueServiceFee" ></el-input>
+        </el-form-item>
+        <el-form-item label="最多逾期天数" prop="overdueMaxDays">
+          <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
         </el-form-item>
         <el-form-item label="可提前还款天数" prop="canAdvanceDay">
           <el-input type="text" v-model="ruleForm2.canAdvanceDay" ></el-input>
@@ -297,53 +297,44 @@ export default{
       dialogCopyVisible: false,
       dialogAddVisible: false,
       ruleForm2: {
-        productAmountMin: '',
+        appPackage: '',
         productAmountMax: '',
-        productAmountPer: '',
-        productPeriodMin: '',
         productPeriodMax: '',
-        productPeriodPer: '',
-        dayInterest: '',
         feeRate: '',
-        overdueMaxDays: '',
-        canAdvanceDay: '',
         overdueInterest: '',
         overdueMaxRate: '',
-        appPackage: '',
+        instalment:'',
+        dayInterest:'',
+        overdueServiceFee:'',
+        overdueMaxDays:'',
+        canAdvanceDay:'',
         minSuccessRepayments: '',
         userOverdueMaxDays: '',
-        canAdvanceType: ''
       },
       rules: {// 验证规则
-        productAmountMin: [
-          { validator: validateFloat, trigger: 'blur' }
-        ],
         productAmountMax: [
-          { validator: validateFloat, trigger: 'blur' }
-        ],
-        productAmountPer: [
-          { validator: validateNumber1, trigger: 'blur' }
-        ],
-        productPeriodMin: [
           { validator: validateNumber, trigger: 'blur' }
         ],
         productPeriodMax: [
           { validator: validateNumber, trigger: 'blur' }
         ],
-        productPeriodPer: [
-          { validator: validateNumber1, trigger: 'blur' }
-        ],
         feeRate: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        dayInterest: [
+        overdueInterest: [
           { validator: validateFloat, trigger: 'blur' }
         ],
         overdueMaxRate: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        overdueInterest: [
+        instalment: [
+          { validator: validateNumber, trigger: 'blur' }
+        ],
+        dayInterest: [
           { validator: validateFloat, trigger: 'blur' }
+        ],
+        overdueServiceFee: [
+          { validator: validateNumber, trigger: 'blur' }
         ],
         overdueMaxDays: [
           { validator: validateNumber, trigger: 'blur' }
@@ -351,14 +342,11 @@ export default{
         canAdvanceDay: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        // userOverdueMaxDays: [
-        //   { validator: validateNumber1, trigger: 'blur' }
-        // ],
         minSuccessRepayments: [
           { validator: validateNumber1, trigger: 'blur' }
         ],
-        canAdvanceType: [
-          { required: true, message: '请选择可提前还款类型', trigger: 'change' }
+        userOverdueMaxDays: [
+          { validator: validateNumber1, trigger: 'blur' }
         ],
         appPackage: [
           { required: true, trigger: 'change' }
@@ -427,33 +415,27 @@ export default{
       })
     },
     modifyProduct (id) { // 产品修改弹窗
-      // this.ruleForm2 = {};
       this.addOrEdit = 'edit';
       this.productId = id;
-      // this.$refs.ruleForm2.resetFields();
       this.proData (id);
-      
     },
     addclose () {
       this.add = false;
       this.$refs.ruleForm.resetFields();
       this.ruleForm2 = {
-        productAmountMin: '',
+        appPackage: '',
         productAmountMax: '',
-        productAmountPer: '',
-        productPeriodMin: '',
         productPeriodMax: '',
-        productPeriodPer: '',
-        dayInterest: '',
         feeRate: '',
-        overdueMaxDays: '',
-        canAdvanceDay: '',
         overdueInterest: '',
         overdueMaxRate: '',
-        appPackage: '',
+        instalment:'',
+        dayInterest:'',
+        overdueServiceFee:'',
+        overdueMaxDays:'',
+        canAdvanceDay:'',
         minSuccessRepayments: '',
         userOverdueMaxDays: '',
-        canAdvanceType: ''
       };
     },
     proInfor () { // 获取产品详情
@@ -575,13 +557,18 @@ export default{
     submitForm (formName) {// 修改添加提交操作
       let option = {
         header: {
-          action: this.$store.state.actionMap.vi_pro_add_modify,
+          action: this.$store.state.actionMap.PRODUCT0002PH,
           ...this.$base,
           sessionid: this.sessionid
         },
         method: this.addOrEdit=='edit'?'edit':'add',
         id: this.addOrEdit=='edit'?this.productId:undefined,
-        ...this.ruleForm2
+        ...this.ruleForm2,
+        productAmountMin:this.ruleForm2.productAmountMax,
+        productAmountPer:this.ruleForm2.productAmountMax,
+        productPeriodMin:this.ruleForm2.productPeriodMax,
+        productPeriodPer:this.ruleForm2.productPeriodMax,
+        canAdvanceType:'1',
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -601,7 +588,7 @@ export default{
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.vi_pro_list,
+          action: this.$store.state.actionMap.PRODUCT0003PH,
           'page': {'index': 1, 'size': 10},
           'sessionid': this.sessionid
         },
@@ -610,22 +597,19 @@ export default{
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if (res.data.data) {
-            this.ruleForm2.productAmountMin = res.data.data.productAmountMin;
+            this.ruleForm2.appPackage = res.data.data.appPackage;
             this.ruleForm2.productAmountMax = res.data.data.productAmountMax;
-            this.ruleForm2.productAmountPer = res.data.data.productAmountPer;
-            this.ruleForm2.productPeriodMin = res.data.data.productPeriodMin;
             this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax;
-            this.ruleForm2.productPeriodPer = res.data.data.productPeriodPer;
-            this.ruleForm2.dayInterest = res.data.data.dayInterest;
             this.ruleForm2.feeRate = res.data.data.feeRate;
+            this.ruleForm2.overdueInterest = res.data.data.overdueInterest;
+            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate;
+            this.ruleForm2.instalment = res.data.data.instalment;
+            this.ruleForm2.dayInterest = res.data.data.dayInterest;
+            this.ruleForm2.overdueServiceFee = res.data.data.overdueServiceFee;
             this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays;
             this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay;
-            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate;
-            this.ruleForm2.overdueInterest = res.data.data.overdueInterest;
-            this.ruleForm2.canAdvanceType = res.data.data.canAdvanceType;
-            this.ruleForm2.appPackage = res.data.data.appPackage;
             this.ruleForm2.minSuccessRepayments = res.data.data.minSuccessRepayments;
-            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays==-1?'':res.data.data.userOverdueMaxDays;
+            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays;
             this.add = true;
           }
         }

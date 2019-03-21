@@ -920,7 +920,7 @@ const id = {
     tab3: {
       no1: 'kolektor telephone',
       no2: 'kolektor SMS',
-      no3: '特权申请',
+      no3: 'aplikasi istimewa',
     },
     type: {
       no1: 'nomt HP',
@@ -1244,8 +1244,8 @@ const id = {
     no8: 'proses mengikuti',
     no9: 'waktu ACC',
     no10: 'Kembali',
-    no11: '退回原因',
-    no12: '催收阶段',
+    no11: 'Alasan dikembalikan',
+    no12: 'Tahap kolektor',
     no13: 'waktu terima pesan',
     no14: '确认指派',
     no15: 'bagikan kepada',

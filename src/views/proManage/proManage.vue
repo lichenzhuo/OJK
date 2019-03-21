@@ -18,14 +18,14 @@
       <el-row type="flex" justify="start" align="middle">
         <div class="search-input">
           <span>{{$t('new.no48')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
+          <el-select size="small" filterable  clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
           <span>{{$t('new.no49')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
+          <el-select size="small" filterable clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>

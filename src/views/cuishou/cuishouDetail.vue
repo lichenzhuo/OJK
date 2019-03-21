@@ -8,7 +8,6 @@
       </el-breadcrumb>
     </div>
     <div v-if="type==2">
-      
       <div class="crumbs" v-if="from==1">
         <el-breadcrumb separator="/">
           <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>

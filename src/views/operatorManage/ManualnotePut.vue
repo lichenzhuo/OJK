@@ -36,8 +36,12 @@
           </el-table-column>
           <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no4')">
             <template slot-scope="scope">
-              <span v-if="scope.row.sendType!==null&&scope.row.sendType!==undefined&&scope.row.sendType!==''">{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no4')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="resolved" :label="$t('operatorManage.no7')">
@@ -62,6 +66,13 @@
     <el-dialog :title="$t('operatorManage.no6')" :visible.sync="dialogFormVisible"  width="850px">
       <h4>{{$t('operatorManage.no16')}}</h4>
       <el-form :model="form" size="small" :rules="rules" ref="ruleForm" label-width="140px">
+        <template v-if="$store.state.common.lang==='vi'">
+          <el-form-item :label="$t('operatorManage.no4')" prop="sendObj">
+            <el-select size="small" v-model="form.sendObject">
+              <el-option v-for="item in sendObj" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+            </el-select>
+          </el-form-item>
+        </template>
         <el-form-item :label="$t('operatorManage.no4')" prop="sendType">
           <el-radio-group v-model="form.sendType">
             <el-radio :label="1">{{$t('operatorManage.sendType.no1')}}</el-radio>
@@ -140,17 +151,17 @@
     
     <!-- ------------  分页   ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_HAND_LIST')">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="page.current"
-            :page-sizes="[10, 15, 20, 30]"
-            layout="sizes, prev, pager, next, total,->"
-            :page-size="page.size"
-            @size-change="handleSizeChange"
-            :total="page.total?page.total:0">
-          </el-pagination>
-        </div>
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_HAND_LIST')">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="page.current"
+          :page-sizes="[10, 15, 20, 30]"
+          layout="sizes, prev, pager, next, total,->"
+          :page-size="page.size"
+          @size-change="handleSizeChange"
+          :total="page.total?page.total:0">
+        </el-pagination>
+      </div>
     </el-row>
 
   </div>
@@ -174,7 +185,8 @@ export default {
       filter: {
         messageId: '',
         sendType: '',
-        sendTime: ''
+        sendTime: '',
+        sendObj: ''
       },
       form: {
         sendType: '',

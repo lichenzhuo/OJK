@@ -178,6 +178,7 @@
     <div class="foot"></div>
   </div>
 </template>
+
 <script>
   // 引入基本模板
 let echarts = require('echarts/lib/echarts')

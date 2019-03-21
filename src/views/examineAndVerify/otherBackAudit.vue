@@ -235,6 +235,7 @@ export default {
         reviewResult: this.auditStatus,
         orderId: this.orderId,
         userId: this.userId,
+        blackStatus:'1'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {

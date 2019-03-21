@@ -225,7 +225,6 @@
                 <template v-if="$store.state.common.lang==='vi'">
                   <span 
                     v-if="scope.row.status==51||scope.row.overdueDays>isover"
-                    class="table_opr"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
@@ -247,7 +246,6 @@
                   </span>
                   <span 
                     v-else
-                    class="table_opr"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>

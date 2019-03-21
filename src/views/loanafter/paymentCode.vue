@@ -255,7 +255,7 @@ export default {
             this.payCodeList();// 获取每日催回统计列表
             
           } else {
-            this.$globalMsg.error(this.$t('message.warning'));
+            this.$globalMsg.error(res.data.header.msg);
           }
           this.addClose();
         })

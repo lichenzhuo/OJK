@@ -135,7 +135,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table">
       <template>
-        <el-table :data="tableData" size="small">
+        <el-table :data="tableData" size="small" v-loading="loadFlag">
           <el-table-column align="center" prop="orderId" :label="$t('public.orderId')">
           </el-table-column>
           <el-table-column align="center" prop="userName" :label="$t('public.name')">
@@ -208,17 +208,25 @@
                 @click="socialDetali(scope.row.orderNo,scope.row.orderId)">
                 {{$t('operationList.no1')}}
               </span>
-              <template v-if="$store.state.common.lang==='id'&&scope.row.blackStatus===0">
-                <span class="table_opr" @click="openAudit('1',scope.row.userId,scope.row.orderId)"
-                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
-                <span class="table_opr" @click="openAudit('2',scope.row.userId,scope.row.orderId)"
-                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
-              </template>
-              <template v-else>
-                <span class="table_opr cl777" 
-                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">{{$t('yn.no43')}}</span>
-                <span class="table_opr cl777" 
-                v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">{{$t('yn.no44')}}</span>
+              <template v-if="$store.state.common.lang==='id'">
+                <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">
+                  <span 
+                    class="table_opr cl777" 
+                    v-if="scope.row.oneStatus!==0">{{$t('yn.no43')}}</span>
+                  <span 
+                    v-else 
+                    class="table_opr"
+                    @click="openAudit('1',scope.row.userId,scope.row.orderId)">{{$t('yn.no43')}}</span>
+                </template>
+                <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">
+                  <span 
+                    class="table_opr cl777" 
+                    v-if="scope.row.twoStatus!==0">{{$t('yn.no44')}}</span>
+                  <span 
+                    v-else 
+                    class="table_opr"
+                    @click="openAudit('2',scope.row.userId,scope.row.orderId)">{{$t('yn.no44')}}</span>
+                </template>
               </template>
             </template>
           </el-table-column>
@@ -244,6 +252,7 @@
     <div class="foot"></div>
 
     <el-dialog :title="auditTitle" :visible.sync="auditFlag" width="650px">
+      <p class="red">{{$t('yn.no49')}}</p>
       <div class="left2right">
         <span class="left">{{$t('public.no37')}}:</span>
         <div class="right">
@@ -266,6 +275,7 @@ export default {
   data () {
     return {
       sessionid: '',
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [],
@@ -324,6 +334,7 @@ export default {
       this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '1'}});
     },
     operationList () { // 入催订单列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -338,7 +349,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+        } else {
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     select () { // 查询按钮点击操作
@@ -440,5 +454,10 @@ export default {
 <style scoped lang="scss">
 .cl777{
   color: #777;
+}
+.red{
+  color: crimson;
+  margin: 10px;
+  padding-left: 30px;
 }
 </style>

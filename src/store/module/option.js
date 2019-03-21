@@ -618,6 +618,17 @@ const options = {
       {value: 1, label: 'yn.no40'}, // 同意
       {value: -1, label: 'yn.no41'}, // 驳回
     ],
+    buildInSendType_options: [// 内置消息推送发送类型
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'yuenan.no38'}, // 消息推送
+      {value: 2, label: 'yuenan.no39'}, // 站内信
+    ],
+    buildInSendDevice_options: [// 内置消息推送发送类型
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'yuenan.no40'}, // 同意
+      {value: 2, label: 'yuenan.no41'}, // 驳回
+      {value: 3, label: 'yuenan.no42'}, // 驳回
+    ],
   }
 }
 export default options

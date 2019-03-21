@@ -256,6 +256,13 @@ const actionmap = {
     MECOLLECTION00013:'MECOLLECTION00013',// 获取态度恶劣和他人还款人员列表
     MECOLLECTION00012:'MECOLLECTION00012',// 提交态度恶劣或他人还款的用户
 
+    PRODUCT0015:'PRODUCT0015',// 逾期分期列表
+    PRODUCT0016:'PRODUCT0016',// 逾期分期列表添加修改
+    PRODUCT0017:'PRODUCT0017',// 逾期分期列表添加修改
+
+    PRODUCT0003PH:'PRODUCT0003PH',// 菲律宾产品列表
+    PRODUCT0002PH:'PRODUCT0002PH',// 菲律宾产品列表
+
   }
 
 }

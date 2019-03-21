@@ -38,9 +38,15 @@
         </el-select>
       </div>
       <div class="search-input" v-if="filter.hasOwnProperty('sendType')">
-        <span>{{$t('operatorManage.no4')}}:</span>
+        <span>{{$t('operatorManage.no18')}}:</span>
         <el-select size="small" v-model="filter.sendType">
           <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in sendTypeOption" :key="i"></el-option>
+        </el-select>
+      </div>
+      <div class="search-input" v-if="filter.hasOwnProperty('sendObj')">
+        <span>{{$t('operatorManage.no4')}}:</span>
+        <el-select size="small" v-model="filter.sendObj">
+          <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options1" :key="i"></el-option>
         </el-select>
       </div>
       <div class="search-input" v-if="filter.hasOwnProperty('couponTarget')">
@@ -222,6 +228,7 @@ export default {
       overdueStatusOptions: this.$store.state.options.overdueStatusOptions,
       cashStatusOptions: this.$store.state.options.cashStatusOptions,
       sendTypeOption: this.$store.state.options.sendTypeOption,
+      options1:this.$store.state.options.buildInSendType_options,
       channelDataOptions: [],
       appNameOptions: [],
       appPackageOptions: []

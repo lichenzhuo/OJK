@@ -182,7 +182,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_OUTSOURCING_MANAGEMENT_QUERY')">
       <template>
-        <el-table :data="tableData" size="small" stripe @selection-change="handleSelectionChange">
+        <el-table :data="tableData" size="small" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="55" :selectable="unSelect">
           </el-table-column>
           <el-table-column align="center" prop="orderId" :label="$t('loanAfterManage.orderId')">
@@ -408,6 +408,7 @@ export default {
     return {
       sessionid: '',
       flag: true,
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageTotal1: 0, // 个性分单分页总数
       pageNumber: 10, // 每页条数
@@ -494,6 +495,7 @@ export default {
       this.$router.push({path: '/outsourceddetail', query: {userId, orderNo,block:1}});
     },
     dataList () { // 获取委外订单列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -509,7 +511,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+        } else {
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     handleSelectionChange (val) { // 表格选中项数据

@@ -234,9 +234,7 @@ export default {
         this.proData();
       }else{
         this.ruleForm2 = {};
-        console.log(this.ruleForm2)
       }
-      console.log(this.type)
     }
   },
   mounted () {
