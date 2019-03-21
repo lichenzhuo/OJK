@@ -15,7 +15,7 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" >
-        <el-col :md="6" :lg="4" :xl="4">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
             <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
@@ -135,41 +135,47 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table">
       <template>
-        <el-table :data="tableData" size="small">
+        <el-table :data="tableData" size="small" v-loading="loadFlag">
           <el-table-column align="center" prop="orderId" :label="$t('public.orderId')">
           </el-table-column>
           <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
+          <el-table-column align="center" prop="loanAmount" :label="$t('add.no2')">
             <template slot-scope="scope">
-              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
-          </el-table-column>
-          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
             <template slot-scope="scope">
-              <span v-if="scope.row.waitAmount!==null&&scope.row.waitAmount!==undefined&&scope.row.waitAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no37')">
+            </el-table-column>
+          </template>
+          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+          </el-table-column>
+          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')">
             <template slot-scope="scope">
-              <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
+          <template>
+            <el-table-column align="center" prop="strLastTime" :label="$t('fei.no38')" width="86">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
@@ -194,12 +200,34 @@
               </template>
             </el-table-column>
           </template>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope">
               <span 
-              v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))"
-              class="table_opr"
-              @click="socialDetali(scope.row.orderNo)">{{$t('operationList.no1')}}</span>
+                v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))"
+                class="table_opr"
+                @click="socialDetali(scope.row.orderNo,scope.row.orderId)">
+                {{$t('operationList.no1')}}
+              </span>
+              <template v-if="$store.state.common.lang==='id'">
+                <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">
+                  <span 
+                    class="table_opr cl777" 
+                    v-if="scope.row.oneStatus!==0">{{$t('yn.no43')}}</span>
+                  <span 
+                    v-else 
+                    class="table_opr"
+                    @click="openAudit('1',scope.row.userId,scope.row.orderId)">{{$t('yn.no43')}}</span>
+                </template>
+                <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">
+                  <span 
+                    class="table_opr cl777" 
+                    v-if="scope.row.twoStatus!==0">{{$t('yn.no44')}}</span>
+                  <span 
+                    v-else 
+                    class="table_opr"
+                    @click="openAudit('2',scope.row.userId,scope.row.orderId)">{{$t('yn.no44')}}</span>
+                </template>
+              </template>
             </template>
           </el-table-column>
         </el-table>
@@ -223,6 +251,22 @@
 
     <div class="foot"></div>
 
+    <el-dialog :title="auditTitle" :visible.sync="auditFlag" width="650px">
+      <p class="red">{{$t('yn.no49')}}</p>
+      <div class="left2right">
+        <span class="left">{{$t('public.no37')}}:</span>
+        <div class="right">
+          <el-input type="textarea" :rows="4" v-model="remark"></el-input>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="auditSubmit">{{$t('public.no41')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -231,6 +275,7 @@ export default {
   data () {
     return {
       sessionid: '',
+      loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime: [],
@@ -238,6 +283,9 @@ export default {
       searchTime4: [], // 承诺还款时间
       searchTime5: [], // 最近群呼时间
       flag: true,
+      auditFlag: false,
+      sign: '',
+      auditTitle: '',
       // 用户查询信息数据对应字段
       formInline: {
         collectionId: '',
@@ -267,7 +315,10 @@ export default {
       options1: this.$store.state.options.collection_option, // 入催状态下拉选框信息
       options2: this.$store.state.options.returnMoney_option, // 已还金额下拉选框信息
       options3: this.$store.state.options.groupCalls_options, // 群呼结果下拉选框信息
-      tableData: []// 列表数据模拟
+      tableData: [],// 列表数据模拟
+      remark: '', // 弹窗备注内容
+      orderId: '',// 他人还款或者态度恶劣选中行订单ID
+      userId: '',// 他人还款或者态度恶劣选中行用户ID
     }
   },
   methods: {
@@ -279,10 +330,11 @@ export default {
       this.currentPage = val;
       this.operationList();
     },
-    socialDetali (orderNo) { // 查看详情
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, type: '1'}});
+    socialDetali (orderNo,orderId) { // 查看详情
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '1'}});
     },
     operationList () { // 入催订单列表
+      this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
@@ -297,7 +349,10 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+        } else {
+          this.$globalMsg.error(res.data.header.msg)
         }
+        this.loadFlag = false;
       })
     },
     select () { // 查询按钮点击操作
@@ -307,6 +362,41 @@ export default {
         this.flag = false;
         this.operationList();
       }
+    },
+    openAudit( str, userId, orderId){// 审核弹窗
+      if(str==='1'){
+        this.auditTitle = this.$t('yn.no43');
+      }
+      if(str==='2'){
+        this.auditTitle = this.$t('yn.no44');
+      }
+      this.sign = str;
+      this.userId = userId;
+      this.orderId = orderId;
+      this.auditFlag = true;
+    },
+    auditSubmit(){// 审核确认操作
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.MECOLLECTION00012,
+          'sessionid': this.sessionid
+        },
+        blackStatus: this.sign,
+        remark: this.remark,
+        orderId: this.orderId,
+        userId: this.userId,
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('userSuggest.success'));
+          this.operationList();
+          this.remark = '';
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+        this.auditFlag = false;
+      })
     }
   },
   watch: {
@@ -349,18 +439,25 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
-      this.formInline = this.$store.state.common.mycuishouList_select;
-      if(this.formInline.collectionTimeBegin!==''){
-        this.searchTime.push(this.formInline.collectionTimeBegin);
-        this.searchTime.push(this.formInline.collectionTimeEnd);
-      }
-    }
+    // if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
+    //   this.formInline = this.$store.state.common.mycuishouList_select;
+    //   if(this.formInline.collectionTimeBegin!==''){
+    //     this.searchTime.push(this.formInline.collectionTimeBegin);
+    //     this.searchTime.push(this.formInline.collectionTimeEnd);
+    //   }
+    // }
     this.operationList();
   }
 }
 </script>
 
 <style scoped lang="scss">
-
+.cl777{
+  color: #777;
+}
+.red{
+  color: crimson;
+  margin: 10px;
+  padding-left: 30px;
+}
 </style>

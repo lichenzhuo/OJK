@@ -152,7 +152,7 @@
           <!-- 还款方式 -->
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
             <template slot-scope="scope">
-              <span>{{scope.row.payType}}</span>
+              <span>{{scope.row.bankName?scope.row.bankName:scope.row.payType}}</span>
             </template>
           </el-table-column>
           <!-- 订单状态 -->
@@ -162,7 +162,7 @@
             </template>
           </el-table-column>
           <!-- 操作 -->
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_OVERDUE_COUPON_ISSUE')">
               <span v-if="scope.row.status === 2"
                 style="color:#547ef6;cursor:pointer;" 

@@ -15,81 +15,90 @@
       </el-breadcrumb>
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span><p>{{$t('auditDetail.no1')}}</p>
-        </div>
-      </el-col>
-    </el-row>
-    <!-- -------------用户详情------------------------ -->
-    <div class="detail">
-      <div class="detail-1">
-        <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName!==null&&data.userBase.appName!==undefined&&data.userBase.appName!==''?data.userBase.appName:$store.state.common.nullData}}</span> </p>
-        <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage!==null&&data.userBase.appPackage!==undefined&&data.userBase.appPackage!==''?data.userBase.appPackage:$store.state.common.nullData}}</span> </p>
-        <p >
-          <span>{{$t('new.no55')}}:</span>
-          <span v-if="data.userSelf.whatsAPP!==null&&data.userSelf.whatsAPP!==undefined&&data.userSelf.whatsAPP!==''">{{data.userSelf.whatsAPP}}</span>
-          <span v-else> {{$store.state.common.nullData}} </span>
-        </p>
-      </div>
-      <div class="detail-1">
-        <p><span>{{$t('public.userId')}}:</span> <span>{{data.userBase.id!==null&&data.userBase.id!==undefined&&data.userBase.id!==''?data.userBase.id:$store.state.common.nullData}}</span> </p>
-        <p><span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name!==null&&data.userBase.name!==undefined&&data.userBase.name!==''?data.userBase.name:$store.state.common.nullData}}</span> </p>
-        <p><span>{{$t('public.CreateDate')}}:</span> <span>{{data.userSelf.strCreateTime!==null&&data.userSelf.strCreateTime!==undefined&&data.userSelf.strCreateTime!==''?data.userSelf.strCreateTime:$store.state.common.nullData}}</span> </p>
-        <p><span>{{$t('public.userTel')}}:</span> <span>{{data.userBase.phone!==null&&data.userBase.phone!==undefined&&data.userBase.phone!==''?data.userBase.phone+' '+data.userPhoneOperator:$store.state.common.nullData}}</span> </p>
-      </div>
-      <div class="detail-1">
-        <p>
-          <span>{{$t('public.sex')}}:</span> 
-          <span v-if="data.userSelf.sex!==null&&data.userSelf.sex!==undefined&&data.userSelf.sex!==''">{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span> 
-          <span v-else> {{$store.state.common.nullData}} </span> 
-        </p>
-        <template >
-          <p v-if="data.userSelf.marriage!==null&&data.userSelf.marriage!==undefined&&data.userSelf.marriage!==''"><span>{{$t('public.no3')}}: </span>
-            <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
-          </p>
-          <p v-else><span>{{$t('public.no3')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-        </template>
-        <template >
-          <p v-if="data.userSelf.degree!==null&&data.userSelf.degree!==undefined&&data.userSelf.degree!==''"><span>{{$t('public.no5')}}: </span>
-            <span>{{$t($store.getters.education(data.userSelf.degree))}}</span>
-          </p>
-          <p v-else><span>{{$t('public.no5')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-        </template>
-        <p><span>{{$t('fei.loanId')}}:</span> 
-          <span v-if="data.userBase.contractNo!==null&&data.userBase.contractNo!==undefined&&data.userBase.contractNo!==''">{{data.userBase.contractNo}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span>   
-        </p>
-      </div>
-      <div class="detail-1">
-        <p >
-          <span>{{$t('public.birthday')}}:</span>
-          <span v-if="data.userSelf.birthday!==null&&data.userSelf.birthday!==undefined&&data.userSelf.birthday!==''">{{data.userSelf.birthday}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span>
-        </p>
-        <p >
-          <span>{{$t('new.no56')}}:</span>
-          
-          <span v-if="data.userSelf.birthday!==null&&data.userSelf.birthday!==undefined&&data.userSelf.birthday!==''">{{$store.getters.getAge(data.userSelf.birthday)}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span> 
-        </p>
-        <p >
-          <span>Facebook:</span>
-          <span v-if="data.userSelf.facebook!==null&&data.userSelf.facebook!==undefined&&data.userSelf.facebook!==''">{{data.userSelf.facebook}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span> 
-        </p>
-        <p >
-          <span>Email:</span>
-          <span v-if="data.userSelf.email!==null&&data.userSelf.email!==undefined&&data.userSelf.email!==''">{{data.userSelf.email}}</span>
-          <span v-else>{{$store.state.common.nullData}}</span> 
-        </p>
-      </div>
+    <!-- ------------- 用户详情,借款详情 ------------------------ -->
+    <div class="tabs">
+      <ul class="tabs_title">
+        <li v-for="(value,index) in arr3" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
+          <span>{{value.title}}</span>
+        </li>
+      </ul>
+      <ul class="tabs_main">
+        <li  v-if="active2==1">
+          <div class="oneLineHasFour">
+            <p><span>{{$t('fei.no28')}}{{$t('new.no48')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('new.no55')}}:</span>
+              <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.userId')}}:</span><span>{{data.userBase.id | dataIsTrue}}</span></p>
+            <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
+            <p><span>{{$t('public.CreateDate')}}:</span><span>{{data.userSelf.strCreateTime | dataIsTrue}}</span></p>
+            <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span></p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.sex')}}:</span>
+              <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
+            </p>
+            <p><span>{{$t('public.no3')}}:</span>
+              <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
+            </p>
+            <p><span>{{$t('public.no5')}}:</span>
+              <span>{{$t($store.getters.education(data.userSelf.degree))}}</span>
+            </p>
+            <p><span>{{$t('fei.loanId')}}:</span>
+              <span>{{data.userBase.contractNo | dataIsTrue}}</span>  
+            </p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.birthday')}}:</span>
+              <span>{{data.userSelf.birthday | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('new.no56')}}:</span>
+              <span>{{$store.getters.getAge(data.userSelf.birthday)}}</span>
+            </p>
+            <p><span>Facebook:</span>
+              <span>{{data.userSelf.facebook | dataIsTrue}}</span>
+            </p>
+            <p><span>Email:</span>
+              <span>{{data.userSelf.email | dataIsTrue}}</span>
+            </p>
+          </div>
+        </li>
+        <li  v-if="active2==2">
+          <div class="oneLineHasFour">
+            <p><span>{{$t('fei.no29')}}{{$t('new.no48')}}:</span>
+              <span>{{data.orderExtra.appName | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('fei.no29')}}{{$t('new.no49')}}:</span>
+              <span>{{data.orderExtra.appPackage | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('fei.loanId')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no30')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no31')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.CreateDate')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            </p>
+          </div>
+        </li>
+      </ul>
     </div>
-
     
     <!-------------------------- 选项卡 -------------------->
-    <div class="xuanxiangka">
+    <div class="xuanxiangka mt15">
       <ul class="xuan-1">
         <li v-for="(value,index) in arr1" :key="index" :class="{active:active==value.id}" @click="active=value.id">
           <span>{{value.title}}</span>
@@ -97,7 +106,7 @@
       </ul>
       <ul class="xuan-2">
         <!------------------------ 历史借款记录信息 ---------------------------->
-        <li class="xuan-2-4" v-if="active==4">
+        <li  v-if="active==4">
           <div class="paixu">
             <span></span><p>{{$t('yuenan.no14')}}</p>
           </div>
@@ -105,37 +114,35 @@
           <div class="paixu">
             <span></span><p>{{$t('yuenan.no13')}}</p>
           </div>
-          <div class="cardTable">
-            <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-              <tr>
-                <th width="20%">{{$t('public.orderNo')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no2')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no4')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no5')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no6')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no14')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no12')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no13')}}</th>
-                <th width="10%">{{$t('loanAfterManage.collection_option.no8')}}</th>
-              </tr>
-              <tr v-if="tableData!=''">
-                <td >{{tableData[0]}}</td>
-                <td >{{tableData[2]}}</td>
-                <td >{{tableData[4]}}</td>
-                <td >{{tableData[5]}}</td>
-                <td >{{tableData[6]}}</td>
-                <td >{{tableData[14]}}</td>
-                <td >{{tableData[12]}}</td>
-                <td >{{tableData[13]}}</td>
-                <td >{{tableData[8]}}</td>
-              </tr>
-              <template v-else>
-                <div style="textAlign:center;width:500%;height:40px;lineHeight:40px">
-                  {{$t('public.no23')}}
-                </div>
-              </template>
-            </table>
-          </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="20%">{{$t('public.orderNo')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no2')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no4')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no5')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no6')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no14')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no12')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no13')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no8')}}</th>
+            </tr>
+            <tr v-if="tableData!=''">
+              <td >{{tableData[0]}}</td>
+              <td >{{tableData[2]}}</td>
+              <td >{{tableData[4]}}</td>
+              <td >{{tableData[5]}}</td>
+              <td >{{tableData[6]}}</td>
+              <td >{{tableData[14]}}</td>
+              <td >{{tableData[12]}}</td>
+              <td >{{tableData[13]}}</td>
+              <td >{{tableData[8]}}</td>
+            </tr>
+            <template v-else>
+              <div style="textAlign:center;width:500%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
         </li>
         <!------------------------ 用户信息 ---------------------------->
         <li class="xuan-2-1" v-if="active==1">
@@ -145,7 +152,7 @@
             <p>{{$t('auditDetail.no2')}}</p>
             <p v-if="data.order.status==20&&block==2" @click="telFlag=true" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
             <template v-if="block==2">
-              <template v-if="data.userIdcard.idcardReturn!==null&&data.userIdcard.idcardReturn!==undefined&&data.userIdcard.idcardReturn=='-1'">
+              <template v-if="data.userIdcard.idcardReturn!==undefined&&data.userIdcard.idcardReturn=='-1'">
                 <el-tooltip class="item" effect="dark" 
                   :content="$t('new.no38')+':'+data.userIdcard.idcardReturnCount+';'+$t('new.no11')+':'+data.userIdcard.idcardReturnReasonDesc" 
                   placement="right">
@@ -156,67 +163,48 @@
               </template>
               <p v-else @click="backFlag1=true" style="cursor:pointer">{{$t('new.no10')}}</p>
             </template>
-            
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-2">
               <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                <template >
-                  <p v-if="data.userSelf.name!==null&&data.userSelf.name!==undefined&&data.userSelf.name!==''">
-                    <span>{{$t('public.no1')}}:</span> <span>{{data.userSelf.name+' '+data.userSelf.middleName+' '+data.userSelf.surname}}</span> 
-                  </p>
-                  <p v-else><span>{{$t('public.no1')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userSelf.birthday!==null&&data.userSelf.birthday!==undefined&&data.userSelf.birthday!==''"><span>{{$t('public.birthday')}}:</span> <span>{{data.userSelf.birthday}}</span> </p>
-                  <p v-else><span>{{$t('public.birthday')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p v-if="data.userSelf.name!==null&&data.userSelf.name!==undefined&&data.userSelf.name!==''">
+                  <span>{{$t('public.no1')}}:</span> <span>{{data.userSelf.name+' '+data.userSelf.middleName+' '+data.userSelf.surname}}</span> 
+                </p>
+                <p v-else><span>{{$t('public.no1')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
+                <p><span>{{$t('public.birthday')}}:</span><span>{{data.userSelf.birthday | dataIsTrue}}</span></p>
               </div>
               <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                <p><span>{{$t('fei.id')}}: </span>
-                  <span v-if="data.userIdcard.idCard!==null&&data.userIdcard.idCard!==undefined&&data.userIdcard.idCard!==''">{{data.userIdcard.idCard}}</span>
-                  <span v-else>{{$store.state.common.nullData}}</span> 
+                <p><span>{{$t('fei.id')}}:</span>
+                  <span>{{data.userIdcard.idCard | dataIsTrue}}</span>
                 </p>
                 <p><span>{{$t('fei.idType')}}:</span> 
-                  <span v-if="data.userIdcard.strIdType!==null&&data.userIdcard.strIdType!==undefined&&data.userIdcard.strIdType!==''">{{data.userIdcard.strIdType}}</span>
-                  <span v-else>{{$store.state.common.nullData}}</span> 
+                  <span>{{data.userIdcard.strIdType | dataIsTrue}}</span>
                 </p>
               </div>
               <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                <template>
-                  <p v-if="data.userSelf.liveProvinceName!==null&&data.userSelf.liveProvinceName!==undefined&&data.userSelf.liveProvinceName!==''"><span>{{$t('yuenan.no2')}}:</span> 
-                    <span>{{data.userSelf.liveProvinceName}}</span>
-                  </p>
-                  <p v-else><span>{{$t('yuenan.no2')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userSelf.liveCityName!==null&&data.userSelf.liveCityName!==undefined&&data.userSelf.liveCityName!==''"><span>{{$t('yuenan.no17')}}:</span> 
-                    <span>{{data.userSelf.liveCityName}}</span> 
-                  </p>
-                  <p v-else><span>{{$t('yuenan.no17')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p><span>{{$t('yuenan.no2')}}:</span> 
+                  <span>{{data.userSelf.liveProvinceName | dataIsTrue}}</span>
+                </p>
+                <p><span>{{$t('yuenan.no17')}}:</span> 
+                  <span>{{data.userSelf.liveCityName | dataIsTrue}}</span> 
+                </p>
               </div>
               <div class="xuan-2-1-1-22">
-                 <template>
-                  <p v-if="data.userSelf.liveAddress!==null&&data.userSelf.liveAddress!==undefined&&data.userSelf.liveAddress!==''"><span>{{$t('public.no7')}}:</span> <span>{{data.userSelf.liveAddress}}</span></p>
-                  <p v-else>{{$t('public.no7')}}: <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p style="width:100%"><span>{{$t('public.no7')}}:</span><span>{{data.userSelf.liveAddress | dataIsTrue}}</span></p>
               </div>
               <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                <template>
-                  <p v-if="data.loginCount!==null&&data.loginCount!==undefined&&data.loginCount!==''"><span style="color:red">{{$t('new.no51')}}:</span> <span style="color:red">{{data.loginCount}}</span> </p>
-                  <p v-else>{{$t('new.no51')}}: <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userSelf.numbernOfChildren!==null&&data.userSelf.numbernOfChildren!==undefined&&data.userSelf.numbernOfChildren!==''"><span>{{$t('fei.no12')}}:</span> <span>{{data.userSelf.numbernOfChildren}}</span> </p>
-                  <p v-else>{{$t('fei.no12')}}: <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p><span style="color:red">{{$t('new.no51')}}:</span>
+                  <span style="color:red">{{data.loginCount | dataIsTrue}}</span>
+                </p>
+                <p><span>{{$t('fei.no12')}}:</span>
+                  <span>{{data.userSelf.numbernOfChildren | dataIsTrue}}</span>
+                </p>
               </div>
             </div>
             <div class="xuan-2-1-1-3">
               <div class="idimgbox">
                 <template >
-                  <div v-if="data.userIdcard.idcardPhotoUrl!==null&&data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
+                  <div v-if="data.userIdcard.idcardPhotoUrl" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
                     <img :src="data.userIdcard.idcardPhotoUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')">
                   </div>
                   <div v-else class="idimg pic" >
@@ -226,7 +214,7 @@
               </div>
               <div class="idimgbox">
                 <template >
-                  <div v-if="data.userIdcard.facetimePhotoUrl!==null&&data.userIdcard.facetimePhotoUrl!==undefined&&data.userIdcard.facetimePhotoUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
+                  <div v-if="data.userIdcard.facetimePhotoUrl" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
                     <img :src="data.userIdcard.facetimePhotoUrl" :alt="$t('pic.no4')" :title="$t('pic.no4')">
                   </div>
                   <div v-else class="idimg pic" >
@@ -240,17 +228,9 @@
           <!-- 第二行 -->
           <div class="paixu">
             <span></span><p>{{$t('auditDetail.no5')}}</p>
-            <!-- <template v-if="data.userWork.companyCheckResult!==null&&data.userWork.companyCheckResult!==undefined&&data.userWork.companyCheckResult!==''">
-              <el-tooltip class="item" effect="dark" :content="data.userWork.companyCheckResult==1?$t('auditDetail.no6'):$t('auditDetail.no7')" placement="right">
-                <div class="tooltip pic">
-                  <img v-if="data.userWork.companyCheckResult==1" src="../../../assets/img/lv.png" alt="">
-                  <img v-else src="../../../assets/img/hong.png" alt="">
-                </div>
-              </el-tooltip>
-            </template> -->
             <p v-if="data.order.status==20&&block==2" @click="telFlag1=true" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
             <template v-if="block==2">
-              <template v-if="data.userWork.incomeReturn!==null&&data.userWork.incomeReturn!==undefined&&data.userWork.incomeReturn=='-1'">
+              <template v-if="data.userWork.incomeReturn!==undefined&&data.userWork.incomeReturn=='-1'">
                 <el-tooltip class="item" effect="dark" 
                 :content="$t('new.no38')+':'+data.userWork.incomeReturnCount+';'+$t('new.no11')+':'+data.userWork.incomeReturnReasonDesc" 
                 placement="right">
@@ -261,70 +241,39 @@
               </template>
               <p v-else @click="backFlag2=true"  style="cursor:pointer">{{$t('new.no10')}}</p>
             </template>
-            
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-2">
               <div class="xuan-2-1-1-22">
-                <template>
-                  <p v-if="data.userWork.company!==null&&data.userWork.company!==undefined&&data.userWork.company!==''"><span>{{$t('public.no9')}}:</span> <span>{{data.userWork.company}}</span> </p>
-                  <p v-else><span>{{$t('public.no9')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userWork.strEntryTime!==null&&data.userWork.strEntryTime!==undefined&&data.userWork.strEntryTime!==''"><span>{{$t('public.no10')}}:</span> <span>{{data.userWork.strEntryTime}}</span> </p>
-                  <p v-else><span>{{$t('public.no10')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userWork.monthIncome!==null&&data.userWork.monthIncome!==undefined&&data.userWork.monthIncome!==''"><span>{{$t('public.no13')}}:</span> <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.userWork.monthIncome)}}{{$store.state.common.vi_currency}}</span> </p>
-                  <p v-else><span>{{$t('public.no13')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p><span>{{$t('public.no9')}}:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
+                <p><span>{{$t('public.no10')}}:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
+                <p><span>{{$t('public.no13')}}:</span>
+                  <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.userWork.monthIncome)}}
+                  {{$store.state.common.vi_currency}}</span>
+                </p>
               </div>
               <div class="xuan-2-1-1-22">
-                <template>
-                  <p v-if="data.userWork.industryName!==null&&data.userWork.industryName!==undefined&&data.userWork.industryName!==''"><span>{{$t('yuenan.no5')}}:</span> <span>{{data.userWork.industryName}}</span> </p>
-                  <p v-else><span>{{$t('yuenan.no5')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userWork.companyPhone!==null&&data.userWork.companyPhone!==undefined&&data.userWork.companyPhone!==''"><span>{{$t('public.no12')}}:</span> <span>{{data.userWork.companyPhone}}</span> </p>
-                  <p v-else><span>{{$t('public.no12')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                <p v-if="data.userWork.payday!==null&&data.userWork.payday!==undefined&&data.userWork.payday!==''"><span>{{$t('fei.inComeDate')}}:</span> <span>{{data.userWork.payday}}</span> </p>
-                <p v-else><span>{{$t('fei.inComeDate')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
+                <p><span>{{$t('yuenan.no5')}}:</span><span>{{data.userWork.industryName | dataIsTrue}}</span></p>
+                <p><span>{{$t('public.no12')}}:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
+                <p><span>{{$t('fei.inComeDate')}}:</span><span>{{data.userWork.payday | dataIsTrue}}</span></p>
               </div>
               <div class="xuan-2-1-1-22">
-                <template>
-                  <p v-if="data.userWork.companyProvinceName!==null&&data.userWork.companyProvinceName!==undefined&&data.userWork.companyProvinceName!==''"><span>{{$t('yuenan.no6')}}:</span> <span>{{data.userWork.companyProvinceName}}</span> </p>
-                  <p v-else><span>{{$t('yuenan.no6')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <template>
-                  <p v-if="data.userWork.companyCityName!==null&&data.userWork.companyCityName!==undefined&&data.userWork.companyCityName!==''"><span>{{$t('yuenan.no15')}}:</span> <span>{{data.userWork.companyCityName}}</span> </p>
-                  <p v-else><span>{{$t('yuenan.no15')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
-                <!-- <template>
-                  <p v-if="data.userWork.companyRegionName!==null&&data.userWork.companyRegionName!==undefined&&data.userWork.companyRegionName!==''"><span>{{$t('yuenan.no7')}}:</span> <span>{{data.userWork.companyRegionName}}</span> </p>
-                  <p v-else><span>{{$t('yuenan.no7')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template> -->
-              </div>
-              
-              <div class="xuan-2-1-1-22">
-                <template>
-                  <p style="width:100%" v-if="data.userWork.companyAddress!==null&&data.userWork.companyAddress!==undefined&&data.userWork.companyAddress!==''"><span>{{$t('public.no15')}}:</span> <span>{{data.userWork.companyAddress}}</span> </p>
-                  <p v-else><span>{{$t('public.no15')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p><span>{{$t('yuenan.no6')}}:</span><span>{{data.userWork.companyProvinceName | dataIsTrue}}</span></p>
+                <p><span>{{$t('yuenan.no15')}}:</span><span>{{data.userWork.companyCityName | dataIsTrue}}</span></p>
               </div>
               <div class="xuan-2-1-1-22">
-                <template>
-                  <p style="width:100%" v-if="data.order.orderAddress!==null&&data.order.orderAddress!==undefined&&data.order.orderAddress!==''"><span>{{$t('yuenan.no9')}}:</span> <span>{{data.order.orderAddress}}</span> </p>
-                  <p v-else><span>{{$t('yuenan.no9')}}:</span> <span> {{$store.state.common.nullData}} </span> </p>
-                </template>
+                <p style="width:100%"><span>{{$t('public.no15')}}:</span>
+                <span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                <p style="width:100%"><span>{{$t('yuenan.no9')}}:</span><span>{{data.order.orderAddress | dataIsTrue}}</span></p>
               </div>
             </div>
             <div class="xuan-2-1-1-3">
               <div class="idimgbox">
                 <template >
-                  <div v-if="data.userWork.incomePicUrl!==null&&data.userWork.incomePicUrl!==undefined&&data.userWork.incomePicUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+                  <div v-if="data.userWork.incomePicUrl" class="idimg pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
                     <img :src="data.userWork.incomePicUrl" alt="工资单照片" title="工资单照片">
                   </div>
                   <div v-else class="idimg pic" >
@@ -334,7 +283,7 @@
               </div>
               <div class="idimgbox">
                 <template >
-                  <div v-if="data.userWork.bankPicUrl!==null&&data.userWork.bankPicUrl!==undefined&&data.userWork.bankPicUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userWork.bankPicUrl})">
+                  <div v-if="data.userWork.bankPicUrl" class="idimg pic" @click="openBox({imgUrl:data.userWork.bankPicUrl})">
                     <img :src="data.userWork.bankPicUrl" :alt="$t('fei.no13')" :title="$t('fei.no13')">
                   </div>
                   <div v-else class="idimg pic" >
@@ -346,11 +295,11 @@
           </div>
         </li>
         <!------------------------ 通话记录信息 ---------------------------->
-        <li class="xuan-2-2" v-if="active==2">
+        <li  v-if="active==2">
           <tel-record-list :detail="telDetail" :order-no="orderNo" :user-id="userId" :order-id="orderId" :type="1"></tel-record-list>
         </li>
         <!------------------------ 短信记录信息 ---------------------------->
-        <li class="xuan-2-3" v-if="active==3">
+        <li  v-if="active==3">
           <note-record-list :order-no="orderNo" :user-id="userId" ></note-record-list>
         </li>
         
@@ -367,18 +316,12 @@
             <div class="xuan-2-1-2-1">
               <p>{{$t('public.no16')}}1 </p>
               <template >
-                <p v-if="data.userUrgentContact.contactOneRelationName!==null&&data.userUrgentContact.contactOneRelationName!==undefined&&data.userUrgentContact.contactOneRelationName!==''">{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactOneRelationName}}</span> </p>
-                <p v-else>{{$t('public.no17')}}: <span> {{$store.state.common.nullData}} </span> </p>
+                <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span></p>
+                <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span></p>
+                <p v-if="data.userUrgentContact.contactOnePhone!==undefined&&data.userUrgentContact.contactOnePhone!==''">{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactOnePhone+' '+data.contactOnePhoneOperator}}</span></p>
+                <p v-else>{{$t('public.no18')}}:<span>{{$store.state.common.nullData}}</span></p>
               </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactOneName!==null&&data.userUrgentContact.contactOneName!==undefined&&data.userUrgentContact.contactOneName!==''">{{$t('public.name')}}: <span>{{data.userUrgentContact.contactOneName}}</span> </p>
-                <p v-else>{{$t('public.name')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactOnePhone!==null&&data.userUrgentContact.contactOnePhone!==undefined&&data.userUrgentContact.contactOnePhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactOnePhone+' '+data.contactOnePhoneOperator}}</span> </p>
-                <p v-else>{{$t('public.no18')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template v-if="data.contactOne!==null&&data.contactOne!==undefined&&data.contactOne!==0">
+              <template v-if="data.contactOne!==undefined&&data.contactOne!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
                   </div>
@@ -394,18 +337,12 @@
             <div class="xuan-2-1-2-1">
               <p>{{$t('public.no16')}}2 </p>
               <template >
-                <p v-if="data.userUrgentContact.contactTwoRelationName!==null&&data.userUrgentContact.contactTwoRelationName!==undefined&&data.userUrgentContact.contactTwoRelationName!==''">{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactTwoRelationName}}</span> </p>
-                <p v-else>{{$t('public.no17')}}: <span> {{$store.state.common.nullData}} </span> </p>
+                <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span></p>
+                <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span></p>
+                <p v-if="data.userUrgentContact.contactTwoPhone!==undefined&&data.userUrgentContact.contactTwoPhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactTwoPhone+' '+data.contactTwoPhoneOperator}}</span> </p>
+                <p v-else>{{$t('public.no18')}}:<span>{{$store.state.common.nullData}}</span></p>
               </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactTwoName!==null&&data.userUrgentContact.contactTwoName!==undefined&&data.userUrgentContact.contactTwoName!==''">{{$t('public.name')}}: <span>{{data.userUrgentContact.contactTwoName}}</span> </p>
-                <p v-else>{{$t('public.name')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactTwoPhone!==null&&data.userUrgentContact.contactTwoPhone!==undefined&&data.userUrgentContact.contactTwoPhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactTwoPhone+' '+data.contactTwoPhoneOperator}}</span> </p>
-                <p v-else>{{$t('public.no18')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template v-if="data.contactTwo!==null&&data.contactTwo!==undefined&&data.contactTwo!==0">
+              <template v-if="data.contactTwo!==undefined&&data.contactTwo!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
                   </div>
@@ -421,18 +358,12 @@
             <div class="xuan-2-1-2-1">
               <p>{{$t('public.no16')}}3 </p>
               <template >
-                <p v-if="data.userUrgentContact.contactThreeRelationName!==null&&data.userUrgentContact.contactThreeRelationName!==undefined&&data.userUrgentContact.contactThreeRelationName!==''">{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactThreeRelationName}}</span> </p>
-                <p v-else>{{$t('public.no17')}}: <span> {{$store.state.common.nullData}} </span> </p>
+                <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span></p>
+                <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span></p>
+                <p v-if="data.userUrgentContact.contactThreePhone!==undefined&&data.userUrgentContact.contactThreePhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactThreePhone+' '+data.contactThreePhoneOperator}}</span> </p>
+                <p v-else>{{$t('public.no18')}}:<span>{{$store.state.common.nullData}}</span></p>
               </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactThreeName!==null&&data.userUrgentContact.contactThreeName!==undefined&&data.userUrgentContact.contactThreeName!==''">{{$t('public.name')}}: <span>{{data.userUrgentContact.contactThreeName}}</span> </p>
-                <p v-else>{{$t('public.name')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.contactThreePhone!==null&&data.userUrgentContact.contactThreePhone!==undefined&&data.userUrgentContact.contactThreePhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactThreePhone+' '+data.contactThreePhoneOperator}}</span> </p>
-                <p v-else>{{$t('public.no18')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template v-if="data.contactThree!==null&&data.contactThree!==undefined&&data.contactThree!==0">
+              <template v-if="data.contactThree!==undefined&&data.contactThree!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
                   </div>
@@ -448,18 +379,12 @@
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.otherOneName!==''">
               <p>{{$t('public.no16')}}4 </p>
               <template >
-                <p v-if="data.userUrgentContact.otherOneRelationName!==null&&data.userUrgentContact.otherOneRelationName!==undefined&&data.userUrgentContact.otherOneRelationName!==''">{{$t('public.no17')}}: <span>{{data.userUrgentContact.otherOneRelationName}}</span> </p>
-                <p v-else>{{$t('public.no17')}}: <span> {{$store.state.common.nullData}} </span> </p>
+                <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.otherOneRelationName | dataIsTrue}}</span></p>
+                <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.otherOneName | dataIsTrue}}</span></p>
+                <p v-if="data.userUrgentContact.otherOnePhone!==undefined&&data.userUrgentContact.otherOnePhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherOnePhone}}</span> </p>
+                <p v-else>{{$t('public.no18')}}:<span>{{$store.state.common.nullData}}</span></p>
               </template>
-              <template >
-                <p v-if="data.userUrgentContact.otherOneName!==null&&data.userUrgentContact.otherOneName!==undefined&&data.userUrgentContact.otherOneName!==''">{{$t('public.name')}}: <span>{{data.userUrgentContact.otherOneName}}</span> </p>
-                <p v-else>{{$t('public.name')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.otherOnePhone!==null&&data.userUrgentContact.otherOnePhone!==undefined&&data.userUrgentContact.otherOnePhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherOnePhone}}</span> </p>
-                <p v-else>{{$t('public.no18')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template v-if="data.contactOtherOne!==null&&data.contactOtherOne!==undefined&&data.contactOtherOne!==0">
+              <template v-if="data.contactOtherOne!==undefined&&data.contactOtherOne!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
                   </div>
@@ -475,18 +400,12 @@
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.otherTwoName!==''">
               <p>{{$t('public.no16')}}5 </p>
               <template >
-                <p v-if="data.userUrgentContact.otherTwoRelationName!==null&&data.userUrgentContact.otherTwoRelationName!==undefined&&data.userUrgentContact.otherTwoRelationName!==''">{{$t('public.no17')}}: <span>{{data.userUrgentContact.otherTwoRelationName}}</span> </p>
-                <p v-else>{{$t('public.no17')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.otherTwoName!==null&&data.userUrgentContact.otherTwoName!==undefined&&data.userUrgentContact.otherTwoName!==''">{{$t('public.name')}}: <span>{{data.userUrgentContact.otherTwoName}}</span> </p>
-                <p v-else>{{$t('public.name')}}: <span> {{$store.state.common.nullData}} </span> </p>
-              </template>
-              <template >
-                <p v-if="data.userUrgentContact.otherTwoPhone!==null&&data.userUrgentContact.otherTwoPhone!==undefined&&data.userUrgentContact.otherTwoPhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherTwoPhone}}</span> </p>
+                <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.otherTwoRelationName | dataIsTrue}}</span></p>
+                <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.otherTwoName | dataIsTrue}}</span></p>
+                <p v-if="data.userUrgentContact.otherTwoPhone!==undefined&&data.userUrgentContact.otherTwoPhone!==''">{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherTwoPhone}}</span> </p>
                 <p v-else>{{$t('public.no18')}}: <span> {{$store.state.common.nullData}} </span> </p>
               </template>
-              <template v-if="data.contactOtherTwo!==null&&data.contactOtherTwo!==undefined&&data.contactOtherTwo!==0">
+              <template v-if="data.contactOtherTwo!==undefined&&data.contactOtherTwo!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
                   </div>
@@ -502,134 +421,24 @@
           </div>
         </li>
         <!------------------------ 账户记录信息 ---------------------------->
-        <li class="xuan-2-1" v-if="active==6">
+        <li  v-if="active==6">
           <!-- 第四行 -->
           <div class="paixu">
             <span></span><p>{{$t('yuenan.no10')}}</p>
           </div>
-          <div class="cardTable">
-            <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-              <tr>
-                <th width="25%">{{$t('yuenan.no11')}}</th>
-                <th width="25%">{{$t('yuenan.no12')}}</th>
-                <th width="25%">{{$t('public.no21')}}</th>
-                <th width="25%">{{$t('public.no22')}}</th>
-              </tr>
-              <template v-if="data.userBank!==null&&data.userBank!==undefined&&data.userBank!==''">
-                <tr>
-                  <template>
-                    <td v-if="data.userBank.bankName!==null&&data.userBank.bankName!==undefined&&data.userBank.bankName!==''">{{data.userBank.bankName}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                  <template>
-                    <td v-if="data.userBank.email!==null&&data.userBank.email!==undefined&&data.userBank.email!==''">{{data.userBank.email}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                  <template>
-                    <td v-if="data.userBank.strCreateTime!==null&&data.userBank.strCreateTime!==undefined&&data.userBank.strCreateTime!==''">{{data.userBank.strCreateTime}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                  <template>
-                    <td v-if="data.userBank.status!==null&&data.userBank.status!==undefined&&data.userBank.status!==''">{{data.userBank.status==1?$t('userDetail.bankId_status.no1'):$t('userDetail.bankId_status.no2')}}</td>
-                    <td v-else>{{$store.state.common.nullData}}</td>
-                  </template>
-                </tr>
-              </template>
-              <template v-else>
-              <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-                {{$t('public.no23')}}
-              </div>
-            </template>
-            </table>
-          </div>
-        </li>
-        <li class="xuan-2-6" v-if="active==7">
-          <h1>大年初三，敬请期待</h1>
-        </li>
-      </ul>
-    </div>
-
-
-    <div class="foot" style="height:40px"></div>
-
-
-    <!------------------------ 跟踪记录结果展示开始 ---------------------------->
-    <div class="paixu">
-      <span></span><p>{{$t('auditDetail.no66')}}</p>
-    </div>
-    <div class="cardTable">
-      <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-        <tr>
-          <th width="25%">{{$t('auditDetail.no67')}}</th>
-          <th width="75%">{{$t('auditDetail.no68')}}</th>
-        </tr>
-        <template v-if="followReason!==null&&followReason!==undefined&&followReason!=''">
-          <tr v-for="(item,index) in followReason" :key="index">
-            <template>
-              <td v-if="item.strCreateTime!==null&&item.strCreateTime!==undefined&&item.strCreateTime!==''">{{item.strCreateTime}}</td>
-              <td v-else>{{$store.state.common.nullData}}</td>
-            </template>
-            <template>
-              <td v-if="item.remark!==null&&item.remark!==undefined&&item.remark!==''">{{item.remark}}</td>
-              <td v-else>{{$store.state.common.nullData}}</td>
-            </template>
-          </tr>
-        </template>
-        <template v-else>
-        <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-          {{$t('public.no23')}}
-        </div>
-      </template>
-      </table>
-    </div>
-    <!------------------------ 跟踪记录结果展示结束 ---------------------------->
-
-    <div class="foot" style="height:40px"></div>
-
-    <!------------------------ 人工初审开始 ---------------------------->
-    
-    
-    <template>
-      <div v-if="peopleOne_audit!==null&&peopleOne_audit!==undefined&&peopleOne_audit!=''" class="chushenjilu">
-        <el-row>
-          <el-col :span="24">
-            <div class="paixu pai-active">
-              <span></span><p>{{$t('auditDetail.no12')}}</p>
-            </div>
-          </el-col>
-        </el-row>
-        <p class="chu-title">{{$t('auditDetail.no22')}}:</p>
-        <div class="cardTable">
-          <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
             <tr>
-              <th width="15%">{{$t('public.no39')}}</th>
-              <th width="15%">{{$t('public.no18')}}</th>
-              <th width="15%">{{$t('public.no40')}}</th>
-              <th width="40%">{{$t('public.no37')}}</th>
-              <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+              <th width="25%">{{$t('yuenan.no11')}}</th>
+              <th width="25%">{{$t('yuenan.no12')}}</th>
+              <th width="25%">{{$t('public.no21')}}</th>
+              <th width="25%">{{$t('public.no22')}}</th>
             </tr>
-            <template v-if="rejectList!==null&&rejectList!==undefined&&rejectList!=''">
-              <tr  v-for="(item,index) in rejectList" :key="index">
-                <template>
-                  <td v-if="item.userName!=''">{{item.userName}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="item.phone!=''">{{item.phone}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="item.connectStatus!=''">{{$t($store.getters.tel_through(item.connectStatus))}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="item.remark!=''">{{item.remark}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="item.strFirstApproveTime!=''">{{item.strFirstApproveTime}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
+            <template v-if="data.userBank!==undefined&&data.userBank!==''">
+              <tr>
+                <td>{{data.userBank.bankName | dataIsTrue}}</td>
+                <td>{{data.userBank.email | dataIsTrue}}</td>
+                <td>{{data.userBank.strCreateTime | dataIsTrue}}</td>
+                <td>{{data.userBank.status==1?$t('userDetail.bankId_status.no1'):$t('userDetail.bankId_status.no2')}}</td>
               </tr>
             </template>
             <template v-else>
@@ -638,7 +447,74 @@
               </div>
             </template>
           </table>
+        </li>
+        <li class="xuan-2-6" v-if="active==7">
+          <h1>大年初三，敬请期待</h1>
+        </li>
+      </ul>
+    </div>
+
+    <div class="foot" ></div>
+
+    <!------------------------ 跟踪记录结果展示开始 ---------------------------->
+    <div class="paixu">
+      <span></span><p>{{$t('auditDetail.no66')}}</p>
+    </div>
+    <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+      <tr>
+        <th width="25%">{{$t('auditDetail.no67')}}</th>
+        <th width="75%">{{$t('auditDetail.no68')}}</th>
+      </tr>
+      <template v-if="followReason!==undefined&&followReason!=''">
+        <tr v-for="(item,index) in followReason" :key="index">
+          <td>{{item.strCreateTime | dataIsTrue}}</td>
+          <td>{{item.remark | dataIsTrue}}</td>
+        </tr>
+      </template>
+      <template v-else>
+        <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
+          {{$t('public.no23')}}
         </div>
+      </template>
+    </table>
+    <!------------------------ 跟踪记录结果展示结束 ---------------------------->
+
+    <div class="foot" ></div>
+
+    <!------------------------ 人工初审开始 ---------------------------->
+    <template>
+      <div v-if="peopleOne_audit!==undefined&&peopleOne_audit!=''" class="chushenjilu">
+        <el-row>
+          <el-col :span="24">
+            <div class="paixu">
+              <span></span><p>{{$t('auditDetail.no12')}}</p>
+            </div>
+          </el-col>
+        </el-row>
+        <p class="chu-title">{{$t('auditDetail.no22')}}:</p>
+        <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+          <tr>
+            <th width="15%">{{$t('public.no39')}}</th>
+            <th width="15%">{{$t('public.no18')}}</th>
+            <th width="15%">{{$t('public.no40')}}</th>
+            <th width="40%">{{$t('public.no37')}}</th>
+            <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+          </tr>
+          <template v-if="rejectList!==undefined&&rejectList!=''">
+            <tr  v-for="(item,index) in rejectList" :key="index">
+              <td>{{item.userName | dataIsTrue}}</td>
+              <td>{{item.phone | dataIsTrue}}</td>
+              <td>{{$t($store.getters.tel_through(item.connectStatus))}}</td>
+              <td>{{item.remark | dataIsTrue}}</td>
+              <td>{{item.strFirstApproveTime | dataIsTrue}}</td>
+            </tr>
+          </template>
+          <template v-else>
+            <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
+              {{$t('public.no23')}}
+            </div>
+          </template>
+        </table>
         <div class="chu-select">
           <div class="chu-select-left">{{$t('auditDetail.no20')}}:</div>
           <div class="chu-select-right">
@@ -708,47 +584,30 @@
           <ul class="xuan-2">
             <li class="xuan-2-1" v-if="active1==1">
               <p class="chu-title">{{$t('auditDetail.no22')}}:</p>
-              <div class="cardTable">
-                <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-                  <tr>
-                    <th width="15%">{{$t('public.no39')}}</th>
-                    <th width="15%">{{$t('public.no18')}}</th>
-                    <th width="15%">{{$t('public.no40')}}</th>
-                    <th width="40%">{{$t('public.no37')}}</th>
-                    <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+              <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+                <tr>
+                  <th width="15%">{{$t('public.no39')}}</th>
+                  <th width="15%">{{$t('public.no18')}}</th>
+                  <th width="15%">{{$t('public.no40')}}</th>
+                  <th width="40%">{{$t('public.no37')}}</th>
+                  <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+                </tr>
+                <template v-if="rejectList!==undefined&&rejectList!=''">
+                  <tr v-for="(item,index) in rejectList" :key="index">
+                    <td>{{item.userName | dataIsTrue}}</td>
+                    <td>{{item.phone | dataIsTrue}}</td>
+                    <td>{{$t($store.getters.tel_through(item.connectStatus))}}</td>
+                    <td>{{item.remark | dataIsTrue}}</td>
+                    <td>{{item.strFirstApproveTime | dataIsTrue}}</td>
                   </tr>
-                  <template v-if="rejectList!==null&&rejectList!==undefined&&rejectList!=''">
-                    <tr  v-for="(item,index) in rejectList" :key="index">
-                      <template>
-                        <td v-if="item.userName!=''">{{item.userName}}</td>
-                        <td v-else>{{$store.state.common.nullData}}</td>
-                      </template>
-                      <template>
-                        <td v-if="item.phone!=''">{{item.phone}}</td>
-                        <td v-else>{{$store.state.common.nullData}}</td>
-                      </template>
-                      <template>
-                        <td v-if="item.connectStatus!=''">{{$t($store.getters.tel_through(item.connectStatus))}}</td>
-                        <td v-else>{{$store.state.common.nullData}}</td>
-                      </template>
-                      <template>
-                        <td v-if="item.remark!=''">{{item.remark}}</td>
-                        <td v-else>{{$store.state.common.nullData}}</td>
-                      </template>
-                      <template>
-                        <td v-if="item.strFirstApproveTime!=''">{{item.strFirstApproveTime}}</td>
-                        <td v-else>{{$store.state.common.nullData}}</td>
-                      </template>
-                    </tr>
-                  </template>
-                  <template v-else>
-                    <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-                      {{$t('public.no23')}}
-                    </div>
-                  </template>
-                </table>
-              </div>
-              <p class="chu-title" style="margin-top:10px">{{$t('fei.no11')}}: <span style="color:red">(最多三张)</span> </p>
+                </template>
+                <template v-else>
+                  <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
+                    {{$t('public.no23')}}
+                  </div>
+                </template>
+              </table>
+              <p class="chu-title" style="margin-top:10px">{{$t('fei.no11')}}:<span style="color:red">(最多三张)</span> </p>
               <el-upload 
                 :action="$axios.defaults.baseURL"
                 :http-request="httpRequest"
@@ -801,7 +660,7 @@
                   <textarea class="search_inpu" v-model="remark1" :placeholder="$t('public.no42')+'~'"></textarea>
                 </div>
               </div>
-              <div class="input-but" >
+              <div class="input-but">
                 <el-button type="primary" class="button-color" @click="submit1">{{$t('public.no41')}}</el-button>
               </div>
             </li>
@@ -963,6 +822,7 @@ export default {
         userIdcard: '',
         userSelf: '',
         userWork: '',
+        orderExtra: '',
         order: '',
         orderList: [],
         orderMultiCheck: '',
@@ -982,6 +842,7 @@ export default {
       // arr1:['用户信息','通话记录信息','短信信息记录','历史借款记录'],// 选项卡
       active: 4,
       active1: 1, // 第二个当前点中的选项卡
+      active2: 1, // 第一个当前点中的选项卡
       status1: '', // 初审是否通过选择状态
       options: this.$store.state.options.telStatus_select, // 下拉选框内容
       telStatus: '', // 电话审核下拉框选中项
@@ -1049,6 +910,12 @@ export default {
       arr.push({id: 1, title: this.$t('auditDetail.no13')})
       arr.push({id: 2, title: this.$t('auditDetail.no65')})
       return arr
+    },
+    arr3 () {
+      let arr = []
+      arr.push({id: 1, title: this.$t('operationDetail.tab1.no1')})
+      arr.push({id: 2, title: this.$t('operationDetail.tab1.no2')})
+      return arr
     }
   },
   methods: {
@@ -1074,26 +941,27 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.data.userBase = res.data.data.userBase
-          this.data.userBank = res.data.data.userBank
-          this.data.userIdcard = res.data.data.userIdcard
-          this.data.userSelf = res.data.data.userSelf
-          this.data.userWork = res.data.data.userWork
-          this.data.order = res.data.data.order
-          this.data.orderList = res.data.data.orderList
-          this.data.orderMultiCheck = res.data.data.orderMultiCheck
-          this.data.userUrgentContact = res.data.data.userUrgentContact
-          this.data.contactOne = res.data.data.contactOne
-          this.data.contactTwo = res.data.data.contactTwo
-          this.data.contactThree = res.data.data.contactThree
-          this.data.loginCount = res.data.data.loginCount
-          this.data.userPhoneOperator = res.data.data.userPhoneOperator
-          this.data.contactOnePhoneOperator = res.data.data.contactOnePhoneOperator
-          this.data.contactTwoPhoneOperator = res.data.data.contactTwoPhoneOperator
-          this.data.contactThreePhoneOperator = res.data.data.contactThreePhoneOperator
-          this.data.userOrderCount = res.data.data.userOrderCount
+          this.data.userBase = res.data.data.userBase;
+          this.data.userBank = res.data.data.userBank;
+          this.data.userIdcard = res.data.data.userIdcard;
+          this.data.userSelf = res.data.data.userSelf;
+          this.data.userWork = res.data.data.userWork;
+          this.data.order = res.data.data.order;
+          this.data.orderList = res.data.data.orderList;
+          this.data.orderMultiCheck = res.data.data.orderMultiCheck;
+          this.data.userUrgentContact = res.data.data.userUrgentContact;
+          this.data.contactOne = res.data.data.contactOne;
+          this.data.contactTwo = res.data.data.contactTwo;
+          this.data.contactThree = res.data.data.contactThree;
+          this.data.loginCount = res.data.data.loginCount;
+          this.data.userPhoneOperator = res.data.data.userPhoneOperator;
+          this.data.contactOnePhoneOperator = res.data.data.contactOnePhoneOperator;
+          this.data.contactTwoPhoneOperator = res.data.data.contactTwoPhoneOperator;
+          this.data.contactThreePhoneOperator = res.data.data.contactThreePhoneOperator;
+          this.data.userOrderCount = res.data.data.userOrderCount;
+          this.data.orderExtra = res.data.data.orderExtra;
           if (res.data.data.recentCollection != '') {
-            this.tableData = res.data.data.recentCollection.valueList
+            this.tableData = res.data.data.recentCollection.valueList;
           }
         }
       })
@@ -1609,59 +1477,9 @@ export default {
 }
 $color1:#959fb9;
 $color2:#000;
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
 
-// 分割样式
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  span {
-    display: block;
-    float: left;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  .add{
-    margin-left: 4px;
-    width: 26px;
-    height: 26px;
-    font-size: 22px;
-    line-height: 26px;
-    border: 1px solid red;
-    text-align: center;
-    color: red;
-    border-radius: 7px;
-    cursor: pointer;
-  }
-  .tooltip{
-    width: 15px;
-    height: 15px;
-    img{
-      display: block;
-    }
-  }
-}
 .pai-active{
-  margin: 30px 0 0;
+  margin: 16px 0 0;
 }
 
 .detail{
@@ -1686,28 +1504,6 @@ $color2:#000;
   width: 100%;
   margin-top: 5px;
 }
-.cardTable{
-  background-color: #fff;
-  table{
-    border: 1px solid #eee;
-    tr{
-      width: 100%;
-      td{
-        height: 40px;
-        text-align: center;
-        border: 1px solid #ddd;
-        word-break: break-all;
-      }
-      th{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #1D7BFF;
-        color: #fff;
-      }
-    }
-  }
-}
 
 .xuanxiangka{
   width: 100%;
@@ -1715,21 +1511,18 @@ $color2:#000;
   background-color: #fff;
   .xuan-1{
     width: 100%;
-    height: 60px;
     display: flex;
     li{
       height: 100%;
-      padding: 0 20px;
+      margin: 10px 12px;
       text-align: center;
-      line-height: 60px;
       color: $color2;
       display: flex;
       align-items: center;
       cursor: pointer;
       span{
         display: block;
-        height: 40px;
-        line-height: 40px;
+        padding-bottom: 10px;
       }
     }
     .active{
@@ -1743,7 +1536,7 @@ $color2:#000;
     height: auto;
     li{
       width: 100%;
-      padding: 20px;
+      padding: 10px 20px;
     }
     
   }
@@ -1795,12 +1588,12 @@ $color2:#000;
   .xuan-2-1-2{
     width: 100%;
     .xuan-2-1-2-1{
-      margin: 20px 20px;
+      margin: 16px 10px;
       display: flex;
       align-items: center;
       @include p-span;
       p{
-        padding-right: 50px;
+        padding-right: 20px;
       }
       .tooltip{
         width: 15px;
@@ -1841,108 +1634,6 @@ $color2:#000;
     }
   }
 }
-.xuan-2-2{
-  .xuan-2-2-1{
-    margin-bottom: 24px;
-    display: flex;
-    @include p-span;
-  }
-}
-.xuan-2-3{
-  display: flex;
-  .xuan-2-3-1{
-    width: 80%;
-    .xuan-2-3-1-1{
-      margin-bottom: 24px;
-      display: flex;
-      @include p-span;
-    }
-  }
-  .xuan-2-3-2{
-    width: 20%;
-    @include flex-cen;
-    .gongziimg{
-      width: 95%;
-    }
-  }
-}
-.xuan-2-4{
-  .xuan-2-4-1{
-    width: 100%;
-    height: auto;
-    margin-bottom: 24px;  
-    border-bottom: 1px solid #ddd;
-    .xuan-2-4-1-1{
-      color: #333;
-      display: flex;
-      width: 100%;
-      height: 40px;
-      line-height: 40px;
-      span{
-        display: block;
-        width: 4px;
-        height: 40px;
-        background-color: #1D7BFF;
-        border-radius: 5px;
-        margin: 0px 10px;
-
-      }      
-    }
-    .xuan-2-4-1-2{
-      display: flex;
-      @include p-span;
-    }
-  }
-  
-  
-}
-.xuan-2-5{
-  .bank-table{
-    background-color: #fff;
-    border: 1px solid #ddd;
-    tr{
-      width: 100%;
-      td{
-        width: 25%;
-        height: 40px;
-        text-align: center;
-        border: 1px solid #ddd;
-        word-break: break-all;
-      }
-      th{
-        width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #1D7BFF;
-        color: #fff;
-      }
-    }
-    
-  }
-}
-.xuan-2-6{
-  .loan-table{
-    background-color: #fff;
-    border: 1px solid #ddd;
-    tr{
-      width: 100%;
-      td{
-        word-break: break-all;
-        height: 40px;
-        text-align: center;
-        border: 1px solid #ddd;
-      }
-      th{
-        // width: 25%;
-        height: 40px;
-        text-align: center;
-        background-color: #1D7BFF;
-        color: #fff;
-      }
-    }
-    
-  }
-}
 
 .chushenjilu{
   width: 100%;
@@ -1950,16 +1641,16 @@ $color2:#000;
   background-color: #fff;
   padding: 20px 20px;
   .chu-title{
-    margin: 0px 0 20px;
+    margin: 10px 20px;
     font-size: 16px;
   }
   .chu-select{
-    margin: 20px 20px;
+    margin: 10px 20px;
     padding: 5px 0;
     display: flex;
     align-items: center;
     .chu-select-left{
-      width: 8%;
+      width: 12%;
     }
     .chu-select-right{
       width: 38%;
@@ -1972,14 +1663,14 @@ $color2:#000;
     }
   }
   .chu-select1{
-    margin: 20px 20px;
+    margin: 10px 20px;
     padding: 5px 0;
     display: flex;
     .chu-select-left{
-      width: 8%;
+      width: 12%;
     }
     .chu-select-right{
-      width: 90%;
+      width: 86%;
       .search_inpu{
         width: 100%;
         height: 150px;
@@ -2192,8 +1883,8 @@ $color2:#000;
   align-items: center;
 }
 .xuan-2-2-2-1{
-    width: 200px;
-    height: 110px;
-    margin-right: 40px;
-  }
+  width: 200px;
+  height: 110px;
+  margin-right: 40px;
+}
 </style>

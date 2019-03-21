@@ -4,16 +4,33 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/myCollectionOrderList'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('operationList.crumbsThree')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="crumbs" v-else>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsThree')}}</el-breadcrumb-item>
-      </el-breadcrumb>
+    <div v-if="type==2">
+      <div class="crumbs" v-if="from==1">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/otherBackAudit'}">{{$t('yn.no36')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="crumbs" v-else-if="from==2">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/badMannersAudit'}">{{$t('yn.no37')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="crumbs" v-else>
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
     </div>
+    
 
     <!-- ------------ 用户信息、借款信息开始------------------------ -->
     <div class="tabs mb20">
@@ -78,32 +95,30 @@
             <p><span>{{$t('public.no3')}}:</span>
               <span>{{$t($store.getters.marriage(data.orderUserSelf.marriage))}}</span> 
             </p>
-            <p >
-              <span>{{$t('auditDetail.no45')}}: </span>
-              <span>{{data.orderUserIdcard.ocrReligion | dataIsTrue}}</span> 
-            </p>
-            
-          </div> 
-          <div class="oneLineHasFour" v-if="$store.state.common.lang=='id'">
             <p><span>{{$t('public.no4')}}:</span>
               <span>{{$t($store.getters.birthState(data.orderUserSelf.bear))}}</span>
             </p>
-            <p >
-              <span>{{$t('auditDetail.no45')}}: </span>
-              <span>{{data.orderUserIdcard.ocrReligion | dataIsTrue}}</span>
+          </div> 
+          <div class="oneLineHasFour" v-if="$store.state.common.lang=='id'">
+            <p v-if="$store.state.common.lang==='id'">
+              <span>{{$t('yn.no27')}}:</span>
+              <span>{{data.orderUserWork.payDate | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('operationDetail.no1')}}:</span>
-              <span>{{data.orderUserIdcard.ocrAddress}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
             <p ><span>{{$t('public.no12')}}:</span>
               <span>{{data.orderUserWork.companyPhone | dataIsTrue}}</span>
             </p>
             <p><span>{{$t('public.no9')}}:</span>
               <span>{{data.orderUserWork.company | dataIsTrue}}</span>
             </p>
-            <p style="width:50%;" v-if="$store.state.common.lang==='vi'">
+            <p><span>Email:</span>
+              <span>{{data.orderUserSelf.email | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oneLineHasTwo">
+            <p><span>{{$t('operationDetail.no1')}}:</span>
+              <span>{{data.orderUserIdcard.ocrAddress | dataIsTrue}}</span>
+            </p>
+            <p v-if="$store.state.common.lang==='vi'">
               <span>faceBook:</span> 
               <span @click="openWindow(data.orderFacebook.fblink)" class="td-ul">{{data.orderFacebook.fblink | dataIsTrue}}</span>
             </p>
@@ -216,8 +231,11 @@
             <p><span>{{$t('public.CreateTime')}}: </span>
               <span >{{data.orderInfo.strMustRefundTime | dataIsTrue}}</span>
             </p>
+            <p v-if="$store.state.common.lang==='id'">
+              <span>{{$t('yn.no28')}}:</span>
+              <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
+            </p>
           </div> 
-          
         </li>
       </ul>
     </div>
@@ -305,10 +323,10 @@
               {{$t('public.no23')}}
             </div>
           </div>
-          <div class="paixu">
-            <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
-          </div>
           <template v-if="$store.state.common.lang==='vi'">
+            <div class="paixu">
+              <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
+            </div>
             <div class="xuan-2-9-1" v-if="data.orderFacebook.friendOneFblink">
               <el-radio-group v-model="fbContact" class="radio1">
                 <el-radio  :label="data.orderFacebook.friendOneName+','+'9'+','+data.orderFacebook.friendOnePhone">
@@ -365,7 +383,7 @@
             <address-list :get-address="getLinkMan" :order-no="orderNo"></address-list>
           </div>
         </li>
-        <!-- ------------ 公司电话开始------------------------ -->
+        <!-- ------------ 公司电话开始 ------------------------ -->
         <li class="xuan-2-9" v-if="active2==4">
           <div class="xuan-2-9-1">
             <template v-if="$store.state.common.lang==='vi'">
@@ -408,14 +426,22 @@
           </div>
         </li>
         <!-- ------------ 呼叫结果开始 ------------------------ -->
-        <li v-if="active2==5&&$store.state.common.lang!=='PHL'">
+        <li class="xuan-2-6" v-if="active2==5">
           <template v-if="orderNo">
             <group-busy-result :type="1" :order-no="orderNo"></group-busy-result>
           </template>
         </li>
+        <!-- ------------ 信审录音开始 ------------------------ -->
+        <li v-if="active2==6&&$store.state.common.lang==='id'">
+          <audit-record type="1" :orderId="data.orderInfo.id"></audit-record>
+        </li>
+        <!-- ------------ 催收录音开始 ------------------------ -->
+        <li v-if="active2==7&&$store.state.common.lang==='id'">
+          <audit-record type="2" :orderId="data.orderInfo.id"></audit-record>
+        </li>
       </ul>
     </div>
-
+    <div class="foot"></div>
     <!-- ------------ 电话催收、短信催收开始------------------------ -->
     <div class="tabs" v-if="type==1">
       <ul class="tabs_title">
@@ -426,6 +452,13 @@
       <ul class="tabs_main">
         <!-- --------------- 电话催收开始 ------------------------ -->
         <li  v-if="active3==1">
+          <el-button 
+            v-if="$store.state.common.lang==='id'" 
+            style="margin:0 0 16px 30px;" 
+            @click="openTelWindow"
+            >
+            {{$t('yn.no46')}}
+          </el-button>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
             <el-form-item :label="$t('operationDetail.no23')" prop="status">
               <el-select v-model="ruleForm.status" :placeholder="$t('public.placeholder')">
@@ -577,6 +610,7 @@ import appLightbox from '../../components/component/lightbox'// 图片点击放�
 import cuishouList from '../../components/component/cuishou'// 催收记录列表组件
 import addressList from '../../components/component/address'// 通讯录列表组件
 import groupBusyResult from '../../components/component/groupBusyResult'// 通讯录列表组件
+import auditRecord from '../../components/component/auditRecord'
 
 export default {
   name: 'Detail',
@@ -584,6 +618,7 @@ export default {
     appLightbox,
     cuishouList,
     groupBusyResult,
+    auditRecord,
     addressList
   },
   data () {
@@ -665,7 +700,10 @@ export default {
         remark:'',
       },
       phoneAuditLog:'',
-      phoneAuditLogTwo:''
+      phoneAuditLogTwo:'',
+      telHref:'',
+      telTip:false,
+      from:'',// 从哪个页面打开的
     }
   },
   computed: {
@@ -676,30 +714,38 @@ export default {
       ]
     },
     arr2 () {
-      return [
+      let arr = [
         {id: 1, title: this.$t('operationDetail.tab2.no1')},
         {id: 2, title: this.$t('operationDetail.tab2.no2')},
         {id: 3, title: this.$t('operationDetail.tab2.no3')},
         {id: 4, title: this.$t('public.no12')},
-        {id: 5, title: this.$t('new.no93')},
-      ]
+        {id: 5, title: this.$t('new.no93')}
+      ];
+      if(this.$store.state.common.lang==='id'){
+        if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_ELECTRIC_RECORDING')){
+          arr.push({id: 6, title: this.$t('yn.no35')})
+        }
+        if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_COLLECTION_RECORDING')){
+          arr.push({id: 7, title: this.$t('yn.no30')})
+        }
+      }
+      return  arr;
     },
     arr3 () {
       return [
         {id: 1, title: this.$t('operationDetail.tab3.no1')},
         {id: 2, title: this.$t('operationDetail.tab3.no2')},
         {id: 3, title: this.$t('operationDetail.tab3.no3')},
-        
       ]
     }
   },
   methods: {
     openBox: function (obj) { // 图片放大显示
-      this.currentObj = obj
-      this.lightBoxToggle = !this.lightBoxToggle
+      this.currentObj = obj;
+      this.lightBoxToggle = !this.lightBoxToggle;
     },
     closeBox: function () { // 图片放大关闭
-      this.lightBoxToggle = false
+      this.lightBoxToggle = false;
     },
     detail () { // 获取详情页数据
       let option = {
@@ -721,7 +767,6 @@ export default {
           this.data.userBase = res.data.data.userBase;
           this.data.orderExtra = res.data.data.orderExtra;
           this.data.orderUserSelf = res.data.data.orderUserSelf;
-          // this.data.collectionSmsTemplateList = res.data.data.collectionSmsTemplateList;
           this.data.collectionRecordList = res.data.data.collectionRecordList;
           this.data.orderUrgentContact = res.data.data.orderUrgentContact;
           this.data.companyContact = res.data.data.companyContact;
@@ -739,12 +784,12 @@ export default {
       // 判断联系人字段是否填写
       if(this.$store.state.common.lang==='vi'){
         if (this.emeContact === '' && this.contact === ''&&this.fbContact === '') {
-          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
           return
         }
       }else{
         if (this.emeContact === '' && this.contact === '') {
-          this.$globalMsg.error(this.$t('operationDetail.no28'))
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
           return
         }
       }
@@ -752,7 +797,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.ruleForm.promise == 1 && this.ruleForm.promiseTime == '') {
-            this.$globalMsg.error(this.$t('operationDetail.no27'))
+            this.$globalMsg.error(this.$t('operationDetail.no27'));
             return
           }
           if (this.flag) {
@@ -770,37 +815,36 @@ export default {
             this.$axios.post('', option).then(res => {
               this.flag = true
               if (res.data.header.code == 0) {
-                this.$globalMsg.success(this.$t('message.success'))
+                this.$globalMsg.success(this.$t('message.success'));
                 setTimeout(() => {
-                  this.$router.push('/myCollectionOrderList')
+                  this.$router.push('/myCollectionOrderList');
                 }, 1000)
               } else {
-                this.$globalMsg.error(res.data.header.msg)
+                this.$globalMsg.error(res.data.header.msg);
               }
-              this.emeContact = ''
-              this.contact = ''
-              this.ruleForm.remark = ''
-              this.ruleForm.status = ''
-              this.ruleForm.promiseTime = ''
-                // this.ruleForm.promise = '';
+              this.emeContact = '';
+              this.contact = '';
+              this.ruleForm.remark = '';
+              this.ruleForm.status = '';
+              this.ruleForm.promiseTime = '';
             })
           }
         } else {
-          return false
+          return false;
         }
       })
     },
     noteSubmit () { // 短信模版发送
       if (this.emeContact === '' && this.contact === '') {
-        this.$globalMsg.error(this.$t('operationDetail.no28'))
+        this.$globalMsg.error(this.$t('operationDetail.no28'));
         return
       }
       if (this.noteSel === '') {
-        this.$globalMsg.error(this.$t('operationDetail.no29'))
+        this.$globalMsg.error(this.$t('operationDetail.no29'));
         return
       }
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
@@ -817,16 +861,16 @@ export default {
         this.$axios.post('', option).then(res => {
           this.flag = true
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('message.success'))
+            this.$globalMsg.success(this.$t('message.success'));
             setTimeout(() => {
-              this.$router.push('/cuishoudetail')
+              this.$router.push('/cuishoudetail');
             }, 1000)
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.emeContact = ''
-          this.contact = ''
-          this.noteSel = ''
+          this.emeContact = '';
+          this.contact = '';
+          this.noteSel = '';
         })
       }
     },
@@ -919,49 +963,75 @@ export default {
       if(href){
         window.open(href);
       }
+    },
+    openTelWindow(){
+      if (this.emeContact === '' && this.contact === '') {
+        this.$globalMsg.error(this.$t('operationDetail.no28'))
+        return
+      }
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.TELEPHONE0001,
+          'sessionid': this.sessionid
+        },
+        orderId:this.orderId,
+        phone:this.ruleForm.contactPhone,
+        type:2
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.telHref = 'sip:'+this.ruleForm.contactPhone+','+res.data.data;
+          window.location.href = this.telHref;
+        }else{
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
     }
   },
   watch: {
     emeContact () {
       if (this.emeContact !== '') {
-        this.contact = ''
-        this.fbContact = ''
-        let arr = String(this.emeContact).split(',')
-        this.ruleForm.contactName = arr[0]
-        this.ruleForm.relation = arr[1]
-        this.ruleForm.contactPhone = arr[2]
+        this.contact = '';
+        this.fbContact = '';
+        let arr = String(this.emeContact).split(',');
+        this.ruleForm.contactName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.contactPhone = arr[2];
       }
     },
     contact () {
       if (this.contact !== '') {
-        this.emeContact = ''
-        this.fbContact = ''
-        let arr = String(this.contact).split(',')
-        this.ruleForm.contactName = arr[0]
-        this.ruleForm.relation = arr[1]
-        this.ruleForm.contactPhone = arr[2]
+        this.emeContact = '';
+        this.fbContact = '';
+        let arr = String(this.contact).split(',');
+        this.ruleForm.contactName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.contactPhone = arr[2];
       }
     },
     fbContact () {
       if (this.fbContact !== '') {
-        this.emeContact = ''
-        this.contact = ''
-        let arr = String(this.fbContact).split(',')
-        this.ruleForm.contactName = arr[0]
-        this.ruleForm.relation = arr[1]
-        this.ruleForm.contactPhone = arr[2]
+        this.emeContact = '';
+        this.contact = '';
+        let arr = String(this.fbContact).split(',');
+        this.ruleForm.contactName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.contactPhone = arr[2];
       }
     },
     'ruleForm.promise' () {
       if (this.ruleForm.promise === -1) {
-        this.ruleForm.promiseTime = ''
+        this.ruleForm.promiseTime = '';
       }
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.orderNo = this.$route.query.orderNo
-    this.type = this.$route.query.type
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.orderNo = this.$route.query.orderNo;
+    this.orderId = this.$route.query.orderId;
+    this.type = this.$route.query.type;
+    this.from = this.$route.query.from;
     this.detail();
     
   }
@@ -990,7 +1060,7 @@ export default {
 }
 
 .foot{
-  height: 40px;
+  height: 16px;
 }
 
 .back{
@@ -1030,16 +1100,5 @@ export default {
   user-select: text;
 }
 
-.xuan-2-1-2{
-  width: 100%;
-  .xuan-2-1-2-1{
-    margin: 20px 20px;
-    display: flex;
-    align-items: center;
-    @include p-span;
-    p{
-      padding-right: 50px;
-    }
-  }
-}
+
 </style>

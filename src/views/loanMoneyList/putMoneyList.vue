@@ -39,6 +39,12 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <template v-if="$store.state.common.lang==='vi'">
           <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
@@ -134,6 +140,10 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="productPeriod" :label="$t('fei.no17')" >
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no82')" width="86">
@@ -143,7 +153,7 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope" >
               <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'" class="table_opr"  @click="sure(scope.row.orderNo)">{{$t('public.no67')}}</span>
               <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_SHOW')" class="table_opr"  @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.no29')}}</span>

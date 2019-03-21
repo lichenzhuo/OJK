@@ -8,70 +8,76 @@
     <ul class="tabs_main">
       <li  v-if="active2==1">
         <div class="oneLineHasFour">
-          <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName | dataIsTrue}}</span> </p>
-          <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage | dataIsTrue}}</span> </p>
+          <p><span>{{$t('new.no48')}}:</span><span>{{data.userBase.appName | dataIsTrue}}</span></p>
+          <p><span>{{$t('new.no49')}}:</span><span>{{data.userBase.appPackage | dataIsTrue}}</span></p>
           <p >
             <span>{{$t('new.no55')}}:</span>
             <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
           </p>
+          <p><span>{{$t('yn.no27')}}:</span>
+            <span>{{data.userWork.payDate | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasFour">
-          <p><span>{{$t('public.userId')}}:</span> <span>{{data.userBase.id | dataIsTrue}}</span> </p>
-          <p><span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name | dataIsTrue}}</span> </p>
-          <p><span>{{$t('public.no2')}}:</span> <span>{{data.userIdcard.idCard | dataIsTrue}}</span> </p>
-          <p><span>{{$t('public.userTel')}}:</span> <span>{{data.userBase.phone | dataIsTrue}}</span> </p>
+          <p><span>{{$t('public.userId')}}:</span><span>{{data.userBase.id | dataIsTrue}}</span></p>
+          <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
+          <p><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
+          <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span></p>
         </div>
         <div class="oneLineHasFour">
           <p>
-            <span>{{$t('public.sex')}}:</span> 
+            <span>{{$t('public.sex')}}:</span>
             <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
           </p>
-          <p><span>{{$t('public.no3')}}: </span>
+          <p><span>{{$t('public.no3')}}:</span>
             <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
           </p>
-        
-          <p><span>{{$t('public.no4')}}: </span>
+          <p><span>{{$t('public.no4')}}:</span>
             <span>{{$t($store.getters.birthState(data.userSelf.bear))}}</span>
           </p>
-          <p><span>{{$t('public.no5')}}: </span>
+          <p><span>{{$t('public.no5')}}:</span>
             <span>{{$t($store.getters.education(data.userSelf.degree))}}</span>
           </p>
         </div>
         <div class="oneLineHasFour">
-          <p>
-            <span>{{$t('auditDetail.no45')}}:</span> 
+          <p><span>{{$t('auditDetail.no45')}}:</span>
             <span>{{data.userIdcard.ocrReligion | dataIsTrue}}</span>
           </p>
-          <p><span>{{$t('public.no8')}}:</span> 
+          <p><span>{{$t('public.no8')}}:</span>
             <span>{{$t($store.getters.liveTime(data.userSelf.liveTime))}}</span>
           </p>                      
-          <p >
-            <span>{{$t('public.birthday')}}:</span>
+          <p><span>{{$t('public.birthday')}}:</span>
             <span>{{data.userSelf.birthday | dataIsTrue}}</span>
           </p>
-          <p >
-            <span>{{$t('new.no56')}}:</span>
+          <p><span>{{$t('new.no56')}}:</span>
             <span>{{$store.getters.getAge(data.userSelf.birthday)}}</span>
           </p>
         </div>
-        <div class="oneLineHasOne">
-            <p><span>{{$t('public.no6')}}: </span>
-              <span>{{data.userSelf.liveProvinceName+'-'+data.userSelf.liveCityName}}</span>
-            </p>
+        <div class="oneLineHasFour">
+          <p><span>Email:</span>
+            <span>{{data.userSelf.email | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasOne">
-          <p><span>{{$t('public.no7')}}:</span> <span>{{data.userSelf.liveAddress | dataIsTrue}}</span> </p>
+          <p><span>{{$t('public.no6')}}:</span>
+            <span>{{data.userSelf.liveProvinceName | dataIsTrue}}-{{data.userSelf.liveCityName | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasOne">
-          <p><span>{{$t('public.no34')}}:</span> <span>{{data.order.orderAddress | dataIsTrue}}</span> </p>
+          <p><span>{{$t('public.no7')}}:</span><span>{{data.userSelf.liveAddress | dataIsTrue}}</span></p>
+        </div>
+        <div class="oneLineHasOne">
+          <p><span>{{$t('public.no34')}}:</span><span>{{data.order.orderAddress | dataIsTrue}}</span></p>
         </div>
       </li>
       <li  v-if="active2==2">
         <div class="oneLineHasFour">
-          <p><span>{{$t('new.no48')}}:</span> 
-          <span>{{data.orderExtra.appName | dataIsTrue}}</span> </p>
+          <p><span>{{$t('new.no48')}}:</span>
+          <span>{{data.orderExtra.appName | dataIsTrue}}</span></p>
           <p><span>{{$t('new.no49')}}:</span>
-          <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
+          <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
+          <p><span>{{$t('yn.no28')}}:</span>
+          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('operationDetail.no2')}}:</span>

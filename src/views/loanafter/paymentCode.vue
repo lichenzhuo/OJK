@@ -88,7 +88,7 @@
           </el-table-column>
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
             <template slot-scope="scope">
-              <span>{{scope.row.payType=='atm'?scope.row.bankName:scope.row.payType}}</span>
+              <span>{{scope.row.bankName?scope.row.bankName:scope.row.payType}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="paymentCode" :label="$t('loanAfterManage.paycode')">
@@ -123,7 +123,7 @@
         </div>
     </el-row>
 
-    <!-- ------------------确认是否修改开始-------------------- -->
+    <!-- ------------------生成还款码开始-------------------- -->
     <el-dialog :title="$t('loanAfterManage.addPaycode')" :visible.sync="addCodeFlag" width="650px">
       <div class="left2right">
         <span class="left">{{$t('public.orderId')}}:</span>
@@ -255,7 +255,7 @@ export default {
             this.payCodeList();// 获取每日催回统计列表
             
           } else {
-            this.$globalMsg.error(this.$t('message.warning'));
+            this.$globalMsg.error(res.data.header.msg);
           }
           this.addClose();
         })

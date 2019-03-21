@@ -13,129 +13,125 @@
       <p>{{$t('proManage.title')}}</p>
     </div>
 
-    <!-- ------------搜索查询栏开始-------------- -->
-    <div class="search">
-      <el-row type="flex" justify="start" align="middle">
-        <div class="search-input">
-          <span>{{$t('new.no48')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-        <div class="search-input">
-          <span>{{$t('new.no49')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
-        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-        </div>
-      </el-row>
-    </div>
-
-    <!-- v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" -->
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')">
       <el-button 
-        type="primary" 
-        v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" 
-        @click="addProduct">
-        {{$t('proManage.add')}}
-      </el-button>
-      <!-- <el-button 
-      v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')" 
-      type="primary" 
-      @click.stop="copyPro">
-      {{$t('proManage.copyPro')}}
-      </el-button> -->
-      <el-button 
-        type="primary" 
-        @click.stop="addBao">
-        {{$t('proManage.addBao')}}
+      type="primary"
+      @click.stop="addBao">
+      {{$t('proManage.addBao')}}
       </el-button>
     </div>
 
+    <div class="tableList">
+      <ul>
+        <li v-for="(item,index) in tableData" :key="index">
+          <div v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')" class="delButton" @click="delPro(item.id)">×</div>
+          <div class="product-all" >
+            <p>
+              <span>产品名称</span>
+              <span>{{item.appName}}</span>
+            </p>
+            <p>
+              <span v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')" class="cp" @click="copyloans(item.appPackage)">{{$t('proManage.copyPro')}}</span>
+              <span>&nbsp;</span>
+              <span class="cp" style="color:#1D7BFF;"  @click="modifyProduct(item.id)">修改数据</span>
+            </p>
+          </div>
+          <div class="product">
+            <div class="product-1">
+              <div class="pro-title">
+                {{item.productAmountMax?item.productAmountMax+''+$store.state.common.vi_currency:$store.state.common.nullData}}
+                <div class="pro-mini-title">
+                  <div class="money pic">
+                    <img src="../../assets/img/money.png" alt="">
+                  </div>
+                  <span>{{$t('proManage.productAmount')}}</span>
+                </div>
+              </div>
+              <div class="block">
+                <el-slider v-model="value1[index]" :step="item.productAmountPer" :min="item.productAmountMin" :max="item.productAmountMax"></el-slider>
+              </div>
+              <div class="scope">
+                <span>{{item.productAmountMin?item.productAmountMin+''+$store.state.common.vi_currency:$store.state.common.nullData}}</span>
+                <span>{{item.productAmountMax?item.productAmountMax+''+$store.state.common.vi_currency:$store.state.common.nullData}}</span>
+              </div>
+            </div>
+            <div class="product-1">
+              <div class="pro-title">
+                {{item.productPeriodMax?item.productPeriodMax+'day':$store.state.common.nullData}}
+                <div class="pro-mini-title">
+                  <div class="money pic">
+                    <img src="../../assets/img/time.png" alt="">
+                  </div>
+                  <span>{{$t('proManage.period')}}</span>
+                </div>
+              </div>
+              <div class="block">
+                <el-slider v-model="value2[index]" :step="item.productPeriodPer" :min="item.productPeriodMin" :max="item.productPeriodMax"></el-slider>
+              </div>
+              <div class="scope bottom-border">
+                <span>{{item.productPeriodMin?item.productPeriodMin+'day':$store.state.common.nullData}}</span>
+                <span>{{item.productPeriodMax?item.productPeriodMax+'day':$store.state.common.nullData}}</span>
+              </div>
+            </div>
+          </div>
+          <!-- 越南版的滑块产品结束 -->
 
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_LIST')">
-      <template>
-        <el-table :data="tableData" size="small" stripe >
-          <el-table-column align="center" prop="id" label="产品ID">
-          </el-table-column>
-          <el-table-column align="center" prop="loanAmount" label="借款本金">
-            <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="借款周期">
-          </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="分期期数">
-          </el-table-column>
-          <el-table-column align="center" prop="dayInterest" label="日利率">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.dayInterest)}}%</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="feeRate" label="服务费率">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.feeRate)}}%</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="userGrade" label="逾期费率">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.overdueInterest)}}%</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="overdueMaxRate" label="逾期封顶">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.overdueMaxRate)}}%</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="overdueMaxDays" label="逾期管理费">
-          </el-table-column>
-          <el-table-column align="center" prop="minSuccessRepayments" label="要求成功还款次数">
-          </el-table-column>
-          <el-table-column align="center" prop="userOverdueMaxDays" label="要求最大逾期天数">
-          </el-table-column>
-          <el-table-column align="center" prop="appName" label="APP名">
-          </el-table-column>
-          <el-table-column align="center" prop="appPackage" label="APP包名">
-          </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" label="操作" min-width="180">
-            <template slot-scope="scope">
-              <span 
-                class="table_opr"
-                @click="modifyProduct(scope.row.id)">
-                {{$t('public.no51')}}
-              </span>
-              <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')"
-                class="table_opr"
-                @click="copyloans(scope.row.appPackage)">
-                {{$t('proManage.copyPro')}}
-              </span>
-              <span 
-                class="table_opr" 
-                @click="delPro(scope.row.id)"
-                v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"
-                >{{$t('idManage.del')}}
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </template>
+          <!-- 越南版的滑块产品开始 -->
+          <div class="product-bottom">
+            <p>
+              <span>{{$t('proManage.dayInterest')}}</span>
+              <span v-if="item.dayInterest!==null&&item.dayInterest!==undefined&&item.dayInterest!==''">{{$store.getters.twoPoint(item.dayInterest)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            <p>
+              <span>{{$t('proManage.feeRate')}}</span>
+              <span v-if="item.feeRate!==null&&item.feeRate!==undefined&&item.feeRate!==''">{{$store.getters.twoPoint(item.feeRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            <p>
+              <span>{{$t('proManage.overdueInterest')}}</span>
+              <span v-if="item.overdueInterest!==null&&item.overdueInterest!==undefined&&item.overdueInterest!==''">{{$store.getters.twoPoint(item.overdueInterest)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            
+            
+          </div>
+          <div class="product-bottom">
+            <p>
+              <span>{{$t('proManage.overdueMaxAmount')}}</span>
+              <span v-if="item.overdueMaxRate!==null&&item.overdueMaxRate!==undefined&&item.overdueMaxRate!==''">{{$store.getters.twoPoint(item.overdueMaxRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            <p>
+              <span>{{$t('proManage.overdueMaxDays')}}</span>
+              <span v-if="item.overdueMaxDays!==null&&item.overdueMaxDays!==undefined&&item.overdueMaxDays!==''">{{item.overdueMaxDays}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            <!-- <p>
+              <span>{{$t('fei.xianzhi')}}</span>
+              <span v-if="item.limitAmount!==null&&item.limitAmount!==undefined&&item.limitAmount!==''">{{item.limitAmount}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p> -->
+          </div>
+          <div class="product-bottom">
+            <p>
+              <span>{{$t('proManage.canAdvanceType')}}</span>
+              <span v-if="item.canAdvanceType!==null&&item.canAdvanceType!==undefined&&item.canAdvanceType!==''">{{item.canAdvanceType==1?$t('new.no47'):$t('new.no46')}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+            <p>
+              <span>{{$t('proManage.canAdvanceDay')}}</span>
+              <span v-if="item.canAdvanceDay!==null&&item.canAdvanceDay!==undefined&&item.canAdvanceDay!==''">{{item.canAdvanceDay}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </p>
+          </div>
+        </li>
+        <li v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_ADD')" class="addPro" @click="addProduct">
+          <span class="cp">+</span>
+        </li>
+      </ul>
     </div>
-    <el-row  type="flex" justify="end">
-      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_LIST')">
-        <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          layout="total, prev, pager, next, ->"
-          :total="pageTotal?pageTotal:0">
-        </el-pagination>
-      </div>
-    </el-row>
+
     <!-- ----------------------确认是否删除开始------------------ -->
     <el-dialog :title="$t('public.no48')" :visible.sync="del" width="550px">
       <div class="left2right">
@@ -145,65 +141,67 @@
       <div class="left2right mt15">
         <span class="left"></span>
         <span class="right">
-          <el-button type="primary" @click="delSure">{{$t('public.no49')}}</el-button>
+          <el-button type="primary" @click="delSure()">{{$t('public.no49')}}</el-button>
         </span>
       </div>
     </el-dialog>
-    <!-- ---------------------- 确认是否删除结束 ------------------- -->
+    <!-- ----------------------确认是否删除结束------------------- -->
     
-    <!-- ---------------------- 添加修改产品开始 ------------------ -->
+    <!-- ----------------------确认是否上架开始------------------ -->
     <el-dialog :title="addOrEdit=='edit'?$t('proManage.edit'):$t('proManage.add')" :visible.sync="add" width="550px">
-      <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm" label-width="140px">
+      <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm2" label-width="140px" class="demo-ruleForm">
         <el-form-item :label="$t('new.no49')" prop="appPackage">
           <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名">
             <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="借款本金" prop="productAmountMax">
-            <el-input type="text" v-model="ruleForm2.productAmountMax" ></el-input>
+        <el-form-item :label="$t('yuenan.product.no1')" prop="productAmountMin">
+            <el-input type="user" v-model="ruleForm2.productAmountMin" auto-complete="off"></el-input>
         </el-form-item>
-       <el-form-item label="借款周期" prop="productPeriodMax">
-            <el-input type="text" v-model="ruleForm2.productPeriodMax" ></el-input>
+       <el-form-item :label="$t('yuenan.product.no2')" prop="productAmountMax">
+            <el-input type="user" v-model="ruleForm2.productAmountMax" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="服务费率" prop="feeRate">
-            <el-input type="text" v-model="ruleForm2.feeRate" ></el-input>
+        <el-form-item :label="$t('yuenan.product.no3')" prop="productAmountPer">
+            <el-input type="user" v-model="ruleForm2.productAmountPer" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="逾期费率" prop="overdueInterest">
-          <el-input type="text" v-model="ruleForm2.overdueInterest" ></el-input>
+        <el-form-item :label="$t('yuenan.product.no4')" prop="productPeriodMin">
+            <el-input type="user" v-model="ruleForm2.productPeriodMin" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="逾期封顶" prop="overdueMaxRate">
-          <el-input type="text" v-model="ruleForm2.overdueMaxRate" ></el-input>
+        <el-form-item :label="$t('yuenan.product.no5')" prop="productPeriodMax">
+            <el-input type="user" v-model="ruleForm2.productPeriodMax" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="分期期数" prop="instalment">
-          <el-input type="text" v-model="ruleForm2.instalment" ></el-input>
+        <el-form-item :label="$t('yuenan.product.no6')" prop="productPeriodPer">
+            <el-input type="user" v-model="ruleForm2.productPeriodPer" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="日利率" prop="dayInterest">
-          <el-input type="text" v-model="ruleForm2.dayInterest" ></el-input>
+        <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
+            <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="逾期管理费" prop="overdueServiceFee">
-          <el-input type="text" v-model="ruleForm2.overdueServiceFee" ></el-input>
+        <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
+          <el-input type="text" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="最多逾期天数" prop="overdueMaxDays">
-          <el-input type="text" v-model="ruleForm2.overdueMaxDays" ></el-input>
+        <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
+          <el-input type="text" v-model="ruleForm2.overdueInterest" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="可提前还款天数" prop="canAdvanceDay">
-          <el-input type="text" v-model="ruleForm2.canAdvanceDay" ></el-input>
+        <el-form-item :label="$t('proManage.overdueMaxAmount')" prop="overdueMaxRate">
+          <el-input type="text" v-model="ruleForm2.overdueMaxRate" auto-complete="off"></el-input>
         </el-form-item>
-        <p class="mb20">*用户要求（用户需满足以下要求才能申请该产品）</p>
-        <el-form-item label="成功还款次数" prop="minSuccessRepayments">
-          <el-input type="text" v-model="ruleForm2.minSuccessRepayments" ></el-input>
+        <el-form-item :label="$t('proManage.canAdvanceType')" prop="canAdvanceType">
+          <el-select v-model="ruleForm2.canAdvanceType" placeholder="请选择可提前还款类型">
+            <el-option label="固定天数" value="1"></el-option>
+            <el-option label="按比例" value="2"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="要求最大逾期天数" prop="userOverdueMaxDays">
-          <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" ></el-input>
+        <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
+          <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">{{$t('public.no41')}}</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
             <el-button @click="addclose">{{$t('public.no50')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
-    <!-- ---------------------- 添加修改产品结束 ------------------- -->
+    <!-- ----------------------确认是否上架结束------------------- -->
 
     <!-- ------------------复制包名开始-------------------- -->
     <el-dialog :title="$t('proManage.copyPro')" :visible.sync="dialogCopyVisible"  width="600px">
@@ -294,47 +292,52 @@ export default{
       pageTotal: 0, // 分页总数
       currentPage: 1, // 当前页下标
       productId: '', // 选中的产品ID
-      dialogCopyVisible: false,
-      dialogAddVisible: false,
       ruleForm2: {
-        appPackage: '',
+        productAmountMin: '',
         productAmountMax: '',
+        productAmountPer: '',
+        productPeriodMin: '',
         productPeriodMax: '',
+        productPeriodPer: '',
+        dayInterest: '',
         feeRate: '',
+        overdueMaxDays: '',
+        canAdvanceDay: '',
         overdueInterest: '',
         overdueMaxRate: '',
-        instalment:'',
-        dayInterest:'',
-        overdueServiceFee:'',
-        overdueMaxDays:'',
-        canAdvanceDay:'',
-        minSuccessRepayments: '',
-        userOverdueMaxDays: '',
+        canAdvanceType: '',
+        appPackage: '',
       },
       rules: {// 验证规则
+        productAmountMin: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
         productAmountMax: [
+          { validator: validateFloat, trigger: 'blur' }
+        ],
+        productAmountPer: [
+          { validator: validateNumber1, trigger: 'blur' }
+        ],
+        productPeriodMin: [
           { validator: validateNumber, trigger: 'blur' }
         ],
         productPeriodMax: [
           { validator: validateNumber, trigger: 'blur' }
         ],
+        productPeriodPer: [
+          { validator: validateNumber1, trigger: 'blur' }
+        ],
         feeRate: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        overdueInterest: [
+        dayInterest: [
           { validator: validateFloat, trigger: 'blur' }
         ],
         overdueMaxRate: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        instalment: [
-          { validator: validateNumber, trigger: 'blur' }
-        ],
-        dayInterest: [
+        overdueInterest: [
           { validator: validateFloat, trigger: 'blur' }
-        ],
-        overdueServiceFee: [
-          { validator: validateNumber, trigger: 'blur' }
         ],
         overdueMaxDays: [
           { validator: validateNumber, trigger: 'blur' }
@@ -342,24 +345,39 @@ export default{
         canAdvanceDay: [
           { validator: validateFloat, trigger: 'blur' }
         ],
-        minSuccessRepayments: [
+        limitAmount: [
           { validator: validateNumber1, trigger: 'blur' }
         ],
-        userOverdueMaxDays: [
-          { validator: validateNumber1, trigger: 'blur' }
+        canAdvanceType: [
+          { required: true, message: '请选择可提前还款类型', trigger: 'change' }
         ],
         appPackage: [
           { required: true, trigger: 'change' }
         ]
       },
-      tableData: [],
+      value1: {}, // 滑块1选中值
+      value2: {}, // 滑块2选中值
+      tableData: {
+        productAmountPer: 0,
+        productAmountMin: 0,
+        productAmountMax: 0,
+        productPeriodPer: 0,
+        productPeriodMin: 0,
+        productPeriodMax: 0
+      }, // 数据模拟
+      table_data:[
+      ],
       del: false, // 删除弹窗
+      modify: false, // 修改弹窗
       add: false, // 添加弹窗
       delId: '', // 删除目标行数对应的id
       modifyId: '', // 修改目标行数对应的id
+      pushId: '', // 上架目标行数对应的id
+      proAll: '',
       addOrEdit: '',
       appNameOption: [], // APP名字下拉框
-      options3: [], // APP名字下拉框
+      dialogCopyVisible: false,
+      dialogAddVisible: false,
       copyOption1:[],// 有数据的包名下拉框
       copyOption2:[],// 没有数据的包名下拉框
       copyForm:{
@@ -370,28 +388,14 @@ export default{
         appPackage:'',
         appName:''
       },
-      formInline: {
-        appName: '',
-        appPackage: ''
-      },
     }
   },
   methods: {
-    handleCurrentChange (val) { // 分页按钮第几页
-      this.currentPage = val;
-      this.proInfor();
-    },
-    select(){
-      if(this.flag){
-        this.currentPage = 1;
-        this.proInfor();
-      }
-    },
     delPro (id) { // 删除按钮弹窗
       this.del = true
       this.delId = id
     },
-    addProduct () { // 添加按钮弹窗
+    addProduct () { // 修改按钮弹窗
       this.addOrEdit = 'add';
       this.add = true;
     },
@@ -411,48 +415,32 @@ export default{
         }else{
           this.$globalMsg.error(this.$t('idManage.no4'));
         }
-        this.del = false;
+        this.del = false
       })
     },
-    modifyProduct (id) { // 产品修改弹窗
+    modifyProduct (id) { // 产品添加功能
       this.addOrEdit = 'edit';
       this.productId = id;
-      this.proData (id);
+      this.proData ();
+      this.add = true;
     },
     addclose () {
       this.add = false;
-      this.$refs.ruleForm.resetFields();
-      this.ruleForm2 = {
-        appPackage: '',
-        productAmountMax: '',
-        productPeriodMax: '',
-        feeRate: '',
-        overdueInterest: '',
-        overdueMaxRate: '',
-        instalment:'',
-        dayInterest:'',
-        overdueServiceFee:'',
-        overdueMaxDays:'',
-        canAdvanceDay:'',
-        minSuccessRepayments: '',
-        userOverdueMaxDays: '',
-      };
+      this.ruleForm2 = {};
     },
     proInfor () { // 获取产品详情
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.pro_list,
-          'page': {'index': this.currentPage, 'size': 10},
+          'page': {'index': 1, 'size': 500},
           'sessionid': this.sessionid
-        },
-        ...this.formInline
+        }
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if (res.data.data) {
             this.tableData = res.data.data;
-            this.pageTotal = res.data.header.page.total;
           }
         }
       })
@@ -467,26 +455,25 @@ export default{
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.package;
+          let arr = res.data.data.package
           arr.forEach(value => {
-            this.appNameOption.push({value: value.optionValue, label: value.optionValue});
-            this.options3.push({value: value.optionName, label: value.optionName});
+            this.appNameOption.push({value: value.optionValue, label: value.optionValue})
           })
         }
       })
-    },
-    addBao(){
-      this.dialogAddVisible = true;
-      this.addForm = {
-        appPackage:'',
-        appName:''
-      }
     },
     copyloans(appPackage){
       this.dialogCopyVisible = true;
       this.copyForm = {
         appPackageOld:appPackage,
         appPackageNew:''
+      }
+    },
+    addBao(){
+      this.dialogAddVisible = true;
+      this.addForm = {
+        appPackage:'',
+        appName:''
       }
     },
     copySure(){
@@ -500,12 +487,12 @@ export default{
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'));
-          this.proInfor();
-          this.getAppBao(2);
+          this.$globalMsg.success(this.$t('message.success'))
+          this.proInfor()
+          this.getAppBao(2)
           this.dialogCopyVisible = false;
         } else {
-          this.$globalMsg.error(this.$t('idManage.err'));
+          this.$globalMsg.error(this.$t('idManage.err'))
         }
       })
     },
@@ -520,11 +507,11 @@ export default{
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'));
-          this.getAppBao(2);
+          this.$globalMsg.success(this.$t('message.success'))
+          this.getAppBao(2)
           this.dialogAddVisible = false;
         } else {
-          this.$globalMsg.error(this.$t('idManage.err'));
+          this.$globalMsg.error(this.$t('idManage.err'))
         }
       })
     },
@@ -543,32 +530,27 @@ export default{
         if (res.data.header.code == 0) {
           if(type==1){
             res.data.data.forEach(value=>{
-              this.copyOption1.push({value:value,label:value});
+              this.copyOption1.push({value:value,label:value})
             })
           }
           if(type==2){
             res.data.data.forEach(value=>{
-              this.copyOption2.push({value:value,label:value});
+              this.copyOption2.push({value:value,label:value})
             })
           }
         }
       })
     },
-    submitForm (formName) {// 修改添加提交操作
+    submitForm (formName) {
       let option = {
         header: {
-          action: this.$store.state.actionMap.PRODUCT0002PH,
+          action: this.$store.state.actionMap.fpl_pro_add_modify,
           ...this.$base,
           sessionid: this.sessionid
         },
-        method: this.addOrEdit=='edit'?'edit':'add',
-        id: this.addOrEdit=='edit'?this.productId:undefined,
-        ...this.ruleForm2,
-        productAmountMin:this.ruleForm2.productAmountMax,
-        productAmountPer:this.ruleForm2.productAmountMax,
-        productPeriodMin:this.ruleForm2.productPeriodMax,
-        productPeriodPer:this.ruleForm2.productPeriodMax,
-        canAdvanceType:'1',
+        method: this.type=='edit'?'edit':'add',
+        id: this.type=='edit'?this.productId:undefined,
+        ...this.ruleForm2
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -581,36 +563,38 @@ export default{
             this.addclose();
             this.proInfor();
           })
+        } else {
+          return false;
         }
       })
     },
-    proData (id) {// 根据产品ID查询产品数据
+    proData () {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.PRODUCT0003PH,
+          action: this.$store.state.actionMap.fpl_pro_list,
           'page': {'index': 1, 'size': 10},
           'sessionid': this.sessionid
         },
-        id
+        id:this.productId
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           if (res.data.data) {
-            this.ruleForm2.appPackage = res.data.data.appPackage;
-            this.ruleForm2.productAmountMax = res.data.data.productAmountMax;
-            this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax;
-            this.ruleForm2.feeRate = res.data.data.feeRate;
-            this.ruleForm2.overdueInterest = res.data.data.overdueInterest;
-            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate;
-            this.ruleForm2.instalment = res.data.data.instalment;
-            this.ruleForm2.dayInterest = res.data.data.dayInterest;
-            this.ruleForm2.overdueServiceFee = res.data.data.overdueServiceFee;
-            this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays;
-            this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay;
-            this.ruleForm2.minSuccessRepayments = res.data.data.minSuccessRepayments;
-            this.ruleForm2.userOverdueMaxDays = res.data.data.userOverdueMaxDays;
-            this.add = true;
+            this.ruleForm2.productAmountMin = res.data.data.productAmountMin
+            this.ruleForm2.productAmountMax = res.data.data.productAmountMax
+            this.ruleForm2.productAmountPer = res.data.data.productAmountPer
+            this.ruleForm2.productPeriodMin = res.data.data.productPeriodMin
+            this.ruleForm2.productPeriodMax = res.data.data.productPeriodMax
+            this.ruleForm2.productPeriodPer = res.data.data.productPeriodPer
+            this.ruleForm2.dayInterest = res.data.data.dayInterest
+            this.ruleForm2.feeRate = res.data.data.feeRate
+            this.ruleForm2.overdueMaxDays = res.data.data.overdueMaxDays
+            this.ruleForm2.canAdvanceDay = res.data.data.canAdvanceDay
+            this.ruleForm2.overdueMaxRate = res.data.data.overdueMaxRate
+            this.ruleForm2.overdueInterest = res.data.data.overdueInterest
+            this.ruleForm2.canAdvanceType = String(res.data.data.canAdvanceType)
+            this.ruleForm2.appPackage = res.data.data.appPackage
           }
         }
       })
@@ -632,6 +616,20 @@ export default{
 }
 </script>
 <style scoped lang="scss">
+.delButton{
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background-color: rgba(0,0,0,0.7);
+  color: #fff;
+  font-size: 26px;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  cursor: pointer;
+}
 .tableList{
   width: 100%;
   height: auto;
@@ -649,20 +647,6 @@ export default{
   }
 }
 
-.delButton{
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  background-color: rgba(0,0,0,0.7);
-  color: #fff;
-  font-size: 26px;
-  right: 0;
-  top: 0;
-  z-index: 1;
-  cursor: pointer;
-}
 .addPro{
   height:700px;
   display:flex;
@@ -720,6 +704,7 @@ export default{
     border-bottom: 1px dashed #ddd;
   }
 }
+
 .product-all{
   width: 100%;
   height: auto;
@@ -729,9 +714,9 @@ export default{
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  // margin-top: 20px;
   @include p-span();
 }
+
 .product-bottom{
   width: 100%;
   height: auto;

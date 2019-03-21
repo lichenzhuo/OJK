@@ -101,7 +101,8 @@ const options = {
     ],
     thirdChannel: [// 第三方通道
       {value: '', label: 'public.placeholder'},
-      {value: 'bluepay', label: 'finance.thirdChannel_options.no1'}// bluepay
+      {value: 'bluepay', label: 'finance.thirdChannel_options.no1'},// bluepay
+      {value: 'dokypay', label: 'finance.thirdChannel_options.no3'},// dokypay
     ],
     thirdChannel_vi: [// 第三方通道
       {value: '', label: 'public.placeholder'},
@@ -166,11 +167,22 @@ const options = {
       {value: 2, label: 'loanMoney.isOverdue_options.no1'}, // 是
       {value: 1, label: 'loanMoney.isOverdue_options.no2'}// 否
     ],
-    partialRepaymentApplyPayTypeOption: [
+    partialRepaymentApplyPayTypeOption: [// 还款方式
       {value: 'permata', label: 'finance.partialRepaymentApplyPayTypeOption.no1'},
       {value: 'mandiri', label: 'finance.partialRepaymentApplyPayTypeOption.no2'},
       {value: 'bni', label: 'finance.partialRepaymentApplyPayTypeOption.no3'},
-      {value: 'otc', label: 'finance.partialRepaymentApplyPayTypeOption.no4'}
+      {value: 'otc', label: 'finance.partialRepaymentApplyPayTypeOption.no4'},
+      {value: 'dandan', label: 'finance.partialRepaymentApplyPayTypeOption.no5'},
+      {value: 'lawson', label: 'finance.partialRepaymentApplyPayTypeOption.no6'},
+    ],
+    channelAll_option: [// 支付方式
+      {value: '', label: 'public.placeholder'},
+      {value: 'otc', label: 'loanAfterManage.paycompany.no1'}, // otc
+      {value: 'bni', label: 'loanAfterManage.paycompany.no2'}, // BNI
+      {value: 'permata', label: 'loanAfterManage.paycompany.no3'}, // Permate(BCA)
+      {value: 'mandiri', label: 'loanAfterManage.paycompany.no4'},// Mandiri
+      {value: 'dandan', label: 'loanAfterManage.paycompany.no5'}, // dandan
+      {value: 'lawson', label: 'loanAfterManage.paycompany.no6'}// lawson
     ],
     backMoneyType_option: [// 还款方式
       {value: '', label: 'public.placeholder'},
@@ -311,13 +323,7 @@ const options = {
       {value: '1', label: 'serviceManage.notice1'}, // 已提醒
       {value: '2', label: 'serviceManage.notice2'}// 未提醒
     ],
-    channelAll_option: [// 支付方式
-      {value: '', label: 'public.placeholder'},
-      {value: 'otc', label: 'loanAfterManage.paycompany.no1'}, // otc
-      {value: 'bni', label: 'loanAfterManage.paycompany.no2'}, // BNI
-      {value: 'permata', label: 'loanAfterManage.paycompany.no3'}, // Permate(BCA)
-      {value: 'mandiri', label: 'loanAfterManage.paycompany.no4'}// Mandiri
-    ],
+    
     notice_option: [// 提醒状态下拉框
       {value: '', label: 'public.placeholder'},
       {value: '-1', label: 'new.noticeOption.no1'}, // 未提醒
@@ -607,6 +613,21 @@ const options = {
       {value: 1, label: 'new.no85'}, // 接通
       {value: -1, label: 'new.no86'}, // 未接通
       {value: -2, label: 'new.no90'}, // 提交失败
+    ],
+    auditResult_options: [// 审核是否通过结果
+      {value: 1, label: 'yn.no40'}, // 同意
+      {value: -1, label: 'yn.no41'}, // 驳回
+    ],
+    buildInSendType_options: [// 内置消息推送发送类型
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'yuenan.no38'}, // 消息推送
+      {value: 2, label: 'yuenan.no39'}, // 站内信
+    ],
+    buildInSendDevice_options: [// 内置消息推送发送类型
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'yuenan.no40'}, // 同意
+      {value: 2, label: 'yuenan.no41'}, // 驳回
+      {value: 3, label: 'yuenan.no42'}, // 驳回
     ],
   }
 }

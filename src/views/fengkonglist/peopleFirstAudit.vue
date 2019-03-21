@@ -14,7 +14,7 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row type="flex" justify="start" :gutter="10">
+      <el-row type="flex" justify="start">
         <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
@@ -27,21 +27,27 @@
             <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
             <el-input size="small" label="name" v-model="formInline.name"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="6" :xl="5">
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userTel')}}:</span>
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('public.no32')}}:</span>
-          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" filterable v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -61,7 +67,7 @@
               </el-option>
             </el-select>
           </div>
-          <el-col :md="8" :lg="6" :xl="5">
+          <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
               <span>{{$t('public.no2')}}:</span>
               <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
@@ -161,6 +167,8 @@
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="strPromiseTime" :label="$t('fei.no14')" width="86">
             </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            </el-table-column>
           </template>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
@@ -169,12 +177,12 @@
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_FIRST_DETAIL')"
                 class="table_opr"
-                @click="detail(scope.row.orderNo,scope.row.userId)">
+                @click="detail(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('public.detail')}}
               </span>
             </template>
@@ -287,8 +295,8 @@ export default {
       this.currentPage = val;
       this.chushenList();
     },
-    detail (orderNo, userid) { // 点击查看详情
-      this.$router.push({path: '/chushendetail', query: {userid, orderNo, block: 1}});
+    detail (orderNo, userid, orderId) { // 点击查看详情
+      this.$router.push({path: '/chushendetail', query: {userid, orderNo, orderId, block: 1}});
     },
     select () { // 点击查询按钮操作
       this.$store.commit('rengongchushenList', this.formInline);

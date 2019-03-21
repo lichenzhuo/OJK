@@ -44,7 +44,7 @@
         <!-- 优惠券状态 -->
         <div class="search-input">
           <span>{{$t('serviceManage.service')}}:</span>
-          <el-select clearable size="small" v-model="formInline.customerServicerId" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" filterable v-model="formInline.customerServicerId" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>

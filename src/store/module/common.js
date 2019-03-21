@@ -129,14 +129,14 @@ const common = {
   },
   getters: {
     moneySplit: () => (str) => { // 金钱做处理，印尼、越南'$1.' 菲律宾'$1,'
-      if(typeof str !== 'undefined' || str !== ''){
+      if(typeof str === 'undefined' || str === ''){
+        return '-';
+      }else{
         return String(str).split('.').map(
           function (val, index) {
             return index == 1 ? val : val.split('').reverse().join('').replace(/(\d{3})\B/g, global.config.moneySplit).split('').reverse().join('')
           }
         ).join('.')
-      }else{
-        return '-';
       }
       
     },
@@ -173,13 +173,13 @@ const common = {
       state.permiss = arr
     },
     twoPoint: () => (str) => { // 截取小数点后两位
-      if(typeof str !== 'undefined' || str !== ''){
+      if(typeof str === 'undefined' || str === ''){
+        return '-'
+      }else{
         var aNew
         var re = /([0-9]+\.[0-9]{2})[0-9]*/
         aNew = String(str * 100).replace(re, '$1')
         return aNew
-      }else{
-        return '-'
       }
       
     },
@@ -245,14 +245,19 @@ const common = {
       return `${Y}${M}${D} ${H}:${Mi}:${S}`
     },
     getAge: () => (str) => { // 根据时间获取年龄
-      var strBirthdayArr = str.split('-')
-      var birthYear = strBirthdayArr[0]
+      if(typeof str === 'undefined' || str === ''){
+        return '-'
+      }else{
+        var strBirthdayArr = String(str).split('-')
+        var birthYear = strBirthdayArr[0]
 
-      var d = new Date()
-      var nowYear = d.getFullYear()
+        var d = new Date()
+        var nowYear = d.getFullYear()
 
-      var age = nowYear - birthYear
-      return age
+        var age = nowYear - birthYear
+        return age
+      }
+      
     }
   },
   mutations: {

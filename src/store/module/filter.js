@@ -1343,6 +1343,60 @@ const filters = {
           return 'finance.backLog_options_status.no12' // -
       }
     },
+    reviewResult_status: () => (status) => { // 群呼结果
+      switch (status) {
+        case 1:
+          return 'yn.no40' // 同意
+        case -1:
+          return 'yn.no41' // 驳回
+        case 0:
+          return 'yn.no48' // 待审核
+      }
+    },
+    instalment_status: () => (status) => { // 群呼结果
+      switch (status) {
+        case 1:
+          return 'fei.status.no1' // 未到期
+        case -1:
+          return 'fei.status.no2' // 到期已还
+        case 0:
+          return 'fei.status.no3' // 部分还款
+        case 2:
+          return 'fei.status.no4' // 逾期已还
+        case 3:
+          return 'fei.status.no5' // 逾期未还
+      }
+    },
+    loanUse_status: () => (status) => { // 群呼结果
+      switch (status) {
+        case 1:
+          return 'yn.loanUse.no1' // 结婚
+        case 2:
+          return 'yn.loanUse.no2' // 装修
+        case 3:
+          return 'yn.loanUse.no3' // 购房
+        case 4:
+          return 'yn.loanUse.no4' // 看病
+        case 5:
+          return 'yn.loanUse.no5' // 旅游
+        case 6:
+          return 'yn.loanUse.no6' // 做生意
+        case 7:
+          return 'yn.loanUse.no7' // 生孩子
+        case 8:
+          return 'yn.loanUse.no8' // 缴纳学费
+        case 9:
+          return 'yn.loanUse.no9' // 聚会
+        case 10:
+          return 'yn.loanUse.no10' // 购车
+        case 11:
+          return 'yn.loanUse.no11' // 炒股票
+        case 99:
+          return 'loanAfterManage.collection_option.no18' // 其他
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
   }
 }
 export default filters

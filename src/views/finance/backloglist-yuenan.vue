@@ -189,7 +189,7 @@
           </el-table-column>
           <el-table-column align="center" prop="remark" :label="$t('public.no37')">
           </el-table-column>
-          <el-table-column align="center" fixed="right" prop="operation" :label="$t('public.operation')">
+          <el-table-column align="center" fixed="right" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span class="table_opr" 
               @click="detail(scope.row.orderNo,scope.row.userId)">

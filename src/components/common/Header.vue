@@ -117,6 +117,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          // eslint-disable-next-line
           let jse = new JSEncrypt()
           jse.setPublicKey(this.$store.state.common.publicKey)
           //   设置需要加密的字符串
@@ -142,7 +143,6 @@ export default {
             }
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })

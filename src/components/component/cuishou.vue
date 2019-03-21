@@ -100,5 +100,7 @@ export default {
   height: auto;
   position: relative;
 }
-
+.table{
+  min-height: 220px;
+}
 </style>

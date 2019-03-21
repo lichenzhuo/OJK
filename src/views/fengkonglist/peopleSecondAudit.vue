@@ -39,9 +39,15 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('public.no32')}}:</span>
-          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+          <el-select clearable size="small" filterable v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -160,6 +166,8 @@
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="strPromiseTime" :label="$t('fei.no14')" width="86">
             </el-table-column>
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            </el-table-column>
           </template>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
             <template slot-scope="scope">
@@ -168,12 +176,12 @@
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_REVIEW_DETAIL')"
                 class="table_opr"
-                @click="detail(scope.row.orderNo,scope.row.userId)">
+                @click="detail(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('public.detail')}}
               </span>
             </template>
@@ -289,8 +297,8 @@ export default {
       this.currentPage = val;
       this.fushenList();
     },
-    detail (orderNo, userid) { // 点击详情操作
-      this.$router.push({path: '/fushendetail', query: {userid, orderNo, block: 1}});
+    detail (orderNo, userid, orderId) { // 点击详情操作
+      this.$router.push({path: '/fushendetail', query: {userid, orderNo, orderId, block: 1}});
     },
     select () { // 点击查询按钮操作
       this.$store.commit('rengongfushenList', this.formInline);

@@ -149,10 +149,10 @@
         </li>
         <li  v-if="active1==2">
           <div class="oneLineHasFour">
-            <p>{{$t('new.no48')}}: 
+            <p><span>{{$t('new.no48')}}:</span>
               <span>{{data.orderExtra.appName | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('new.no49')}}: </span>
+            <p><span>{{$t('new.no49')}}:</span>
               <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> 
             </p>
           </div>
@@ -171,17 +171,14 @@
             </p>
           </div>
           <div class="oneLineHasFour">
-            <p><span>{{$t('proManage.feeRate')}}:</span>
-              <span>{{$store.getters.twoPoint(data.orderInfo.feeRate)}}%</span>
-            </p>
-            <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.feeAmount)}}{{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('operationDetail.no4')}}:</span>
-              <span>{{$store.getters.twoPoint(data.orderInfo.overdueInterestRate)}}%</span>
-            </p>
             <p><span>{{$t('operationDetail.no5')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+            </p>
+            <p><span>{{$t('public.no28')}}:</span>
+              <span>{{data.orderInfo.overdueDays | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no86')}}:</span> 
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.overdueServiceFee)}}{{$store.state.common.vi_currency}}</span>
             </p>
           </div> 
           <div class="oneLineHasFour">
@@ -197,21 +194,7 @@
             <p><span>{{$t('public.no66')}}</span>
               <span>{{data.orderInfo.strLastRefundTime | dataIsTrue}}</span>
             </p>
-          </div>  
-          <div class="oneLineHasFour">
-            <p><span>{{$t('operationDetail.no3')}}:</span>
-              <span >{{$store.getters.twoPoint(data.orderInfo.dayInterestRate)}}%</span>
-            </p>
-            <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.currentInterest)}}{{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('public.no28')}}:</span>
-              <span>{{data.orderInfo.overdueDays | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.no86')}}:</span> 
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.overdueServiceFee)}}{{$store.state.common.vi_currency}}</span>
-            </p>
-          </div>  
+          </div> 
           <div class="oneLineHasFour">
             <p><span>{{$t('public.no58')}}:</span>
               <span>{{data.orderInfo.strLoanTime | dataIsTrue}}</span>
@@ -221,6 +204,41 @@
             </p>
           </div> 
           
+          <div class="paixu mt15">
+            <span></span>
+            <p>{{$t('fei.no23')}}</p>
+          </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="10%">{{$t('fei.no24')}}</th>
+              <th width="12%">{{$t('public.no59')}}</th>
+              <th width="12%">{{$t('public.no28')}}</th>
+              <th width="12%">{{$t('fei.no25')}}</th>
+              <th width="12%">{{$t('fei.no26')}}</th>
+              <th width="14%">{{$t('public.no66')}}</th>
+              <th width="14%">{{$t('fei.no27')}}</th>
+              <th width="14%">{{$t('public.orderStatus')}}</th>
+            </tr>
+            <template v-if="data.orderApproveList">
+              <tr v-for="value in data.orderApproveList" :key="value.id">
+                <td>{{value.adminName | dataIsTrue}}</td>
+                <td>{{$t('loanMoneyDetail.loanMoney')}}</td>
+                <td>{{value.strApproveTime | dataIsTrue}}</td>
+                <td>
+                  {{value.notApproveReason | dataIsTrue}}
+                </td>
+                <td>{{$t($store.getters.loanMoneyRecordStatus(value.approveType))}}</td>
+                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
         </li>
       </ul>
     </div>
@@ -354,7 +372,7 @@
         </li>
       </ul>
     </div>
-
+    <div class="foot"></div>
     <!-- ------------ 电话催收、短信催收开始------------------------ -->
     <div class="tabs" v-if="type==1">
       <ul class="tabs_title">
@@ -539,11 +557,8 @@ export default {
       type: '', // 传过来的订单编号
       lightBoxToggle: false, // 图片放大显示层开关
       flag: true,
-      // arr1:['用户信息','借款信息'],// 第一个选项卡
       active1: 1, // 第一个选项卡当前选中项
-      // arr2:['催收记录','紧急联系人','通话联系人'],// 第二个选项卡
       active2: 1, // 第二个选项卡当前选中项
-      // arr3:['电话催收','短信催收'],// 第三个选项卡
       active3: 1, // 第三个选项卡当前选中项
       data: {// 页面信息汇总
         orderLending: '',
@@ -756,9 +771,7 @@ export default {
           this.flag = true
           if (res.data.header.code == 0) {
             this.$globalMsg.success(this.$t('message.success'))
-            setTimeout(() => {
-              this.$router.push('/cuishoudetail')
-            }, 1000)
+            this.detail();
           } else {
             this.$globalMsg.error(res.data.header.msg)
           }
@@ -946,7 +959,7 @@ export default {
   user-select: text;
 }
 .foot{
-  height: 40px;
+  height: 16px;
 }
 
 .back{

@@ -37,12 +37,12 @@
           let item = []
           list.forEach(value => {
             if(value){
-                      // 工作台
+              // 工作台
               if (value.uniqueSign == 'MENU_WORKS') {
                 item.push({icon: 'el-icon-shop-shouye', index: 'adminhome', title: 'sidebar.adminHome'})
               }
 
-                      // 用户管理
+              // 用户管理
               if (value.uniqueSign == 'MENU_USER') {
                 item.push({icon: 'el-icon-shop-user',
                   index: '3',
@@ -51,18 +51,20 @@
                   ]
                 })
               }
+              // 用户列表
               if (value.uniqueSign == 'MENU_USER_LIST') {
                 item.filter(index => {
                   return index.index == '3'
                 })[0].subs.push({index: 'userlist', title: 'sidebar.userList'})
               }
-              
+              // 用户建议
               if (value.uniqueSign == 'MENU_USER_FEEDBACK') {
                 item.filter(index => {
                   return index.index == '3'
                 })[0].subs.push({index: 'usersug', title: 'sidebar.userSuggest'})
               }
-                      // 借款管理
+              
+              // 借款管理
               if (value.uniqueSign == 'MENU_LOAN') {
                 item.push({icon: 'el-icon-shop-chanpin2',
                   index: '4',
@@ -71,33 +73,38 @@
                   ]
                 })
               }
+              // 接口列表
               if (value.uniqueSign == 'MENU_LOAN_LIST') {
                 item.filter(index => {
                   return index.index == '4'
                 })[0].subs.push({index: 'loanmoney', title: 'sidebar.loanMoneyList'})
               }
+              // 放款列表
               if (value.uniqueSign == 'MENU_LOAN_LENDING') {
                 item.filter(index => {
                   return index.index == '4'
                 })[0].subs.push({index: 'putmoney', title: 'sidebar.putMoneyList'})
               }
+              // 还款列表
               if (value.uniqueSign == 'MENU_LOAN_REPAY') {
                 item.filter(index => {
                   return index.index == '4'
                 })[0].subs.push({index: 'backmoney', title: 'sidebar.backMoneyList'})
               }
+              // 还款待处理列表
               if (value.uniqueSign == 'MENU_LOAN_REPAY_PROCESSED') {
                 item.filter(index => {
                   return index.index == '4'
                 })[0].subs.push({index: 'backmoneyawait', title: 'yn.no13'})
               }
+              // 放款待处理列表
               if (value.uniqueSign == 'MENU_LOAN_LENDING_PROCESSED') {
                 item.filter(index => {
                   return index.index == '4'
                 })[0].subs.push({index: 'putmoneyawait', title: 'yn.no14'})
               }
 
-                      // 风控审核管理
+              // 风控审核管理
               if (value.uniqueSign == 'MENU_RISKCONTROL') {
                 item.push({icon: 'el-icon-shop-zhengxin',
                   index: '5',
@@ -105,28 +112,32 @@
                   subs: []
                 })
               }
+              // 人工初审列表
               if (value.uniqueSign == 'MENU_RISKCONTROL_FIRST') {
                 item.filter(index => {
                   return index.index == '5'
                 })[0].subs.push({index: 'peopleFirstAudit', title: 'sidebar.labourAuditListOne'})
               }
+              // 人工复审列表
               if (value.uniqueSign == 'MENU_RISKCONTROL_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
                 })[0].subs.push({index: 'peopleSecondAudit', title: 'sidebar.labourAuditListTwo'})
               }
+              // 人工初审统计
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT') {
                 item.filter(index => {
                   return index.index == '5'
                 })[0].subs.push({index: 'peopleFirstAuditTotal', title: 'sidebar.labourAuditTotalOne'})
               }
+              // 人工复审统计
               if (value.uniqueSign == 'MENU_RISKCONTROL_RPT_REVIEW') {
                 item.filter(index => {
                   return index.index == '5'
                 })[0].subs.push({index: 'peopleSecondAuditTotal', title: 'sidebar.labourAuditTotalTwo'})
               }
 
-                      // 我的审核订单
+              // 我的审核管理
               if (value.uniqueSign == 'MENU_ME') {
                 item.push({icon: 'el-icon-shop-wenjian',
                   index: '2',
@@ -135,18 +146,20 @@
                   ]
                 })
               }
+              // 我的人工初审
               if (value.uniqueSign == 'MENU_ME_FIRST') {
                 item.filter(index => {
                   return index.index == '2'
                 })[0].subs.push({index: 'myFirstAuditList', title: 'sidebar.myLabourAuditOne'})
               }
+              // 我的人工复审
               if (value.uniqueSign == 'MENU_ME_REVIEW') {
                 item.filter(index => {
                   return index.index == '2'
                 })[0].subs.push({index: 'mySecondtAuditList', title: 'sidebar.myLabourAuditTwo'})
               }
 
-                      // 财务数据
+              // 财务数据
               if (value.uniqueSign == 'MENU_ACCOUNT') {
                 item.push({icon: 'el-icon-shop-chanpin3fankui',
                   index: '1',
@@ -154,17 +167,18 @@
                   subs: []
                 })
               }
+              // 放款日志列表
               if (value.uniqueSign == 'MENU_ACCOUNT_LENDING') {
                 item.filter(index => {
                   return index.index == '1'
                 })[0].subs.push({index: 'putloglist', title: 'sidebar.putMoneyLog'})
               }
+              // 还款日志列表
               if (value.uniqueSign == 'MENU_ACCOUNT_REPAY') {
                 item.filter(index => {
                   return index.index == '1'
                 })[0].subs.push({index: 'backloglist', title: 'sidebar.backMoneyLog'})
               }
-
               //    财务报表
               if (value.uniqueSign == 'MENU_ACCOUNT_REPORT') {
                 item.filter(index => {
@@ -180,20 +194,29 @@
                   subs: []
                 })
               }
+              // 产品列表
               if (value.uniqueSign == 'MENU_PRODUCT_LIST') {
                 item.filter(index => {
                   return index.index == '6'
                 })[0].subs.push({index: 'promanage', title: 'sidebar.productList'})
               }
+              // 问题列表
               if (value.uniqueSign == 'MENU_PRODUCT_PROBLEM') {
                 item.filter(index => {
                   return index.index == '6'
                 })[0].subs.push({index: 'faq', title: 'proManage.crumbsThree'})
               }
+              // app包管理
               if (value.uniqueSign == 'MENU_PRODUCT_APP_PACKAGE_MANAGE') {
                 item.filter(index => {
                   return index.index == '6'
                 })[0].subs.push({index: 'apppackagemag', title: 'proManage.crumbsFour'})
+              }
+              // 逾期分期
+              if (value.uniqueSign == 'MENU_OVERDUE_INSTALMENT_PRODUCT') {
+                item.filter(index => {
+                  return index.index == '6'
+                })[0].subs.push({index: 'overdueStages', title: 'proManage.crumbsFive'})
               }
 
               // 运营管理
@@ -204,38 +227,43 @@
                   subs: []
                 })
               }
+              // 优惠券设置
               if (value.uniqueSign == 'MENU_OPERATE_COUPON') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'couponSetting', title: 'couponSetting.crumbsTwo'})
               }
+              // 推广计划列表
               if (value.uniqueSign == 'MENU_OPERATE_ACTIVITY') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'activity', title: 'activity.crumbsTwo'})
               }
+              // 优惠券使用
               if (value.uniqueSign == 'MENU_OPERATE_COUPON_USE') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'couponUsed', title: 'couponUsed.crumbsTwo'})
               }
+              // 其它优惠券
               if (value.uniqueSign == 'MENU_OTHER_COUPON') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'otherCoupons', title: 'otherCoupons.crumbsTwo'})
               }
+              // 推广计划列表
               if (value.uniqueSign == 'MENU_PROMOT_PLAN') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'popularizeList', title: 'popularizeList.crumbsTwo'})
               }
-              // MENU_MESSAGE_PUSH_HAND
+              // 内置消息推送
               if (value.uniqueSign == 'MENU_PROMOT_PLAN') {
                 item.filter(index => {
                   return index.index == '14'
                 })[0].subs.push({index: 'buildinnoteput', title: 'operatorManage.no2'})
               }
-              // MENU_MESSAGE_PUSH_AUTO
+              // 手动消息推送
               if (value.uniqueSign == 'MENU_PROMOT_PLAN') {
                 item.filter(index => {
                   return index.index == '14'
@@ -250,16 +278,19 @@
                   subs: []
                 })
               }
+              // 邀请好友
               if (value.uniqueSign == 'MENU_RECORD_INVITE') {
                 item.filter(index => {
                   return index.index == '12'
                 })[0].subs.push({index: 'inviteFriend', title: 'inviteFriend.crumbsTwo'})
               }
+              // 现金提现
               if (value.uniqueSign == 'MENU_RECORD_WITHDRAW') {
                 item.filter(index => {
                   return index.index == '12'
                 })[0].subs.push({index: 'cash', title: 'cash.crumbsTwo'})
               }
+              // 渠道数据
               if (value.uniqueSign == 'MENU_CHANNEL_DATA') {
                 item.filter(index => {
                   return index.index == '12'
@@ -274,11 +305,13 @@
                   subs: []
                 })
               }
+              // 催收短信列表
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_SMS') {
                 item.filter(index => {
                   return index.index == '11'
                 })[0].subs.push({index: 'collectionSMS', title: 'sidebar.noteTemplate'})
               }
+              // 总催回报表
               if (value.uniqueSign == 'MENU_LOANS_OPERATES_RPT') {
                 item.filter(index => {
                   return index.index == '11'
@@ -293,33 +326,38 @@
                   subs: []
                 })
               }
+              // 入催订单列表
               if (value.uniqueSign == 'MENU_LOANLAST_INCOME') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'inTheRushOrders', title: 'sidebar.comeOrderList'})
               }
+              // 每日派单统计
               if (value.uniqueSign == 'MENU_DISTRIBUTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'everyDaySendOrdersTotal', title: 'sidebar.todayOperatesTotal'})
               }
+              // 每日催回统计
               if (value.uniqueSign == 'MENU_COLLECTION_STATISTICS_DAY') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'everyDayPushBackTotal', title: 'sidebar.todaycuihuiTotal'})
               }
+              // 催收员催收统计
               if (value.uniqueSign == 'MENU_COLLECTOR_STATISTICS') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'debtCollectorTotal', title: 'sidebar.adminTotal'})
               }
+              // 委外资源池
               if (value.uniqueSign == 'MENU_OUTSOURCING_RESOURCE_POOL') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'outsourcedresourcepool', title: 'loanAfterManage.no1'})
               }
 
-              // @@@@@@@@     审核管理     @@@@@@@@@
+              //  审核管理  
               if (value.uniqueSign == 'MENU_AUDIT_MANAGEMENT') {
                 item.push({icon: 'el-icon-printer',
                   index: '16',
@@ -345,8 +383,20 @@
                   return index.index == '16'
                 })[0].subs.push({index: 'paymentcode', title: 'loanAfterManage.crumbssix'})
               }
+              // 他人还款审核
+              if (value.uniqueSign == 'MENU_OTHER_REPAYMENT') {
+                item.filter(index => {
+                  return index.index == '16'
+                })[0].subs.push({index: 'otherBackAudit', title: 'yn.no36'})
+              }
+              // 态度恶劣审核
+              if (value.uniqueSign == 'MENU_BAD_ATTITUDE') {
+                item.filter(index => {
+                  return index.index == '16'
+                })[0].subs.push({index: 'badMannersAudit', title: 'yn.no37'})
+              }
 
-                      // 催收管理
+              // 催收管理
               if (value.uniqueSign == 'MENU_COLLECT') {
                 item.push({
                   icon: 'el-icon-star-on',
@@ -355,11 +405,13 @@
                   subs: []
                 })
               }
+              // 我的催收订单列表
               if (value.uniqueSign == 'MENU_COLLECT_ME') {
                 item.filter(index => {
                   return index.index == '8'
                 })[0].subs.push({index: 'myCollectionOrderList', title: 'sidebar.myComeOrder'})
               }
+              // 工作分析
               if (value.uniqueSign == 'MENU_COLLECT_ME_WORK_ANALYSIS') {
                 item.filter(index => {
                   return index.index == '8'
@@ -375,19 +427,20 @@
                   subs: []
                 })
               }
+              // 委外订单列表
               if (value.uniqueSign == 'MENU_OUTSOURCING_MANAGEMENT_LIST') {// 委外订单列表
                 item.filter(index => {
                   return index.index == '15'
                 })[0].subs.push({index: 'outsourcedorderlist', title: 'OutsourcedManage.no2'})
               }
+              // 每日委外统计
               if (value.uniqueSign == 'MENU_ENTRUST_DAILY_REPORT') {// 每日委外统计
                 item.filter(index => {
                   return index.index == '15'
                 })[0].subs.push({index: 'everydayoutsourcedtotal', title: 'OutsourcedManage.no3'})
               }
               
-
-                      // 客服管理
+              // 客服管理
               if (value.uniqueSign == 'MENU_CUSTOMER_SERVICE') {
                 item.push({icon: 'el-icon-news',
                   index: '13',
@@ -395,27 +448,32 @@
                   subs: []
                 })
               }
+              // 逾期未还订单列表
               if (value.uniqueSign == 'MENU_CUSTOMER_SERVICE_REFUND') {
                 item.filter(index => {
                   return index.index == '13'
                 })[0].subs.push({index: 'nobackorderlist', title: 'serviceManage.crumbsTwo'})
               }
+              // 我的到期温提列表
               if (value.uniqueSign == 'MENU_CUSTOMER_SERVICE_REMIND') {
                 item.filter(index => {
                   return index.index == '13'
                 })[0].subs.push({index: 'myovedateremind', title: 'serviceManage.crumbsThree'})
               }
+              // 电话来访记录
               if (value.uniqueSign == 'MENU_CUSTOMER_SERVICE_VISIT') {
                 item.filter(index => {
                   return index.index == '13'
                 })[0].subs.push({index: 'telcomelist', title: 'serviceManage.crumbsFour'})
               }
+              // 到期未提统计
               if (value.uniqueSign == 'MENU_CUSTOMER_SERVICE_STATISTICS') {
                 item.filter(index => {
                   return index.index == '13'
                 })[0].subs.push({index: 'myovedateremindtotal', title: 'serviceManage.crumbsFive'})
               }
-                      // 统计管理
+
+              // 统计管理
               if (value.uniqueSign == 'MENU_REPORT') {
                 item.push({
                   icon: 'el-icon-menu',
@@ -424,22 +482,26 @@
                   subs: []
                 })
               }
+              // 通过率报表
               if (value.uniqueSign == 'MENU_REPORT_PASS') {
                 item.filter(index => {
                   return index.index == '9'
                 })[0].subs.push({index: 'passingRate', title: 'sidebar.passRateList'})
               }
+              // 逾期率报表
               if (value.uniqueSign == 'MENU_REPORT_INCOME') {
                 item.filter(index => {
                   return index.index == '9'
                 })[0].subs.push({index: 'overdueRate', title: 'sidebar.firstRateList'})
               }
+              // 回款率报表
               if (value.uniqueSign == 'MENU_REPORT_REPAY') {
                 item.filter(index => {
                   return index.index == '9'
                 })[0].subs.push({index: 'rateOfReturn', title: 'sidebar.backMoneyRateList'})
               }
-                      // 系统管理
+
+              // 系统管理
               if (value.uniqueSign == 'MENU_SYSTEM') {
                 item.push({icon: 'el-icon-shop-shezhi',
                   index: '7',
@@ -447,41 +509,49 @@
                   subs: []
                 })
               }
+              // 账号管理
               if (value.uniqueSign == 'MENU_SYSTEIM_USER') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'idmanagement', title: 'sidebar.accountManage'})
               }
+              // 权限管理
               if (value.uniqueSign == 'MENU_SYSTEM_RIGHT') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'permission', title: 'sidebar.permission'})
               }
+              // 客服员列表
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'servicePeopleList', title: 'staffManage.crumbssix'})
               }
+              // 客服小组
               if (value.uniqueSign == 'MENU_SYSTEM_CUSTSERVICE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'serviceGroup', title: 'staffManage.service'})
               }
+              // 信审员列表
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'creditAuditPeopleList', title: 'staffManage.crumbsTwo'})
               }
+              // 信审小组
               if (value.uniqueSign == 'MENU_SYSTEM_APPROVE_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'creditAuditGroup', title: 'staffManage.crumbsThree'})
               }
+              // 催收员列表
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION') {
                 item.filter(index => {
                   return index.index == '7'
                 })[0].subs.push({index: 'collectionPeopleList', title: 'staffManage.crumbsFour'})
               }
+              // 催收小组
               if (value.uniqueSign == 'MENU_SYSTEM_COLLECTION_GROUP') {
                 item.filter(index => {
                   return index.index == '7'
@@ -497,16 +567,19 @@
                   subs: []
                 })
               }
+              // 用户提交列表
               if (value.uniqueSign == 'MENU_PC_USER_LIST') {
                 item.filter(index => {
                   return index.index == '17'
                 })[0].subs.push({index: 'usersubmitlist', title: 'websiteLoans.no2'})
               }
+              // 我的跟踪订单
               if (value.uniqueSign == 'MENU_PC_USER_ME') {
                 item.filter(index => {
                   return index.index == '17'
                 })[0].subs.push({index: 'mytailafterorder', title: 'websiteLoans.no3'})
               }
+              // 贷款申请列表
               if (value.uniqueSign == 'MENU_PC_LOAN_LIST') {
                 item.filter(index => {
                   return index.index == '17'

@@ -12,6 +12,30 @@
       <p>{{$t('operatorManage.no2')}}</p>
     </div>
 
+    <!-- ------------搜索查询栏开始-------------- -->
+    <div class="search" v-if="$store.state.common.lang==='vi'">
+      <el-row type="flex" justify="start" >
+        <div class="search-input">
+          <span>{{$t('operatorManage.no4')}}:</span>
+          <el-select size="small"  clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('yuenan.no37')}}:</span>
+          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_QUERY')">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
+      </el-row>
+    </div>
+    <!-- ------------ 搜索查询栏结束 -------------- -->
+
   <!-- ***************  消息发送  *************** -->
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_ADD')">
       <el-button type="primary" @click="sendNote()">
@@ -25,10 +49,19 @@
         <el-table :data="tableList" size="small" stripe>
           <el-table-column align="center" prop="messageId" :label="$t('operatorManage.no3')">
           </el-table-column>
+          <el-table-column align="center" prop="sendObject" :label="$t('operatorManage.no4')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="sendObject" :label="$t('yuenan.no37')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="sendObject" :label="$t('operatorManage.no18')">
             <template slot-scope="scope">
-              <span v-if="scope.row.sendObject!==null&&scope.row.sendObject!==undefined&&scope.row.sendObject!==''">{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="title" :label="$t('operatorManage.no19')">
@@ -57,6 +90,18 @@
     <el-dialog :title="$t('operatorManage.no6')" :visible.sync="dialogFormVisible"  width="850px">
       <h4>{{$t('operatorManage.no16')}}</h4>
       <el-form :model="form" size="small" :rules="rules" ref="ruleForm" label-width="140px">
+        <template v-if="$store.state.common.lang==='vi'">
+          <el-form-item :label="$t('operatorManage.no4')" prop="sendType">
+            <el-select size="small" v-model="form.sendObject">
+              <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item :label="$t('yuenan.no37')" prop="sendDevice">
+            <el-select size="small" v-model="form.sendObject">
+              <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+            </el-select>
+          </el-form-item>
+        </template>
         <el-form-item :label="$t('operatorManage.no18')" prop="sendObject">
           <el-select size="small" v-model="form.sendObject">
             <el-option v-for="item in sendObj" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
@@ -114,6 +159,10 @@ export default {
       dialogDelVisible: false,
       formLabelWidth: '90px',
       tableList: [],
+      formInline:{
+        sendType:'',
+        sendDevice:'',
+      },
       page: {
         current: 1,
         size: 10,
@@ -129,7 +178,9 @@ export default {
         title: '',
         description: '',
         message: '',
-        messageId:''
+        messageId:'',
+        sendType: '',
+        sendDevice: '',
       },
       sendObj:  this.$store.state.options.sendObj_options,
       flag: true,// 点击一次开关
@@ -149,7 +200,15 @@ export default {
         message: [
           { required: true, message: this.$t('login.required'), trigger: 'change' }
         ],
-      }
+        sendDevice: [
+          { required: true, message: this.$t('login.required'), trigger: 'change' }
+        ],
+        sendType: [
+          { required: true, message: this.$t('login.required'), trigger: 'change' }
+        ],
+      },
+      options1:this.$store.state.options.buildInSendType_options,
+      options2:this.$store.state.options.buildInSendDevice_options,
     }
   },
   mounted () {

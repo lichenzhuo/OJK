@@ -479,6 +479,7 @@ const cn = {
     crumbsTwo: '产品列表',
     crumbsThree: '常见问题',
     crumbsFour: 'APP包名管理',
+    crumbsFive: '逾期分期',
     title: '产品管理列表',
     add: '增加产品',
     edit: '修改产品',
@@ -558,7 +559,6 @@ const cn = {
     loanMoney: '借款',
     putMoney: '放款',
     backMoney: '还款',
-
     loanMoneyRecordStatus: {
       no1: '机审',
       no2: '人工初审',
@@ -644,12 +644,6 @@ const cn = {
       no6: '放款成功',
       no7: '其它'
     },
-    partialRepaymentApplyPayTypeOption: {
-      no1: 'permata',
-      no2: 'mandiri',
-      no3: 'bni',
-      no4: 'otc'
-    },
     backMoneyType_options: {
       no1: 'ATM',
       no2: '便利店',
@@ -663,7 +657,8 @@ const cn = {
     },
     thirdChannel_options: {
       no1: 'BluePay',
-      no2: 'NganLuong'
+      no2: 'NganLuong',
+      no3: 'dokypay',
     },
     putType: {
       no1: '借款',
@@ -846,7 +841,9 @@ const cn = {
       no1: 'otc',
       no2: 'BNI',
       no3: 'Permate(BCA)',
-      no4: 'Mandiri'
+      no4: 'Mandiri',
+      no5: 'dandan',
+      no6: 'lawson',
     },
     collection_option: {
       no1: '挂断',
@@ -1464,6 +1461,13 @@ const cn = {
     no33: '个人主页',
     no34: '好友姓名',
     no35: '好友',
+    no36: '发送类型',
+    no37: '发送设备',
+    no38: '消息推送',
+    no39: '站内信',
+    no40: '所有',
+    no41: 'Android',
+    no42: 'IOS',
     
     product: {
       no1: '可贷最小金额',
@@ -1499,6 +1503,35 @@ const cn = {
     no14:'最后跟进时间',
     no15: '提醒次数',
     no16: '是否有效',
+    no17: '分期期数',
+    no18: '到期应还金额',
+    no19: '最近应还日期',
+    no20: '最大逾期天数',
+    no21: '总逾期费',
+    no22: '借款用途',
+    no23: '分期还款计划',
+    no24: '期数',
+    no25: '每期逾期费',
+    no26: '每期应还金额',
+    no27: '每期已还金额',
+    no28: '注册',
+    no29: '申请',
+    no30: '分期期数',
+    no31: '逾期分期',
+    no32: '应还金额最小值',
+    no33: '应还金额最大值',
+    no34: '每期天数',
+    no35: '分期手续费率',
+    no36: '应用阶段',
+    no37: '逾期未还期数',
+    no38: '最近还款时间',
+    status:{
+      no1: '未到期',
+      no2: '到期已还',
+      no3: '部分还款',
+      no4: '逾期已还',
+      no5: '逾期未还',
+    }
   },
   couponSetting: {
     crumbsOne: '运营管理',
@@ -1715,6 +1748,48 @@ const cn = {
     no24:'信用贷-代扣',
     no25:'订单创建时间',
     no26:'恢复催收',
+    no27:'发薪日期',
+    no28:'借款用途',
+    no29:'电审录音',
+    no30:'催收录音',
+    no31:'呼叫时间',
+    no32:'通话时长',
+    no33:'被叫号码',
+    no34:'播放',
+    no35:'信审录音',
+    no36:'他人替还标记审核',
+    no37:'态度恶劣标记审核',
+    no38:'提交催收员',
+    no39:'审核时间',
+    no40:'同意',
+    no41:'驳回',
+    no42:'是否同意',
+    no43:'他人替还',
+    no44:'态度恶劣',
+    no45:'暂停',
+    no46:'电话呼叫',
+    no47:'审核结果',
+    no48:'待审核',
+    no49:'请谨慎判断，同意之后该用户便无法再次借款',
+    loanUse:{
+      'no1':'结婚',
+      'no2':'装修',
+      'no3':'购房',
+      'no4':'看病',
+      'no5':'旅游',
+      'no6':'做生意',
+      'no7':'生孩子',
+      'no8':'缴纳学费',
+      'no9':'聚会',
+      'no10':'购车',
+      'no11':'炒股票',
+    }
+  },
+  add:{
+    no1:'反馈类型',
+    no2: '借款金额',
+    no3: '逾期分期列表',
+    no4: '逾期分期金额',
   },
   ...zhLocale
 }

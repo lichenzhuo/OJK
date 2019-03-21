@@ -81,19 +81,16 @@
             <p><span>{{$t('public.no3')}}:</span> <span>{{$t($store.getters.marriage(userSelf.marriage))}}</span></p>
           </div>
           <div class="oneLineHasThree">
-            <template>
               <p><span>{{$t('public.no2')}}:</span> <span>{{userIdcard.idCard | dataIsTrue}}</span></p>
-            </template>
-            <template v-if="$store.state.common.lang=='id'">
               <p><span>{{$t('public.no4')}}:</span> <span>{{$t($store.getters.birthState(userSelf.bear))}}</span></p>
-            </template>
-            <template>
               <p><span>{{$t('public.no5')}}:</span> <span>{{$t($store.getters.education(userSelf.degree))}}</span></p>
-            </template>
           </div> 
           <div class="oneLineHasThree">
               <p><span>{{$t('public.no8')}}:</span> <span>{{$t($store.getters.liveTime(userSelf.liveTime))}}</span> </p>
               <p><span>{{$t('public.birthday')}}:</span> <span>{{userBase.birthday | dataIsTrue}}</span> </p>
+              <p><span>Email:</span>
+                <span>{{userSelf.email | dataIsTrue}}</span>
+              </p>
           </div> 
           <div class="oneLineHasOne">
               <p ><span>{{$t('public.no6')}}:</span>
@@ -114,6 +111,7 @@
             <div class="oneLineHasThree">
                 <p><span>{{$t('public.no11')}}:</span> <span>{{userWork.title | dataIsTrue}}</span> </p>
                 <p><span>{{$t('public.no12')}}:</span> <span>{{userWork.companyPhone | dataIsTrue}}</span> </p>
+                <p><span>{{$t('yn.no27')}}:</span> <span>{{userWork.payDate}}</span> </p>
             </div>
             <div class="oneLineHasOne">
                 <p ><span>{{$t('public.no14')}}:</span> 
@@ -160,6 +158,22 @@
                 <p>{{$t('public.no17')}}: <span>{{userUrgentContact.contactThreeRelationName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.name')}}: <span>{{userUrgentContact.contactThreeName | dataIsTrue}}</span> </p>
                 <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactThreePhone | dataIsTrue}}</span> </p>
+            </div>
+          </div>
+          <div class="xuan-2-4-1">
+            <p class="xuan-2-4-1-1"><span></span>{{$t('public.no16')}}4</p>
+            <div class="xuan-2-4-1-2">
+                <p>{{$t('public.no17')}}: <span>{{userUrgentContact.contactFourRelationName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.name')}}: <span>{{userUrgentContact.contactFourName | dataIsTrue}}</span> </p>
+                <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactFourPhone | dataIsTrue}}</span> </p>
+            </div>
+          </div>
+          <div class="xuan-2-4-1">
+            <p class="xuan-2-4-1-1"><span></span>{{$t('public.no16')}}5</p>
+            <div class="xuan-2-4-1-2">
+              <p>{{$t('public.no17')}}: <span>{{userUrgentContact.contactFiveRelationName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.name')}}: <span>{{userUrgentContact.contactFiveName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.no18')}}: <span>{{userUrgentContact.contactFivePhone | dataIsTrue}}</span> </p>
             </div>
           </div>
         </li>

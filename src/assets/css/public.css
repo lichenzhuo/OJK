@@ -38,20 +38,19 @@
 
 .paixu {
   width: 100%;
-  height: auto;
-  line-height: 48px;
+  height: 40px;
   background: rgba(224, 229, 246, 1);
   border-radius: 4px;
-
+  display: flex;
+  align-items: center;
 }
 
 .paixu span {
   display: block;
   float: left;
-  margin-top: 10px;
   background-color: rgba(84, 126, 245, 1);
   width: 4px;
-  height: 30px;
+  height: 26px;
   border-radius: 5px;
 }
 
@@ -200,7 +199,7 @@
 
 .tabs .tabs_title li {
   height: 100%;
-  margin: 10px 20px;
+  margin: 10px 12px;
   text-align: center;
   color: #333;
   display: flex;
@@ -229,7 +228,7 @@
 
 .tabs .tabs_main>li .oneLineHasOne {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 
 .tabs .tabs_main>li .oneLineHasOne p {
@@ -257,7 +256,7 @@
 
 .tabs .tabs_main > li .oneLineHasTwo {
   width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 14px;
   display: flex;
 }
 
@@ -285,7 +284,7 @@
 
 .tabs .tabs_main > li .oneLineHasThree {
   width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 14px;
   display: flex;
 }
 
@@ -313,7 +312,7 @@
 
 .tabs .tabs_main > li .oneLineHasFour {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   display: flex;
 }
 

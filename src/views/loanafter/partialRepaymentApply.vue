@@ -114,6 +114,9 @@
           </el-table-column>
           <!-- 还款方式 -->
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
+            <template slot-scope="scope">
+              <span>{{scope.row.bankName?scope.row.bankName:scope.row.payType}}</span>
+            </template>
           </el-table-column>
           <!-- 还款码 -->
           <el-table-column align="center" prop="paymentCode" :label="$t('loanAfterManage.paycode')">
@@ -128,7 +131,7 @@
             </template>
           </el-table-column>
           <!-- 操作 -->
-           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_PARTIAL_REPAYMENT_REVIEW')">
               <span v-if="scope.row.status === 1"
                 style="color:#547ef6;cursor:pointer;" 
@@ -287,7 +290,7 @@ export default {
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.overdueStatusOptions, // 优惠券状态
       options2: this.$store.state.options.partialRepaymentApplyOption, // 订单状态
-      options3: this.$store.state.options.partialRepaymentApplyPayTypeOption, // 还款方式
+      options3: this.$store.state.options.channelAll_option, // 还款方式
       tableData: [], // 列表表格数据汇总
 
       modifyFlag: false,

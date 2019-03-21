@@ -39,6 +39,12 @@
             <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
+        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
+          <div class="search-input">
+            <span>{{$t('fei.no17')}}:</span>
+            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('public.orderStatus')}}:</span>
           <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
@@ -135,6 +141,10 @@
               </template>
             </el-table-column>
           </template>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
@@ -156,7 +166,7 @@
               <span>{{userName}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST')">
               <span
                 v-if="scope.row.status!=20"
