@@ -212,21 +212,18 @@
             </el-table-column>
             <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')" >
               <template slot-scope="scope">
-                <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
+                <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
               </template>
             </el-table-column>
             <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" >
               <template slot-scope="scope">
-                <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-                <span v-else>{{$store.state.common.nullData}}</span>
+                <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
               </template>
             </el-table-column>
           </template>
           <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
             <template slot-scope="scope">
-              <span v-if="scope.row.waitAmount!==null&&scope.row.waitAmount!==undefined&&scope.row.waitAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">

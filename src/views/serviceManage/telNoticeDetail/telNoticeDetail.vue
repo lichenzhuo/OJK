@@ -24,11 +24,12 @@
             <p><span>{{$t('new.no49')}}:</span>
               <span>{{data.userBase.appPackage | dataIsTrue}}</span>   
             </p>
-            <p v-if="$store.state.common.lang=='PHL'"><span>{{$t('loanAfterManage.paycode')}}:</span>
-              <span>{{data.order.contractNo | dataIsTrue}}</span>
+            <p >
+              <span>{{$t('new.no55')}}:</span>
+              <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('websiteLoans.no5')}}:</span>
-              <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
+            <p v-if="$store.state.common.lang==='PHL'"><span>{{$t('loanAfterManage.paycode')}}:</span>
+              <span>{{data.order.contractNo | dataIsTrue}}</span>
             </p>
           </div>
           <div class="oneLineHasFour">
@@ -75,12 +76,15 @@
               <span>{{$t('yuenan.no25')}}:</span>
               <span>{{data.userSelf.alternativePhone}}</span>
             </p>
+            <p><span>{{$t('websiteLoans.no5')}}:</span>
+              <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
+            </p>
           </div>
           <div class="oneLineHasOne" v-if="$store.state.common.lang=='id'">
             <p><span>{{$t('operationDetail.no1')}}:</span>
               <span>{{data.userIdcard.ocrAddress | dataIsTrue}}</span>
             </p>
-          </div> 
+          </div>
           <div class="oneLineHasOne">
             <p><span>{{$t('public.no6')}}:</span>
               <span>{{data.userSelf.liveAddress | dataIsTrue}}</span>
