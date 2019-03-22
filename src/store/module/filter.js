@@ -1397,6 +1397,28 @@ const filters = {
           return 'finance.backLog_options_status.no12' // -
       }
     },
+    manual_sendStatus: () => (status) => { // 处理状态
+      switch (status) {
+        case 1:
+          return 'yuenan.no38' // 消息推送
+        case 2:
+          return 'yuenan.no39' // 站内信
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
+    deviceType_status: () => (status) => { // 发送设备类型
+      switch (status) {
+        case -1:
+          return 'yuenan.no40' // 所有
+        case 1:
+          return 'yuenan.no42' // ios
+        case 2:
+          return 'yuenan.no41' // android
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
   }
 }
 export default filters

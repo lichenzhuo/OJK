@@ -12,20 +12,20 @@
       <p>{{$t('operatorManage.no2')}}</p>
     </div>
 
-    <!-- ------------搜索查询栏开始-------------- -->
+    <!-- ------------ 内置搜索查询栏开始 -------------- -->
     <div class="search" v-if="$store.state.common.lang==='vi'">
       <el-row type="flex" justify="start" >
         <div class="search-input">
           <span>{{$t('operatorManage.no4')}}:</span>
-          <el-select size="small"  clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+          <el-select size="small" clearable v-model="formInline.messageType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
           <span>{{$t('yuenan.no37')}}:</span>
-          <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+          <el-select size="small" clearable v-model="formInline.deviceType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -49,16 +49,18 @@
         <el-table :data="tableList" size="small" stripe>
           <el-table-column align="center" prop="messageId" :label="$t('operatorManage.no3')">
           </el-table-column>
-          <el-table-column align="center" prop="sendObject" :label="$t('operatorManage.no4')">
-            <template slot-scope="scope">
-              <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="sendObject" :label="$t('yuenan.no37')">
-            <template slot-scope="scope">
-              <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
-            </template>
-          </el-table-column>
+          <template v-if="$store.state.common.lang==='vi'">
+            <el-table-column align="center" prop="messageType" :label="$t('operatorManage.no4')">
+              <template slot-scope="scope">
+                <span>{{$t($store.getters.manual_sendStatus(scope.row.messageType))}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" prop="deviceType" :label="$t('yuenan.no37')">
+              <template slot-scope="scope">
+                <span>{{$t($store.getters.deviceType_status(scope.row.deviceType))}}</span>
+              </template>
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="sendObject" :label="$t('operatorManage.no18')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.sendObjStatus(scope.row.sendObject))}}</span>
@@ -87,17 +89,17 @@
     </div>
 
     <!-- ***************  添加活动弹框  *************** -->
-    <el-dialog :title="$t('operatorManage.no6')" :visible.sync="dialogFormVisible"  width="850px">
+    <el-dialog :title="$t('operatorManage.no6')" :visible.sync="dialogFormVisible"  width="750px">
       <h4>{{$t('operatorManage.no16')}}</h4>
       <el-form :model="form" size="small" :rules="rules" ref="ruleForm" label-width="140px">
         <template v-if="$store.state.common.lang==='vi'">
-          <el-form-item :label="$t('operatorManage.no4')" prop="sendType">
-            <el-select size="small" v-model="form.sendObject">
+          <el-form-item :label="$t('operatorManage.no4')" prop="messageType">
+            <el-select size="small" v-model="form.messageType">
               <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item :label="$t('yuenan.no37')" prop="sendDevice">
-            <el-select size="small" v-model="form.sendObject">
+          <el-form-item :label="$t('yuenan.no37')" prop="deviceType">
+            <el-select size="small" v-model="form.deviceType">
               <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
@@ -133,26 +135,24 @@
     
     <!-- ***************  分页   *************** -->
     <el-row type="flex" justify="end">
-        <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_LIST')">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="page.current"
-            :page-sizes="[10, 15, 20, 30]"
-            layout="sizes, prev, pager, next, total,->"
-            :page-size="page.size"
-            @size-change="handleSizeChange"
-            :total="page.total?page.total:0">
-          </el-pagination>
-        </div>
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_MESSAGE_PUSH_AUTO_LIST')">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="page.current"
+          :page-sizes="[10, 15, 20, 30]"
+          layout="sizes, prev, pager, next, total,->"
+          :page-size="page.size"
+          @size-change="handleSizeChange"
+          :total="page.total?page.total:0">
+        </el-pagination>
+      </div>
     </el-row>
 
   </div>
 </template>
 <script>
-import searchFilter from '../../components/component/filter';
 export default {
   name: 'buildInNotePut',
-  components: {searchFilter},
   data () {
     return {
       dialogFormVisible: false,
@@ -160,27 +160,21 @@ export default {
       formLabelWidth: '90px',
       tableList: [],
       formInline:{
-        sendType:'',
-        sendDevice:'',
+        messageType:'',
+        deviceType:'',
       },
       page: {
         current: 1,
         size: 10,
         total: 0
       },
-      filter: {
-        messageId: '',
-        sendType: '',
-        sendTime: ''
-      },
       form: {
         sendObject: '',
         title: '',
         description: '',
         message: '',
-        messageId:'',
-        sendType: '',
-        sendDevice: '',
+        messageType: '',
+        deviceType: '',
       },
       sendObj:  this.$store.state.options.sendObj_options,
       flag: true,// 点击一次开关
@@ -200,10 +194,10 @@ export default {
         message: [
           { required: true, message: this.$t('login.required'), trigger: 'change' }
         ],
-        sendDevice: [
+        deviceType: [
           { required: true, message: this.$t('login.required'), trigger: 'change' }
         ],
-        sendType: [
+        messageType: [
           { required: true, message: this.$t('login.required'), trigger: 'change' }
         ],
       },
@@ -217,9 +211,19 @@ export default {
   methods: {
     handleSizeChange (val) {// 每页条数变化时操作
       this.page.size = val;
-      this.fetchData(this.condition);
+      this.fetchData();
     },
-    fetchData (condition) {
+    handleCurrentChange (val) { // 分页按钮点击操作
+      this.page.current = val;
+      this.fetchData();
+    },
+    select(){
+      if(this.flag){
+        this.currentPage = 1;
+        this.fetchData();
+      }
+    },
+    fetchData () {
       const self = this;
       let option = {
         header: {
@@ -232,10 +236,7 @@ export default {
           }
         },
         type: 2,
-        userId: condition?condition.userId: '',
-        couponType: condition?condition.couponType:'',
-        sendTimeBegin:  condition?condition.sendTime?condition.sendTime[0]: '':'',
-        sendTimeEnd: condition?condition.sendTime?condition.sendTime[1]: '':'',
+        ...this.formInline
       }
       this.$axios.post('', option).then(res => {
         this.flag = true;
@@ -247,19 +248,6 @@ export default {
         }
       })
     },
-    search (condition) {// 查询按钮点击
-      const self= this;
-      self.page.current = 1;
-      self.condition = condition;
-      if(this.flag){
-        this.flag = false;
-        this.fetchData(self.condition);
-      }
-    },
-    handleCurrentChange (val) { // 分页按钮点击操作
-      this.page.current = val;
-      this.fetchData(this.condition);
-    },
     sendNote () {
       const self = this;
       self.form = {
@@ -267,7 +255,8 @@ export default {
         title: '',
         description: '',
         message: '',
-        messageId:''
+        messageType: '',
+        deviceType: '',
       }
       self.dialogFormVisible = true;
     },
@@ -290,13 +279,7 @@ export default {
             }else{
               this.$globalMsg.error(res.data.header.msg);
             }
-            this.form = {
-              sendObject: '',
-              title: '',
-              description: '',
-              message: '',
-              messageId:''
-            }
+            this.$refs.ruleForm.resetFields();
           })
         } else {
           return false;

@@ -1420,6 +1420,13 @@ const vi = {
     no33: 'Trang cá nhân',
     no34: 'Họ tên bạn bè',
     no35: 'Bạn bè',
+    no36: '发送类型',
+    no37: 'GỬI THIẾT BỊ',
+    no38: 'TRUYỀN THÔNG TIN',
+    no39: 'thông tin gửi từ ứng dụng',
+    no40: 'TẤT CẢ',
+    no41: 'Android',
+    no42: 'IOS',
     product: {
       no1: 'Số tiền tối thiểu cho vay',
       no2: 'Số tiền vay tối đa',

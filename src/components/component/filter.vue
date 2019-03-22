@@ -43,9 +43,9 @@
           <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in sendTypeOption" :key="i"></el-option>
         </el-select>
       </div>
-      <div class="search-input" v-if="filter.hasOwnProperty('sendObj')">
+      <div class="search-input" v-if="filter.hasOwnProperty('messageType')">
         <span>{{$t('operatorManage.no4')}}:</span>
-        <el-select size="small" v-model="filter.sendObj">
+        <el-select size="small" v-model="filter.messageType">
           <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options1" :key="i"></el-option>
         </el-select>
       </div>

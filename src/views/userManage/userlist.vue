@@ -464,9 +464,4 @@ export default {
 </script>
 <style scoped lang="scss">
 
-.table {
-  width: 100%;
-  min-height: 440px;
-}
-
 </style>

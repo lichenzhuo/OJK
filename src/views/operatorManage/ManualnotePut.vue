@@ -34,11 +34,13 @@
           </el-table-column>
           <el-table-column align="center" prop="strSendTime" :label="$t('operatorManage.no5')">
           </el-table-column>
-          <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no4')">
-            <template slot-scope="scope">
-              <span>{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
-            </template>
-          </el-table-column>
+          <template v-if="$store.state.common.lang==='vi'">
+            <el-table-column align="center" prop="messageType" :label="$t('operatorManage.no18')">
+              <template slot-scope="scope">
+                <span>{{$t($store.getters.manual_sendStatus(scope.row.messageType))}}</span>
+              </template>
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no4')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
@@ -67,13 +69,13 @@
       <h4>{{$t('operatorManage.no16')}}</h4>
       <el-form :model="form" size="small" :rules="rules" ref="ruleForm" label-width="140px">
         <template v-if="$store.state.common.lang==='vi'">
-          <el-form-item :label="$t('operatorManage.no4')" prop="sendObj">
-            <el-select size="small" v-model="form.sendObject">
-              <el-option v-for="item in sendObj" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
+          <el-form-item :label="$t('operatorManage.no4')" prop="messageType">
+            <el-select size="small" v-model="form.messageType">
+              <el-option v-for="item in option5" :key="item.value" :label="$t(item.label)" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
         </template>
-        <el-form-item :label="$t('operatorManage.no4')" prop="sendType">
+        <el-form-item :label="$t('operatorManage.no18')" prop="sendType">
           <el-radio-group v-model="form.sendType">
             <el-radio :label="1">{{$t('operatorManage.sendType.no1')}}</el-radio>
             <el-radio :label="2">{{$t('operatorManage.sendType.no2')}}</el-radio>
@@ -186,19 +188,22 @@ export default {
         messageId: '',
         sendType: '',
         sendTime: '',
-        sendObj: ''
+        sendObj: '',
+        messageType: ''
       },
       form: {
         sendType: '',
         title: '',
         description: '',
         message: '',
+        messageType:''
       },
       couponTypeOption:  this.$store.state.options.couponType,
       option1:[],// App包名
       option2:this.$store.state.options.operatorManage_blackStatus,
       option3:this.$store.state.options.operatorManage_approveStatus,
       option4:this.$store.state.options.operatorManage_orderStatus,
+      option5:this.$store.state.options.buildInSendType_options,
       flag: true,
       odd:{
         phone:''
@@ -213,6 +218,9 @@ export default {
       },
       detailData:{},
       rules:{
+        messageType: [
+          { required: true, message: this.$t('login.required'), trigger: 'change' }
+        ],
         sendType: [
           { required: true, message: this.$t('login.required'), trigger: 'change' }
         ],
@@ -249,6 +257,7 @@ export default {
             size: this.page.size
           }
         },
+        messageType: condition?condition.messageType: '',
         sendType: condition?condition.sendType: '',
         messageId: condition?condition.messageId: '',
         sendTimeBegin:  condition?condition.sendTime?condition.sendTime[0]: '':'',
@@ -291,6 +300,7 @@ export default {
         overDueDays:''
       },
       self.form = {
+        messageType: '',
         sendType: '',
         title: '',
         description: '',

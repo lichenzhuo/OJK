@@ -1468,7 +1468,6 @@ const cn = {
     no40: '所有',
     no41: 'Android',
     no42: 'IOS',
-    
     product: {
       no1: '可贷最小金额',
       no2: '可贷最大金额',

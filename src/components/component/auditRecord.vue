@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div v-if="orderId">
     <div class="table">
       <template>
         <el-table :data="tableData" stripe size="small">

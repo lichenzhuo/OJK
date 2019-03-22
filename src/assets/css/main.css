@@ -319,3 +319,6 @@ ul.el-pager li.active{
     text-decoration: underline;
     cursor: pointer;
 }
+.pb10{
+    padding-bottom: 10px;
+}

@@ -204,8 +204,7 @@
             <p><span>{{$t('public.CreateTime')}}:</span>
               <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
             </p>
-          </div> 
-          
+          </div>
         </li>
       </ul>
     </div>
@@ -231,8 +230,8 @@
     </template>
 
     <!-- ------------ 呼叫结果开始 ------------------------ -->
-    <div class="xuanxiangka" v-if="$store.state.common.lang!=='PHL'">
-      <div class="paixu">
+    <div v-if="$store.state.common.lang!=='PHL'">
+      <div class="paixu mt15">
         <span></span>
         <p>{{$t('new.no93')}}</p>
       </div>
@@ -248,22 +247,12 @@
         </tr>
         <template v-if="tableData!=''">
           <tr v-for="(value,index) in tableData" :key="index">
-            <template>
-              <td>{{value.name | dataIsTrue}}</td>
-            </template>
-            <template>
-              <td>{{value.relationName | dataIsTrue}}</td>
-            </template>
-            <template>
-              <td>{{value.phone | dataIsTrue}}</td>
-            </template>
-            <template>
-              <td>{{value.strCallTime | dataIsTrue}}</td>
-            </template>
+            <td>{{value.name | dataIsTrue}}</td>
+            <td>{{value.relationName | dataIsTrue}}</td>
+            <td>{{value.phone | dataIsTrue}}</td>
+            <td>{{value.strCallTime | dataIsTrue}}</td>
             <td >{{$t($store.getters.callStatus_status(value.status))}}</td>
-            <template>
-              <td>{{value.duration | dataIsTrue}}s</td>
-            </template>
+            <td>{{value.duration | dataIsTrue}}s</td>
             <td >{{$t($store.getters.is_addressBook(value.isUrgentContact))}}</td>
           </tr>
         </template>
@@ -277,73 +266,47 @@
     
     
     <!-- ------------ 电话提醒历史记录 ------------------------ -->
-    <div class="xuanxiangka">
-      <el-row>
-        <el-col :span="24">
-          <div class="paixu">
-            <span></span>
-            <p>{{$t('serviceManage.telNoticeHis')}}</p>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="xuan-2">
-        <div class="xuan-2-6">
-          <table class="loan-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
-            <tr>
-              <th width="10%">{{$t('serviceManage.index')}}</th>
-              <th width="16%">{{$t('loanMoneyDetail.opePeople')}}</th>
-              <th width="16%">{{$t('serviceManage.noticeTime')}}</th>
-              <th width="10%">{{$t('serviceManage.telResult')}}</th>
-              <th width="26%">{{$t('serviceManage.isno')}}</th>
-              <th width="22%">{{$t('public.no37')}}</th>
-            </tr>
-            <template v-if="data.serviceRecordList!==null&&data.serviceRecordList!==undefined&&data.serviceRecordList!=''">
-              <tr v-for="(value,index) in data.serviceRecordList" :key="index">
-                <template>
-                  <td >{{index+1}}</td>
-                </template>
-                <template>
-                  <td v-if="value.adminName!==null&&value.adminName!==undefined">{{value.adminName}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.strCreateTime!==null&&value.strCreateTime!==undefined">{{value.strCreateTime}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.status!==null&&value.status!==undefined">{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.promise!==null&&value.promise!==undefined">{{value.promise==1?$t('loanMoney.isOverdue_options.no1')+';'+value.strPromiseTime.slice(0,10):$t('loanMoney.isOverdue_options.no2')}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-                <template>
-                  <td v-if="value.remark!==null&&value.remark!==undefined">{{value.remark}}</td>
-                  <td v-else>{{$store.state.common.nullData}}</td>
-                </template>
-              </tr>
-            </template>
-            <template v-else>
-              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
-                {{$t('public.no23')}}
-              </div>
-            </template>
-            
-          </table>
-        </div>
-      </div>
+    <div class="paixu mt15">
+      <span></span>
+      <p>{{$t('serviceManage.telNoticeHis')}}</p>
     </div>
+    <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
+      <tr>
+        <th width="10%">{{$t('serviceManage.index')}}</th>
+        <th width="16%">{{$t('loanMoneyDetail.opePeople')}}</th>
+        <th width="16%">{{$t('serviceManage.noticeTime')}}</th>
+        <th width="10%">{{$t('serviceManage.telResult')}}</th>
+        <th width="26%">{{$t('serviceManage.isno')}}</th>
+        <th width="22%">{{$t('public.no37')}}</th>
+      </tr>
+      <template v-if="data.serviceRecordList!==null&&data.serviceRecordList!==undefined&&data.serviceRecordList!=''">
+        <tr v-for="(value,index) in data.serviceRecordList" :key="index">
+          <template>
+            <td >{{index+1}}</td>
+            <td>{{value.adminName | dataIsTrue}}</td>
+            <td>{{value.strCreateTime | dataIsTrue}}</td>
+            <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
+            <td>{{value.promise==1?$t('loanMoney.isOverdue_options.no1')+';'+value.strPromiseTime.slice(0,10):$t('loanMoney.isOverdue_options.no2')}}</td>
+            <td>{{value.remark | dataIsTrue}}</td>
+          </template>
+        </tr>
+      </template>
+      <template v-else>
+        <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+          {{$t('public.no23')}}
+        </div>
+      </template>
+    </table>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
-    <div class="xuanxiangka" v-if="$store.state.common.lang!=='PHL'&&overdueDays>=0">
-      <ul class="xuan-1">
+    <div class="tabs mt15" v-if="$store.state.common.lang!=='PHL'&&overdueDays>=0">
+      <ul class="tabs_title">
         <li v-for="(value,index) in arr2" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
           <span>{{value.title}}</span>
         </li>
       </ul>
-      <ul class="xuan-2">
-        <li class="xuan-2-9" v-if="active2==1">
+      <ul class="tabs_main">
+        <li  v-if="active2==1">
           <div class="xuan-2-9-1">
             <template v-if="data.orderUrgentContact!==null&&data.orderUrgentContact!==undefined&&data.orderUrgentContact!=''">
               <el-radio-group v-model="emeContact" class="radio1">
@@ -360,12 +323,12 @@
             </div>
           </div>
         </li>
-        <li class="xuan-2-3" v-if="active2==2">
+        <li  v-if="active2==2">
           <div class="xuan-2-3-1">
             <address-list :get-address="getLinkMan" :order-no="orderNo"></address-list>
           </div>
         </li>
-        <li class="xuan-2-9" v-if="active2==3">
+        <li  v-if="active2==3">
           <div class="xuan-2-9-1">
             <template v-if="data.userWork.companyPhone!==null&&data.userWork.companyPhone!==undefined&&data.userWork.companyPhone!=''">
               <el-radio-group v-model="emeContact" class="radio1">
@@ -386,15 +349,15 @@
     
 
     <!-- ------------ 电话提醒操作开始------------------------ -->
-    <div class="xuanxiangka" v-if="type==1">
-      <ul class="xuan-1">
+    <div class="tabs mt15" v-if="type==1">
+      <ul class="tabs_title">
        <li v-for="(value,index) in arr3" :key="index" :class="{active:active3==value.id}" @click="active3=value.id">
           <span>{{value.title}}</span>
         </li>
       </ul>
-      <ul class="xuan-2">
+      <ul class="tabs_main">
         <!-- --------------- 电话催收开始 ------------------------ -->
-        <li class="xuan-2-7" v-if="active3==1">
+        <li  v-if="active3==1">
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
             <el-form-item :label="$t('operationDetail.no23')" prop="status">
               <el-select size="small" v-model="ruleForm.status" :placeholder="$t('public.placeholder')">
@@ -673,55 +636,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-@mixin flex-cen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-$color1:#959fb9;
-$color2:#000;
-.usermanage {
-  width: 100%;
-  height: auto;
-  padding: 20px 30px;
-  background-color: rgba(246, 249, 252, 1);
-  position: relative;
-}
 
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  span {
-    display: block;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin: 0 20px;
-  }
-  .tooltip{
-    width: 15px;
-    height: 15px;
-    img{
-      display: block;
-    }
-  }
-}
-.pai-active{
-  margin: 30px 0 0;
-}
-.mt15{
-  margin-top: 15px;
-}
 .loansTypeImg{
   width: 100%;
   display: flex;
@@ -734,227 +649,6 @@ $color2:#000;
     height: 110px;
     margin-right: 40px;
   }
-}
-
-
-.xuanxiangka{
-  width: 100%;
-  height: auto;
-  background-color: #fff;
-  margin-bottom: 40px;
-  .xuan-1{
-    width: 100%;
-    height: 60px;
-    display: flex;
-    li{
-      height: 100%;
-      padding: 0 20px;
-      text-align: center;
-      line-height: 60px;
-      color: $color2;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      span{
-        display: block;
-        height: 40px;
-        line-height: 40px;
-      }
-    }
-    .active{
-      span{
-        border-bottom: 2px solid #547afe;
-      }
-    }
-  }
-  .xuan-2{
-    width: 100%;
-    height: auto;
-    li{
-      width: 100%;
-      padding: 20px;
-    }
-    .xuan-2-1{
-      p{
-        margin: 10px;
-        color: $color1;
-        font-size: 16px;
-        span{
-          color: $color2;
-          font-size: 16px;
-          margin: 0 10px;
-          font-weight: bold;
-        } 
-      }
-      .idimgbox{
-        width: 410px;
-        height: auto;
-        display: flex;
-        margin: 20px 0;
-        justify-content: space-between;
-        .idimg{
-          width: 200px;
-          height: auto;
-        }
-      }
-    }
-    .xuan-2-2{
-      .xuan-2-2-1{
-        margin-bottom: 26px;
-        display: flex;
-        p{
-          line-height: 24px;
-          width: 25%;
-          span:nth-child(1){
-            white-space: nowrap;
-            color: $color1;
-            font-size: 16px;
-          }
-          span:nth-child(2),span:nth-child(3),span:nth-child(4){
-            color: $color2;
-            font-size: 16px;
-            margin: 0 10px;
-            word-break: break-all;
-          } 
-        }
-        .radio1{
-          .el-radio{
-            width:100%;
-            margin: 10px 0;
-          }
-          .el-radio+.el-radio{
-            margin: 10px 0;
-          }
-        }
-      
-        
-      }
-      
-    }
-    .xuan-2-9{
-      .xuan-2-9-1{
-        margin-bottom: 40px;
-        display: flex;
-        .radio1{
-          .el-radio{
-            width:100%;
-            margin: 10px 0;
-          }
-          .el-radio+.el-radio{
-            margin: 10px 0;
-          }
-        }
-      }
-    }
-    .xuan-2-3{
-      display: flex;
-      .xuan-2-3-1{
-        width: 100%;
-        height: auto;
-        ul{
-          width: 100%;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: flex-start;
-          li{
-            width: 33%;
-          }
-        }
-      }
-    }
-    .xuan-2-4{
-      .xuan-2-4-1{
-        width: 100%;
-        height: auto;
-        margin-bottom: 24px;  
-        border-bottom: 1px solid #ddd;
-        .xuan-2-4-1-1{
-          color: #333;
-          display: flex;
-          width: 100%;
-          height: 40px;
-          line-height: 40px;
-          span{
-            display: block;
-            width: 4px;
-            height: 40px;
-            background-color: #1D7BFF;
-            border-radius: 5px;
-            margin: 0px 10px;
-
-          }      
-        }
-        .xuan-2-4-1-2{
-          display: flex;
-          p{
-            margin: 10px 30px 10px 10px;
-            color: $color1;
-            font-size: 16px;
-            span{
-              color: $color2;
-              font-size: 16px;
-              margin: 0 10px;
-              font-weight: bold;
-            } 
-          }
-        }
-      }
-      
-      
-    }
-    .xuan-2-5{
-      .bank-table{
-        background-color: #fff;
-        border: 1px solid #ddd;
-        tr{
-          width: 100%;
-          td{
-            width: 25%;
-            height: 40px;
-            text-align: center;
-            border: 1px solid #ddd;
-            word-break: break-all;
-          }
-          th{
-            width: 25%;
-            height: 40px;
-            text-align: center;
-            background-color: #1D7BFF;
-            color: #fff;
-          }
-        }
-        
-      }
-    }
-    .xuan-2-6{
-      .loan-table{
-        background-color: #fff;
-        border: 1px solid #ddd;
-        tr{
-          width: 100%;
-          td{
-            height: 40px;
-            text-align: center;
-            border: 1px solid #ddd;
-            word-break: break-all;
-          }
-          th{
-            height: 40px;
-            text-align: center;
-            background-color: #1D7BFF;
-            color: #fff;
-          }
-        }
-        
-      }
-    }
-    .xuan-2-7{
-      .el-textarea{
-        width: 50%;
-      }
-    }
-  }
-  
 }
 
 .back{
@@ -983,4 +677,31 @@ $color2:#000;
     margin-right: 40px;
   }
 }
+.xuan-2-9-1{
+  margin-bottom: 40px;
+  display: flex;
+  .radio1{
+    .el-radio{
+      width:100%;
+      margin: 10px 0;
+    }
+    .el-radio+.el-radio{
+      margin: 10px 0;
+    }
+  }
+}
+.xuan-2-3-1{
+  width: 100%;
+  height: auto;
+  ul{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    li{
+      width: 33%;
+    }
+  }
+}
+
 </style>

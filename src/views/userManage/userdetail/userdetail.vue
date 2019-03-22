@@ -111,7 +111,7 @@
             <div class="oneLineHasThree">
                 <p><span>{{$t('public.no11')}}:</span> <span>{{userWork.title | dataIsTrue}}</span> </p>
                 <p><span>{{$t('public.no12')}}:</span> <span>{{userWork.companyPhone | dataIsTrue}}</span> </p>
-                <p><span>{{$t('yn.no27')}}:</span> <span>{{userWork.payDate}}</span> </p>
+                <p><span>{{$t('yn.no27')}}:</span> <span>{{userWork.payDate | dataIsTrue}}</span> </p>
             </div>
             <div class="oneLineHasOne">
                 <p ><span>{{$t('public.no14')}}:</span> 
