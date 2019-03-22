@@ -18,8 +18,8 @@
             <template slot-scope="scope">
                 {{$t('operationDetail.no10')+':'+$t($store.getters.operationStatus(scope.row.status))}},
                 {{$t('operationDetail.no7')+':'+(scope.row.promise==1?$t('operationDetail.no11'):$t('operationDetail.no12'))}},
-                {{$t('operationDetail.no8')+':'+(scope.row.strPromiseTime | dataIsTrue)}},
-                {{$t('operationDetail.no9')+':'+(scope.row.remark | dataIsTrue)}}
+                {{$t('operationDetail.no8')+':'+scope.row.strPromiseTime}},
+                {{$t('operationDetail.no9')+':'+scope.row.remark}}
             </template>
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('operationDetail.no18')">
@@ -32,15 +32,15 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-        <div class="pages">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="currentPage"
-            layout="total, prev, pager, next,  ->"
-            :total="pageTotal?pageTotal:0"
-          >
-          </el-pagination>
-        </div>
+      <div class="pages">
+        <el-pagination
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          layout="total, prev, pager, next,  ->"
+          :total="pageTotal?pageTotal:0"
+        >
+        </el-pagination>
+      </div>
     </el-row>
   </div>
 

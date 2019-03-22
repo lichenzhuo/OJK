@@ -68,7 +68,7 @@
     
 
     <el-dialog :title="$t('auditDetail.no42')" :visible.sync="telOpenFlag" width="750px">
-      <el-button @click="callPhone" v-if="telTip" style="margin-left:30px">
+      <el-button @click="callPhone" v-if="$store.state.common.lang==='id'&&telTip" style="margin-left:30px">
         {{$t('yn.no46')}}
       </el-button>
       <div class="left2right mt15">

@@ -147,11 +147,6 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
-            <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
-            </template>
-          </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
             </el-table-column>
@@ -165,17 +160,24 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="refundAmount" :label="$t('public.no65')">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
+          <!-- <template> -->
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
-          <template>
+          <!-- </template> -->
+          <!-- <template>
             <el-table-column align="center" prop="strLastTime" :label="$t('fei.no38')" width="86">
             </el-table-column>
-          </template>
+          </template> -->
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
@@ -439,13 +441,25 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    // if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
-    //   this.formInline = this.$store.state.common.mycuishouList_select;
-    //   if(this.formInline.collectionTimeBegin!==''){
-    //     this.searchTime.push(this.formInline.collectionTimeBegin);
-    //     this.searchTime.push(this.formInline.collectionTimeEnd);
-    //   }
-    // }
+    if (JSON.stringify(this.$store.state.common.mycuishouList_select) !== '{}') {
+      this.formInline = this.$store.state.common.mycuishouList_select;
+      if(this.formInline.collectionTimeBegin!==''){
+        this.searchTime.push(this.formInline.collectionTimeBegin);
+        this.searchTime.push(this.formInline.collectionTimeEnd);
+      }
+      if(this.formInline.goCollectionTimeBegin!==''){
+        this.searchTime1.push(this.formInline.goCollectionTimeBegin);
+        this.searchTime1.push(this.formInline.goCollectionTimeEnd);
+      }
+      if(this.formInline.promiseTimeBegin!==''){
+        this.searchTime4.push(this.formInline.promiseTimeBegin);
+        this.searchTime4.push(this.formInline.promiseTimeEnd);
+      }
+      if(this.formInline.callStartTime!==''){
+        this.searchTime5.push(this.formInline.callStartTime);
+        this.searchTime5.push(this.formInline.callEndTime);
+      }
+    }
     this.operationList();
   }
 }

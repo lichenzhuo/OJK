@@ -56,6 +56,10 @@
             <p><span>{{$t('new.no49')}}:</span>
               <span>{{data.userBase.appPackage | dataIsTrue}}</span>
             </p>
+            <p >
+              <span>{{$t('new.no55')}}:</span>
+              <span>{{data.orderUserSelf.whatsAPP | dataIsTrue}}</span>
+            </p>
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('public.userId')}}:</span>
@@ -433,15 +437,16 @@
         </li>
         <!-- ------------ 信审录音开始 ------------------------ -->
         <li v-if="active2==6&&$store.state.common.lang==='id'">
-          <audit-record type="1" :orderId="data.orderInfo.id"></audit-record>
+          <audit-record type="1" :orderId="orderId"></audit-record>
         </li>
         <!-- ------------ 催收录音开始 ------------------------ -->
         <li v-if="active2==7&&$store.state.common.lang==='id'">
-          <audit-record type="2" :orderId="data.orderInfo.id"></audit-record>
+          <audit-record type="2" :orderId="orderId"></audit-record>
         </li>
       </ul>
     </div>
     <div class="foot"></div>
+    
     <!-- ------------ 电话催收、短信催收开始------------------------ -->
     <div class="tabs" v-if="type==1">
       <ul class="tabs_title">
