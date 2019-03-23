@@ -40,10 +40,7 @@
 </template>
 <script>
 export default {
-  props: {
-    orderNo: [String, Number],
-    getAddress: Function
-  },
+  props: ['orderNo','getAddress','type'],
   data () {
     return {
       sessionid: '', // 分页当前页下标
@@ -66,7 +63,8 @@ export default {
           'page': {'index': this.currentPage, 'size': 30},
           'sessionid': this.sessionid
         },
-        orderNo: this.orderNo
+        orderNo: this.orderNo,
+        type:this.type?'1':undefined
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {

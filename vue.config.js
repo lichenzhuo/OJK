@@ -35,6 +35,13 @@ module.exports = {
         // data: fs.readFileSync('src/assets/css/resources.scss', 'utf-8')
       }
     }
-  }
-
+  },
+  // configureWebpack: {
+  //   externals: {
+  //     'vue': 'Vue',
+  //     'vue-router': 'VueRouter',
+  //     'vuex': 'Vuex',
+  //     'element-ui': 'ELEMENT',
+  //   }
+  // }
 }

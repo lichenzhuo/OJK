@@ -231,7 +231,7 @@
                   <span 
                     v-else
                     class="table_opr"
-                    @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.overdueDays)"
+                    @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.id,scope.row.overdueDays)"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
@@ -240,7 +240,7 @@
                   <span 
                     v-if="scope.row.status!=51"
                     class="table_opr"
-                    @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.overdueDays)"
+                    @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.id,scope.row.overdueDays)"
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
@@ -340,8 +340,8 @@ export default {
         this.loansList();
       }
     },
-    loanDetali (orderNo, userId,overdueDays) { // 查看详情操作
-      this.$router.push({path: '/telnoticedetail', query: {orderNo, userId,overdueDays,type:1}});
+    loanDetali (orderNo, userId, orderId) { // 查看详情操作
+      this.$router.push({path: '/telnoticedetail', query: {orderNo, userId, orderId, type:1}});
     },
     loansList () { // 获取借款列表
       this.loadFlag = true;

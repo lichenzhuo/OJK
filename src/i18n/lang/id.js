@@ -1587,9 +1587,10 @@ const id = {
     no44:'sikap buruk',
     no45:'Pause',
     no46:'Memanggil',
-    no47:'审核结果',
+    no47:'Hasil audit',
     no48:'Menunggu verifikasi',
     no49:'Mohon dicermati, setelah menyetujui user ini tidak dapat meminjam kembali',
+    no50:'Rekaman CS',
     loanUse:{
       'no1':'menikah',
       'no2':'renovasi',
@@ -1607,6 +1608,9 @@ const id = {
   add:{
     no1: 'Jenis umpan balik',
     no2: 'Jumlah pinjaman dana',
+    no3: '逾期分期列表',
+    no4: '逾期分期金额',
+    no5: 'harus memenuhi satu syarat',
   },
   ...idLocale
 }

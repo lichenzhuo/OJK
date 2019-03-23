@@ -1,9 +1,16 @@
 <template>
   <div class="public_main" v-if="data">
-    <div class="crumbs">
+    <div class="crumbs" v-if="type==1">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/myovedateremind'}">{{$t('serviceManage.crumbsThree')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('serviceManage.telNotice')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-if="type==2">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/nobackOrderList'}">{{$t('serviceManage.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('serviceManage.telNotice')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -303,7 +310,7 @@
     </table>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
-    <div class="tabs mt15" v-if="$store.state.common.lang!=='PHL'&&overdueDays>=0">
+    <div class="tabs mt15" v-if="$store.state.common.lang!=='PHL'">
       <ul class="tabs_title">
         <li v-for="(value,index) in arr2" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
           <span>{{value.title}}</span>
@@ -326,10 +333,62 @@
               {{$t('public.no23')}}
             </div>
           </div>
+          <template v-if="$store.state.common.lang==='vi'">
+            <div class="paixu">
+              <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
+            </div>
+            <div class="xuan-2-9-1" v-if="data.orderFacebook.friendOneFblink">
+              <el-radio-group v-model="fbContact" class="radio1">
+                <el-radio v-if="data.orderFacebook.friendOneFblink"  :label="data.orderFacebook.friendOneName+','+'9'+','+data.orderFacebook.friendOnePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendOneName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendOnePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendOneFblink)" class="td-ul">
+                    {{data.orderFacebook.friendOneFblink}}
+                  </span>
+                </el-radio>
+                <el-radio v-if="data.orderFacebook.friendTwoFblink" :label="data.orderFacebook.friendTwoName+','+'9'+','+data.orderFacebook.friendTwoPhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendTwoName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendTwoPhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendTwoFblink)" class="td-ul">
+                    {{data.orderFacebook.friendTwoFblink}}
+                  </span>
+                </el-radio>
+                <el-radio v-if="data.orderFacebook.friendThreeFblink" :label="data.orderFacebook.friendThreeName+','+'9'+','+data.orderFacebook.friendThreePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendThreeName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendThreePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendThreeFblink)" class="td-ul">
+                    {{data.orderFacebook.friendOneFblink}}
+                  </span>
+                </el-radio>
+                <el-radio v-if="data.orderFacebook.friendFourFblink" :label="data.orderFacebook.friendFourName+','+'9'+','+data.orderFacebook.friendFourPhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendFourName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendOFourPhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendFourFblink)" class="td-ul">
+                    {{data.orderFacebook.friendFourFblink}}
+                  </span>
+                </el-radio>
+                <el-radio v-if="data.orderFacebook.friendFiveFblink" :label="data.orderFacebook.friendFiveName+','+'9'+','+data.orderFacebook.friendFivePhone">
+                  <span>{{$t('public.name')}}：{{data.orderFacebook.friendFiveName}}</span>
+                  <span style="margin:0 10px;">{{$t('operationDetail.no13')}}:{{data.orderFacebook.friendFivePhone}}</span>
+                  <span >{{$t('yuenan.no33')}}:</span>
+                  <span @click="openWindow(data.orderFacebook.friendFiveFblink)" class="td-ul">
+                    {{data.orderFacebook.friendFiveFblink}}
+                  </span>
+                </el-radio>
+              </el-radio-group>
+            </div>
+            <div v-else style="padding:0 30px">
+              {{$t('public.no23')}}
+            </div>
+          </template>
         </li>
         <li  v-if="active2==2">
           <div class="xuan-2-3-1">
-            <address-list :get-address="getLinkMan" :order-no="orderNo"></address-list>
+            <address-list :get-address="getLinkMan" :order-no="orderNo" :type='1'></address-list>
           </div>
         </li>
         <li  v-if="active2==3">
@@ -348,6 +407,10 @@
             </div>
           </div>
         </li>
+        <!-- ------------ 客服录音开始 ------------------------ -->
+        <li v-if="active2==8&&$store.state.common.lang==='id'">
+          <audit-record :type="3" :orderId="orderId"></audit-record>
+        </li>
       </ul>
     </div>
     
@@ -362,6 +425,13 @@
       <ul class="tabs_main">
         <!-- --------------- 电话催收开始 ------------------------ -->
         <li  v-if="active3==1">
+          <el-button 
+            v-if="$store.state.common.lang==='id'" 
+            style="margin:0 0 16px 30px;" 
+            @click="openTelWindow"
+            >
+            {{$t('yn.no46')}}
+          </el-button>
           <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
             <el-form-item :label="$t('operationDetail.no23')" prop="status">
               <el-select size="small" v-model="ruleForm.status" :placeholder="$t('public.placeholder')">
@@ -418,11 +488,13 @@
 <script>
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
 import addressList from '../../../components/component/address'// 通讯录列表组件
+import auditRecord from '../../../components/component/auditRecord'// 通讯录列表组件
 export default {
-  name: 'userManage',
+  name: 'telNoticeDetail',
   components: {
     appLightbox,
-    addressList
+    addressList,
+    auditRecord
   },
   data () {
     return {
@@ -430,6 +502,7 @@ export default {
       collectionId: '', // 传过来的催收ID
       orderNo: '', // 传过来的订单编号
       userId: '', // 传过来的订单编号
+      orderId: '', // 传过来的订单编号
       type: '', // 传过来的来源,1的时候显示提交按钮
       overdueDays: '', // 传过来的逾期天数
       lightBoxToggle: false, // 图片放大显示层开关
@@ -449,13 +522,18 @@ export default {
         order: '',
         orderExtra: '',
         webInfo: '',
+        orderFacebook: '',
         serviceRecordList: '',
         orderUserContactList: '', // 通话记录联系人列表
         orderUrgentContact: '', // 紧急联系人列表
       },
       emeContact: '', // 紧急联系人选中项
       contact: '', // 通话记录联系人选中项
+      fbContact: '', // FB联系人选中项
       ruleForm: {// 电话催收模块
+        userName: '',
+        userPhone: '',
+        relation: '',
         status: '',
         promise: '',
         promiseTime: '',
@@ -489,11 +567,17 @@ export default {
       return arr
     },
     arr2 () {
-      return [
+      let arr = [
         {id: 1, title: this.$t('operationDetail.tab2.no2')},
         {id: 2, title: this.$t('operationDetail.tab2.no3')},
         {id: 3, title: this.$t('public.no12')}
       ]
+      if(this.$store.state.common.lang==='id'){
+        if(this.$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_RECORDING')){
+          arr.push({id: 8, title: this.$t('yn.no50')})
+        }
+      }
+      return arr;
     },
     arr3 () {
       return [
@@ -521,23 +605,37 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.data.userBase = res.data.data.userBase
-          this.data.userBank = res.data.data.userBank
-          this.data.userIdcard = res.data.data.userIdcard
-          this.data.userSelf = res.data.data.userSelf
-          this.data.userWork = res.data.data.userWork
-          this.data.order = res.data.data.order
-          this.data.orderExtra = res.data.data.orderExtra
-          this.data.serviceRecordList = res.data.data.serviceRecordList
-          this.data.orderUserContactList = res.data.data.orderUserContactList
-          this.data.orderUrgentContact = res.data.data.orderUrgentContact
-          this.data.webInfo = res.data.data.webInfo
+          this.data.userBase = res.data.data.userBase;
+          this.data.userBank = res.data.data.userBank;
+          this.data.userIdcard = res.data.data.userIdcard;
+          this.data.userSelf = res.data.data.userSelf;
+          this.data.userWork = res.data.data.userWork;
+          this.data.order = res.data.data.order;
+          this.data.orderExtra = res.data.data.orderExtra;
+          this.data.serviceRecordList = res.data.data.serviceRecordList;
+          this.data.orderUserContactList = res.data.data.orderUserContactList;
+          this.data.orderUrgentContact = res.data.data.orderUrgentContact;
+          this.data.webInfo = res.data.data.webInfo;
+          this.data.orderFacebook = res.data.data.orderFacebook;
         } else {
-          this.data = []
+          this.data = {}
         }
       })
     },
     submitForm (formName) { // 电话催收提交操作
+      // 判断联系人字段是否填写
+      if(this.$store.state.common.lang==='vi'){
+        if (this.emeContact === '' && this.contact === ''&&this.fbContact === '') {
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
+          return
+        }
+      }
+      if(this.$store.state.common.lang==='id'){
+        if (this.emeContact === '' && this.contact === '') {
+          this.$globalMsg.error(this.$t('operationDetail.no28'));
+          return
+        }
+      }
       // 表单验证
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -546,46 +644,59 @@ export default {
             return
           }
           if (this.flag) {
-            this.flag = false
-            let option = {
-              header: {
-                ...this.$base,
-                action: this.$store.state.actionMap.kf_myOveDate_detail_submit,
-                sessionid: this.sessionid
-              },
-              orderId: this.data.order.id,
-              userName: this.data.userBase.name,
-              userPhone: this.data.userBase.phone,
-              ...this.ruleForm
+            this.flag = false;
+            let option;
+            if(this.$store.state.common.lang==='PHL'){
+              option = {
+                header: {
+                  ...this.$base,
+                  action: this.$store.state.actionMap.kf_myOveDate_detail_submit,
+                  sessionid: this.sessionid
+                },
+                orderId: this.data.order.id,
+                userName: this.data.userBase.name,
+                userPhone: this.data.userBase.phone,
+                ...this.ruleForm
+              }
+            }else{
+              option = {
+                header: {
+                  ...this.$base,
+                  action: this.$store.state.actionMap.kf_myOveDate_detail_submit,
+                  sessionid: this.sessionid
+                },
+                orderId: this.data.order.id,
+                ...this.ruleForm
+              }
             }
             this.$axios.post('', option).then(res => {
               this.flag = true
               if (res.data.header.code == 0) {
-                this.$globalMsg.success(this.$t('message.success'))
+                this.$globalMsg.success(this.$t('message.success'));
                 setTimeout(() => {
-                  this.$router.push('/myovedateremind')
+                  this.$router.push('/myovedateremind');
                 }, 1000)
               } else {
-                this.$globalMsg.error(res.data.header.msg)
+                this.$globalMsg.error(res.data.header.msg);
               }
-              this.ruleForm.remark = ''
-              this.ruleForm.status = ''
-              this.ruleForm.promiseTime = ''
-              this.ruleForm.promise = ''
+              this.ruleForm.remark = '';
+              this.ruleForm.status = '';
+              this.ruleForm.promiseTime = '';
+              this.ruleForm.promise = '';
             })
           }
         } else {
-          return false
+          return false;
         }
       })
     },
     back () { // 页面无数据时，点击返回
-      window.history.go(-1)
+      window.history.go(-1);
     },
     getLinkMan (val) {
-      this.contact = val
+      this.contact = val;
     },
-    getTableList () { // 入催订单列表
+    getTableList () { // 呼叫结果列表
       let option = {
         header: {
           ...this.$base,
@@ -602,39 +713,81 @@ export default {
         }
       })
     },
+    openTelWindow(){
+      if (this.emeContact === '' && this.contact === '') {
+        this.$globalMsg.error(this.$t('operationDetail.no28'));
+        return
+      }
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.TELEPHONE0001,
+          'sessionid': this.sessionid
+        },
+        orderId:this.orderId,
+        phone:this.ruleForm.userPhone,
+        type:3
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.telHref = 'sip:'+this.ruleForm.userPhone+','+res.data.data;
+          window.location.href = this.telHref;
+        }else{
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
+    },
+    openWindow(href){
+      if(href){
+        window.open(href);
+      }
+    },
   },
   watch: {
     'ruleForm.promise' () {
       if (this.ruleForm.promise === -1) {
-        this.ruleForm.promiseTime = ''
+        this.ruleForm.promiseTime = '';
       }
     },
     emeContact () {
       if (this.emeContact !== '') {
-        this.contact = ''
-        let arr = String(this.emeContact).split(',')
-        this.ruleForm.contactName = arr[0]
-        this.ruleForm.relation = arr[1]
-        this.ruleForm.contactPhone = arr[2]
+        this.contact = '';
+        this.fbContact = '';
+        let arr = String(this.emeContact).split(',');
+        this.ruleForm.userName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.userPhone = arr[2];
       }
     },
     contact () {
       if (this.contact !== '') {
-        this.emeContact = ''
-        let arr = String(this.contact).split(',')
-        this.ruleForm.contactName = arr[0]
-        this.ruleForm.relation = arr[1]
-        this.ruleForm.contactPhone = arr[2]
+        this.emeContact = '';
+        this.fbContact = '';
+        let arr = String(this.contact).split(',');
+        this.ruleForm.userName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.userPhone = arr[2];
+      }
+    },
+    fbContact () {
+      if (this.fbContact !== '') {
+        this.emeContact = '';
+        this.contact = '';
+        let arr = String(this.fbContact).split(',');
+        this.ruleForm.userName = arr[0];
+        this.ruleForm.relation = arr[1];
+        this.ruleForm.userPhone = arr[2];
       }
     },
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.orderNo = this.$route.query.orderNo
-    this.userId = this.$route.query.userId
-    this.overdueDays = this.$route.query.overdueDays
-    this.type = this.$route.query.type
-    this.detail()
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.orderNo = this.$route.query.orderNo;
+    this.userId = this.$route.query.userId;
+    this.orderId = this.$route.query.orderId;
+    // this.overdueDays = this.$route.query.overdueDays;
+    this.type = this.$route.query.type;
+    this.detail();
     this.getTableList();
   }
 }
@@ -682,7 +835,7 @@ export default {
   }
 }
 .xuan-2-9-1{
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   display: flex;
   .radio1{
     .el-radio{
@@ -694,18 +847,6 @@ export default {
     }
   }
 }
-.xuan-2-3-1{
-  width: 100%;
-  height: auto;
-  ul{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    li{
-      width: 33%;
-    }
-  }
-}
+
 
 </style>

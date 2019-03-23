@@ -35,13 +35,13 @@
           <el-table-column align="center" prop="strSendTime" :label="$t('operatorManage.no5')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="messageType" :label="$t('operatorManage.no18')">
+            <el-table-column align="center" prop="messageType" :label="$t('operatorManage.no4')">
               <template slot-scope="scope">
                 <span>{{$t($store.getters.manual_sendStatus(scope.row.messageType))}}</span>
               </template>
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no4')">
+          <el-table-column align="center" prop="sendType" :label="$t('operatorManage.no18')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.sendTypeState(scope.row.sendType))}}</span>
             </template>
@@ -91,7 +91,7 @@
           <el-input type="textarea" style="width:400px;" v-model="form.message"></el-input>
         </el-form-item>
       </el-form>
-      <h4>{{$t('operatorManage.no17')}}</h4>
+      <h4 class="mb20">{{$t('operatorManage.no17')}} <span class="red">({{$t('add.no5')}})</span></h4>
       <div class="even" v-if="form.sendType==2">
         <el-form :inline="true" :model="evenForm" size="small" label-width="120px">
           <el-form-item :label="$t('new.no48')">
@@ -311,6 +311,8 @@ export default {
     save () {// 消息发送确认操作
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
+          if (this.form.sendType==1&&this.odd.phone==='') return
+          if (this.form.sendType==2&&this.evenForm.packageName===''&&this.evenForm.userStatus===''&&this.evenForm.isAuth===''&&this.evenForm.lastOrderStatus===''&&this.evenForm.successfulLendings===''&&this.evenForm.overDueDays==='') return
           let option = {
             header: {
               ...this.$base,
@@ -394,5 +396,9 @@ export default {
       padding-left: 50px;
       padding-right: 14px;
     }
+  }
+  .red{
+    color: crimson;
+    
   }
 </style>

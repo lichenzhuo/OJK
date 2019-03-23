@@ -443,6 +443,10 @@
         <li v-if="active2==7&&$store.state.common.lang==='id'">
           <audit-record type="2" :orderId="orderId"></audit-record>
         </li>
+        <!-- ------------ 客服录音开始 ------------------------ -->
+        <li v-if="active2==8&&$store.state.common.lang==='id'">
+          <audit-record type="3" :orderId="orderId"></audit-record>
+        </li>
       </ul>
     </div>
     <div class="foot"></div>
@@ -732,6 +736,9 @@ export default {
         }
         if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_COLLECTION_RECORDING')){
           arr.push({id: 7, title: this.$t('yn.no30')})
+        }
+        if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_CUSTOMER_SERVICE_REPAYMENT')){
+          arr.push({id: 8, title: this.$t('yn.no50')})
         }
       }
       return  arr;
@@ -1087,7 +1094,7 @@ export default {
 
 .xuan-2-9{
   .xuan-2-9-1{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
     .radio1{
       .el-radio{

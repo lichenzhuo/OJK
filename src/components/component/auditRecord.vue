@@ -66,6 +66,9 @@ export default {
       if(this.type=='2'){
         return this.$t('operationDetail.no18');
       }
+      if(this.type=='3'){
+        return this.$t('serviceManage.service');
+      }
     }
   },
   methods: {

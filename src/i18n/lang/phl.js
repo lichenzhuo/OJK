@@ -1587,6 +1587,9 @@ const phl = {
   add:{
     no1:'type',
     no2: 'Principle',
+    no3: '逾期分期列表',
+    no4: '逾期分期金额',
+    no5: '必须满足一个条件',
   },
   ...feilvbin
 }

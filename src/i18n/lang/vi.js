@@ -1632,6 +1632,9 @@ const vi = {
   add:{
     no1:'Loại phản hồi',
     no2: 'Số tiền vay',
+    no3: '逾期分期列表',
+    no4: '逾期分期金额',
+    no5: 'bắt buộc phải đáp ứng được một điều kiện',
   },
   ...yuenan
 }

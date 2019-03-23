@@ -256,7 +256,7 @@
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_DETAIL')"
                 class="table_opr" 
-                @click="loanDetali(scope.row.orderNo,scope.row.userId)"
+                @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.id)"
               >
               {{$t('public.no29')}}
               </span>
@@ -419,8 +419,8 @@ export default {
         })
       }
     },
-    loanDetali (orderNo, userId) { // 查看详情操作
-      this.$router.push({path: '/telnoticedetail', query: {userId, orderNo,type:2}});
+    loanDetali (orderNo, userId, orderId) { // 查看详情操作
+      this.$router.push({path: '/telnoticedetail', query: {userId, orderNo, orderId, type:2}});
     },
     dataList () { // 获取借款列表
       this.loadFlag = true;
