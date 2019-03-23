@@ -18,19 +18,19 @@
         <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
+            <el-input size="small" label="orderId" v-model="formInline2.orderId"></el-input>
           </div>
         </el-col>
         <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
-            <el-input size="small" label="userName" v-model="formInline.userName"></el-input>
+            <el-input size="small" label="userName" v-model="formInline2.userName"></el-input>
           </div>
         </el-col>
         <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userTel')}}:</span>
-            <el-input size="small" label="userPhone" v-model="formInline.userPhone"></el-input>
+            <el-input size="small" label="userPhone" v-model="formInline2.userPhone"></el-input>
           </div>
         </el-col>
         <div class="search-input">
@@ -289,12 +289,13 @@ export default {
       sign: '',
       auditTitle: '',
       // 用户查询信息数据对应字段
-      formInline: {
-        collectionId: '',
-        orderNo: '',
+      formInline2:{
         orderId: '',
         userName: '',
         userPhone: '',
+      },
+      formInline: {
+        collectionId: '',
         overdueDaysBegin: '',
         overdueDaysEnd: '',
         maxOverdueDaysBegin: '',
@@ -344,7 +345,8 @@ export default {
           'page': {'index': this.currentPage, 'size': this.pageNumber},
           'sessionid': this.sessionid
         },
-        ...this.formInline
+        ...this.formInline,
+        ...this.formInline2
       }
       this.$axios.post('', option).then(res => {
         this.flag = true;

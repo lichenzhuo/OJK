@@ -805,7 +805,9 @@ const id = {
       no1: 'otc',
       no2: 'BNI',
       no3: 'Permate(BCA)',
-      no4: 'Mandiri'
+      no4: 'Mandiri',
+      no5: 'dandan',
+      no6: 'lawson',
     },
     collection_option: {
       no1: 'putus',
