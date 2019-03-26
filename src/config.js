@@ -75,7 +75,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
-  domain = `http://api.dongabc.vn`;
+  domain = `http://api.dongabc.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
