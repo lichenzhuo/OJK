@@ -48,7 +48,7 @@
         <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang==='PHL'">
           <div class="search-input">
             <span>{{$t('fei.no17')}}:</span>
-            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+            <el-input size="small"  v-model="formInline.instalment"></el-input>
           </div>
         </el-col>
         <div class="search-input">
@@ -134,7 +134,7 @@
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
-            <el-table-column align="center" prop="productPeriod" :label="$t('fei.no17')" >
+            <el-table-column align="center" prop="instalment" :label="$t('fei.no17')" >
             </el-table-column>
           </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
@@ -240,6 +240,7 @@ export default {
         idCard: '',
         name: '',
         phone: '',
+        instalment: '',
         orderLoanType: '',
         dealStatus: '',
         problemType: '',

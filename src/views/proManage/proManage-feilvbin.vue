@@ -63,14 +63,14 @@
         <el-table :data="tableData" size="small" stripe >
           <el-table-column align="center" prop="id" label="产品ID">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" label="借款本金">
+          <el-table-column align="center" prop="productAmountMax" label="借款本金">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="借款周期">
+          <el-table-column align="center" prop="productPeriodMax" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="分期期数">
+          <el-table-column align="center" prop="instalment" label="分期期数">
           </el-table-column>
           <el-table-column align="center" prop="dayInterest" label="日利率">
             <template slot-scope="scope">
@@ -564,11 +564,11 @@ export default{
         method: this.addOrEdit=='edit'?'edit':'add',
         id: this.addOrEdit=='edit'?this.productId:undefined,
         ...this.ruleForm2,
-        productAmountMin:this.ruleForm2.productAmountMax,
-        productAmountPer:this.ruleForm2.productAmountMax,
-        productPeriodMin:this.ruleForm2.productPeriodMax,
-        productPeriodPer:this.ruleForm2.productPeriodMax,
-        canAdvanceType:'1',
+        productAmountMin: this.ruleForm2.productAmountMax,
+        productAmountPer: this.ruleForm2.productAmountMax,
+        productPeriodMin: this.ruleForm2.productPeriodMax,
+        productPeriodPer: this.ruleForm2.productPeriodMax,
+        canAdvanceType: '1',
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -578,7 +578,7 @@ export default{
             } else {
               this.$globalMsg.error(res.data.header.msg);
             }
-            this.addclose();
+            this.add = false;
             this.proInfor();
           })
         }

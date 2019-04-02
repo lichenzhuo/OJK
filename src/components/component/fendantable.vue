@@ -144,6 +144,9 @@ export default {
       })
     }
   },
+  watch: {
+
+  },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.tableList()

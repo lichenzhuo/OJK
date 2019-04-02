@@ -332,6 +332,12 @@
                   return index.index == '10'
                 })[0].subs.push({index: 'inTheRushOrders', title: 'sidebar.comeOrderList'})
               }
+              // 入催订单列表
+              if (value.uniqueSign == 'MENU_LOANLAST_INCOME') {
+                item.filter(index => {
+                  return index.index == '10'
+                })[0].subs.push({index: 'overDueInstalment', title: 'add.no3'})
+              }
               // 每日派单统计
               if (value.uniqueSign == 'MENU_DISTRIBUTION_STATISTICS_DAY') {
                 item.filter(index => {
@@ -410,6 +416,12 @@
                 item.filter(index => {
                   return index.index == '8'
                 })[0].subs.push({index: 'myCollectionOrderList', title: 'sidebar.myComeOrder'})
+              }
+              // 我的逾期分期订单列表
+              if (value.uniqueSign == 'MENU_COLLECT_ME') {
+                item.filter(index => {
+                  return index.index == '8'
+                })[0].subs.push({index: 'myOverDueInstalment', title: 'add.no6'})
               }
               // 工作分析
               if (value.uniqueSign == 'MENU_COLLECT_ME_WORK_ANALYSIS') {

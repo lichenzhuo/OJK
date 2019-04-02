@@ -129,9 +129,11 @@
     <div class="foot"></div>
     
     <!-- ------------------ 点击查看详情弹窗开始 -------------------- -->
-    <el-dialog :title="$t('loanAfterManage.sel')" :visible.sync="detailFlag" width="90%">
-      <fendantable :time="time" :admin-id="adminId" :type="type" :groupId="groupId"></fendantable>
-    </el-dialog>
+    <div v-if="detailFlag">
+      <el-dialog :title="$t('loanAfterManage.sel')" :visible.sync="detailFlag" width="90%">
+        <fendan-table :time="time" :admin-id="adminId" :type="type" :groupId="groupId"></fendan-table>
+      </el-dialog>
+    </div>
     <!-- ------------------ 点击查看详情弹窗结束 -------------------- -->
 
     <!-- ------------------ 点击转派弹窗开始 -------------------- -->
@@ -177,11 +179,11 @@
   </div>
 </template>
 <script>
-import fendantable from '../../components/component/fendantable'
+import fendanTable from '../../components/component/fendantable'
 export default {
   name: 'everyDaySendOrdersTotal',
   components: {
-    fendantable
+    fendanTable
   },
   data () {
     return {

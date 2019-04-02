@@ -148,9 +148,9 @@
             </template>
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
-            <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+            <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">
             </el-table-column>
-            <el-table-column align="center" prop="userPhone" :label="$t('fei.no37')">
+            <el-table-column align="center" prop="overDueNoReturnInstalment" :label="$t('fei.no37')">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
@@ -170,14 +170,12 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <!-- <template> -->
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
-          <!-- </template> -->
-          <!-- <template>
-            <el-table-column align="center" prop="strLastTime" :label="$t('fei.no38')" width="86">
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="strLastRefundTime" :label="$t('fei.no38')" width="86">
             </el-table-column>
-          </template> -->
+          </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
@@ -312,7 +310,8 @@ export default {
         callStatus: '',
         callStartTime:'',
         callEndTime:'',
-        refundAmountIsZero: ''
+        refundAmountIsZero: '',
+        instalmentType: 1
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.collection_option, // 入催状态下拉选框信息

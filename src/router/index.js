@@ -86,7 +86,7 @@ let peopleSecondAuditTotal = resolve => require(['../views/fengkonglist/peopleSe
 let overdueCouponApply = resolve => require(['../views/loanafter/overdueCouponApply.vue'], resolve)
 let partialRepaymentApply = resolve => require(['../views/loanafter/partialRepaymentApply.vue'], resolve)
 let inTheRushOrders = resolve => require(['../views/loanafter/inTheRushOrders.vue'], resolve)
-// let rucuixiangqing = resolve => require(['../views/loanafter/rucuixiangqing/rucuixiangqing.vue'], resolve)
+let overDueInstalment = resolve => require(['../views/loanafter/overDueInstalment.vue'], resolve)
 let everyDayPushBackTotal = resolve => require(['../views/loanafter/everyDayPushBackTotal.vue'], resolve)
 let everyDaySendOrdersTotal = resolve => require(['../views/loanafter/everyDaySendOrdersTotal.vue'], resolve)
 let debtCollectorTotal = resolve => require(['../views/loanafter/debtCollectorTotal.vue'], resolve)
@@ -95,6 +95,7 @@ let OutsourcedResourcePool = resolve => require(['../views/loanafter/OutsourcedR
 
 // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
 let myCollectionOrderList = resolve => require(['../views/cuishou/myCollectionOrderList.vue'], resolve)
+let myOverDueInstalment = resolve => require(['../views/cuishou/myOverDueInstalment.vue'], resolve)
 let workAnalysis = resolve => require(['../views/cuishou/workAnalysis.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后运营列表  @@@@@@@@@@@@@@@@@@@@@@@
@@ -229,6 +230,7 @@ const router = new Router({
                     {path: '/outsourcedresourcepool', name: 'OutsourcedResourcePool', component: OutsourcedResourcePool },
 
                     {path: '/inTheRushOrders', name: 'inTheRushOrders', component: inTheRushOrders },
+                    {path: '/overDueInstalment', name: 'overDueInstalment', component: overDueInstalment },
                         //  ----------------  催收订单详情订单详情   -----------------
                         // {path: '/rucuixiangqing', name: 'rucuixiangqing', component: rucuixiangqing },
                     {path: '/everyDayPushBackTotal', name: 'everyDayPushBackTotal', component: everyDayPushBackTotal },
@@ -242,6 +244,7 @@ const router = new Router({
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/myCollectionOrderList', name: 'myCollectionOrderList', component: myCollectionOrderList },
+                    {path: '/myOverDueInstalment', name: 'myOverDueInstalment', component: myOverDueInstalment },
                     {path: '/cuishoudetail', name: 'cuishouDetail', component: cuishouDetail },
                     {path: '/workanalysis', name: 'workAnalysis', component: workAnalysis },
 

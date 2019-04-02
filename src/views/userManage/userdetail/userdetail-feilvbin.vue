@@ -216,7 +216,7 @@
               </el-table-column>
               <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')+'('+$t('public.no26')+')'">
               </el-table-column>
-              <el-table-column align="center" prop="productPeriod" :label="$t('fei.no17')">
+              <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">
               </el-table-column>
               <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
                 <template slot-scope="scope">

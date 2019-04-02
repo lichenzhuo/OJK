@@ -81,16 +81,24 @@
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('fei.loanId')}}:</span>
-              <span>{{data.userBase.appName | dataIsTrue}}</span>
+              <span>{{data.order.id | dataIsTrue}}</span>
             </p>
             <p><span>{{$t('public.no30')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+              <span>{{$store.getters.moneySplit(data.order.loanAmount)}}</span>
             </p>
-            <p><span>{{$t('public.no31')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            <p><span>{{$t('public.no31')}}:</span> 
+              <span>{{data.order.productPeriod | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('public.CreateDate')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            <p><span>{{$t('public.CreateDate')}}:</span> 
+              <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('fei.no17')}}:</span>
+              <span>{{data.order.instalment | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no39')}}:</span>
+              <span>{{data.orderExtra.loanUse | dataIsTrue}}</span>
             </p>
           </div>
         </li>
@@ -424,13 +432,9 @@
 
 
     <!------------------------ 初审结果展示开始 ---------------------------->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu pai-active">
-          <span></span><p>{{$t('auditDetail.no12')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu pai-active">
+      <span></span><p>{{$t('auditDetail.no12')}}</p>
+    </div>
     <div class="chushenjilu">
       <template v-if="peopleOne_audit!==null&&peopleOne_audit!==undefined&&peopleOne_audit!==''">
         <div class="chu-select">

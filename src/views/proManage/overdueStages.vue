@@ -197,6 +197,7 @@ export default {
       this.ruleForm2.feeAmount = row.feeAmount;
       this.ruleForm2.overdueTypeList = row.overdueTypeList;
       this.modify = true;
+      this.addOrchange = true;
     },
     submitForm (formName) {
       let option = {
@@ -219,13 +220,12 @@ export default {
             this.addclose();
             this.getTableList();
           })
-        } else {
-          return false;
         }
       })
     },
     addUser () { // 添加账号开关
       this.add = true;
+      this.addOrchange = true;
     },
     getTableList () { // 获取列表数据
       let option = {
@@ -248,6 +248,7 @@ export default {
     addClose () {
       this.add = false;
       this.change = false;
+      this.addOrchange = false;
       this.$refs.ruleForm2.resetFields();
       this.ruleForm2 = {
         returnMoneyMin: '',

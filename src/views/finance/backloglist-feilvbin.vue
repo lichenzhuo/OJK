@@ -133,6 +133,14 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'">
           </el-table-column>
+          <template v-if="$store.state.common.lang==='PHL'">
+            <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">
+            </el-table-column>
+            <el-table-column align="center" prop="instalmentOrder" :label="$t('fei.no40')">
+            </el-table-column>
+            <el-table-column align="center" prop="overdueInterest" :label="$t('fei.no41')">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')">
             <template slot-scope="scope">
               <span v-if="scope.row.overdueInterestRate!=''">{{$store.getters.twoPoint(scope.row.overdueInterestRate)}}%</span>
@@ -228,7 +236,7 @@ export default {
       options2: this.$store.state.options.thirdChannel_vi, // 通道
       options3: this.$store.state.options.backMoneyLog_select, // 状态下拉选框信息
       options4: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
-      options5: this.$store.state.options.couponType_option,// 优惠券类型下拉选框信息
+      options5: this.$store.state.options.couponType_option_PHL,// 优惠券类型下拉选框信息
       tableData: []// 用户信息数据模拟
 
     }

@@ -81,16 +81,24 @@
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('fei.loanId')}}:</span>
-              <span>{{data.userBase.appName | dataIsTrue}}</span>
+              <span>{{data.order.id | dataIsTrue}}</span>
             </p>
             <p><span>{{$t('public.no30')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+              <span>{{$store.getters.moneySplit(data.order.loanAmount)}}</span>
             </p>
-            <p><span>{{$t('public.no31')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            <p><span>{{$t('public.no31')}}:</span> 
+              <span>{{data.order.productPeriod | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('public.CreateDate')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            <p><span>{{$t('public.CreateDate')}}:</span> 
+              <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('fei.no17')}}:</span>
+              <span>{{data.order.instalment | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no39')}}:</span>
+              <span>{{data.orderExtra.loanUse | dataIsTrue}}</span>
             </p>
           </div>
         </li>

@@ -377,6 +377,14 @@ const options = {
       {value: '3', label: 'filter.couponType.no3'}, // 奖励金额
       {value: '4', label: 'filter.couponType.no4'} // 利息折扣
     ],
+    couponType_option_PHL: [
+      {value: '', label: 'public.placeholder'},
+      {value: '1', label: 'filter.couponType.no1'}, // 免息金额
+      {value: '2', label: 'filter.couponType.no2'}, // 免息天数
+      {value: '3', label: 'filter.couponType.no3'}, // 奖励金额
+      {value: '4', label: 'filter.couponType.no4'}, // 利息折扣
+      {value: '5', label: 'filter.couponType.no6'} // 逾期减免
+    ],
     //   24:有还款意向, 25:无还款能力, 26:承诺还款, 40:其他）',
     // permata， mandiri， bni， otc
     couponType: [

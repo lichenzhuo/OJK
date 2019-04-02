@@ -43,7 +43,7 @@
         <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('fei.no17')}}:</span>
-            <el-input size="small"  v-model="formInline.fenqi"></el-input>
+            <el-input size="small"  v-model="formInline.instalment"></el-input>
           </div>
         </el-col>
         <div class="search-input">
@@ -137,7 +137,7 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('fei.no17')">
+          <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">
           </el-table-column>
           <el-table-column align="center" prop="returnMoney" :label="$t('fei.no18')">
             <template slot-scope="scope">
@@ -261,6 +261,7 @@ export default {
         userId: '',
         name: '',
         phone: '',
+        instalment: '',
         orderState: '',
         isOverdue: '',
         refundTimeBegin: '',

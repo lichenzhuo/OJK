@@ -165,14 +165,10 @@
       </div> 
     </div>
 
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu mt15">
-          <span></span>
-          <p>{{$t('fei.no23')}}</p>
-        </div>
-      </el-col>
-    </el-row>
+    <div class="paixu mt15">
+      <span></span>
+      <p>{{$t('fei.no23')}}</p>
+    </div>
     <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
       <tr>
         <th width="10%">{{$t('fei.no24')}}</th>
@@ -184,18 +180,16 @@
         <th width="14%">{{$t('fei.no27')}}</th>
         <th width="14%">{{$t('public.orderStatus')}}</th>
       </tr>
-      <template v-if="data.orderApproveList">
-        <tr v-for="value in data.orderApproveList" :key="value.id">
-          <td>{{value.adminName | dataIsTrue}}</td>
-          <td>{{$t('loanMoneyDetail.loanMoney')}}</td>
-          <td>{{value.strApproveTime | dataIsTrue}}</td>
-          <td>
-            {{value.notApproveReason | dataIsTrue}}
-          </td>
-          <td>{{$t($store.getters.loanMoneyRecordStatus(value.approveType))}}</td>
-          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
-          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
-          <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+      <template v-if="data.orderInstalment">
+        <tr v-for="value in data.orderInstalment" :key="value.id">
+          <td>{{value.instalmentOrder | dataIsTrue}}</td>
+          <td>{{value.strMustRefundTime | dataIsTrue}}</td>
+          <td>{{value.overdueDays | dataIsTrue}}</td>
+          <td>{{value.overdueInterest | dataIsTrue}}</td>
+          <td>{{value.returnMoney | dataIsTrue}}</td>
+          <td>{{value.strLastRefundTime | dataIsTrue}}</td>
+          <td>{{value.refundAmount | dataIsTrue}}</td>
+          <td>{{$store.getters.instalment_status(value.showStatus)}}</td>
         </tr>
       </template>
       <template v-else>
@@ -299,6 +293,7 @@ export default {
         userWork: '',
         order: '',
         coupon:'',
+        orderInstalment:'',
         orderExtra: '',
         orderApproveList: '',
         orderLendingList: '',
@@ -332,6 +327,7 @@ export default {
           this.data.orderPhoneApprove = res.data.data.orderPhoneApprove;
           this.data.orderRepaymentList = res.data.data.orderRepaymentList;
           this.data.coupon = res.data.data.coupon;
+          this.data.orderInstalment = res.data.data.orderInstalment;
         }
       })
     },

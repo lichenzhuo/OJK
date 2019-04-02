@@ -1356,15 +1356,21 @@ const filters = {
     instalment_status: () => (status) => { // 群呼结果
       switch (status) {
         case 1:
-          return 'fei.status.no1' // 未到期
-        case -1:
-          return 'fei.status.no2' // 到期已还
-        case 0:
-          return 'fei.status.no3' // 部分还款
+          return 'fei.status.no1' // 下单成功
         case 2:
-          return 'fei.status.no4' // 逾期已还
+          return 'fei.status.no2' // 未到期
         case 3:
-          return 'fei.status.no5' // 逾期未还
+          return 'fei.status.no3' // 到期已还
+        case 4:
+          return 'fei.status.no4' // 到期未还
+        case 5:
+          return 'fei.status.no5' // 部分还款
+        case 6:
+          return 'fei.status.no6' // 逾期已还
+        case 7:
+          return 'fei.status.no7' // 逾期未还
+        default:
+          return 'finance.backLog_options_status.no12' // -
       }
     },
     loanUse_status: () => (status) => { // 群呼结果

@@ -219,18 +219,16 @@
               <th width="14%">{{$t('fei.no27')}}</th>
               <th width="14%">{{$t('public.orderStatus')}}</th>
             </tr>
-            <template v-if="data.orderApproveList">
-              <tr v-for="value in data.orderApproveList" :key="value.id">
-                <td>{{value.adminName | dataIsTrue}}</td>
-                <td>{{$t('loanMoneyDetail.loanMoney')}}</td>
-                <td>{{value.strApproveTime | dataIsTrue}}</td>
-                <td>
-                  {{value.notApproveReason | dataIsTrue}}
-                </td>
-                <td>{{$t($store.getters.loanMoneyRecordStatus(value.approveType))}}</td>
-                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
-                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
-                <td>{{$t($store.getters.loanMoneyResultStatus(value.approveResult))}}</td>
+            <template v-if="data.orderInstalment">
+              <tr v-for="value in data.orderInstalment" :key="value.id">
+                <td>{{value.instalmentOrder | dataIsTrue}}</td>
+                <td>{{value.strMustRefundTime | dataIsTrue}}</td>
+                <td>{{value.overdueDays | dataIsTrue}}</td>
+                <td>{{value.overdueInterest | dataIsTrue}}</td>
+                <td>{{value.returnMoney | dataIsTrue}}</td>
+                <td>{{value.strLastRefundTime | dataIsTrue}}</td>
+                <td>{{value.refundAmount | dataIsTrue}}</td>
+                <td>{{$store.getters.instalment_status(value.showStatus)}}</td>
               </tr>
             </template>
             <template v-else>
@@ -577,6 +575,7 @@ export default {
         orderPhoneApprove:'',
         partialShow:'',
         overCouponShow:'',
+        orderInstalment:'',
         pictureUrl:''
       },
       emeContact: '', // 紧急联系人选中项
@@ -691,6 +690,7 @@ export default {
           this.data.orderUrgentContact = res.data.data.orderUrgentContact
           this.data.companyContact = res.data.data.companyContact
           this.data.partialShow = res.data.data.partialShow
+          this.data.orderInstalment = res.data.data.orderInstalment
           this.data.overCouponShow = res.data.data.overCouponShow
           this.data.pictureUrl = res.data.data.pictureUrl.indexOf('|')!=-1?res.data.data.pictureUrl.split('|'):res.data.data.pictureUrl
           this.telAuditLogTwo('2');

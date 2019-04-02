@@ -133,89 +133,172 @@
           </div>
         </li>
         <li  v-if="active1==2">
-          <div class="oneLineHasFour">
-            <p><span>{{$t('new.no48')}}:</span>
-              <span>{{data.userBase.appName | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('new.no49')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span> 
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>{{$t('operationDetail.no2')}}:</span>
-              <span>{{data.order.id | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.no30')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.loanAmount)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('public.no31')}}:</span>
-              <span>{{data.order.productPeriod | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('operationDetail.no6')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.lendingAmount)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>{{$t('proManage.feeRate')}}:</span>
-              <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
-            </p>
-            <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.feeAmount)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('operationDetail.no4')}}:</span>
-              <span>{{$store.getters.twoPoint(data.order.overdueInterestRate)}}%</span>
-            </p>
-            <p><span>{{$t('operationDetail.no5')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.overdueInterest)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-          </div> 
-          <div class="oneLineHasFour">
-            <p><span>{{$t('public.no27')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.returnMoney)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('public.no65')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.refundAmount)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('public.CreateDate')}}:</span>
-              <span>{{data.order.strCreateTime | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.no66')}}:</span>
-              <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
-            </p>
-          </div> 
-          <div class="oneLineHasFour">
-            <p><span>{{$t('operationDetail.no3')}}:</span>
-              <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
-            </p>
-            <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(data.order.currentInterest)}}
-                {{$store.state.common.vi_currency}}</span>
-            </p>
-            <p><span>{{$t('public.no28')}}:</span>
-              <span>{{data.order.overdueDays | dataIsTrue}}</span> 
-            </p>
-          </div> 
-          <div class="oneLineHasFour">
-            <p><span>{{$t('public.no58')}}:</span>
-              <span>{{data.order.strLoanTime | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.CreateTime')}}:</span>
-              <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
-            </p>
-          </div>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <div class="oneLineHasFour">
+              <p><span>{{$t('new.no48')}}:</span>
+                <span>{{data.userBase.appName | dataIsTrue}}</span>
+              </p>
+              <p style="width:50%"><span>{{$t('new.no49')}}:</span>
+                <span>{{data.userBase.appPackage | dataIsTrue}}</span> 
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('operationDetail.no2')}}:</span>
+                <span>{{data.order.id | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no30')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.loanAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.no31')}}:</span>
+                <span>{{data.order.productPeriod | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('operationDetail.no6')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.lendingAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('proManage.feeRate')}}:</span>
+                <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
+              </p>
+              <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.feeAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('operationDetail.no4')}}:</span>
+                <span>{{$store.getters.twoPoint(data.order.overdueInterestRate)}}%</span>
+              </p>
+              <p><span>{{$t('operationDetail.no5')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.overdueInterest)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+            </div> 
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.no27')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.returnMoney)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.no65')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.refundAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.CreateDate')}}:</span>
+                <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no66')}}:</span>
+                <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
+              </p>
+            </div> 
+            <div class="oneLineHasFour">
+              <p><span>{{$t('operationDetail.no3')}}:</span>
+                <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
+              </p>
+              <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.currentInterest)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.no28')}}:</span>
+                <span>{{data.order.overdueDays | dataIsTrue}}</span> 
+              </p>
+            </div> 
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.no58')}}:</span>
+                <span>{{data.order.strLoanTime | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.CreateTime')}}:</span>
+                <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
+              </p>
+            </div>
+          </template>
+          <template v-else>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('operationDetail.no2')}}:</span>
+                <span>{{data.order.id | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no30')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.loanAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.no31')}}:</span>
+                <span>{{data.order.productPeriod | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('operationDetail.no6')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.lendingAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.no27')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.returnMoney)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.no65')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.refundAmount)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.CreateDate')}}:</span>
+                <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no66')}}:</span>
+                <span>{{data.order.strLastRefundTime | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('operationDetail.no5')}}:</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.overdueInterest)}}
+                  {{$store.state.common.vi_currency}}</span>
+              </p>
+              <p><span>{{$t('public.CreateTime')}}:</span>
+                <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="paixu mt15">
+              <span></span>
+              <p>{{$t('fei.no23')}}</p>
+            </div>
+            <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+              <tr>
+                <th width="10%">{{$t('fei.no24')}}</th>
+                <th width="12%">{{$t('public.no59')}}</th>
+                <th width="12%">{{$t('public.no28')}}</th>
+                <th width="12%">{{$t('fei.no25')}}</th>
+                <th width="12%">{{$t('fei.no26')}}</th>
+                <th width="14%">{{$t('public.no66')}}</th>
+                <th width="14%">{{$t('fei.no27')}}</th>
+                <th width="14%">{{$t('public.orderStatus')}}</th>
+              </tr>
+              <template v-if="data.orderInstalment">
+                <tr v-for="value in data.orderInstalment" :key="value.id">
+                  <td>{{value.instalmentOrder | dataIsTrue}}</td>
+                  <td>{{value.strMustRefundTime | dataIsTrue}}</td>
+                  <td>{{value.overdueDays | dataIsTrue}}</td>
+                  <td>{{value.overdueInterest | dataIsTrue}}</td>
+                  <td>{{value.returnMoney | dataIsTrue}}</td>
+                  <td>{{value.strLastRefundTime | dataIsTrue}}</td>
+                  <td>{{value.refundAmount | dataIsTrue}}</td>
+                  <td>{{$store.getters.instalment_status(value.showStatus)}}</td>
+                </tr>
+              </template>
+              <template v-else>
+                <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+                  {{$t('public.no23')}}
+                </div>
+              </template>
+            </table>
+          </template>
         </li>
       </ul>
     </div>
@@ -522,6 +605,7 @@ export default {
         order: '',
         orderExtra: '',
         webInfo: '',
+        orderInstalment: '',
         orderFacebook: '',
         serviceRecordList: '',
         orderUserContactList: '', // 通话记录联系人列表
@@ -617,6 +701,7 @@ export default {
           this.data.orderUrgentContact = res.data.data.orderUrgentContact;
           this.data.webInfo = res.data.data.webInfo;
           this.data.orderFacebook = res.data.data.orderFacebook;
+          this.data.orderInstalment = res.data.data.orderInstalment;
         } else {
           this.data = {}
         }
