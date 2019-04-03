@@ -289,7 +289,7 @@
                   <td>{{value.returnMoney | dataIsTrue}}</td>
                   <td>{{value.strLastRefundTime | dataIsTrue}}</td>
                   <td>{{value.refundAmount | dataIsTrue}}</td>
-                  <td>{{$store.getters.instalment_status(value.showStatus)}}</td>
+                  <td>{{$t($store.getters.instalment_status(value.showStatus))}}</td>
                 </tr>
               </template>
               <template v-else>

@@ -97,8 +97,8 @@
             <p><span>{{$t('fei.no17')}}:</span>
               <span>{{data.order.instalment | dataIsTrue}}</span>
             </p>
-            <p><span>{{$t('public.no39')}}:</span>
-              <span>{{data.orderExtra.loanUse | dataIsTrue}}</span>
+            <p><span>{{$t('fei.no22')}}:</span>
+              <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
             </p>
           </div>
         </li>

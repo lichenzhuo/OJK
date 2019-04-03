@@ -9,15 +9,11 @@
     </div>
     
     <!-- ------------ 用户信息栏 ------------------------ -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanMoneyDetail.userInfor')}}</p>
-        </div>
-      </el-col>
-    </el-row>
-    <div>
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanMoneyDetail.userInfor')}}</p>
+    </div>
+    <div class="mt15">
       <div class="oneLineHasFour">
         <p><span>{{$t('new.no48')}}:</span>
           <span>{{data.userBase.appName | dataIsTrue}}</span>
@@ -77,15 +73,11 @@
     </div>
 
     <!-- ------------ 借款订单详情栏 ------------------------ -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('loanMoney.orderDetail')}}</p>
-        </div>
-      </el-col>
-    </el-row>
-    <div class="xuan-2-2">
+    <div class="paixu">
+      <span></span>
+      <p>{{$t('loanMoney.orderDetail')}}</p>
+    </div>
+    <div class="xuan-2-2 mt15">
       <div class="oneLineHasFour">
         <p><span>{{$t('new.no48')}}:</span>
           <span>{{data.orderExtra.appName | dataIsTrue}}</span>
@@ -124,7 +116,7 @@
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
         </p>
         <p><span>{{$t('fei.no22')}}:</span>
-          <span>{{$store.getters.moneySplit(data.order.currentInterest)}}</span>
+          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
         </p>
         <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -189,7 +181,7 @@
           <td>{{value.returnMoney | dataIsTrue}}</td>
           <td>{{value.strLastRefundTime | dataIsTrue}}</td>
           <td>{{value.refundAmount | dataIsTrue}}</td>
-          <td>{{$store.getters.instalment_status(value.showStatus)}}</td>
+          <td>{{$t($store.getters.instalment_status(value.showStatus))}}</td>
         </tr>
       </template>
       <template v-else>
