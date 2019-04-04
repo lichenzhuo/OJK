@@ -65,7 +65,7 @@
           </el-table-column>
           <el-table-column align="center" prop="productAmountMax" label="借款本金">
             <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.productAmountMax)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="productPeriodMax" label="借款周期">

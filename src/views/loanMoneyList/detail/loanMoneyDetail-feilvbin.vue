@@ -113,7 +113,7 @@
       </div> 
       <div class="oneLineHasFour">
         <p><span>{{$t('fei.no21')}}:</span>
-          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>
+          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
         </p>
         <p><span>{{$t('fei.no22')}}:</span>
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
