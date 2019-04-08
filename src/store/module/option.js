@@ -29,6 +29,11 @@ const options = {
       {value: '50', label: 'userDetail.reject_status.no19'}, // 部分还款
       {value: '51', label: 'userDetail.reject_status.no20'}// 已还款
     ],
+    backOrder_status_PHL:[
+      {value: '', label: 'public.placeholder'},
+      {value: '50', label: 'fei.no42'}, // 部分还款
+      {value: '51', label: 'fei.no43'}// 已还款
+    ],
     loanMoney_options: [// 借款列表订单状态
       {value: '', label: 'public.placeholder'},
       {value: '-10', label: 'userDetail.reject_status.no1'}, // 机审驳回 3

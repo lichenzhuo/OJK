@@ -134,7 +134,7 @@
               </el-select>
             </div>
           </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'">
+          <div class="detail-con-one" >
             <div class="search-input1">
               <span style="width:100px;">{{$t('new.no70')}}:</span>
               <el-select size="small" clearable v-model="outSource" :placeholder="$t('public.placeholder')">
@@ -143,13 +143,13 @@
               </el-select>
             </div>
           </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'&&outSource==2">
+          <div class="detail-con-one" v-if="outSource==2">
             <div class="search-input">
               <span style="width:100px;">{{$t('new.no71')}}:</span>
               <el-input size="small" label="outProportion" v-model="outProportion"></el-input>
             </div>
           </div>
-          <div class="detail-con-one" v-if="$store.state.common.lang!=='PHL'&&outSource==2">
+          <div class="detail-con-one" v-if="outSource==2">
             <span style="width:100px;">{{$t('new.no12')}}:</span>
             <el-checkbox-group v-model="collectionTypes">
               <div class="types">

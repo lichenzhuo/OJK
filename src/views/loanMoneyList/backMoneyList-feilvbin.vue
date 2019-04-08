@@ -213,7 +213,7 @@
             :placeholder="$t('public.backMoneyDate')">
           </el-date-picker>
         </el-form-item>
-        <el-form-item :label="$t('public.orderStatus')"  prop="repayType" >
+        <el-form-item :label="$t('fei.no39')"  prop="repayType" >
           <el-select v-model="form.repayType">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options3" :key="i"></el-option>
           </el-select>
@@ -276,7 +276,7 @@ export default {
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.backMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
-      options3: this.$store.state.options.backOrder_status, // 确认还款弹窗还款状态下拉选框信息
+      options3: this.$store.state.options.backOrder_status_PHL, // 确认还款弹窗还款状态下拉选框信息
       tableData: [],// 用户信息数据模拟
       flag1: false,
       imageBase64: '',
