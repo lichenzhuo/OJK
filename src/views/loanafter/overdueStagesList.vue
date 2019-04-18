@@ -392,7 +392,7 @@ export default {
           'sessionid': this.sessionid
         },
         status: 1,
-        type:0,
+        type:8,
         outSource:1
       }
       this.$axios.post('', option).then(res => {

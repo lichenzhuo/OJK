@@ -61,6 +61,13 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('add.no7')}}:</span>
+          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
           <span>{{$t('fei.no20')}}:</span>
           <el-input size="small" style="width:80px" v-model="formInline.overdueBegin"></el-input>
           ~
@@ -156,6 +163,8 @@
           <el-table-column align="center" prop="strMustRefundTime" :label="$t('fei.no19')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
@@ -263,6 +272,7 @@ export default {
         phone: '',
         instalment: '',
         orderState: '',
+        loanDevice: '',
         isOverdue: '',
         refundTimeBegin: '',
         refundTimeEnd: '',
@@ -277,6 +287,7 @@ export default {
       options1: this.$store.state.options.backMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
       options3: this.$store.state.options.backOrder_status_PHL, // 确认还款弹窗还款状态下拉选框信息
+      options6: this.$store.state.options.loanDevice_options, // 借款客户端
       tableData: [],// 用户信息数据模拟
       flag1: false,
       imageBase64: '',

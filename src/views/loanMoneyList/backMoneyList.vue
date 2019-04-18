@@ -46,6 +46,13 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('add.no7')}}:</span>
+          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
           <span>{{$t('public.no53')}}:</span>
           <el-select size="small" v-model="formInline.isOverdue" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
@@ -164,6 +171,8 @@
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="86">
           </el-table-column>
+          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
+          </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no43')">
@@ -204,7 +213,7 @@
 </template>
 <script>
 export default {
-  name: 'userManage',
+  name: 'backMoneyList',
   data () {
     return {
       flag: true,
@@ -220,6 +229,7 @@ export default {
         orderId: '',
         userId: '',
         name: '',
+        loanDevice: '',
         phone: '',
         orderState: '',
         isOverdue: '',
@@ -235,6 +245,7 @@ export default {
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.backMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
+      options6: this.$store.state.options.loanDevice_options, // 借款客户端
       tableData: []// 用户信息数据模拟
 
     }

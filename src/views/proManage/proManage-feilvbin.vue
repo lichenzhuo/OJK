@@ -194,8 +194,8 @@
         <el-form-item label="成功还款次数" prop="minSuccessRepayments">
           <el-input type="text" v-model="ruleForm2.minSuccessRepayments" ></el-input>
         </el-form-item>
-        <el-form-item label="要求最大逾期天数" prop="userOverdueMaxDays">
-          <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" ></el-input>
+        <el-form-item label="要求最大逾期天数" >
+          <el-input type="number" v-model="ruleForm2.userOverdueMaxDays" ></el-input>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">{{$t('public.no41')}}</el-button>

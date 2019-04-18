@@ -109,6 +109,10 @@
             </p>
           </div>
         </li>
+        <!-- ------------ 优惠券详情 ------------------------ -->
+        <li v-if="active==3">
+          <coupon-list :user-id="userId"></coupon-list>
+        </li>
       </ul>
     </div>
 
@@ -820,13 +824,15 @@ import loanList from '../../../components/component/loantable'
 import Gauge from '../../../components/component/gauge'// 欺诈分图表组件
 
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
+import couponList from '../../../components/component/coupon' // 优惠券列表
 
 export default {
-  name: 'userManage',
+  name: 'fushendetail',
   components: {
     telRecordList,
     noteRecordList,
     loanList,
+    couponList,
     appLightbox,
     Gauge
   },
@@ -932,6 +938,7 @@ export default {
       let arr = []
       arr.push({id: 1, title: this.$t('operationDetail.tab1.no1')})
       arr.push({id: 2, title: this.$t('operationDetail.tab1.no2')})
+      arr.push({id: 2, title: this.$t('tab.no7')})
       return arr
     }
   },

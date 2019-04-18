@@ -1246,7 +1246,7 @@ const vi = {
     no4: 'Thông tin liên hệ khẩn cấp',
     no5: 'Thông tin thẻ ngân hàng',
     no6: 'kỷ lục cửa  lịch sử cho vay',
-    no7: '优惠券'
+    no7: 'Phiếu ưu đãi'
   },
   tab2: {// 初审详情选项卡
     no1: 'Thông tin người dùng',
@@ -1467,9 +1467,9 @@ const vi = {
       no1: 'Chưa được sử dụng ',
       no2: 'Đã sử dụng',
       no3: 'Đã hết hạn',
-      no4: '已提现',
-      no5: '逾期优惠待审核',
-      no6: '逾期优惠驳回'
+      no4: 'Đã hiển thị',
+      no5: 'Phiếu ưu đãi quá hạn đang chờ xét duyệt',
+      no6: 'Từ chối phiếu ưu đãi quá hạn'
     },
     overdueOrderStatusOptions: {
       no1: '已还款',
@@ -1635,6 +1635,11 @@ const vi = {
     no3: '逾期分期列表',
     no4: '逾期分期金额',
     no5: 'bắt buộc phải đáp ứng được một điều kiện',
+    no6: '我的逾期分期订单',
+    no7: 'Khách hàng vay tiền',
+    no8: 'Android',
+    no9: 'IOS',
+    no10: '所有',
   },
   ...yuenan
 }

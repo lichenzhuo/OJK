@@ -1,34 +1,46 @@
 <template>
   <div class="public_main" v-if="data">
-    <div class="crumbs" v-if="type==1">
+    <div class="crumbs" v-if="type==3">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/myCollectionOrderList'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div v-if="type==2">
-      <div class="crumbs" v-if="from==1">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{path:'/otherBackAudit'}">{{$t('yn.no36')}}</el-breadcrumb-item>
-          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
-      <div class="crumbs" v-else-if="from==2">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{path:'/badMannersAudit'}">{{$t('yn.no37')}}</el-breadcrumb-item>
-          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
-      <div class="crumbs" v-else>
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
-          <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+    <div class="crumbs" v-if="from==4">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myOverDueInstalment'}">{{$t('add.no6')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-if="from==1">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/otherBackAudit'}">{{$t('yn.no36')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-else-if="from==2">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/badMannersAudit'}">{{$t('yn.no37')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-if="from==5">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-else-if="from==6">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/overDueInstalment'}">{{$t('add.no3')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     
 

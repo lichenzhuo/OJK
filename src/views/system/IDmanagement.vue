@@ -132,10 +132,6 @@
     <!-- ------------------ 确认是否修改密码开始 -------------------- -->
     <el-dialog :title="$t('idManage.replace')" :visible.sync="modify" width="550px">
       <div class="left2right">
-        <span class="left"></span>
-        <span class="right">{{$t('idManage.delRole')}}？</span>
-      </div>
-      <div class="left2right">
         <span class="left">{{$t('idManage.no1')}}</span>
         <div class="right">
           <el-input v-model="formModify.loginName" disabled></el-input>

@@ -738,10 +738,10 @@ export default {
                   action: this.$store.state.actionMap.kf_myOveDate_detail_submit,
                   sessionid: this.sessionid
                 },
+                ...this.ruleForm,
                 orderId: this.data.order.id,
                 userName: this.data.userBase.name,
-                userPhone: this.data.userBase.phone,
-                ...this.ruleForm
+                userPhone: this.data.userBase.phone
               }
             }else{
               option = {
@@ -755,7 +755,7 @@ export default {
               }
             }
             this.$axios.post('', option).then(res => {
-              this.flag = true
+              this.flag = true;
               if (res.data.header.code == 0) {
                 this.$globalMsg.success(this.$t('message.success'));
                 setTimeout(() => {
@@ -764,10 +764,11 @@ export default {
               } else {
                 this.$globalMsg.error(res.data.header.msg);
               }
-              this.ruleForm.remark = '';
-              this.ruleForm.status = '';
+              // this.ruleForm.remark = '';
+              // this.ruleForm.status = '';
               this.ruleForm.promiseTime = '';
               this.ruleForm.promise = '';
+              this.$refs.ruleForm.resetFields();
             })
           }
         } else {

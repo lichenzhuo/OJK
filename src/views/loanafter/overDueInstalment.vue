@@ -67,18 +67,18 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
-        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_QUERY')">
+        <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_OVERDUE_INSTALMENT_QUERY')">
           <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>
     
-    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')">
+    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_OVERDUE_INSTALMENT_TRANSFER')">
       <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_LIST')">
+    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_OVERDUE_INSTALMENT_LIST')">
       <template>
         <el-table :data="tableData" size="mini" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
@@ -96,7 +96,7 @@
           </el-table-column>
           <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">
           </el-table-column>
-          <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
+          <el-table-column align="center" prop="overdueDays" :label="$t('new.no77')">
           </el-table-column>
           <el-table-column align="center" prop="waitAmount" :label="$t('loanAfterManage.waitAmount')">
             <template slot-scope="scope">
@@ -116,11 +116,10 @@
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('loanAfterManage.name')">
           </el-table-column>
-          
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_DETAIL')"
+                v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_OVERDUE_INSTALMENT_DETAIL')"
                 class="table_opr" 
                 @click="detail(scope.row.orderNo,scope.row.orderId)">
                 {{$t('loanAfterManage.sel')}}
@@ -133,7 +132,7 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_LIST')">
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_OVERDUE_INSTALMENT_LIST')">
         <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -233,7 +232,7 @@ export default {
       this.operationList();
     },
     detail (orderNo, orderId) { // 查看详情点击操作
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2'}});
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2', from: '6'}});
     },
     operationList () { // 获取入催订单列表
       this.loadFlag = true;

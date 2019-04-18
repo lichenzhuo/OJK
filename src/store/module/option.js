@@ -642,6 +642,12 @@ const options = {
       {value: 1, label: 'yuenan.no42'}, // ios
       {value: 2, label: 'yuenan.no41'}, // android
     ],
+    loanDevice_options: [// 借款客户端
+      {value: '', label: 'public.placeholder'},
+      {value: -1, label: 'add.no10'}, // 所有
+      {value: 1, label: 'add.no9'}, // ios
+      {value: 2, label: 'add.no8'}, // android
+    ],
   }
 }
 export default options

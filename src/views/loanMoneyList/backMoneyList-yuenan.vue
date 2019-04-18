@@ -61,6 +61,13 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('add.no7')}}:</span>
+          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
           <span>{{$t('public.no59')}}:</span>
           <form autocomplete="off">
             <el-date-picker 
@@ -188,6 +195,8 @@
           <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="85">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="85">
+          </el-table-column>
+          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
           </el-table-column>
@@ -380,6 +389,7 @@ export default {
         orderId: '',
         userId: '',
         idCard: '',
+        loanDevice: '',
         name: '',
         phone: '',
         orderLoanType: '',
@@ -399,6 +409,7 @@ export default {
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
       options3: this.$store.state.options.backOrder_status, // 确认还款弹窗还款状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options6: this.$store.state.options.loanDevice_options, // 借款客户端
       tableData: [],// 用户信息数据模拟
       flag1: false,// 确认还款弹窗开关
       orderNo_dialog: '',// 弹窗选中orderNo

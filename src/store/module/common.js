@@ -4,7 +4,7 @@ let filterPer = () => {
   let arr = []
   if (list) {
     list.forEach(item => {
-      if (item.uniqueSign) {
+      if (item&&item.uniqueSign) {
         arr.push(item.uniqueSign)
       }
     })
@@ -157,7 +157,7 @@ const common = {
       list.filter(value => {
         return value.supperId == id
       }).forEach(item => {
-        if (item.uniqueSign) {
+        if (item&&item.uniqueSign) {
           arr.push(item.uniqueSign)
         }
       })
@@ -166,7 +166,7 @@ const common = {
     getper: (state) => (list) => { // 获取权限点
       let arr = []
       list.forEach(item => {
-        if (item.uniqueSign) {
+        if (item&&item.uniqueSign) {
           arr.push(item.uniqueSign)
         }
       })
@@ -264,7 +264,7 @@ const common = {
     filterPreList (state, list) { // 筛选初符合条件的路由
       let arr = []
       JSON.parse(list.list).forEach(item => {
-        if (item.uniqueSign) {
+        if (item&&item.uniqueSign) {
           arr.push(item.uniqueSign)
         }
       })

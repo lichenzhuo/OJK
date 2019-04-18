@@ -332,8 +332,8 @@
                   return index.index == '10'
                 })[0].subs.push({index: 'inTheRushOrders', title: 'sidebar.comeOrderList'})
               }
-              // 入催订单列表
-              if (value.uniqueSign == 'MENU_LOANLAST_INCOME') {
+              // 逾期分期订单列表
+              if (value.uniqueSign == 'MENU_LOANLAST_INCOME_OVERDUE_INSTALMENT') {
                 item.filter(index => {
                   return index.index == '10'
                 })[0].subs.push({index: 'overDueInstalment', title: 'add.no3'})
@@ -418,7 +418,7 @@
                 })[0].subs.push({index: 'myCollectionOrderList', title: 'sidebar.myComeOrder'})
               }
               // 我的逾期分期订单列表
-              if (value.uniqueSign == 'MENU_COLLECT_ME') {
+              if (value.uniqueSign == 'MENU_COLLECT_ME_OVERDUE_INSTALMENT') {
                 item.filter(index => {
                   return index.index == '8'
                 })[0].subs.push({index: 'myOverDueInstalment', title: 'add.no6'})

@@ -1611,6 +1611,11 @@ const id = {
     no3: '逾期分期列表',
     no4: '逾期分期金额',
     no5: 'harus memenuhi satu syarat',
+    no6: '我的逾期分期订单',
+    no7: '借款客户端',
+    no8: 'Android',
+    no9: 'IOS',
+    no10: '所有',
   },
   ...idLocale
 }

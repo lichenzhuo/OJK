@@ -93,7 +93,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
-          <el-button @click="addClose">{{$t('public.no50')}}</el-button>
+          <el-button @click="addclose">{{$t('public.no50')}}</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -188,15 +188,15 @@ export default {
       this.getTableList();
     },
     changePro (row) { // 修改按钮弹窗
-      this.modifyId = row.id;
+      this.changeId = row.id;
       this.ruleForm2.returnMoneyMin = row.returnMoneyMin;
       this.ruleForm2.returnMoneyMax = row.returnMoneyMax;
       this.ruleForm2.instalment = row.instalment;
       this.ruleForm2.instalmentDays = row.instalmentDays;
       this.ruleForm2.feeRate = row.feeRate;
       this.ruleForm2.feeAmount = row.feeAmount;
-      this.ruleForm2.overdueTypeList = row.overdueTypeList;
-      this.modify = true;
+      this.ruleForm2.overdueTypeList = row.overdueTypeList.map( value => String(value) );
+      this.change = true;
       this.addOrchange = true;
     },
     submitForm (formName) {
@@ -245,7 +245,7 @@ export default {
         }
       })
     },
-    addClose () {
+    addclose () {
       this.add = false;
       this.change = false;
       this.addOrchange = false;
@@ -305,6 +305,11 @@ export default {
     }
   },
   watch: {
+    addOrchange(){
+      if(!this.addOrchange){
+        this.addclose();
+      }
+    }
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');

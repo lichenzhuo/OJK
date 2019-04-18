@@ -1,17 +1,45 @@
 <template>
   <div class="public_main" v-if="data">
-    <div class="crumbs" v-if="type==1">
+    <div class="crumbs" v-if="type==3">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/myCollectionOrderList'}">{{$t('operationList.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('operationList.crumbsThree')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <div class="crumbs" v-else>
+    <div class="crumbs" v-if="from==4">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsOne')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('operationList.crumbsOne')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/myOverDueInstalment'}">{{$t('add.no6')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-if="from==1">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/otherBackAudit'}">{{$t('yn.no36')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-else-if="from==2">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/badMannersAudit'}">{{$t('yn.no37')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-if="from==5">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
         <el-breadcrumb-item :to="{path:'/inTheRushOrders'}">{{$t('loanAfterManage.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('loanAfterManage.crumbsThree')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <div class="crumbs" v-else-if="from==6">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>{{$t('auditManage.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/overDueInstalment'}">{{$t('add.no3')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('loanMoney.orderDetail')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
@@ -553,6 +581,7 @@ export default {
       collectionId: '', // 传过来的催收ID
       orderNo: '', // 传过来的订单编号
       type: '', // 传过来的订单编号
+      from: '', // 传过来的订单编号
       lightBoxToggle: false, // 图片放大显示层开关
       flag: true,
       active1: 1, // 第一个选项卡当前选中项
@@ -917,6 +946,7 @@ export default {
     this.sessionid = sessionStorage.getItem('sessionid');
     this.orderNo = this.$route.query.orderNo;
     this.type = this.$route.query.type;
+    this.from = this.$route.query.from;
     this.detail();
     this.tableList();
     

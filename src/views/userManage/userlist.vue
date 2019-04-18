@@ -18,22 +18,28 @@
         <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" label="ID" v-model="formInline.userId"></el-input>
+            <el-input size="small" v-model="formInline.userId"></el-input>
           </div>
         </el-col>
-        <el-col :md="8" :lg="4" :xl="5">
+        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.userName')}}:</span>
-            <el-input size="small" label="name" v-model="formInline.name"></el-input>
+            <el-input size="small" v-model="formInline.name"></el-input>
           </div>
         </el-col>
         <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.userPhone')}}:</span>
-            <el-input size="small" label="tel" v-model="formInline.phone"></el-input>
+            <el-input size="small" v-model="formInline.phone"></el-input>
           </div>
         </el-col>
-        <el-col :md="6" :lg="4" :xl="4">
+        <el-col :md="8" :lg="5" :xl="5">
+          <div class="search-input">
+            <span>{{$t('public.loanNum')}}:</span>
+            <el-input size="small" v-model="formInline.orderCount"></el-input>
+          </div>
+        </el-col>
+        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.registerChannel')}}:</span>
             <el-input size="small" label="regChannel" v-model="formInline.regChannel"></el-input>
@@ -277,6 +283,7 @@ export default {
         userId: '',
         name: '',
         phone: '',
+        orderCount: '',
         idCard: '',
         regChannel: '',
         regDateBegin: '',

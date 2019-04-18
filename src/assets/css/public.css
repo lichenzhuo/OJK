@@ -13,9 +13,10 @@
 }
 
 .left2right>.right {
-  flex: auto;
+  flex: 1;
   color: #777;
   margin-left: 15px;
+  word-break: break-all;
 }
 
 .public_main {

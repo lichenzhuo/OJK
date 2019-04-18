@@ -153,8 +153,10 @@
             <el-table-column align="center" prop="overDueNoReturnInstalment" :label="$t('fei.no37')">
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
-          </el-table-column>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -333,7 +335,7 @@ export default {
       this.operationList();
     },
     socialDetali (orderNo,orderId) { // 查看详情
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '1'}});
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '1', from: '3'}});
     },
     operationList () { // 入催订单列表
       this.loadFlag = true;

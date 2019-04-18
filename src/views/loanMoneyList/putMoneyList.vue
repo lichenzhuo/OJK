@@ -45,6 +45,13 @@
             <el-input size="small"  v-model="formInline.instalment"></el-input>
           </div>
         </el-col>
+        <div class="search-input">
+          <span>{{$t('add.no7')}}:</span>
+          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
           <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
@@ -148,6 +155,8 @@
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no82')" width="86">
           </el-table-column>
+          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
+          </el-table-column>
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
@@ -234,6 +243,7 @@ export default {
         userId: '',
         name: '',
         phone: '',
+        loanDevice: '',
         instalment: '',
         idCard: '',
         orderLoanType: '',
@@ -246,6 +256,7 @@ export default {
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.putMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options6: this.$store.state.options.loanDevice_options, // 借款客户端
       tableData: [], // 借款信息数据模拟
       surePutFlag: false, // 详情弹窗
       orderNo: '', // 点击当前行的订单ID

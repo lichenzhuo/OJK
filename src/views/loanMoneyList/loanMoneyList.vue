@@ -58,6 +58,13 @@
             </el-option>
           </el-select>
         </div>
+        <div class="search-input">
+          <span>{{$t('add.no7')}}:</span>
+          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
           <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
@@ -138,6 +145,8 @@
             </el-table-column>
           </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='id'">
             <el-table-column align="center" prop="problemType" :label="$t('yn.no4')" >
@@ -239,6 +248,7 @@ export default {
         userId: '',
         idCard: '',
         name: '',
+        loanDevice: '',
         phone: '',
         instalment: '',
         orderLoanType: '',
@@ -254,6 +264,7 @@ export default {
       options3: this.$store.state.options.handlingProblem, // 处理问题
       options4: this.$store.state.options.handlingStatus, // 处理状态
       options5: this.$store.state.options.handlingType, // 处理状态
+      options6: this.$store.state.options.loanDevice_options, // 借款客户端
       tableData: [], // 借款信息数据模拟
       handleFlag: false, // 处理弹窗开关
       form: {},

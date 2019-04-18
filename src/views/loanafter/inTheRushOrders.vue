@@ -261,7 +261,7 @@
             </template>
           </el-table-column>
           <template v-if="$store.state.common.lang!=='vi'">
-            <el-table-column align="center" prop="maxOverdueDays" :label="$t('new.no77')">
+            <el-table-column align="center" prop="overdueDays" :label="$t('new.no77')">
             </el-table-column>
           </template>
           <template v-if="$store.state.common.lang==='id'">
@@ -414,7 +414,7 @@ export default {
       this.operationList();
     },
     detail (orderNo, orderId) { // 查看详情点击操作
-      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2'}});
+      this.$router.push({path: '/cuishoudetail', query: {orderNo, orderId, type: '2', from: '5'}});
     },
     operationList () { // 获取入催订单列表
       this.loadFlag = true;
