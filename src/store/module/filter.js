@@ -1123,7 +1123,7 @@ const filters = {
       }
     },
     vn_phone: () => (phone) => {
-      if (phone.length < 10) {
+      if (!phone||phone.length < 10) {
         return '-'
       }
       var first = phone.substr(0, 3);

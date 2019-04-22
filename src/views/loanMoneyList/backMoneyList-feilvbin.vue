@@ -62,7 +62,7 @@
         </div>
         <div class="search-input">
           <span>{{$t('add.no7')}}:</span>
-          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+          <el-select size="small" v-model="formInline.orderDeviceType" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
@@ -164,7 +164,10 @@
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
+          <el-table-column align="center" prop="orderDeviceType" :label="$t('add.no7')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.clientStatus(scope.row.orderDeviceType))}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>
@@ -272,7 +275,7 @@ export default {
         phone: '',
         instalment: '',
         orderState: '',
-        loanDevice: '',
+        orderDeviceType: '',
         isOverdue: '',
         refundTimeBegin: '',
         refundTimeEnd: '',

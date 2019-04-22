@@ -60,7 +60,7 @@
         </div>
         <div class="search-input">
           <span>{{$t('add.no7')}}:</span>
-          <el-select size="small" v-model="formInline.loanDevice" :placeholder="$t('public.placeholder')">
+          <el-select size="small" v-model="formInline.orderDeviceType" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
@@ -146,7 +146,10 @@
           </template>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="loanDevice" :label="$t('add.no7')">
+          <el-table-column align="center" prop="orderDeviceType" :label="$t('add.no7')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.clientStatus(scope.row.orderDeviceType))}}</span>
+            </template>
           </el-table-column>
           <template v-if="$store.state.common.lang==='id'">
             <el-table-column align="center" prop="problemType" :label="$t('yn.no4')" >
@@ -248,7 +251,7 @@ export default {
         userId: '',
         idCard: '',
         name: '',
-        loanDevice: '',
+        orderDeviceType: '',
         phone: '',
         instalment: '',
         orderLoanType: '',
