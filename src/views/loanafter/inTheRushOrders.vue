@@ -229,7 +229,7 @@
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCreateTime" :label="$t('public.no38')" width="86">
+            <el-table-column align="center" prop="strCreateTime" :label="$t('public.no71')" width="86">
             </el-table-column>
           </template>
           <template v-if="$store.state.common.lang==='PHL'">
