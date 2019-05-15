@@ -274,6 +274,25 @@
               </div>
             </div>
           </div>
+          <!-- 第三行 -->
+          <div class="paixu">
+            <span></span><p>{{$t('fei.no47')}}</p>
+          </div>
+          <div class="loansTypeImg">
+            <template v-if="data.userSelf.livePicUrl">
+              <span>{{$t('fei.no45')}}:</span>
+              <div  class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
+                <img :src="data.userSelf.livePicUrl">
+              </div>
+            </template>
+            <template v-else-if="data.userSelf.workPicUrl" >
+              <span>{{$t('fei.no46')}}:</span>
+              <div class="loansTypeImg-1 pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
+                <img :src="data.userSelf.workPicUrl">
+              </div>
+            </template>
+            <span v-else>{{$t('fei.no48')}}</span>
+          </div>
         </li>
         <!------------------------ 通话记录信息 ---------------------------->
         <li  v-if="active==2">

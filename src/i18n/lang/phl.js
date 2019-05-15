@@ -1431,6 +1431,11 @@ const phl = {
     no41: 'Panelty for each time overdue',
     no42: 'Debt paid',
     no43: 'In Debt',
+    no44: '逾期分期总金额',
+    no45: 'Residential photo',
+    no46: 'work photo',
+    no47: 'Karagdagang impormasyon',
+    no48: 'walang impormasyon',
     status:{
       no1: 'Submit successfully',
       no2: 'Not due yet',

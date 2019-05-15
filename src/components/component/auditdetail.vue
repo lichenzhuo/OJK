@@ -78,6 +78,11 @@
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
           <p><span>{{$t('yn.no28')}}:</span>
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
+          <p class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
+            <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
+            <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
+          </p>
+
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('operationDetail.no2')}}:</span>
@@ -141,5 +146,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
+  .pinfen{
+    font-size: 18px;
+    color: coral;
+  }
 </style>

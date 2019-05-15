@@ -1591,6 +1591,8 @@ const id = {
     no48:'Menunggu verifikasi',
     no49:'Mohon dicermati, setelah menyetujui user ini tidak dapat meminjam kembali',
     no50:'Rekaman CS',
+    no51:'Peringkat',
+    no52:'Tidak ada',
     loanUse:{
       'no1':'menikah',
       'no2':'renovasi',
