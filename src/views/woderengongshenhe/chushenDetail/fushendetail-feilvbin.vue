@@ -170,6 +170,7 @@
                 <p><span>{{$t('public.birthday')}}:</span>
                   <span>{{data.userBase.birthday | dataIsTrue}}</span>
                 </p>
+                
               </div>
               <div class="xuan-2-1-1-22">
                 <p><span>{{$t('fei.id')}}:</span>
@@ -193,6 +194,13 @@
               <div class="xuan-2-1-1-22">
                 <p><span>{{$t('fei.no12')}}:</span><span>{{data.userSelf.numbernOfChildren | dataIsTrue}}</span></p>
               </div>
+              <div class="xuan-2-1-1-22">
+                <p><span>{{$t('auditDetail.no10')}}:</span>
+                  <span v-if="data.similarity">{{String(data.similarity).slice(0,5)}}%</span>
+                  <span v-else>{{$store.state.common.nullData}}</span>
+                </p>
+              </div>
+
             </div>
             <div class="xuan-2-1-1-3">
               <div class="idimgbox">
@@ -783,6 +791,7 @@ export default {
         orderList: [],
         orderMultiCheck: '',
         userUrgentContact: '',
+        similarity: '',
         contactOne: '',
         contactTwo: '',
         contactThree: '',
@@ -917,6 +926,7 @@ export default {
           this.data.contactThreePhoneOperator = res.data.data.contactThreePhoneOperator;
           this.data.userOrderCount = res.data.data.userOrderCount;
           this.data.orderExtra = res.data.data.orderExtra;
+          this.data.similarity = res.data.data.similarity;
           
           if (res.data.companyCheckStr !== null && res.data.companyCheckStr !== undefined && res.data.companyCheckStr !== '') {
             this.companyCheckStr = JSON.parse(res.data.companyCheckStr);

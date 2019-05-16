@@ -208,6 +208,12 @@
                   <span>{{data.userSelf.numbernOfChildren | dataIsTrue}}</span>
                 </p>
               </div>
+              <div class="xuan-2-1-1-22">
+                <p><span>{{$t('auditDetail.no10')}}:</span>
+                  <span v-if="data.similarity">{{String(data.similarity).slice(0,5)}}%</span>
+                  <span v-else>{{$store.state.common.nullData}}</span>
+                </p>
+              </div>
             </div>
             <div class="xuan-2-1-1-3">
               <div class="idimgbox">
@@ -858,6 +864,7 @@ export default {
         userOrderCount: {},
         contactOtherOne: '',
         contactOtherTwo: '',
+        similarity: '',
         contactOne: '',
         contactTwo: '',
         contactThree: '',
@@ -987,6 +994,7 @@ export default {
           this.data.contactThreePhoneOperator = res.data.data.contactThreePhoneOperator;
           this.data.userOrderCount = res.data.data.userOrderCount;
           this.data.orderExtra = res.data.data.orderExtra;
+          this.data.similarity = res.data.data.similarity;
           if (res.data.data.recentCollection != '') {
             this.tableData = res.data.data.recentCollection.valueList;
           }
