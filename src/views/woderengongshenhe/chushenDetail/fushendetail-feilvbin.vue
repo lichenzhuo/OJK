@@ -301,6 +301,35 @@
             </template>
             <span v-else>{{$t('fei.no48')}}</span>
           </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="10%">{{$t('fei.no49')}}</th>
+              <th width="10%">imei</th>
+              <th width="10%">imsi</th>
+              <th width="10%">ip</th>
+              <th width="10%">macAddress</th>
+              <th width="10%">wifiBssid</th>
+              <th width="20%">gps</th>
+              <th width="20%">{{$t('finance.createTime')}}</th>
+            </tr>
+            <template v-if="data.deviceInfo!=''">
+              <tr v-for="(value,index) in data.deviceInfo" :key="index">
+                <td>{{value.eventTypeStr | dataIsTrue}}</td>
+                <td>{{value.imei | dataIsTrue}}</td>
+                <td>{{value.imsi | dataIsTrue}}</td>
+                <td>{{value.ip | dataIsTrue}}</td>
+                <td>{{value.macAddress | dataIsTrue}}</td>
+                <td>{{value.wifiBssid | dataIsTrue}}</td>
+                <td>{{value.gpsAddress | dataIsTrue}}</td>
+                <td>{{value.strCreateTime | dataIsTrue}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
         </li>
         <!------------------------ 通话记录信息 ---------------------------->
         <li  v-if="active==2">
@@ -789,6 +818,7 @@ export default {
         orderExtra: '',
         order: '',
         orderList: [],
+        deviceInfo: [],
         orderMultiCheck: '',
         userUrgentContact: '',
         similarity: '',
@@ -927,6 +957,7 @@ export default {
           this.data.userOrderCount = res.data.data.userOrderCount;
           this.data.orderExtra = res.data.data.orderExtra;
           this.data.similarity = res.data.data.similarity;
+          this.data.deviceInfo = res.data.data.deviceInfo;
           
           if (res.data.companyCheckStr !== null && res.data.companyCheckStr !== undefined && res.data.companyCheckStr !== '') {
             this.companyCheckStr = JSON.parse(res.data.companyCheckStr);

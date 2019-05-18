@@ -17,10 +17,15 @@ const vnBACK = 'back.mydong'; // 越南生产环境
 const phBACK = 'back.getpeso'; // 菲律宾生产环境
 
 const vnCASH = 'dongcash'; // 菲律宾生产环境
+const instantcsh = 'instantcsh'; // 越南没有LOGO的
+
+const oladmin_yn = 'oladmin_yn'; // 国内访问国外正式系统
+const oladmin_vn = 'oladmin_vn'; // 国内访问国外正式系统
+const oladmin_ph = 'oladmin_ph'; // 国内访问国外正式系统
+const oladmin_kl = 'oladmin_kl'; // 国内访问国外正式系统
 
 const fullCurrentDomain = window.location.href.split('?')[0];
-// console.log(fullCurrentDomain)
-// console.log(fullCurrentDomain.indexOf(ynBACK) > -1)
+
 let domain = '';
 let headerTotal = '';
 let lang = '';
@@ -33,8 +38,26 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
+} else if (fullCurrentDomain.indexOf(oladmin_yn) > -1) {
+  domain = `http://olapi_yn.sanjinxia.com`;
+  headerTotal = 'Go Dana';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
+} else if (fullCurrentDomain.indexOf(oladmin_kl) > -1) {
+  domain = `http://olapi_kl.sanjinxia.com`;
+  headerTotal = 'Go Dana';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnDEV) > -1) {
   domain = `http://api-vn.sanjinxia.com`;
+  headerTotal = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(oladmin_vn) > -1) {
+  domain = `http://olapi_vn.sanjinxia.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
@@ -47,6 +70,13 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(phDEV) > -1) {
   domain = `http://api-ph.sanjinxia.com`;
+  headerTotal = 'Get Peso';
+  lang = 'PHL';
+  first_unit = '';
+  last_unit = 'PHP';
+  moneySplit = '$1,'
+} else if (fullCurrentDomain.indexOf(oladmin_ph) > -1) {
+  domain = `http://olapi_ph.sanjinxia.com`;
   headerTotal = 'Get Peso';
   lang = 'PHL';
   first_unit = '';
@@ -96,6 +126,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(vnCASH) > -1) {
   domain = `http://api.dongcash.com`;
+  headerTotal = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(instantcsh) > -1) {
+  domain = `http://api.instantcsh.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';

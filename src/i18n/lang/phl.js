@@ -1436,6 +1436,7 @@ const phl = {
     no46: 'work photo',
     no47: 'Karagdagang impormasyon',
     no48: 'walang impormasyon',
+    no49: '埋点信息',
     status:{
       no1: 'Submit successfully',
       no2: 'Not due yet',
