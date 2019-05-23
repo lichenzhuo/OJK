@@ -33,13 +33,11 @@
     // Check if Blob constructor supports ArrayBufferViews
     // Fails in Safari 6, so we need to map to ArrayBuffers there.
     blobSupportsArrayBufferView = new Blob([new Uint8Array([1,2])]).size === 2
-  } catch(e) {}
+  } catch(e) {
+    
+  }
 
-  /**
-   * Helper function that maps ArrayBufferViews to ArrayBuffers
-   * Used by BlobBuilder constructor and old browsers that didn't
-   * support it in the Blob constructor.
-   */
+
   function mapArrayBufferViews(ary) {
     return ary.map(function(chunk) {
       if (chunk.buffer instanceof ArrayBuffer) {

@@ -140,11 +140,6 @@ const common = {
       }
       
     },
-    toArray: () => (obj) => {
-      // let arr = []
-      let arr = obj.split('-')
-      return arr
-    },
     yyyy_m_d: () => (str) => {
       var date = new Date(str)
       let Y = date.getFullYear() + '-'
@@ -152,26 +147,26 @@ const common = {
       let D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
       return Y + M + D
     },
-    perManage: () => (id) => { // 根据id获取权限点
-      let arr = []
-      list.filter(value => {
-        return value.supperId == id
-      }).forEach(item => {
-        if (item&&item.uniqueSign) {
-          arr.push(item.uniqueSign)
-        }
-      })
-      return arr
-    },
-    getper: (state) => (list) => { // 获取权限点
-      let arr = []
-      list.forEach(item => {
-        if (item&&item.uniqueSign) {
-          arr.push(item.uniqueSign)
-        }
-      })
-      state.permiss = arr
-    },
+    // perManage: () => (id) => { // 根据id获取权限点
+    //   let arr = []
+    //   list.filter(value => {
+    //     return value.supperId == id
+    //   }).forEach(item => {
+    //     if (item&&item.uniqueSign) {
+    //       arr.push(item.uniqueSign)
+    //     }
+    //   })
+    //   return arr
+    // },
+    // getper: (state) => (list) => { // 获取权限点
+    //   let arr = []
+    //   list.forEach(item => {
+    //     if (item&&item.uniqueSign) {
+    //       arr.push(item.uniqueSign)
+    //     }
+    //   })
+    //   state.permiss = arr
+    // },
     twoPoint: () => (str) => { // 截取小数点后两位
       if(typeof str === 'undefined' || str === ''){
         return '-'
@@ -182,31 +177,6 @@ const common = {
         return aNew
       }
       
-    },
-    dayData: () => (obj) => { // 首页数据图
-      let arr = []
-      if (obj.day0 !== '') {
-        arr.push(obj.day0)
-      }
-      if (obj.day1 !== '') {
-        arr.push(obj.day1)
-      }
-      if (obj.day2 !== '') {
-        arr.push(obj.day2)
-      }
-      if (obj.day3 !== '') {
-        arr.push(obj.day3)
-      }
-      if (obj.day4 !== '') {
-        arr.push(obj.day4)
-      }
-      if (obj.day5 !== '') {
-        arr.push(obj.day5)
-      }
-      if (obj.day6 !== '') {
-        arr.push(obj.day6)
-      }
-      return arr
     },
     uniqueArray: () => (arr) => { // 数组去重
       var res = []
@@ -258,6 +228,21 @@ const common = {
         return age
       }
       
+    },
+    longitudeAndLatitude: ()=>(str)=>{
+      if(str==0){
+        return '-'
+      }else{
+        var num = String(str);
+        var du = num.split('.')[0];
+        var str1 = num.split('.')[1];
+        var str2 = Number('0.'+str1)*60;
+        var str4 = String(str2);
+        var fen = str4.split('.')[0];
+        var str3 = str4.split('.')[1];
+        var miao = Number(Number('0.'+str3)*60).toFixed(2);
+        return `${du}°${fen}′${miao}″`
+      }
     }
   },
   mutations: {

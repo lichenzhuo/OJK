@@ -15,6 +15,12 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
+        <el-col :md="8" :lg="5" :xl="4">
+          <div class="search-input">
+            <span>{{$t('public.no25')}}:</span>
+            <el-input size="small" v-model="formInline.period"></el-input>
+          </div>
+        </el-col>
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 
@@ -53,6 +59,8 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
+          </el-table-column>
           <el-table-column align="center" prop="applyCount" :label="$t('totalManage.applyCount')">
           </el-table-column>
           <el-table-column align="center" prop="machineCount" :label="$t('totalManage.machineCount')">
@@ -60,6 +68,24 @@
           <el-table-column align="center" prop="firstCount" :label="$t('totalManage.firstCount')">
           </el-table-column>
           <el-table-column align="center" prop="reviewCount" :label="$t('totalManage.reviewCount')">
+          </el-table-column>
+          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="machinePassRate" :label="$t('add.no13')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.machinePassRate!=''">{{$store.getters.twoPoint(scope.row.machinePassRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="manualReviewPassRate" :label="$t('add.no14')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.manualReviewPassRate!=''">{{$store.getters.twoPoint(scope.row.manualReviewPassRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="lendRate" :label="$t('add.no15')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.lendRate!=''">{{$store.getters.twoPoint(scope.row.lendRate)}}%</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center" prop="laveCount" :label="$t('totalManage.laveCount')">
           </el-table-column>
@@ -94,6 +120,7 @@ export default {
       searchTime: [],
       // 用户查询信息数据对应字段
       formInline: {
+        period: '',
         dayBegin: '',
         dayEnd: ''
       },
@@ -159,14 +186,30 @@ export default {
       }
     },
     getSummaries() {// 总和
-      const sums = [
-        this.$t('public.addTotal'),
-        this.tableData1.applyCounts,
-        this.tableData1.machineCounts,
-        this.tableData1.firstCounts,
-        this.tableData1.reviewCounts,
-        this.tableData1.laveCounts,
-      ];
+      let sums;
+      if(this.$store.state.common.lang!=='PHL'){
+        sums = [
+          this.$t('public.addTotal'),
+          '-',
+          this.tableData1.applyCounts,
+          this.tableData1.machineCounts,
+          this.tableData1.firstCounts,
+          this.tableData1.reviewCounts,
+          this.$store.getters.twoPoint(this.tableData1.machinePassRateAll)+'%',
+          this.$store.getters.twoPoint(this.tableData1.manualReviewPassRateAll)+'%',
+          this.$store.getters.twoPoint(this.tableData1.lendRateAll)+'%',
+          this.tableData1.laveCounts,
+        ]
+      }else{
+        sums = [
+          this.$t('public.addTotal'),
+          this.tableData1.applyCounts,
+          this.tableData1.machineCounts,
+          this.tableData1.firstCounts,
+          this.tableData1.reviewCounts,
+          this.tableData1.laveCounts,
+        ]
+      }
       return sums;
     }
   },

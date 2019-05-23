@@ -382,7 +382,7 @@
 
     <!-- ------------------ 点击平均分单弹窗开始 -------------------- -->
     <el-dialog :title="$t('OutsourcedManage.no15')" :visible.sync="averageFlag"  width="660px">
-      <!-- <p>请设置一个数值，系统将会从筛选出的案件中，给予现有的坐席账号同等的案件数</p> -->
+      <p>请设置一个数值，系统将会从筛选出的案件中，给予现有的坐席账号同等的案件数</p>
       <el-form :model="averageForm" label-width="140px" size="medium">
         <p class="form-p">
           <span class="form-span1">{{$t('OutsourcedManage.no17')}}:</span>
@@ -711,7 +711,8 @@ export default {
           'sessionid': this.sessionid
         },
         numbers: this.averageForm.numbers,
-        totalAmount: this.noallotOrders
+        totalAmount: this.noallotOrders,
+        type: this.formInline.type
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -727,10 +728,16 @@ export default {
       })
     },
     selfdomAllotBegin(){// 个性分单按钮点击操作
+      if(!this.formInline.type){
+        return this.$globalMsg.error(this.$t('add.no37'));
+      }
       this.selfdomFlag = true;
       this.getselfdomTable();
     },
     averageBegin(){
+      if(!this.formInline.type){
+        return this.$globalMsg.error(this.$t('add.no37'));
+      }
       this.averageFlag = true;
       this.getselfdomTable();
     },

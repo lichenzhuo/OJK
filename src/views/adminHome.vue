@@ -398,7 +398,10 @@ export default {
               left:'20',
               top:'50',
               height:'auto',
-              itemGap:20
+              itemGap:20,
+              selected:{
+                
+              }
           },
           grid: {
             left: '14%',

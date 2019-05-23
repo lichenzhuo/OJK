@@ -12,7 +12,7 @@ import './assets/css/public.css' // 总样式
 // import 'src/assets/css/resources.scss' // 公共样式
 
 // eslint-disable-next-line
-import Blob from './vender/Blob.js'
+// import Blob from './vender/Blob.js'
 // eslint-disable-next-line
 import Export2Excel from './vender/export2Excel.js'
 

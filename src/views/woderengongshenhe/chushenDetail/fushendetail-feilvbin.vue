@@ -320,7 +320,8 @@
                 <td>{{value.ip | dataIsTrue}}</td>
                 <td>{{value.macAddress | dataIsTrue}}</td>
                 <td>{{value.wifiBssid | dataIsTrue}}</td>
-                <td>{{value.gpsAddress | dataIsTrue}}</td>
+                <!-- <td>{{value.gpsAddress | dataIsTrue}}</td> -->
+                <td>{{value.latitude+'-'+value.longitude}}</td>
                 <td>{{value.strCreateTime | dataIsTrue}}</td>
               </tr>
             </template>

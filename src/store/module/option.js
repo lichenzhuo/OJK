@@ -648,6 +648,11 @@ const options = {
       {value: 5, label: 'add.no9'}, // ios
       {value: 4, label: 'add.no8'}, // android
     ],
+    auditType_option: [// 审核统计查询栏下拉框
+      {value: '1', label: 'riskManage.auditType_status.no1'}, // 机审
+      {value: '2', label: 'riskManage.auditType_status.no2'}, // 人工初审
+      {value: '3', label: 'riskManage.auditType_status.no3'}// 人工复审
+    ],
   }
 }
 export default options

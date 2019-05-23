@@ -86,6 +86,9 @@
             <p><span>{{$t('websiteLoans.no5')}}:</span>
               <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
             </p>
+            <p><span>E-mail:</span>
+              <span>{{data.userBank.email}}</span>
+            </p>
           </div>
           <div class="oneLineHasOne" v-if="$store.state.common.lang=='id'">
             <p><span>{{$t('operationDetail.no1')}}:</span>

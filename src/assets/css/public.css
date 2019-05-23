@@ -349,3 +349,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.red{
+  color: crimson;
+}
+.green{
+  color: rgba(92, 177, 8, 0.712);
+}

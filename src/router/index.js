@@ -76,11 +76,13 @@ let backMoneyAwait = resolve => require(['../views/loanMoneyList/backMoneyAwait.
 let putMoneyAwait = resolve => require(['../views/loanMoneyList/putMoneyAwait.vue'], resolve)
 
 
-//  @@@@@@@@@@@@@@@@@@@@@@@  待初审列表  @@@@@@@@@@@@@@@@@@@@@@@
+//  @@@@@@@@@@@@@@@@@@@@@@@  风控审核管理列表  @@@@@@@@@@@@@@@@@@@@@@@
 let peopleFirstAudit = resolve => require(['../views/fengkonglist/peopleFirstAudit.vue'], resolve)
 let peopleSecondAudit = resolve => require(['../views/fengkonglist/peopleSecondAudit.vue'], resolve)
 let peopleFirstAuditTotal = resolve => require(['../views/fengkonglist/peopleFirstAuditTotal.vue'], resolve)
 let peopleSecondAuditTotal = resolve => require(['../views/fengkonglist/peopleSecondAuditTotal.vue'], resolve)
+let peopleAuditDataSelect = resolve => require(['../views/fengkonglist/peopleAuditDataSelect.vue'], resolve)
+let machineAuditRejectSelect = resolve => require(['../views/fengkonglist/machineAuditRejectSelect.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  贷后管理列表  @@@@@@@@@@@@@@@@@@@@@@@
 let overdueCouponApply = resolve => require(['../views/loanafter/overdueCouponApply.vue'], resolve)
@@ -115,6 +117,7 @@ let Permission = resolve => require(['../views/system/Permission.vue'], resolve)
 
 //  @@@@@@@@@@@@@@@@@@@@@@@  委外管理  @@@@@@@@@@@@@@@@@@@@@@@
 let everyDayOutsourcedTotal = resolve => require(['../views/OutsourcedManage/everyDayOutsourcedTotal.vue'], resolve)
+let OutsourceBackTotal = resolve => require(['../views/OutsourcedManage/OutsourceBackTotal.vue'], resolve)
 let OutsourcedOrderList = resolve => require(['../views/OutsourcedManage/OutsourcedOrderList.vue'], resolve)
 let OutsourcedDetail = resolve => require(['../views/OutsourcedManage/OutsourcedDetail.vue'], resolve)
 
@@ -209,6 +212,8 @@ const router = new Router({
                     {path: '/peopleSecondAudit', name: 'peopleSecondAudit', component: peopleSecondAudit },
                     {path: '/peopleFirstAuditTotal', name: 'peopleFirstAuditTotal', component: peopleFirstAuditTotal },
                     {path: '/peopleSecondAuditTotal', name: 'peopleSecondAuditTotal', component: peopleSecondAuditTotal },
+                    {path: '/peopleAuditDataSelect', name: 'peopleAuditDataSelect', component: peopleAuditDataSelect },
+                    {path: '/machineAuditRejectSelect', name: 'machineAuditRejectSelect', component: machineAuditRejectSelect },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  我的订单审核列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/myFirstAuditList', name: 'myFirstAuditList', component: myFirstAuditList },
@@ -264,6 +269,7 @@ const router = new Router({
                     // @@@@@@@@@@@@@@@@@@@@@@@   委外管理   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/outsourcedorderlist', name: 'OutsourcedOrderList', component: OutsourcedOrderList },
                     {path: '/everydayoutsourcedtotal', name: 'everyDayOutsourcedTotal', component: everyDayOutsourcedTotal },
+                    {path: '/OutsourceBackTotal', name: 'OutsourceBackTotal', component: OutsourceBackTotal },
                     {path: '/outsourceddetail', name: 'OutsourcedDetail', component: OutsourcedDetail },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   客服管理相关   @@@@@@@@@@@@@@@@@@@@@@@

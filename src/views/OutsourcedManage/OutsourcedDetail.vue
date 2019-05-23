@@ -32,6 +32,10 @@
               <p><span>{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
+              <p v-if="$store.state.common.lang==='vi'">
+              <span >E-mail:</span>
+                <span>{{data.orderUserBankInfo.email | dataIsTrue}}</span>
+              </p>
             </div>
             <div class="oneLineHasFour">
               <p><span>{{$t('public.userId')}}:</span>
@@ -206,6 +210,43 @@
       </ul>
     </div>
 
+    <!-- ------------  信审记录 客服记录  ------------------------ -->
+    <div class="tabs mb20">
+      <ul class="tabs_title">
+        <li v-for="(value,index) in arr4" :key="index" :class="{active:active4==value.id}" @click="active4=value.id">
+          <span>{{value.title}}</span>
+        </li>
+      </ul>
+      <ul class="tabs_main">
+        <li  v-if="active4==2">
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="15%">{{$t('add.no12')}}</th>
+              <th width="15%">{{$t('public.no39')}}</th>
+              <th width="15%">{{$t('public.no40')}}</th>
+              <th width="35%">{{$t('public.no37')}}</th>
+              <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
+            </tr>
+            <template v-if="data.serviceRecordList!=''">
+              <tr v-for="value in data.serviceRecordList" :key="value.id">
+                <td >{{$t('add.no42')}}</td>
+                <td>{{value.userName | dataIsTrue}}</td>
+                <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
+                <td>{{value.remark | dataIsTrue}}</td>
+                <td>{{value.strCreateTime | dataIsTrue}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
+      </ul>
+    </div>
+
+
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
     <div class="tabs">
       <ul class="tabs_title">
@@ -326,6 +367,7 @@ export default {
       block: '', // 判断是从哪个列表进入
       active1: 1, // 第一个选项卡当前选中项
       active2: 1, // 第二个选项卡当前选中项
+      active4: 2, // 第二个选项卡当前选中项
       data: {// 页面信息汇总
         orderLending: '',
         orderUserWork: '', // 工作单位
@@ -343,6 +385,8 @@ export default {
         orderPhoneApprove:'',
         partialShow:'',
         overCouponShow:'',
+        serviceRecordList:'',
+        orderUserBankInfo:'',
       },
       emeContact: '', // 紧急联系人选中项
       contact: '' // 通话记录联系人选中项
@@ -362,6 +406,11 @@ export default {
         {id: 3, title: this.$t('operationDetail.tab2.no3')},
         // {id: 4, title: this.$t('public.no12')},
         {id: 5, title: this.$t('new.no93')}
+      ]
+    },
+    arr4 () {
+      return [
+        {id: 2, title: this.$t('add.no11')}
       ]
     }
   },
@@ -389,6 +438,7 @@ export default {
           this.data.orderUserContactList = res.data.data.orderUserContactList
           this.data.orderUserIdcard = res.data.data.orderUserIdcard
           this.data.collectionInfo = res.data.data.collectionInfo
+          this.data.orderUserBankInfo = res.data.data.orderUserBankInfo
           this.data.orderInfo = res.data.data.orderInfo
           this.data.userBase = res.data.data.userBase
           this.data.orderExtra = res.data.data.orderExtra
@@ -399,6 +449,7 @@ export default {
           this.data.partialShow = res.data.data.partialShow
           this.data.overCouponShow = res.data.data.overCouponShow
           this.data.orderFacebook = res.data.data.orderFacebook
+          this.data.serviceRecordList = res.data.data.serviceRecordList
         } else {
           this.data = []
         }

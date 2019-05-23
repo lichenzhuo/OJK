@@ -185,7 +185,7 @@ export default {
     return {
       flag: true,
       loadFlag: true,
-      sessionId: '',
+      sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
       searchTime1: [], // 申请时间
@@ -238,7 +238,7 @@ export default {
           ...this.$base,
           action: this.$store.state.actionMap.putMoney_logList,
           'page': {'index': this.currentPage, 'size': this.pageNumber},
-          'sessionId': this.sessionId
+          'sessionid': this.sessionid
         },
         ...this.formInline
       }
@@ -261,7 +261,7 @@ export default {
             ...this.$base,
             action: this.$store.state.actionMap.putMoney_logExcel,
             'page': {'index': this.currentPage, 'size': this.pageNumber},
-            'sessionId': this.sessionId
+            'sessionid': this.sessionid
           },
           ...this.formInline
         }
@@ -304,7 +304,7 @@ export default {
     }
   },
   mounted () {
-    this.sessionId = sessionStorage.getItem('sessionId');
+    this.sessionid = sessionStorage.getItem('sessionid');
     if (JSON.stringify(this.$store.state.common.putMoneyLogList_select) !== '{}') {
       this.formInline = this.$store.state.common.putMoneyLogList_select;
       if(this.formInline.applyTimeBegin!==''){

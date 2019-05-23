@@ -136,6 +136,18 @@
                   return index.index == '5'
                 })[0].subs.push({index: 'peopleSecondAuditTotal', title: 'sidebar.labourAuditTotalTwo'})
               }
+              // 人审数据查看
+              if (value.uniqueSign == 'MENU_MANUAL_REVIEW_DATA_STATISTICS') {
+                item.filter(index => {
+                  return index.index == '5'
+                })[0].subs.push({index: 'peopleAuditDataSelect', title: 'add.no17'})
+              }
+              // 驳回统计查看
+              if (value.uniqueSign == 'MENU_MACHINE_REJECT_RPT') {
+                item.filter(index => {
+                  return index.index == '5'
+                })[0].subs.push({index: 'machineAuditRejectSelect', title: 'add.no39'})
+              }
 
               // 我的审核管理
               if (value.uniqueSign == 'MENU_ME') {
@@ -440,16 +452,22 @@
                 })
               }
               // 委外订单列表
-              if (value.uniqueSign == 'MENU_OUTSOURCING_MANAGEMENT_LIST') {// 委外订单列表
+              if (value.uniqueSign == 'MENU_OUTSOURCING_MANAGEMENT_LIST') {
                 item.filter(index => {
                   return index.index == '15'
                 })[0].subs.push({index: 'outsourcedorderlist', title: 'OutsourcedManage.no2'})
               }
               // 每日委外统计
-              if (value.uniqueSign == 'MENU_ENTRUST_DAILY_REPORT') {// 每日委外统计
+              if (value.uniqueSign == 'MENU_ENTRUST_DAILY_REPORT') {
                 item.filter(index => {
                   return index.index == '15'
                 })[0].subs.push({index: 'everydayoutsourcedtotal', title: 'OutsourcedManage.no3'})
+              }
+              // 委外催回统计
+              if (value.uniqueSign == 'MENU_ENTRUST_REMINDER_STATISTICS') {
+                item.filter(index => {
+                  return index.index == '15'
+                })[0].subs.push({index: 'OutsourceBackTotal', title: 'OutsourcedManage.no31'})
               }
               
               // 客服管理

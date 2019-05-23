@@ -66,6 +66,12 @@ const actionmap = {
     auditTwo_people_excel: 'RISKCONTROL0016', // 人工复审统计Excel导出
     auditTwo_people: 'RISKCONTROL0015', // 人工复审统计
     zhipai: 'RISKCONTROL0014', // 人工复审指派
+    RISKCONTROL0017: 'RISKCONTROL0017',
+    RISKCONTROL0018: 'RISKCONTROL0018',
+    RISKCONTROL0019: 'RISKCONTROL0019',
+    ME0015: 'ME0015',
+    ME0016: 'ME0016',
+    
     // 我的审核订单
     myAuditOne_list: 'ME0001', // 我的人工初审
     myAudit_claim: 'ME0003', // 我的订单认领
@@ -212,6 +218,8 @@ const actionmap = {
     getselfdomTable: 'ENTRUST0006',
     outSourcedList_total: 'ENTRUST0007',
     outSourcedList_total_excel: 'ENTRUST0008',
+    CM0016: 'CM0016',
+    ENTRUST0010: 'ENTRUST0010',
 
     // 官网贷款
     website_myorderList:'MT0001',

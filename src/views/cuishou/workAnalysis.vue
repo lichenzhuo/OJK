@@ -115,7 +115,7 @@
 <script>
   // 引入基本模板
 let echarts = require('echarts/lib/echarts')
-// 引入折线图组件
+// 引入折线图组件 bar柱状图
 require('echarts/lib/chart/line')
 // 引入提示框和title组件
 require('echarts/lib/component/tooltip')

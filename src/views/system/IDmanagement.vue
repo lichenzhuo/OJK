@@ -434,6 +434,13 @@ export default {
     addClose () {
       this.add = false;
       this.change = false;
+      this.ruleForm2 = {
+        name: '',
+        loginName: '',
+        phone: '',
+        roleId: '',
+        collectionTypes: []
+      }
     },
     roleList () { // 获取权限名字下拉框列表
       let option = {

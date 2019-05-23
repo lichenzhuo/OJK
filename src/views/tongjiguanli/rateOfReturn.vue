@@ -64,36 +64,45 @@
           </el-table-column>
           <el-table-column align="center" prop="receivableAmount" :label="$t('totalManage.returnMoney')">
             <template slot-scope="scope">
-              <span v-if="scope.row.receivableAmount!==null&&scope.row.receivableAmount!==undefined&&scope.row.receivableAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.receivableAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.receivableAmount)}}
+                {{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="refundCount" :label="$t('totalManage.realReturnCount')">
           </el-table-column>
           <el-table-column align="center" prop="refundAmount" :label="$t('totalManage.realReturnMonry')">
             <template slot-scope="scope">
-              <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.refundAmount)}}
+                {{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="unpaidCount" :label="$t('totalManage.noReturnCount')">
           </el-table-column>
           <el-table-column align="center" prop="unpaidAmount" :label="$t('totalManage.noReturnMonry')">
             <template slot-scope="scope">
-              <span v-if="scope.row.unpaidAmount!==null&&scope.row.unpaidAmount!==undefined&&scope.row.unpaidAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.unpaidAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.unpaidAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundCountRate" :label="$t('add.no16')+'('+$t('totalManage.money')+')'">
+            <template slot-scope="scope">
+              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundCountRate)}}%</span>
+            </template>
+          </el-table-column>
+          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundAmountRate" :label="$t('add.no16')+'('+$t('totalManage.order')+')'">
+            <template slot-scope="scope">
+              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundAmountRate)}}%</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="moneyRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.money')+')'">
             <template slot-scope="scope">
-              <span v-if="scope.row.moneyRate!==null&&scope.row.moneyRate!==undefined&&scope.row.moneyRate!==''">{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="countRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.order')+')'">
             <template slot-scope="scope">
-              <span v-if="scope.row.countRate!==null&&scope.row.countRate!==undefined&&scope.row.countRate!==''">{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
             </template>
           </el-table-column>
         </el-table>
@@ -194,18 +203,36 @@ export default {
       }
     },
     getSummaries() {// 总和
-      const sums = [
-        this.$t('public.addTotal'),
-        '-',
-        this.tableData1.shouldReturnCount,
-        this.$store.getters.moneySplit(this.tableData1.receivableAmount),
-        this.tableData1.refundCount,
-        this.$store.getters.moneySplit(this.tableData1.refundAmount),
-        this.tableData1.unpaidCount,
-        this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
-        this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
-      ];
+      let sums;
+      if(this.$store.state.common.lang!=='PHL'){
+        sums = [
+          this.$t('public.addTotal'),
+          '-',
+          this.tableData1.shouldReturnCount,
+          this.$store.getters.moneySplit(this.tableData1.receivableAmount),
+          this.tableData1.refundCount,
+          this.$store.getters.moneySplit(this.tableData1.refundAmount),
+          this.tableData1.unpaidCount,
+          this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
+          this.$store.getters.twoPoint(this.tableData1.firstOverRefundCountRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.firstOverRefundAmountRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+        ]
+      }else{
+        sums = [
+          this.$t('public.addTotal'),
+          '-',
+          this.tableData1.shouldReturnCount,
+          this.$store.getters.moneySplit(this.tableData1.receivableAmount),
+          this.tableData1.refundCount,
+          this.$store.getters.moneySplit(this.tableData1.refundAmount),
+          this.tableData1.unpaidCount,
+          this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
+          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+        ]
+      }
       return sums;
     }
   },
@@ -235,5 +262,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  
 </style>
