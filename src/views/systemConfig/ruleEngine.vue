@@ -16,9 +16,6 @@
           <el-table-column align="center" prop="strLoanTime" label="规则集">
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" label="执行顺序">
-            <template slot-scope="scope">
-              <el-input type="number"></el-input>
-            </template>
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" label="是否启用">
           </el-table-column>
