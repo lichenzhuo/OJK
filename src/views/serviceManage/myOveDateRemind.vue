@@ -53,6 +53,13 @@
               </el-option>
             </el-select>
           </div>
+          <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
+          <span>{{$t('add.no12')}}:</span>
+          <el-select size="small" v-model="formInline.remindType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in remindType" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
           <div class="search-input">
             <span>{{$t('public.no28')}}:</span>
             <el-input size="small"  style="width:50px;" v-model="formInline.overdueBegin"></el-input>
@@ -218,6 +225,11 @@
                 <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
               </template>
             </el-table-column>
+            <el-table-column align="center" prop="remindType" :label="$t('add.no12')">
+              <template slot-scope="scope">
+                <span >{{$store.getters.serveStatus(scope.row.remindType)}}</span>
+              </template>
+            </el-table-column>
           </template>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
@@ -297,6 +309,7 @@ export default {
         name: '',
         phone: '',
         orderLoanType: '',
+        remindType: '',
         serviceStatus: '',
         orderStatus: '',
         callStatus: '',
@@ -320,6 +333,7 @@ export default {
       options3: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       options6: this.$store.state.options.groupCalls_options, // 群呼结果下拉选框信息
       tableData: [],// 借款信息数据模拟
+      remindType: [],// 借款信息数据模拟
       isover:''// 判断电话提醒按钮是否展示
     }
   },
@@ -380,7 +394,27 @@ export default {
           this.isover = JSON.parse(str).start;
         }
       })
-    }
+    },
+    getremindTypes(){ // 获取催收阶段
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'customer.type'
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
+          })
+          this.remindType = arr;
+        }
+      })
+    },
   },
   watch: {
     searchTime () {
@@ -448,6 +482,7 @@ export default {
     }
     this.loansList();// 获取借款列表
     this.getcollectionType();// 获取借款列表
+    this.getremindTypes();
   }
 }
 </script>

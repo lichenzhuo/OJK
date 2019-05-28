@@ -22,7 +22,7 @@
           </div>
         </el-col>
         <div class="search-input">
-          <span>{{$t('add.no18')}}:</span>
+          <span>{{$t('add.no43')}}:</span>
           <el-date-picker 
             size="small"
             v-model="searchTime"
@@ -51,7 +51,7 @@
       <template>
         <el-table size="small" :data="tableData" :summary-method="getSummaries"
           show-summary>
-          <el-table-column align="center" prop="strApproveTime" :label="$t('add.no18')" width="140">
+          <el-table-column align="center" prop="strApproveTime" :label="$t('add.no43')" width="140">
             <template slot-scope="scope">
               <span v-if="scope.row.strApproveTime!=''">{{(scope.row.strApproveTime).slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>

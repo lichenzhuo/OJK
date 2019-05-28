@@ -6,7 +6,7 @@ import Login from '../components/login/Login.vue'
 Vue.use(Router);
 
 // @@@@@@@@@@@@@@@@@@@@@@@  系统首页  @@@@@@@@@@@@@@@@@@@@@@@
-let adminhome = resolve => require(['../views/adminHome.vue'], resolve)
+let adminhome;
 
 let proManage// 产品管理列表
 let chushendetail//  我的初审订单详情
@@ -20,6 +20,7 @@ let backMoney
 let cuishouDetail
 
 if (store.state.common.lang === 'id') {
+  adminhome = resolve => require(['../views/adminHome.vue'], resolve)
   proManage = resolve => require(['../views/proManage/proManage.vue'], resolve)
   chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail.vue'], resolve)
   fushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/fushendetail.vue'], resolve)
@@ -30,6 +31,7 @@ if (store.state.common.lang === 'id') {
   backMoney = resolve => require(['../views/loanMoneyList/backMoneyList.vue'], resolve)
   cuishouDetail = resolve => require(['../views/cuishou/cuishouDetail.vue'], resolve)
 } else if (store.state.common.lang === 'vi') {
+  adminhome = resolve => require(['../views/adminHome.vue'], resolve)
   proManage = resolve => require(['../views/proManage/proManage-yuenan.vue'], resolve)
   chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-yuenan.vue'], resolve)
   fushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/fushendetail-yuenan.vue'], resolve)
@@ -40,6 +42,7 @@ if (store.state.common.lang === 'id') {
   backMoney = resolve => require(['../views/loanMoneyList/backMoneyList-yuenan.vue'], resolve)
   cuishouDetail = resolve => require(['../views/cuishou/cuishouDetail.vue'], resolve)
 } else if (store.state.common.lang === 'PHL') {
+  adminhome = resolve => require(['../views/adminHome_phl.vue'], resolve)
   proManage = resolve => require(['../views/proManage/proManage-feilvbin.vue'], resolve)
   chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.vue'], resolve)
   fushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/fushendetail-feilvbin.vue'], resolve)
@@ -164,6 +167,9 @@ let loansApplyList = resolve => require(['../views/websiteLoans/loansApplyList.v
 
 let badMannersAudit = resolve => require(['../views/examineAndVerify/badMannersAudit.vue'], resolve)
 let otherBackAudit = resolve => require(['../views/examineAndVerify/otherBackAudit.vue'], resolve)
+
+// @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
+let ruleEngine = resolve => require(['../views/systemConfig/ruleEngine.vue'], resolve)
 
 const router = new Router({
   scrollBehavior (to, from, savedPosition) {
@@ -311,6 +317,9 @@ const router = new Router({
                     {path: '/usersubmitdetail', name: 'userSubmitDetail', component: userSubmitDetail },
                     {path: '/mytailafterorder', name: 'myTailafterOrder', component: myTailafterOrder },
                     {path: '/loansapplylist', name: 'loansApplyList', component: loansApplyList },
+
+                    // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
+                    {path: '/ruleEngine', name: 'ruleEngine', component: ruleEngine },
           ]
         },
 

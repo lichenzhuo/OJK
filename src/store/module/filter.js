@@ -877,27 +877,30 @@ const filters = {
       switch (status) {
         case 1:
           return 'loanAfterManage.note_option1.no1' // S1
-
         case 2:
           return 'loanAfterManage.note_option1.no2' // S2
-
         case 3:
           return 'loanAfterManage.note_option1.no3' // M1
-
         case 4:
           return 'loanAfterManage.note_option1.no4' // M2
-
         case 5:
           return 'loanAfterManage.note_option1.no5' // M3
-
         case 6:
           return 'loanAfterManage.note_option1.no7' // s3
-
         case 7:
           return 'loanAfterManage.note_option1.no8' // M3+
-
         default:
           return 'loanAfterManage.note_option1.no6' // 其它
+      }
+    },
+    serveStatus: () => (status) => { // 催收阶段
+      switch (status) {
+        case 1:
+          return 'CS1' // CS1
+        case 2:
+          return 'S0' // S0
+        default:
+          return '-' // 其它
       }
     },
     follow_status: () => (status) => { // 催收状态

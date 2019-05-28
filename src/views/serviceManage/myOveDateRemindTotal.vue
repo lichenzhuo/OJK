@@ -15,6 +15,13 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
+        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
+          <span>{{$t('add.no12')}}:</span>
+          <el-select size="small" v-model="formInline.remindType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in remindType" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <div class="search-input">
           <span>{{$t('public.no87')}}:</span>
           <el-date-picker 
@@ -73,6 +80,13 @@
           </el-table-column>
           <el-table-column align="center" prop="servicerName" :label="$t('serviceManage.service')">
           </el-table-column>
+          <template v-if="$store.state.common.lang!=='PHL'">
+            <el-table-column align="center" prop="remindType" :label="$t('add.no12')">
+              <template slot-scope="scope">
+                <span >{{$store.getters.serveStatus(scope.row.remindType)}}</span>
+              </template>
+            </el-table-column>
+          </template>
           <el-table-column align="center" prop="assignOrderCount" :label="$t('serviceManage.no1')">
           </el-table-column>
           <el-table-column align="center" prop="reminderOrderCount" :label="$t('serviceManage.no2')">
@@ -127,6 +141,7 @@ export default {
       searchTime1: [],
       // 用户查询信息数据对应字段
       formInline: {
+        remindType: '',
         distributionBeginTime: '',
         distributionEndTime: '',
         mustRefundBeginTime: '',
@@ -134,6 +149,7 @@ export default {
         customerServicerId: ''
       },
       options1:[],// 客服员下拉框列表
+      remindType:[],// 客服员下拉框列表
       currentPage: 1,// 当前页下标
       tableData:[],// 用户信息数据模拟
       tableData1:[],// 用户信息数据模拟
@@ -225,6 +241,19 @@ export default {
           this.$t('public.addTotal'),
           '-',
           '-',
+          '-',
+          this.tableData1.assignOrderCount,
+          this.tableData1.reminderOrderCount,
+          this.tableData1.normalRepaidOrderCount,
+          this.tableData1.overDueRepaidOrderCount,
+          this.tableData1.noRepaidOrderCount,
+        ]
+      }else if(this.$store.state.common.lang==='id'){
+        sums = [
+          this.$t('public.addTotal'),
+          '-',
+          '-',
+          '-',
           this.tableData1.assignOrderCount,
           this.tableData1.reminderOrderCount,
           this.tableData1.repaidOrderCount,
@@ -237,14 +266,32 @@ export default {
           '-',
           this.tableData1.assignOrderCount,
           this.tableData1.reminderOrderCount,
-          this.tableData1.normalRepaidOrderCount,
-          this.tableData1.overDueRepaidOrderCount,
           this.tableData1.repaidOrderCount,
           this.tableData1.noRepaidOrderCount,
         ]
       }
       return sums;
-    }
+    },
+    getremindTypes(){ // 获取催收阶段
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'customer.type'
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
+          })
+          this.remindType = arr;
+        }
+      })
+    },
   },
   watch: {
     searchTime () {
@@ -270,6 +317,7 @@ export default {
     this.sessionid = sessionStorage.getItem('sessionid');
     this.formList();
     this.getServerPeople();
+    this.getremindTypes();
   }
 }
 </script>

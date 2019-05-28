@@ -615,6 +615,22 @@
                   return index.index == '17'
                 })[0].subs.push({index: 'loansapplylist', title: 'websiteLoans.no4'})
               }
+
+              // 系统配置
+              if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {
+                item.push({
+                  icon: 'el-icon-menu',
+                  index: '18',
+                  title: 'add.no44',
+                  subs: []
+                })
+              }
+              // 规则引擎
+              if (value.uniqueSign == 'MENU_RULE_ENGINE') {
+                item.filter(index => {
+                  return index.index == '18'
+                })[0].subs.push({index: 'ruleEngine', title: 'add.no45'})
+              }
             }
           })
           this.items = item
