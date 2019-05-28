@@ -8,36 +8,47 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table">
+    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
       <template>
         <el-table :data="tableData" size="small" >
-          <el-table-column align="center" prop="strLoanTime" label="ID">
+          <el-table-column align="center" prop="id" label="ID">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="规则集">
+          <el-table-column align="center" prop="ruleType" label="规则集">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="执行顺序">
+          <el-table-column align="center" prop="executeSort" label="执行顺序">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="是否启用">
+          <el-table-column align="center" prop="status" label="是否启用">
+            <template slot-scope="scope">
+              <span >{{scope.row.status==1?'是':'否'}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="条件1">
+          <el-table-column align="center" prop="conditionOne" label="条件1">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="阈值1">
+          <el-table-column align="center" prop="thresholdOne" label="阈值1">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="逻辑关系">
+          <el-table-column align="center" prop="logicRelationOne" label="逻辑关系">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="条件2">
+          <el-table-column align="center" prop="conditionTwo" label="条件2">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="阈值2">
+          <el-table-column align="center" prop="thresholdTwo" label="阈值2">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="逻辑关系">
+          <el-table-column align="center" prop="logicRelationTwo" label="逻辑关系">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="条件3">
+          <el-table-column align="center" prop="conditionThree" label="条件3">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="阈值3">
+          <el-table-column align="center" prop="thresholdThree" label="阈值3">
           </el-table-column>
-          <el-table-column align="center" prop="strLoanTime" label="禁言天数">
+          <el-table-column align="center" prop="exceuteLimit" label="禁言天数">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" label="操作">
+            <template slot-scope="scope">
+              <span 
+                v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_EDIT')"
+                class="table_opr"
+                @click="modifyRule(scope.row)">
+                修改
+              </span>
+            </template>
           </el-table-column>
         </el-table>
       </template>
@@ -56,59 +67,62 @@
     </el-row> -->
 
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%">
-      <table>
-        <tr>
-          <th>规则集</th>
-          <th>执行顺序</th>
-          <th>是否启用</th>
-          <th>结果</th>
-          <th>条件1</th>
-          <th>阈值1</th>
-          <th>逻辑关系</th>
-          <th>条件2</th>
-          <th>阈值2</th>
-          <th>逻辑关系</th>
-          <th>条件3</th>
-          <th>阈值3</th>
-          <th>禁言天数</th>
-        </tr>
-        <tr >
-          <td >
-            风控地区风控地区风控地区风控地区
-          </td>
-          <td >
-            <el-input type="number" size="small" style="width:60px" v-model="sequence"></el-input>
-          </td>
-          <td >
-            <el-switch
-              v-model="isUsing"
-              active-color="#13ce66"
-              inactive-color="#dddddd">
-            </el-switch>
-          </td>
-          <td class="nowrap">
-            <el-radio-group v-model="result" size="small">
-              <el-radio label="reject" ></el-radio>
-              <el-radio label="pass"></el-radio>
-              <el-radio label="Transfer"></el-radio>
-            </el-radio-group>
-          </td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>
-            <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
-          </td>
-        </tr>
-      </table>
+      <div class="box">
+        <table class="box">
+          <tr>
+            <th>规则集</th>
+            <th>执行顺序</th>
+            <th>是否启用</th>
+            <th>结果</th>
+            <th>条件1</th>
+            <th>阈值1</th>
+            <th>逻辑关系</th>
+            <th>条件2</th>
+            <th>阈值2</th>
+            <th>逻辑关系</th>
+            <th>条件3</th>
+            <th>阈值3</th>
+            <th>禁言天数</th>
+          </tr>
+          <tr >
+            <td >
+              {{detailData.ruleType}}
+            </td>
+            <td >
+              <el-input type="number" size="small" style="width:60px" v-model="sequence"></el-input>
+            </td>
+            <td >
+              <el-switch
+                v-model="isUsing"
+                active-color="#13ce66"
+                inactive-color="#dddddd">
+              </el-switch>
+            </td>
+            <td class="nowrap">
+              <el-radio-group v-model="result" size="small">
+                <el-radio :label="-1" >reject</el-radio>
+                <el-radio :label="2">pass</el-radio>
+                <el-radio :label="1">Transfer</el-radio>
+              </el-radio-group>
+            </td>
+            <td>{{detailData.conditionOne}}</td>
+            <td>{{detailData.thresholdOne}}</td>
+            <td>{{detailData.logicRelationOne}}</td>
+            <td>{{detailData.conditionTwo}}</td>
+            <td>{{detailData.thresholdTwo}}</td>
+            <td>{{detailData.logicRelationTwo}}</td>
+            <td>{{detailData.conditionThree}}</td>
+            <td>{{detailData.thresholdThree}}</td>
+            <td>
+              <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
       <div class="button">
-        <el-button type="primary" >确认</el-button>
-        <el-button type="primary" >取消</el-button>
+        <el-button type="primary" @click="submit">确认</el-button>
+        <el-button type="primary" @click="detailClose">取消</el-button>
       </div>
     </el-dialog>
 
@@ -128,11 +142,12 @@ export default {
       currentPage: 1,
       // 用户信息数据模拟
       tableData:[],
-      detailFlag: true,
+      detailFlag: false,
       sequence: '',// 顺序
       isUsing: false,// 是否启用
       result: '',// 结果
       notTalking: '',// 结果
+      detailData:{}
     }
   },
   methods: {
@@ -140,11 +155,11 @@ export default {
       this.currentPage = val;
       this.getTableData();
     },
-    getTableData () { // 获取首逾率列表
+    getTableData () { // 获取列表数据
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.first_rate,
+          action: this.$store.state.actionMap.SYSCONFIG0001,
           'page': {'index': this.currentPage, 'size': 10},
           'sessionid': this.sessionid
         },
@@ -157,10 +172,58 @@ export default {
         }
       })
     },
+    modifyRule(row){
+      this.detailData = row;
+      this.isUsing = row.status==1?true:false;
+      this.sequence = row.executeSort;
+      this.notTalking = row.exceuteLimit;
+      this.result = row.executeResult;
+      this.detailFlag = true;
+    },
+    submit(){
+      if(this.result==''&&this.notTalking==''&&this.sequence==''){
+        return this.$globalMsg.error('必须选择一个条件');
+      }
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0002,
+          'sessionid': this.sessionid
+        },
+        id: this.detailData.id,
+        status: this.isUsing?'1':'-1',
+        executeResult: this.result,
+        exceuteLimit: this.notTalking,
+        executeSort: this.sequence,
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('message.success'));
+          this.getTableData();
+          this.detailClose();
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
+    },
+    detailClose(){
+      this.detailFlag = false;
+      this.sequence = '';
+      this.isUsing = false;
+      this.result = '';
+      this.notTalking = '';
+    },
+  },
+  watch: {
+    detailFlag(){
+      if(!this.detailFlag){
+        this.detailClose()
+      }
+    }
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
-    // this.getTableData()
+    this.getTableData()
   }
 }
 </script>
@@ -168,11 +231,14 @@ export default {
   .ruletable{
     width: 100%;
   }
+  .box{
+    width: 100%;
+  }
   table{
     margin-bottom: 1em;
     overflow: auto;
     box-sizing: border-box;
-    display: block;
+    display: table;
     text-shadow: 0px 1px 0px #fff;
     border-collapse: collapse;
     border-spacing: 0;
@@ -211,5 +277,12 @@ export default {
   }
   table label.el-radio{
     margin-right: 10px;
+  }
+  .button{
+    display: flex;
+    justify-content: center;
+    button:{
+      margin: 0 20px;
+    }
   }
 </style>

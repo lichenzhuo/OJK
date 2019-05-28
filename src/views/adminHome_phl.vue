@@ -33,7 +33,7 @@
           <div class="line"></div>
           <li>
             <p><span class="bgc2"></span>{{$t('adminHome.no19')}}</p>
-            <p class="cl2">{{mainDataTwo.today.repaymentCount | dataIsTrue}}</p>
+            <p class="cl2">{{mainData.today.machineSuccessCount | dataIsTrue}}</p>
           </li>
         </ul>
         <ul>
@@ -54,7 +54,7 @@
           <div class="line"></div>
           <li>
             <p><span class="bgc3"></span>{{$t('adminHome.no15')}}</p>
-            <p class="cl3">{{mainData.today.lendingCountOld | dataIsTrue}}</p>
+            <p class="cl3">{{mainDataTwo.today.repaymentCount | dataIsTrue}}</p>
           </li>
           <div class="line"></div>
           <li>
@@ -236,7 +236,7 @@ export default {
           this.$t('adminHome.no7'), 
           this.$t('adminHome.no8'), 
           this.$t('adminHome.no19'), 
-          this.$t('adminHome.no6'), 
+          this.$t('new.no6'), 
           this.$t('adminHome.no18'), 
           this.$t('adminHome.no9'), 
           this.$t('adminHome.no15'), 
@@ -379,7 +379,7 @@ export default {
                   data:this.data1.machineSuccessCountWeek
               },
               {
-                  name:this.$t('adminHome.no6'),
+                  name:this.$t('new.no6'),
                   type:'line',
                   smooth: true,
                   data:this.data1.orderPassCountWeek
@@ -496,7 +496,7 @@ export default {
                   data:this.data2.machineSuccessCountMonth
               },
               {
-                  name:this.$t('adminHome.no6'),
+                  name:this.$t('new.no6'),
                   type:'line',
                   smooth: true,
                   data:this.data2.orderPassCountMonth

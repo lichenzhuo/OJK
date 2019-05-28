@@ -157,6 +157,7 @@
       <adduser 
         :addclose="addClose" 
         :collectionType="collectionType" 
+        :remindTypes="remindTypes"
         :options="options" 
         :userlist="userList"
       >
@@ -187,6 +188,17 @@
             <div class="types">
               <ul>
                 <li v-for="value in collectionType" :key="value.value">
+                  <el-checkbox :label="value.value"><span>{{value.label}}</span></el-checkbox>
+                </li>
+              </ul>
+            </div>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item :label="$t('add.no12')" v-if="$store.state.common.lang!=='PHL'">
+          <el-checkbox-group v-model="ruleForm2.remindTypes" >
+            <div class="types">
+              <ul>
+                <li v-for="value in remindTypes" :key="value.value">
                   <el-checkbox :label="value.value"><span>{{value.label}}</span></el-checkbox>
                 </li>
               </ul>
@@ -292,6 +304,7 @@ export default {
       options: [],
       tableData: [], // 用户信息数据模拟
       collectionType: [], // 催收阶段类型
+      remindTypes: [], // 催收阶段类型
       del: false, // 删除弹窗
       modify: false, // 修改密码弹窗
       add: false, // 添加账号弹窗
@@ -305,7 +318,8 @@ export default {
         loginName: '',
         phone: '',
         roleId: '',
-        collectionTypes: []
+        collectionTypes: [],
+        remindTypes: [],
       },
       rules: {
         loginName: [
@@ -324,6 +338,9 @@ export default {
           { required: true, message: this.$t('login.required'), trigger: 'blur' }
         ],
         collectionTypes: [
+          { required: true, message: this.$t('login.required'), trigger: 'blur' }
+        ],
+        remindTypes: [
           { required: true, message: this.$t('login.required'), trigger: 'blur' }
         ]
       }
@@ -439,7 +456,8 @@ export default {
         loginName: '',
         phone: '',
         roleId: '',
-        collectionTypes: []
+        collectionTypes: [],
+        remindTypes: [],
       }
     },
     roleList () { // 获取权限名字下拉框列表
@@ -479,6 +497,7 @@ export default {
           this.ruleForm2.phone = res.data.data.phone;
           this.ruleForm2.roleId = res.data.data.roleId;
           this.ruleForm2.collectionTypes = res.data.data.collectionTypes ? res.data.data.collectionTypes.split(',') : [];
+          this.ruleForm2.remindTypes = res.data.data.remindTypes ? res.data.data.remindTypes.split(',') : [];
         }
       })
     },
@@ -493,6 +512,7 @@ export default {
         id: this.changeId
       }
       option.collectionTypes = option.collectionTypes.join();
+      option.remindTypes = option.remindTypes.join();
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.$axios.post('', option).then(res => {
@@ -528,7 +548,27 @@ export default {
           this.collectionType = arr;
         }
       })
-    }
+    },
+    getremindTypes(){ // 获取催收阶段
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'customer.type'
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
+          })
+          this.remindTypes = arr;
+        }
+      })
+    },
   },
   watch: {
     searchTime () {
@@ -552,6 +592,7 @@ export default {
     }
     this.userList();// 获取账号列表
     this.getcollectionType();// 获取催收阶段
+    this.getremindTypes();// 获取催收阶段
     this.roleList();// 获取角色列表
   }
 }

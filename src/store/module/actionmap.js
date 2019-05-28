@@ -270,6 +270,9 @@ const actionmap = {
 
     PRODUCT0003PH:'PRODUCT0003PH',// 菲律宾产品列表
     PRODUCT0002PH:'PRODUCT0002PH',// 菲律宾产品列表
+    
+    SYSCONFIG0001:'SYSCONFIG0001',// 系统配置
+    SYSCONFIG0002:'SYSCONFIG0002',// 系统配置
 
   }
 

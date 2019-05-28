@@ -31,6 +31,17 @@
             </div>
           </el-checkbox-group>
         </el-form-item>
+        <el-form-item :label="$t('add.no12')" v-if="$store.state.common.lang!=='PHL'">
+          <el-checkbox-group v-model="ruleForm2.remindTypes">
+            <div class="types">
+              <ul>
+                <li v-for="value in remindTypes" :key="value.value">
+                  <el-checkbox :label="value.value"><span>{{value.label}}</span></el-checkbox>
+                </li>
+              </ul>
+            </div>
+          </el-checkbox-group>
+        </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
             <el-button @click="addclose">{{$t('public.no50')}}</el-button>
@@ -45,6 +56,7 @@ export default {
     userlist: Function,
     options: Array,
     collectionType: Array,
+    remindTypes: Array,
   },
   data () {
     return {
@@ -54,8 +66,9 @@ export default {
         loginName: '',
         phone: '',
         roleId: '',
-        password: 123456,
-        collectionTypes: []
+        password: '123456',
+        collectionTypes: [],
+        remindTypes: [],
       },
       rules: {
         loginName: [
@@ -93,6 +106,7 @@ export default {
         ...this.ruleForm2
       }
       option.collectionTypes = option.collectionTypes.join();
+      option.remindTypes = option.remindTypes.join();
       option.password = jse.encrypt(this.ruleForm2.password)
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -103,6 +117,8 @@ export default {
             } else {
               this.$globalMsg.error(res.data.header.msg);
             }
+            
+            this.$refs[formName].resetFields();
             this.addclose();
           })
         } else {
