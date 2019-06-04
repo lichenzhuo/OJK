@@ -907,24 +907,40 @@ const filters = {
       switch (status) {
         case 1:
           return 'new.followStatus1.no1' // 未跟踪
-
         case 2:
           return 'new.followStatus1.no2' // 进行中
-
         case 3:
           return 'new.followStatus1.no3' // 已跟踪
-
         case 4:
           return 'new.followStatus1.no1' // 未跟踪
-
         case 5:
           return 'new.followStatus1.no2' // 进行中
-
         case 6:
           return 'new.followStatus1.no3' // 已跟踪
-
+        case 10:
+          return 'new.followStatus1.no1' // 未跟踪
+        case 9:
+          return 'new.followStatus1.no3' // 已跟踪
+        case 8:
+          return 'new.followStatus1.no5' // 待提交补充资料
+        case 7:
+          return 'new.followStatus1.no4' // 审核中
         default:
           return 'loanAfterManage.collection_option.no18' // 其它
+      }
+    },
+    follow_status_phl: () => (status) => { // 催收状态
+      switch (status) {
+        case 10:
+          return 'new.followStatus1.no1' // 未跟踪
+        case 9:
+          return 'new.followStatus1.no3' // 进行中
+        case 8:
+          return 'new.followStatus1.no5' // 已跟踪
+        case 7:
+          return 'new.followStatus1.no4' // 未跟踪
+        default:
+          return 'finance.backLog_options_status.no12' // 其它
       }
     },
     // ----------------下面是越南状态判断------------------

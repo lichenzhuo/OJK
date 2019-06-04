@@ -1566,7 +1566,8 @@ const vi = {
     no13: 'Số lượng người vay 3 lần',
     no14: 'Số lượng người vay 3 lần trở lên',
     no15: 'Tổng số lượng  quá hạn',
-    no16: 'Tổng số tiền quá hạn'
+    no16: 'Tổng số tiền quá hạn',
+    no17: '黑名单命中率'
 
   },
   activity: {

@@ -42,7 +42,7 @@
             <el-table-column align="center" prop="operator" :label="$t('fei.no8')" min-width="100">
             </el-table-column>
           </template>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="140">
+          <el-table-column align="center" prop="operation" :label="$t('public.operation')" min-width="140" v-if="this.$store.state.common.lang!=='PHL'">
             <template slot-scope="scope" v-if="block==2">
               <span style="color:#547ef6;cursor:pointer" @click="socialDetali(scope.row.phone,scope.row.relation,scope.row.name)">{{$t('auditDetail.no42')}}</span>
             </template>
@@ -280,10 +280,10 @@ export default {
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.block = this.$route.query.block
-    if (this.orderNo) {
+    // if (this.orderNo) {
       this.telList()
       this.telDataNumber()
-    }
+    // }
   }
 }
 </script>

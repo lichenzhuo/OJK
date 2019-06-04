@@ -18,6 +18,7 @@ let userDetail//  ----------------  用户详情   -----------------
 let loanMoneyDetail//  ----------------  借款详情   -----------------
 let backMoney
 let cuishouDetail
+let test
 
 if (store.state.common.lang === 'id') {
   adminhome = resolve => require(['../views/adminHome.vue'], resolve)
@@ -44,7 +45,8 @@ if (store.state.common.lang === 'id') {
 } else if (store.state.common.lang === 'PHL') {
   adminhome = resolve => require(['../views/adminHome_phl.vue'], resolve)
   proManage = resolve => require(['../views/proManage/proManage-feilvbin.vue'], resolve)
-  chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.vue'], resolve)
+  // chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.vue'], resolve)
+  chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.1.vue'], resolve)
   fushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/fushendetail-feilvbin.vue'], resolve)
   backloglist = resolve => require(['../views/finance/backloglist-feilvbin.vue'], resolve)
   putloglist = resolve => require(['../views/finance/putloglist-feilvbin.vue'], resolve)
@@ -225,6 +227,7 @@ const router = new Router({
                     {path: '/myFirstAuditList', name: 'myFirstAuditList', component: myFirstAuditList },
                         //  ----------------  我的初审订单详情   -----------------
                         {path: '/chushendetail', name: 'chushendetail', component: chushendetail },
+                        {path: '/test', name: 'test', component: test },
 
                     {path: '/mySecondtAuditList', name: 'mySecondtAuditList', component: mySecondtAuditList },
                         //  ----------------  我的复审订单详情   -----------------

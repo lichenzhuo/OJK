@@ -362,6 +362,11 @@
                   <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
                   </el-option>
                 </el-select>
+                <span class="ml15">客户类型:</span>
+                <el-select clearable size="small" v-model="isRepeat" :placeholder="$t('public.placeholder')">
+                  <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
                 <span class="ml15"></span>
                 <el-button 
                   v-if="$store.state.common.permiss.includes('RIGHT_MACHINE_REJECT_QUERY')"
@@ -385,6 +390,11 @@
                   <el-table-column align="center" prop="approveType" :label="$t('loanMoneyDetail.opeType2')">
                     <template slot-scope="scope">
                       <span>{{$t($store.getters.auditType(scope.row.approveType))}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column align="center" prop="isRepeat" label="客户类型">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.isRepeat==1?'老客':'新客'}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="rejectReason" :label="$t('add.no35')">
@@ -483,7 +493,12 @@ export default {
         machineRejectPercentList: [],
       },
       auditSelect: '1',
+      isRepeat: -1,
       options1: this.$store.state.options.auditType_option,
+      options2: [
+        { value: -1, label :'新客' },
+        { value: 1, label :'老客' }
+      ],
     }
   },
   computed: {
@@ -664,7 +679,8 @@ export default {
         timeType: this.activeTab?this.activeTab:1,
         timeBegin: parseInt(this.activeTab)===1?this.formInline.timeBegin:parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:'',
         timeEnd: parseInt(this.activeTab)===1?this.formInline.timeEnd:'',
-        approveType: this.auditSelect
+        approveType: this.auditSelect,
+        isRepeat: this.isRepeat,
       }
       let option = {
         header: {
@@ -711,7 +727,8 @@ export default {
           timeType: this.activeTab?this.activeTab:1,
           timeBegin: parseInt(this.activeTab)===1?(this.selectDay[0]?this.selectDay[0]:''):parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:'',
           timeEnd: parseInt(this.activeTab)===1?(this.selectDay[1]?this.selectDay[1]:''):'',
-          approveType: this.auditSelect
+          approveType: this.auditSelect,
+          isRepeat: this.isRepeat,
         }
         let option = {
           header: {

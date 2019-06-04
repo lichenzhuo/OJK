@@ -1495,7 +1495,8 @@ const id = {
     no13: 'Jumlah user untuk pinjaman ke 3',
     no14: 'Jumlah user untuk pinjaman lebih dari 3',
     no15: 'Total jatuh tempo',
-    no16: 'Nilai total jatuh tempo'
+    no16: 'Nilai total jatuh tempo',
+    no17: '黑名单命中率'
   },
   activity: {
     crumbsOne: 'Manajemen operasi',
