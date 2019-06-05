@@ -66,7 +66,7 @@
       </div>
     </el-row> -->
 
-    <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%">
+    <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="30vh">
       <div class="box">
         <table class="box">
           <tr>
@@ -275,13 +275,13 @@ export default {
         line-height: 1.6;
     }
   }
-  table label.el-radio{
+  table label.el-radio {
     margin-right: 10px;
   }
-  .button{
+  .button {
     display: flex;
     justify-content: center;
-    button:{
+    button: {
       margin: 0 20px;
     }
   }

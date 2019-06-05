@@ -15,7 +15,7 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="6" :lg="4" :xl="4">
+        <el-col :md="6" :lg="4" :xl="4" v-if="$store.state.common.lang!=='PHL'">
           <div class="search-input">
             <span>{{$t('proManage.period')}}:</span>
             <el-input size="small" label="orderId" v-model="formInline.period"></el-input>
@@ -59,7 +59,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68" v-if="$store.state.common.lang!=='PHL'">
           </el-table-column>
           <el-table-column align="center" prop="loanCount" :label="$t('totalManage.lendingCount')" min-width="100">
           </el-table-column>
@@ -190,16 +190,29 @@ export default {
       }
     },
     getSummaries() {// 总和
-      const sums = [
-        this.$t('public.addTotal'),
-        '-',
-        this.tableData1.loanCount,
-        this.$store.getters.moneySplit(this.tableData1.loanAmount),
-        this.tableData1.refundCount,
-        this.$store.getters.moneySplit(this.tableData1.refundAmount),
-        this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
-      ];
+      let sums;
+      if(this.$store.state.common.lang!=='PHL'){
+        sums = [
+          this.$t('public.addTotal'),
+          '-',
+          this.tableData1.loanCount,
+          this.$store.getters.moneySplit(this.tableData1.loanAmount),
+          this.tableData1.refundCount,
+          this.$store.getters.moneySplit(this.tableData1.refundAmount),
+          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+        ]
+      }else{
+        sums = [
+          this.$t('public.addTotal'),
+          this.tableData1.loanCount,
+          this.$store.getters.moneySplit(this.tableData1.loanAmount),
+          this.tableData1.refundCount,
+          this.$store.getters.moneySplit(this.tableData1.refundAmount),
+          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+        ];
+      }
       return sums;
     }
   },

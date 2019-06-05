@@ -1348,7 +1348,9 @@ const phl = {
     followStatus1: {
       no1: 'no follow up',
       no2: 'in follow up',
-      no3: 'followed up'
+      no3: 'followed up',
+      no4: 'in review',
+      no5: 'waiting for additional doc',
     },
     noticeOption: {
       no1: 'No reminding yet'
@@ -1439,6 +1441,7 @@ const phl = {
     no47: 'Karagdagang impormasyon',
     no48: 'walang impormasyon',
     no49: '埋点信息',
+    no50: '补充信息',
     status:{
       no1: 'Submit successfully',
       no2: 'Not due yet',
@@ -1577,7 +1580,8 @@ const phl = {
     no13: 'number of three-times reloan user(s)',
     no14: 'number of more than three-times reloan user(s)',
     no15: 'number of total overdue loan(s)',
-    no16: 'amount of total overdue loan(s)'
+    no16: 'amount of total overdue loan(s)',
+    no17: '黑名单命中率'
   },
   activity: {
     crumbsOne: '运营管理',

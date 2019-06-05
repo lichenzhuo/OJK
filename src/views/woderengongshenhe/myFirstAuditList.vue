@@ -158,7 +158,8 @@
           </el-table-column>
           <el-table-column align="center" prop="trackStatus" :label="$t('new.no8')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.follow_status(scope.row.trackStatus))}}</span>
+              <span >{{$t($store.getters.follow_status(scope.row.trackStatus))}}</span>
+              <!-- <span v-else>{{$t($store.getters.follow_status_phl(scope.row.trackStatus))}}</span> -->
             </template>
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
@@ -238,7 +239,7 @@ export default {
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.peopleAuditOneStatus_options, // 订单状态下拉选框信息
-      options2: this.$store.state.options.follow_option, // 跟踪状态下拉选框信息
+      // options2: this.$store.state.options.follow_option, // 跟踪状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       tableData: []// 用户信息数据模拟
 
@@ -302,6 +303,15 @@ export default {
             this.$globalMsg.error(res.data.header.msg);
           }
         })
+      }
+    }
+  },
+  computed: {
+    options2(){
+      if(this.$store.state.common.lang!=='PHL'){
+        return this.$store.state.options.follow_option
+      }else{
+        return this.$store.state.options.follow_option_phl
       }
     }
   },

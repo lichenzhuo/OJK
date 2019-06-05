@@ -15,12 +15,6 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" :gutter="10" justify="start">
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('public.no25')}}:</span>
-            <el-input size="small" v-model="formInline.period"></el-input>
-          </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('add.no43')}}:</span>
           <el-date-picker 
@@ -56,8 +50,6 @@
               <span v-if="scope.row.strApproveTime!=''">{{(scope.row.strApproveTime).slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
           </el-table-column>
           <el-table-column align="center" prop="adminName" :label="$t('public.no32')">
           </el-table-column>
@@ -211,7 +203,6 @@ export default {
     getSummaries() {// 总和
       const sums = [
         this.$t('public.addTotal'),
-        '-',
         '-',
         this.tableData1.newCustomerOrders,
         this.tableData1.newCustomerPassOrders,

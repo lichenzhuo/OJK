@@ -15,7 +15,7 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <div class="search-input">
+        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
           <span>{{$t('proManage.period')}}:</span>
           <el-input size="small" label="orderId" v-model="formInline.period"></el-input>
         </div>
@@ -58,7 +58,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" v-if="$store.state.common.lang!=='PHL'">
           </el-table-column>
           <el-table-column align="center" prop="shouldReturnCount" :label="$t('totalManage.returnCount')">
           </el-table-column>
@@ -222,7 +222,6 @@ export default {
       }else{
         sums = [
           this.$t('public.addTotal'),
-          '-',
           this.tableData1.shouldReturnCount,
           this.$store.getters.moneySplit(this.tableData1.receivableAmount),
           this.tableData1.refundCount,

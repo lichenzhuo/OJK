@@ -114,11 +114,22 @@
               <el-option v-for="(item,index) in option4" :key="index" :label="$t(item.label)" :value="item.value"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item :label="$t('operatorManage.no14')" >
+          <el-form-item :label="$t('operatorManage.no14')+'≥'" >
             <el-input type="text" style="width:215px;" v-model="evenForm.successfulLendings"></el-input>
           </el-form-item>
-          <el-form-item :label="$t('operatorManage.no15')" >
+          <el-form-item :label="$t('operatorManage.no15')+'≤'" >
             <el-input type="text" style="width:215px;" v-model="evenForm.overDueDays"></el-input>
+          </el-form-item>
+          <el-form-item label="最新订单应还时间" v-if="$store.state.common.lang==='vi'">
+            <el-date-picker 
+              size="small"
+              v-model="RefundTime" 
+              type="daterange" 
+              range-separator="~" 
+              :default-value="$store.state.common.preMonth" 
+              :start-placeholder="$t('public.beginTime')" 
+              :end-placeholder="$t('public.endTime')">
+            </el-date-picker>
           </el-form-item>
         </el-form>
       </div>
@@ -134,10 +145,34 @@
 
     <el-dialog :title="$t('public.detail')" :visible.sync="dialogDetailVisible"  width="750px">
       <h4>{{$t('operatorManage.no16')}}</h4>
-      <p class="detail_con"><span>{{$t('operatorManage.no4')}}:</span><span>{{detailData.sendType==1?$t('operatorManage.sendType.no1'):$t('operatorManage.sendType.no2')}}</span></p>
+      <div class="left2right">
+        <span class="left" style="width:120px">{{$t('operatorManage.no4')}}:</span>
+        <div class="right">
+          {{detailData.sendType==1?$t('operatorManage.sendType.no1'):$t('operatorManage.sendType.no2')}}
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left" style="width:120px">{{$t('operatorManage.no10')}}:</span>
+        <div class="right">
+          {{detailData.title}}
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left" style="width:120px">{{$t('operatorManage.no11')}}:</span>
+        <div class="right">
+          {{detailData.description}}
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left" style="width:120px">{{$t('operatorManage.no12')}}:</span>
+        <div class="right">
+          {{detailData.message}}
+        </div>
+      </div>
+      <!-- <p class="detail_con"><span>{{$t('operatorManage.no4')}}:</span><span>{{detailData.sendType==1?$t('operatorManage.sendType.no1'):$t('operatorManage.sendType.no2')}}</span></p>
       <p class="detail_con"><span>{{$t('operatorManage.no10')}}:</span><span>{{detailData.title}}</span></p>
       <p class="detail_con"><span>{{$t('operatorManage.no11')}}:</span><span>{{detailData.description}}</span></p>
-      <p class="detail_con"><span>{{$t('operatorManage.no12')}}:</span><span>{{detailData.message}}</span></p>
+      <p class="detail_con"><span>{{$t('operatorManage.no12')}}:</span><span>{{detailData.message}}</span></p> -->
       <h4>{{$t('operatorManage.no18')}}</h4>
       <p class="detail_con" v-if="detailData.phone"><span>{{$t('public.userTel')}}:</span><span>{{detailData.phone}}</span></p>
       <p class="detail_con" v-if="detailData.packageName"><span>{{$t('new.no48')}}:</span><span>{{detailData.packageName}}</span></p>
@@ -146,6 +181,7 @@
       <p class="detail_con" v-if="detailData.lastOrderStatus"><span>{{$t('public.orderStatus')}}:</span><span>{{$t($store.getters.rejectStatus(detailData.lastOrderStatus))}}</span></p>
       <p class="detail_con" v-if="detailData.successfulLendings"><span>{{$t('operatorManage.no14')}}:</span><span>{{detailData.successfulLendings}}</span></p>
       <p class="detail_con" v-if="detailData.overDueDays"><span>{{$t('operatorManage.no15')}}:</span><span>{{detailData.overDueDays}}</span></p>
+      <p class="detail_con" v-if="detailData.mustRefundTimeBegin"><span>{{$t('operatorManage.no15')}}:</span><span>{{detailData.mustRefundTimeBegin+'~'+detailData.mustRefundTimeEnd}}</span></p>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogDetailVisible = false">{{$t('public.no50')}}</el-button>
       </div>
@@ -179,6 +215,7 @@ export default {
       dialogDetailVisible: false,
       formLabelWidth: '90px',
       tableList: [],
+      RefundTime: [],
       page: {
         current: 1,
         size: 10,
@@ -214,7 +251,9 @@ export default {
         isAuth:'',
         lastOrderStatus:'',
         successfulLendings:'',
-        overDueDays:''
+        overDueDays:'',
+        mustRefundTimeBegin:'',
+        mustRefundTimeEnd:'',
       },
       detailData:{},
       rules:{
@@ -297,7 +336,9 @@ export default {
         isAuth:'',
         lastOrderStatus:'',
         successfulLendings:'',
-        overDueDays:''
+        overDueDays:'',
+        mustRefundTimeBegin:'',
+        mustRefundTimeEnd:'',
       },
       self.form = {
         messageType: '',
@@ -312,7 +353,7 @@ export default {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           if (this.form.sendType==1&&this.odd.phone==='') return
-          if (this.form.sendType==2&&this.evenForm.packageName===''&&this.evenForm.userStatus===''&&this.evenForm.isAuth===''&&this.evenForm.lastOrderStatus===''&&this.evenForm.successfulLendings===''&&this.evenForm.overDueDays==='') return
+          if (this.form.sendType==2&&!this.RefundTime.length&&this.evenForm.packageName===''&&this.evenForm.userStatus===''&&this.evenForm.isAuth===''&&this.evenForm.lastOrderStatus===''&&this.evenForm.successfulLendings===''&&this.evenForm.overDueDays==='') return
           let option = {
             header: {
               ...this.$base,
@@ -332,6 +373,8 @@ export default {
             }
           })
           this.dialogFormVisible = false;
+          this.$refs.ruleForm.resetFields();
+          this.RefundTime = []
         } else {
           return false;
         }
@@ -369,8 +412,19 @@ export default {
         this.evenForm.lastOrderStatus = '';
         this.evenForm.successfulLendings = '';
         this.evenForm.overDueDays = '';
+        this.evenForm.mustRefundTimeBegin = ''
+        this.evenForm.mustRefundTimeEnd = ''
       }else if(this.form.sendType==2){
         this.odd.phone = '';
+      }
+    },
+    RefundTime(){
+      if (this.RefundTime) {
+        this.evenForm.mustRefundTimeBegin = this.$store.getters.yyyy_m_d(this.RefundTime[0]);
+        this.evenForm.mustRefundTimeEnd = this.$store.getters.yyyy_m_d(this.RefundTime[1]);
+      } else {
+        this.evenForm.mustRefundTimeBegin = '';
+        this.evenForm.mustRefundTimeEnd = '';
       }
     }
   }
@@ -389,7 +443,7 @@ export default {
   }
   .detail_con{
     width: 100%;
-    height: 40px;
+    min-height: 40px;
     line-height: 40px;
     font-size: 16px;
     span:nth-child(1){

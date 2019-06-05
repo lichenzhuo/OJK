@@ -303,6 +303,13 @@ const options = {
       {value: '2', label: 'new.followStatus1.no2'}, // 进行中
       {value: '3', label: 'new.followStatus1.no3'}// 已跟踪
     ],
+    follow_option_phl: [// 跟踪状态
+      {value: '', label: 'public.placeholder'},
+      {value: '10', label: 'new.followStatus1.no1'}, // 未跟踪
+      {value: '9', label: 'new.followStatus1.no3'},// 已跟踪
+      {value: '8', label: 'new.followStatus1.no5'},// 待提交补充资料
+      {value: '7', label: 'new.followStatus1.no4'},// 审核中
+    ],
     follow_option2: [// 跟踪状态
       {value: '', label: 'public.placeholder'},
       {value: '4', label: 'new.followStatus1.no1'}, // 未跟踪
