@@ -432,6 +432,7 @@
               <el-button type="primary" @click="submit(2)">{{$t('public.no49')}}</el-button>
             </div>
           </div>
+
           <div v-if="viewNumbe==3">
             <div class="info flex">
               <div class="left">
@@ -748,9 +749,9 @@
                 </div>
                 <hr class="mg10">
               </template>
-              <template v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl">
+              <template v-if="SupplementInfo.userSelf.newLivePicUrl">
                 <!-- 居住/工作场所照片 -->
-                <div class="imgbox" v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl">
+                <div class="imgbox" v-if="SupplementInfo.userSelf.newLivePicUrl">
                   <div v-if="SupplementInfo.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.livePicUrl})">
                     <img :src="SupplementInfo.userSelf.livePicUrl" title="生活照片" >
                   </div>
@@ -1016,6 +1017,7 @@ export default {
         
         {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
         {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+        
         {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
         {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
         {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
@@ -1166,7 +1168,41 @@ export default {
           // if(res.data.data.order.status==-20||res.data.data.order.status==21){
           //   this.viewNumbe = 3
           // }
+
+          if(res.data.data.userBank.bankAccount){
+            this.radioArray = [
+              {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
+              {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
+              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+
+              {id: 4, title: 'Bank name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
+              {id: 5, title: 'Bank ID', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
+              
+              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+              // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+
+              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+            ]
+          }else{
+            this.radioArray = [
+              {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
+              {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
+              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+              // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+            ]
+          }
           if(res.data.data.userWork.industry!='7'){
+            this.radioArray.push(
+              {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+            )
             this.phoneradioArray.push(
               {id: 29, title: 'attended or not when apply',  oneInput: '', radioInput: '', value: '', 
                 radioGroup: [ 
@@ -1197,36 +1233,8 @@ export default {
               {id: 11, title: 'Work place GPS street view on map', value: '', radioGroup: [ { label: 'Office building or commercial zone' }, { label: 'shanty town' }, { label: 'remote countryside' } ] },
             )
           }
-          if(res.data.data.userBank.bankAccount){
-            this.radioArray = [
-              {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
-              {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
-              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-
-              {id: 4, title: 'Bank name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
-              {id: 5, title: 'Bank ID', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
-              
-              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
-              {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
-              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-            ]
-          }else{
-            this.radioArray = [
-              {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
-              {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
-              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-
-              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
-              {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
-              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-            ]
-          }
+          
+          
           this.getRadioHistory()
           
         }
@@ -1549,7 +1557,15 @@ export default {
             if(type==2){
               this.viewNumbe = 3
             }
+            if(type==3){
+              this.supplementFlag = true
+            }
           }else if (res.data.data == -1) {
+            this.viewNumbe = 3
+            if(type==3){
+              this.supplementFlag = true
+            }
+          }else if (res.data.data == 1){
             this.viewNumbe = 3
           }
         } else {
