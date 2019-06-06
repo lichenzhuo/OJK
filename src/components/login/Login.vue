@@ -1,7 +1,7 @@
 <template>
   <div class="login-container" style="background-color: #141a48;margin: 0px;overflow: hidden;">
     <div class="ms-login">
-      <div class="ms-title">{{$t('login.management_system')}}</div>
+      <div class="ms-title">{{title}}</div>
       <el-form :model="ruleForm" :rules="rule" ref="ruleForm" label-width="0px" class="demo-ruleForm">
         <el-form-item prop="loginName">
             <el-input v-model="ruleForm.loginName" placeholder="userName" auto-complete="off"></el-input>
@@ -37,8 +37,8 @@ export default {
       logining: false,
       sessionid: '',
       text:'text',
-      langStyle: '1'// 当前选择的语言
-
+      langStyle: '1',// 当前选择的语言
+      title: ''
     }
   },
   computed: {
@@ -362,6 +362,7 @@ export default {
     this.vuexData();
     sessionStorage.clear();
     this.lang();
+    this.title = global.config.headerTotal
   }
 }
 

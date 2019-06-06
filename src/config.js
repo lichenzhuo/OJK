@@ -140,7 +140,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(instantcsh) > -1) {
   domain = `http://api.instantcsh.com`;
-  headerTotal = 'My Dong';
+  headerTotal = 'i Cash';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
