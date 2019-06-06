@@ -269,39 +269,66 @@
       </ul>
     </div>
 
-    <!-- ------------  电话审核记录栏  ------------------------ -->
-    <el-row>
-      <el-col :span="24">
-        <div class="paixu">
-          <span></span>
-          <p>{{$t('new.no58')}}</p>
-        </div>
-      </el-col>
-    </el-row>
-    <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-      <tr>
-        <th width="15%">{{$t('new.no59')}}</th>
-        <th width="15%">{{$t('public.no39')}}</th>
-        <th width="15%">{{$t('public.no40')}}</th>
-        <th width="40%">{{$t('public.no37')}}</th>
-        <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
-      </tr>
-      <template v-if="phoneAuditLogTwo">
-        <tr v-for="value in phoneAuditLogTwo" :key="value.id">
-          <td >{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
-          <td>{{value.userName | dataIsTrue}}</td>
-          <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
-          <td>{{value.remark | dataIsTrue}}</td>
-          <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
-        </tr>
-      </template>
-      <template v-else>
-        <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
-          {{$t('public.no23')}}
-        </div>
-      </template>
-    </table>
-    <div class="foot"></div>
+    <!-- ------------  信审记录 客服记录  ------------------------ -->
+    <div class="tabs mb20">
+      <ul class="tabs_title">
+        <li v-for="(value,index) in arr4" :key="index" :class="{active:active4==value.id}" @click="active4=value.id">
+          <span>{{value.title}}</span>
+        </li>
+      </ul>
+      <ul class="tabs_main">
+        <li  v-if="active4==1">
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="15%">{{$t('new.no59')}}</th>
+              <th width="15%">{{$t('public.no39')}}</th>
+              <th width="15%">{{$t('public.no40')}}</th>
+              <th width="35%">{{$t('public.no37')}}</th>
+              <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
+            </tr>
+            <template v-if="phoneAuditLogTwo">
+              <tr v-for="value in phoneAuditLogTwo" :key="value.id">
+                <td >{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
+                <td>{{value.userName | dataIsTrue}}</td>
+                <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
+                <td>{{value.remark | dataIsTrue}}</td>
+                <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
+        <li  v-if="active4==2">
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="15%">{{$t('add.no12')}}</th>
+              <th width="15%">{{$t('public.no39')}}</th>
+              <th width="15%">{{$t('public.no40')}}</th>
+              <th width="35%">{{$t('public.no37')}}</th>
+              <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
+            </tr>
+            <template v-if="data.serviceRecordList!=''">
+              <tr v-for="value in data.serviceRecordList" :key="value.id">
+                <td >{{$t('add.no42')}}</td>
+                <td>{{value.userName | dataIsTrue}}</td>
+                <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
+                <td>{{value.remark | dataIsTrue}}</td>
+                <td>{{value.strCreateTime | dataIsTrue}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
+      </ul>
+    </div>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
     <div class="tabs">
@@ -587,6 +614,7 @@ export default {
       active1: 1, // 第一个选项卡当前选中项
       active2: 1, // 第二个选项卡当前选中项
       active3: 1, // 第三个选项卡当前选中项
+      active4: 1, // 第三个选项卡当前选中项
       data: {// 页面信息汇总
         orderLending: '',
         orderUserWork: '', // 工作单位
@@ -605,7 +633,8 @@ export default {
         partialShow:'',
         overCouponShow:'',
         orderInstalment:'',
-        pictureUrl:''
+        pictureUrl:'',
+        serviceRecordList:[]
       },
       emeContact: '', // 紧急联系人选中项
       contact: '', // 通话记录联系人选中项
@@ -684,6 +713,12 @@ export default {
         {id: 3, title: this.$t('operationDetail.tab3.no3')},
         
       ]
+    },
+    arr4 () {
+      return [
+        {id: 1, title: this.$t('new.no58')},
+        {id: 2, title: this.$t('add.no11')}
+      ]
     }
   },
   methods: {
@@ -722,6 +757,7 @@ export default {
           this.data.orderInstalment = res.data.data.orderInstalment
           this.data.overCouponShow = res.data.data.overCouponShow
           this.data.pictureUrl = res.data.data.pictureUrl.indexOf('|')!=-1?res.data.data.pictureUrl.split('|'):res.data.data.pictureUrl
+          this.data.serviceRecordList = res.data.data.serviceRecordList;
           this.telAuditLogTwo('2');
         } else {
           this.data = []
