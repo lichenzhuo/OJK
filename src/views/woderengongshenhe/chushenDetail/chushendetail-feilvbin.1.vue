@@ -300,7 +300,7 @@
                 </div>
               </li>
               
-              <template v-if="data.userWork.industry!='7'">
+              <!-- <template v-if="data.userWork.industry!='7'">
                 <li  class="right-list " v-for="item in phoneradioArray.filter(value=>value.id==29)" :key="item.id" >
                   <span class="mr20 text-right w200">attended or not when apply</span>
                   <div class="group">
@@ -310,7 +310,6 @@
                       :key="index" 
                       @change="radioChange(item.value,item.id,2)">
                       <el-radio :label="value.label"></el-radio>
-                      <!-- <el-radio label="yes--suspicious"></el-radio> -->
                     </el-radio-group>
                   </div>
                 </li>
@@ -324,16 +323,12 @@
                         :key="index" 
                         @change="radioChange(item.value,item.id,2)">
                         <el-radio :label="value.label"></el-radio>
-                        <!-- <el-radio label="on leave"></el-radio>
-                        <el-radio label="outside the office"></el-radio>
-                        <el-radio label="on business trip"></el-radio>
-                        <el-radio label="unemployeed"></el-radio> -->
                       </el-radio-group>
                     </div>
                   </li>
                 </template>
                 
-              </template>
+              </template> -->
   
             </ul>
 
@@ -1203,22 +1198,22 @@ export default {
             this.radioArray.push(
               {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
             )
-            this.phoneradioArray.push(
-              {id: 29, title: 'attended or not when apply',  oneInput: '', radioInput: '', value: '', 
-                radioGroup: [ 
-                  { label: 'No' }, 
-                  { label: 'Yes' }
-                ] 
-              },
-              {id: 30, title: 'why not attended',  oneInput: '', radioInput: '', value: '', 
-                radioGroup: [ 
-                  { label: 'on leave' }, 
-                  { label: 'outside the office' }, 
-                  { label: 'on business trip' },
-                  { label: 'unemployeed' }
-                ] 
-              },
-            )
+            // this.phoneradioArray.push(
+            //   {id: 29, title: 'attended or not when apply',  oneInput: '', radioInput: '', value: '', 
+            //     radioGroup: [ 
+            //       { label: 'No' }, 
+            //       { label: 'Yes' }
+            //     ] 
+            //   },
+            //   {id: 30, title: 'why not attended',  oneInput: '', radioInput: '', value: '', 
+            //     radioGroup: [ 
+            //       { label: 'on leave' }, 
+            //       { label: 'outside the office' }, 
+            //       { label: 'on business trip' },
+            //       { label: 'unemployeed' }
+            //     ] 
+            //   },
+            // )
           }
           if(res.data.data.userSelf.picType==1){
             this.radioArray.push(
