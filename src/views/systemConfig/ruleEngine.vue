@@ -65,7 +65,7 @@
         </el-pagination>
       </div>
     </el-row> -->
-
+    
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="30vh">
       <div class="box">
         <table class="box">
@@ -130,6 +130,7 @@
 
   </div>
 </template>
+
 <script>
 export default {
   name: 'ruleEngine',
@@ -147,7 +148,13 @@ export default {
       isUsing: false,// 是否启用
       result: '',// 结果
       notTalking: '',// 结果
-      detailData:{}
+      detailData:{},
+      options1: [
+        {id: 1, label: 'OCR地址', value: 1},
+        {id: 2, label: '居住地', value: 2},
+        {id: 3, label: 'GPS地址', value: 3},
+        {id: 4, label: '工作地', value: 4},
+      ]
     }
   },
   methods: {
@@ -227,6 +234,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
   .ruletable{
     width: 100%;

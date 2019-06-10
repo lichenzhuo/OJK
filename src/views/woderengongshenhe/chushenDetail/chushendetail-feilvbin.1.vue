@@ -827,6 +827,45 @@
           </div>
           <p v-else>暂无信息</p>
         </li>
+        <!------------------------ 历史借款记录信息 ---------------------------->
+        <li  v-if="active==5">
+          <div class="paixu">
+            <span></span><p>{{$t('yuenan.no14')}}</p>
+          </div>
+          <loan-list :order-no="orderNo" :tag-list="data.userOrderCount" :user-id="userId" :table-data="data.orderList"></loan-list>
+          <div class="paixu">
+            <span></span><p>{{$t('yuenan.no13')}}</p>
+          </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="20%">{{$t('public.orderNo')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no2')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no4')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no5')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no6')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no14')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no12')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no13')}}</th>
+              <th width="10%">{{$t('loanAfterManage.collection_option.no8')}}</th>
+            </tr>
+            <tr v-if="tableData!=''">
+              <td >{{tableData[0]}}</td>
+              <td >{{tableData[2]}}</td>
+              <td >{{tableData[4]}}</td>
+              <td >{{tableData[5]}}</td>
+              <td >{{tableData[6]}}</td>
+              <td >{{tableData[14]}}</td>
+              <td >{{tableData[12]}}</td>
+              <td >{{tableData[13]}}</td>
+              <td >{{tableData[8]}}</td>
+            </tr>
+            <template v-else>
+              <div style="textAlign:center;width:500%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
       </ul>
     </div>
 
@@ -944,15 +983,16 @@
 
 import telRecordList from '../../../components/component/teltable'
 import telAuditList from '../../../components/component/telAuditList'
+import loanList from '../../../components/component/loantable'
 
 import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
-import { setTimeout } from 'timers';
 
 export default {
   name: 'auditDetail',
   components: {
     telRecordList,
     telAuditList,
+    loanList,
     appLightbox
   },
   data () {
@@ -1107,6 +1147,7 @@ export default {
       arr.push({id: 2, title: this.$t('fei.no50')})
       arr.push({id: 3, title: this.$t('tab2.no2')})
       arr.push({id: 4, title: this.$t('auditDetail.no22')})
+      arr.push({id: 5, title: this.$t('tab2.no4')})
       return arr
     },
     arr3 () {
@@ -1160,6 +1201,9 @@ export default {
           this.data.orderExtra = res.data.data.orderExtra;
           this.data.similarity = res.data.data.similarity;
           this.data.deviceInfo = res.data.data.deviceInfo;
+          if (res.data.data.recentCollection != '') {
+            this.tableData = res.data.data.recentCollection.valueList;
+          }
           // if(res.data.data.order.status==-20||res.data.data.order.status==21){
           //   this.viewNumbe = 3
           // }

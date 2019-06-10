@@ -170,17 +170,17 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST')">
               <span
-                v-if="scope.row.status!=20"
+                
                 class="table_opr"
-                @click="socialDetali(scope.row.orderNo,scope.row.userId,scope.row.id)">
-                {{$t('public.no29')}}
+                @click="socialDetali(scope.row.orderNo, scope.row.userId, scope.row.id, scope.row.isFirst)">
+                {{scope.row.status!=20?$t('public.no29'):$t('myAuditList.no5')}}
               </span>
-              <span 
+              <!-- <span 
                 v-else
                 class="table_opr"
                 @click="socialDetali(scope.row.orderNo,scope.row.userId,scope.row.id)">
                 {{$t('myAuditList.no5')}}
-              </span>
+              </span> -->
             </template>
           </el-table-column>
         </el-table>
@@ -254,8 +254,16 @@ export default {
       this.currentPage = val;
       this.listAll();
     },
-    socialDetali (orderNo, userid, orderId) { // 点击人工初审跳转
-      this.$router.push({path: '/chushendetail', query: {orderNo, userid, orderId, block: 2}});
+    socialDetali (orderNo, userid, orderId, isFirst) { // 点击人工初审跳转
+      if(this.$store.state.common.lang==='PHL'){
+        if(isFirst==1){
+          this.$router.push({path: '/chushendetail', query: {orderNo, userid, orderId, block: 2}});
+        }else{
+          this.$router.push({path: '/oldpeople', query: {orderNo, userid, orderId, block: 2}});
+        }
+      }else{
+        this.$router.push({path: '/chushendetail', query: {orderNo, userid, orderId, block: 2}});
+      }
     },
     select () { // 查询按钮点击操作
       this.$store.commit('myrengongchushenList', this.formInline);
