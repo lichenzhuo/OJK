@@ -59,6 +59,15 @@
               <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
             </div>
           </el-col>
+          <el-col :md="8" :lg="5" :xl="4">
+            <div class="search-input">
+              <span>{{$t('add.no46')}}:</span>
+              <el-select size="small" v-model="formInline.isguaqi" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options7" :key="item.value" :label="$t(item.label)" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </el-col>
         </template>
         <div class="search-input">
           <span>{{$t('public.orderStatus')}}:</span>
@@ -165,10 +174,34 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
+          <template v-if="$store.state.common.lang==='vi'">
+            <el-table-column align="center" prop="isguaqi" :label="$t('add.no46')" >
+              <!-- <template slot-scope="scope">
+                <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
+              </template> -->
+            </el-table-column>
+          </template>
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="220">
             <template slot-scope="scope" >
-              <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'" class="table_opr"  @click="sure(scope.row.orderNo)">{{$t('public.no67')}}</span>
-              <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_SHOW')" class="table_opr"  @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.no29')}}</span>
+              <span 
+                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'"
+                class="table_opr" 
+                @click="sure(scope.row.orderNo)">
+                {{$t('public.no67')}}
+              </span>
+              <span 
+                v-if="$store.state.common.lang==='vi'"
+                class="table_opr" 
+                @click="showAgain(scope.row)"
+              >
+                {{$t('add.no47')}}
+              </span>
+              <span 
+                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_SHOW')" 
+                class="table_opr"  
+                @click="detail(scope.row.orderNo,scope.row.userId)">
+                {{$t('public.no29')}}
+              </span>
             </template>
           </el-table-column>
         </el-table>
@@ -190,25 +223,7 @@
       </div>
     </el-row>
 
-    <!-- ------------------ 点击查看详情弹窗开始 -------------------- -->
-    <!-- <div v-if="surePutFlag" class="detail">
-      <div class="detail-main">
-        <div class="detail-main-head">
-          <span></span>
-          <p>{{$t('public.no67')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="surePutFlag=false"></i>
-        </div>
-        <div class="detail-main-con">
-          <div class="detail-con-one" style="width:100%;height:auto;padding:10px 0;margin-bottom:5px;">
-            <span>{{$t('loanMoney.resultStatus')}}: </span><span>{{resultStatus?resultStatus:$store.state.common.nullData}} </span>
-          </div>
-          <div class="detail-con-one" style="width:100%;height:auto;padding:10px 0;margin-bottom:5px;">
-            <span>{{$t('loanMoney.resultDesc')}}: </span> <span>{{resultDesc?resultDesc:$store.state.common.nullData}}</span>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
+    <!-- 确认放款弹窗 -->
     <el-dialog :title="$t('public.no67')" :visible.sync="surePutFlag" width="650px">
       <div class="left2right mt15">
         <span class="left">{{$t('loanMoney.resultStatus')}}:</span>
@@ -221,6 +236,67 @@
         <div class="right">
           {{resultDesc?resultDesc:$store.state.common.nullData}}
         </div>
+      </div>
+    </el-dialog>
+
+    <!-- 重新放款弹窗 -->
+    <el-dialog :title="$t('add.no47')" :visible.sync="againFlag" width="800px">
+      <p>{{$t('userDetail.reject_status.no5')+ ': ' + againDetail.tranferResult}}</p>
+      <p>{{$t('add.no51') + ': ' + againDetail.thirdChannel}}</p>
+      <p>{{$t('add.no50')}}</p>
+      <div class="left2right mt15">
+        <span class="left">{{$t('public.userId')}}:</span>
+        <div class="right">{{againDetail.userId}}</div>
+      </div>
+      <div class="left2right mt15">
+        <span class="left">{{$t('public.userName')}}:</span>
+        <div class="right">{{againDetail.userName}}</div>
+      </div>
+      <div class="left2right mt15">
+        <span class="left">{{$t('public.userPhone')}}:</span>
+        <div class="right">{{againDetail.userPhone}}</div>
+      </div>
+      <div class="left2right mt15 ">
+        <span class="left">{{$t('add.no48')}}:</span>
+        <div class="right">{{againDetail.refundCount}}</div>
+      </div>
+      <div class="left2right mt15">
+        <span class="left">{{$t('yuenan.no18')}}:</span>
+        <div class="right">
+          <el-select size="small" v-model="againDetail.accountType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="(item,i) in options4" :key="i" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </div>
+      <el-form ref="form" :model="againForm" label-width="120px" size="small" :inline="true">
+        <template v-if="againDetail.accountType!==1">
+          <el-form-item :label="$t('public.no19')">
+            <el-select size="small" v-model="againDetail.bankName" :placeholder="againDetail.bankName">
+              <el-option v-for="(item,i) in options3" :key="i" :label="$t(item.label)" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item :label="$t('public.no20')">
+            <el-input v-model="againDetail.bankAccount"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('yuenan.no20')">
+            <el-input v-model="againDetail.cardFullname"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('add.no49')">
+            <el-input v-model="againForm.name"></el-input>
+          </el-form-item>
+          <el-form-item :label="$t('add.no56')">
+            <el-input v-model="againForm.name"></el-input>
+          </el-form-item>
+        </template>
+        <el-form-item :label="$t('yuenan.no19')">
+          <el-input v-model="againDetail.email"></el-input>
+        </el-form-item>
+      </el-form>
+      <div class="flex flex-center">
+        <el-button class="mg50" type="primary" @click="againSubmit">{{$t('public.no49')}}</el-button>
+        <el-button class="mg50" type="primary" @click="againClose">{{$t('public.no50')}}</el-button>
       </div>
     </el-dialog>
 
@@ -254,17 +330,28 @@ export default {
         loanTimeEnd: '',
         applyTimeBegin: '',
         applyTimeEnd: '',
+        isguaqi: '',
         orderState: ''
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.putMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options3: [], // 银行名称
+      options4: [
+        {id:1,label:'Ngluaong',value: 1},
+        {id:2,label:'ATM_Card',value:2},
+        {id:3,label:'bankAccount',value:3}
+      ], // 账户类型
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
+      options7: this.$store.state.options.isOverdue_option, // 是否挂起
       tableData: [], // 借款信息数据模拟
       surePutFlag: false, // 详情弹窗
+      againFlag: false, // 重新放款弹窗
       orderNo: '', // 点击当前行的订单ID
       resultStatus: '', // 向支付通道返回的结果状态码
-      resultDesc: ''// 向支付通道返回的结果描述
+      resultDesc: '',// 向支付通道返回的结果描述
+      againForm: {},
+      againDetail: {},
     }
   },
   methods: {
@@ -354,6 +441,104 @@ export default {
     },
     detail (orderNo, userId) { // 查看详情操作
       this.$router.push({path: '/loanmoneydetail', query: {userId, orderNo}})
+    },
+    againSubmit(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.ORDER00012,
+          'sessionid': this.sessionid
+        },
+        orderId: this.againDetail.id,
+        email: this.againDetail.email,
+        payoutType: this.againDetail.accountType,
+        bankAccount: this.againDetail.bankAccount,
+        cardFullname: this.againDetail.cardFullname,
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.resultStatus = res.data.data.transferStatus;
+          this.resultDesc = res.data.data.transferStatusDesc;
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
+    },
+    againClose(){
+      this.againDetail = {};
+      this.againFlag = false;
+    },
+    showAgain(row){
+      this.againDetail.id = row.id
+      this.againDetail.orderNo = row.orderNo
+      this.againDetail.userPhone = row.userPhone
+      this.againDetail.userId = row.userId
+      this.getBankList();
+      this.getDetailData();
+    },
+    getBankList(){ // 获取银行名称下拉框
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'bank'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
+          })
+          this.options3 = arr;
+          this.againFlag = true
+        }
+      })
+    },
+    getAccountType(){ // 获取账户类型
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'payout.type'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
+          })
+          this.options4 = arr;
+        }
+      })
+    },
+    getDetailData(){// 点击单条显示详情数据
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.ORDER00013,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.againDetail.orderNo
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.againDetail.email = res.data.data.email
+          this.againDetail.accountType = res.data.data.accountType
+          this.againDetail.refundCount = res.data.data.refundCount
+          this.againDetail.tranferResult = res.data.data.tranferResult
+          this.againDetail.thirdChannel = res.data.data.thirdChannel
+          this.againDetail.cardFullname = res.data.data.cardFullname
+          this.againDetail.branchName = res.data.data.branchName
+          this.againDetail.bankAccount = res.data.data.bankAccount
+          this.againDetail.bankName = res.data.data.bankName
+          this.againDetail.cardYear = res.data.data.cardYear
+          // this.againFlag = true
+        }
+      })
     }
   },
   watch: {
@@ -386,9 +571,12 @@ export default {
       }
     }
     this.putList();// 放款列表数据
+    // this.getBankList();
   }
 }
 </script>
 <style scoped lang="scss">
-
+  .mg50{
+    margin: 0 50px;
+  }
 </style>

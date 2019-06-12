@@ -701,11 +701,11 @@
             <div class="left">
               <!-- 证件照片 -->
               <template v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl">
-                <div class="imgbox" v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl">
-                  <div v-if="SupplementInfo.userIdCard.idcardPhotoUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.idcardPhotoUrl})">
+                <div class="imgbox">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.idcardPhotoUrl})">
                     <img :src="SupplementInfo.userIdCard.idcardPhotoUrl" alt="证件照" title="证件照">
                   </div>
-                  <div v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.newIdcardPhotoUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.newIdcardPhotoUrl})">
                     <img :src="SupplementInfo.userIdCard.newIdcardPhotoUrl" title="证件照" >
                   </div>
                 </div>
@@ -716,11 +716,11 @@
               </template>
               <template v-if="SupplementInfo.userBank.newBankPicUrl">
                 <!-- 银行卡照片 -->
-                <div class="imgbox" v-if="SupplementInfo.userBank.newBankPicUrl">
-                  <div v-if="SupplementInfo.userBank.bankPicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.bankPicUrl})">
+                <div class="imgbox" >
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.bankPicUrl})">
                     <img :src="SupplementInfo.userBank.bankPicUrl" title="银行卡照片" >
                   </div>
-                  <div v-if="SupplementInfo.userBank.newBankPicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.newBankPicUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.newBankPicUrl})">
                     <img :src="SupplementInfo.userBank.newBankPicUrl" title="银行卡照片" >
                   </div>
                 </div>
@@ -731,11 +731,11 @@
               </template>
               <template v-if="SupplementInfo.userSelf.newWorkPicUrl">
                 <!-- 居住/工作场所照片 -->
-                <div class="imgbox" v-if="SupplementInfo.userSelf.newWorkPicUrl">
-                  <div v-if="SupplementInfo.userSelf.idcardPhotoUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.idcardPhotoUrl})">
-                    <img :src="SupplementInfo.userSelf.idcardPhotoUrl" title="工作场所照片" >
+                <div class="imgbox">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.workPicUrl})">
+                    <img :src="SupplementInfo.userSelf.workPicUrl" title="工作场所照片" >
                   </div>
-                  <div v-if="SupplementInfo.userSelf.newWorkPicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newWorkPicUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newWorkPicUrl})">
                     <img :src="SupplementInfo.userSelf.newWorkPicUrl" title="工作场所照片" >
                   </div>
                 </div> 
@@ -746,11 +746,11 @@
               </template>
               <template v-if="SupplementInfo.userSelf.newLivePicUrl">
                 <!-- 居住/工作场所照片 -->
-                <div class="imgbox" v-if="SupplementInfo.userSelf.newLivePicUrl">
-                  <div v-if="SupplementInfo.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.livePicUrl})">
+                <div class="imgbox" >
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.livePicUrl})">
                     <img :src="SupplementInfo.userSelf.livePicUrl" title="生活照片" >
                   </div>
-                  <div v-if="SupplementInfo.userSelf.newLivePicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newLivePicUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newLivePicUrl})">
                     <img :src="SupplementInfo.userSelf.newLivePicUrl" title="生活照片" >
                   </div>
                   
@@ -762,11 +762,11 @@
               </template>
               <template v-if="SupplementInfo.userWork.newIncomePicUrl">
                 <!-- 工资单/工作证明 -->
-                <div class="imgbox" v-if="SupplementInfo.userWork.newIncomePicUrl">
-                  <div v-if="SupplementInfo.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.incomePicUrl})">
+                <div class="imgbox" >
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.incomePicUrl})">
                     <img :src="SupplementInfo.userWork.incomePicUrl" title="工作证明" >
                   </div>
-                  <div v-if="SupplementInfo.userWork.newIncomePicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newIncomePicUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newIncomePicUrl})">
                     <img :src="SupplementInfo.userWork.newIncomePicUrl" title="工作证明" >
                   </div>
                 </div> 
@@ -777,11 +777,11 @@
               </template>
               <template v-if="SupplementInfo.userWork.newWorkCardPicUrl">
                 <!-- 工牌 -->
-                <div class="imgbox" v-if="SupplementInfo.userWork.newWorkCardPicUrl">
-                  <div v-if="SupplementInfo.userWork.workCardPicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.workCardPicUrl})">
+                <div class="imgbox">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.workCardPicUrl})">
                     <img :src="SupplementInfo.userWork.workCardPicUrl" title="工牌" >
                   </div>
-                  <div v-if="SupplementInfo.userWork.newWorkCardPicUrl" class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newWorkCardPicUrl})">
+                  <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newWorkCardPicUrl})">
                     <img :src="SupplementInfo.userWork.newWorkCardPicUrl" title="工牌" >
                   </div>
                   

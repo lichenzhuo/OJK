@@ -215,7 +215,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="240">
             <template slot-scope="scope">
               <span class="table_opr" @click="detail(scope.row.orderNo,scope.row.userId)">{{$t('public.detail')}}</span>
               <template>
@@ -330,6 +330,8 @@
         </el-table-column>
         <el-table-column align="center" prop="strUpdateTime" :label="$t('public.no60')" width="85">
         </el-table-column>
+        <el-table-column align="center" prop="liushui" :label="$t('add.no52')" width="85">
+        </el-table-column>
         <el-table-column align="center" prop="remark" :label="$t('public.no37')" width="86">
         </el-table-column>
       </el-table>
@@ -349,6 +351,11 @@
         <el-form-item :label="$t('yuenan.no27')">
           <el-select v-model="modifyForm.payType" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in backChannel" :key="i"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="$t('add.no52')">
+          <el-select v-model="modifyForm.liushui" :placeholder="$t('public.placeholder')">
+            <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options7" :key="i"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('public.no60')" >
@@ -413,16 +420,18 @@ export default {
       options3: this.$store.state.options.backOrder_status, // 确认还款弹窗还款状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
+      options7: this.$store.state.options.backSuccessOrfailed_option, // 借款客户端
       tableData: [],// 用户信息数据模拟
       flag1: false,// 确认还款弹窗开关
       orderNo_dialog: '',// 弹窗选中orderNo
-      form:{
-        repayType:'',
-        amount:'',
-        repayTime:'',
-        transId:'',
-        payType:'',
-        remark:''
+      form: {
+        repayType: '',
+        amount: '',
+        repayTime: '',
+        transId: '',
+        payType: '',
+        remark: '',
+        liushui: '',
       },
       rules:{
         amount: [
@@ -444,22 +453,22 @@ export default {
           { required:true, message: this.$t('login.required'), trigger: 'blur' }
         ],
       },
-      modifyFlag:false,
-      modifyData:[],
-      tableSelect:'',
-      modifyId:'',
-      radioVal:'',
+      modifyFlag: false,
+      modifyData: [],
+      tableSelect: '',
+      modifyId: '',
+      radioVal: '',
       modifyForm:{
-        btId:'',
-        id:'',
-        status:'',
-        repaymentAmount:'',
-        repayTime:'',
-        payType:'',
-        remark:'',
+        btId: '',
+        id: '',
+        status: '',
+        repaymentAmount: '',
+        repayTime: '',
+        payType: '',
+        remark: '',
       },
-      backChannel:this.$store.state.options.backMoney_backType_vi,// 还款渠道
-      modify_orderStatus:this.$store.state.options.partialRepaymentApplyOption// 弹窗订单状态
+      backChannel: this.$store.state.options.backMoney_backType_vi,// 还款渠道
+      modify_orderStatus: this.$store.state.options.partialRepaymentApplyOption// 弹窗订单状态
     }
   },
   methods: {

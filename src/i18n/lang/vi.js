@@ -826,7 +826,10 @@ const vi = {
       no1: 'otc',
       no2: 'BNI',
       no3: 'Permate(BCA)',
-      no4: 'Mandiri'
+      no4: 'Mandiri',
+      no5: 'dandan',
+      no6: 'lawson',
+      no7: 'Permate(ITpay)',
     },
     collection_option: {
       no1: 'Kết thúc',
@@ -1676,6 +1679,22 @@ const vi = {
     no41: '复审驳回前五的原因占比',
     no42: '温提',
     no43: '到期日期',
+    no44: '系统配置',
+    no45: '规则引擎',
+    no46: '是否挂起',
+    no47: '重新放款',
+    no48: '历史成功放款次数',
+    no49: '银行卡有效期',
+    no50: '请联系用户确认以下账户信息是否正确',
+    no51: '放款渠道',
+    no52: '还款流水状态',
+    no53: '还款成功',
+    no54: '身份证类型',
+    no55: '请选择身份证类型',
+  },
+  yn:{
+    no51:'评分',
+    no52:'无',
   },
   ...yuenan
 }

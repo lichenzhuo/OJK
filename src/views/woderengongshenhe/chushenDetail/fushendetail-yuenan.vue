@@ -68,6 +68,10 @@
           <div class="oneLineHasFour">
             <p><span>{{$t('new.no48')}}:</span> <span>{{data.orderExtra.appName | dataIsTrue}}</span> </p>
             <p style="width:50%;"><span>{{$t('new.no49')}}:</span> <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
+            <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
+              <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
+              <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
+            </p>
           </div>
           <div class="oneLineHasFour">
             <p>
@@ -242,6 +246,16 @@
                 
                   <p style="width:100%"><span>{{$t('public.no7')}}:</span> <span>{{data.userSelf.liveAddress | dataIsTrue}}</span> </p>
                 
+              </div>
+              <div>
+                <span>{{$t('add.no54')}}:</span>
+                <template v-if="block==2">
+                  <el-select size="small" v-model="idcardType" :placeholder="$t('public.placeholder')">
+                    <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select>
+                </template>
+                <span v-else>{{data.userIdcardVN.idcardType}}</span>
               </div>
             </div>
             <div class="xuan-2-1-1-3">
@@ -862,6 +876,7 @@ export default {
         userUrgentContact: '',
         webInfo: '',
         userFaceBook: '',
+        userIdcardVN: '',
         userOrderCount: {},
         contactOne: '',
         contactTwo: '',
@@ -880,6 +895,12 @@ export default {
       options2: [], // 复审驳回原因1下拉选框
       status3: '', // 驳回原因2
       options3: [], // 复审驳回原因2下拉选框
+      options6: [
+        {id: 1, label: 'CMND 1',value: '1'},
+        {id: 2, label: 'CMND 1',value: '2'},
+        {id: 3, label: 'CMND 1',value: '3'},
+      ], // 身份证类型
+      idcardType: '',// 身份证类型
       remark: '', // 备注信息内容
       remark1: '', // 跟踪备注信息内容
       lightBoxToggle: false, // 图片放大显示层开关
@@ -993,6 +1014,7 @@ export default {
           this.data.webInfo = res.data.data.webInfo
           this.data.userFaceBook = res.data.data.userFaceBook?res.data.data.userFaceBook:''
           this.data.userOrderCount = res.data.data.userOrderCount
+          this.data.userIdcardVN = res.data.data.userIdcardVN
           if (res.data.companyCheckStr !== null && res.data.companyCheckStr !== undefined && res.data.companyCheckStr !== '') {
             this.companyCheckStr = JSON.parse(res.data.companyCheckStr)
           }
@@ -1112,6 +1134,10 @@ export default {
       })
     },
     submit () { // 复审结果提交操作
+    if (this.idcardType == '') { // 验证结果是否选择
+        this.$globalMsg.error(this.$t('add.no55'))
+        return
+      }
       if (this.status1 == '') { // 验证结果是否选择
         this.$globalMsg.error(this.$t('auditDetail.no29'))
         return
@@ -1132,7 +1158,8 @@ export default {
           },
           orderNo: this.orderNo,
           approveResult: this.status1,
-          remark: this.remark
+          remark: this.remark,
+          idcardType: this.idcardType
         }
         if (this.status1 == -1) {
           option.notApproveReason = this.status2

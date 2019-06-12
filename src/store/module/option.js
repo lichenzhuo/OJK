@@ -185,6 +185,7 @@ const options = {
       {value: 'otc', label: 'loanAfterManage.paycompany.no1'}, // otc
       {value: 'bni', label: 'loanAfterManage.paycompany.no2'}, // BNI
       {value: 'permata', label: 'loanAfterManage.paycompany.no3'}, // Permate(BCA)
+      {value: 'permataitpay', label: 'loanAfterManage.paycompany.no7'}, // Permate(ITpay)
       {value: 'mandiri', label: 'loanAfterManage.paycompany.no4'},// Mandiri
       {value: 'dandan', label: 'loanAfterManage.paycompany.no5'}, // dandan
       {value: 'lawson', label: 'loanAfterManage.paycompany.no6'}// lawson
@@ -660,6 +661,11 @@ const options = {
       {value: '2', label: 'riskManage.auditType_status.no2'}, // 人工初审
       {value: '3', label: 'riskManage.auditType_status.no3'}// 人工复审
     ],
+    backSuccessOrfailed_option: [
+      {value: '', label: 'public.placeholder'},
+      {value: '1', label: 'userDetail.reject_status.no6'},
+      {value: '2', label: 'add.no53'},
+    ]
   }
 }
 export default options
