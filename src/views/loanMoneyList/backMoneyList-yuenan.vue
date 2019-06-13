@@ -292,8 +292,7 @@
         size="small" 
         style="width:100%" 
         highlight-current-row
-        @current-change="tableRowChange"
-      >
+        @current-change="tableRowChange">
         <el-table-column align="right" label="" width="60">
             <template slot-scope="scope">
               <template>
@@ -328,43 +327,47 @@
         </el-table-column>
         <el-table-column align="center" prop="payType" :label="$t('finance.payType')">
         </el-table-column>
-        <el-table-column align="center" prop="strUpdateTime" :label="$t('public.no60')" width="85">
+        <el-table-column align="center" prop="strUpdateTime" :label="$t('public.no60')" width="86">
         </el-table-column>
-        <el-table-column align="center" prop="liushui" :label="$t('add.no52')" width="85">
+        <el-table-column align="center" prop="repaymentResult" :label="$t('add.no52')">
+          <template >
+            <span>{{$t('add.no53')}}</span>
+          </template>
         </el-table-column>
-        <el-table-column align="center" prop="remark" :label="$t('public.no37')" width="86">
+        <el-table-column align="center" prop="remark" :label="$t('public.no37')">
         </el-table-column>
       </el-table>
       <div class="foot"></div>
-      <el-form :model="modifyForm" label-width="160px" :inline="true" size="medium">
+      <el-form :model="modifyForm" label-width="140px" :inline="true" size="medium">
         <el-form-item :label="$t('public.no57')" >
-          <el-input type="text" style="width:200px;" v-model="modifyForm.repaymentAmount"></el-input>
+          <el-input type="text" style="width:200px;" :disabled="modifyForm.repaymentResult==-1" v-model="modifyForm.repaymentAmount"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.no83')" >
-          <el-input type="text" style="width:200px;" v-model="modifyForm.btId"></el-input>
+          <el-input type="text" style="width:200px;" :disabled="modifyForm.repaymentResult==-1" v-model="modifyForm.btId"></el-input>
         </el-form-item>
         <el-form-item :label="$t('public.orderStatus')">
-          <el-select v-model="modifyForm.status" :placeholder="$t('public.placeholder')">
+          <el-select v-model="modifyForm.status" :disabled="modifyForm.repaymentResult==-1" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in modify_orderStatus " :key="i"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('yuenan.no27')">
-          <el-select v-model="modifyForm.payType" :placeholder="$t('public.placeholder')">
+          <el-select v-model="modifyForm.payType" :disabled="modifyForm.repaymentResult==-1" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in backChannel" :key="i"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item :label="$t('add.no52')">
-          <el-select v-model="modifyForm.liushui" :placeholder="$t('public.placeholder')">
-            <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options7" :key="i"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item :label="$t('public.no60')" >
            <el-date-picker
+            :disabled="modifyForm.repaymentResult==-1"
             size="small"
             v-model="modifyForm.repayTime"
             type="datetime"
             :placeholder="$t('public.backMoneyDate')">
           </el-date-picker>
+        </el-form-item>
+        <el-form-item :label="$t('add.no52')">
+          <el-select v-model="modifyForm.repaymentResult" :placeholder="$t('public.placeholder')">
+            <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options7" :key="i"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item :label="$t('public.no37')" >
           <el-input type="textarea" style="width:400px;" v-model="modifyForm.remark" :rows="4"></el-input>
@@ -431,7 +434,7 @@ export default {
         transId: '',
         payType: '',
         remark: '',
-        liushui: '',
+        repaymentResult: '',
       },
       rules:{
         amount: [
@@ -466,6 +469,7 @@ export default {
         repayTime: '',
         payType: '',
         remark: '',
+        repaymentResult: '',
       },
       backChannel: this.$store.state.options.backMoney_backType_vi,// 还款渠道
       modify_orderStatus: this.$store.state.options.partialRepaymentApplyOption// 弹窗订单状态
@@ -622,6 +626,7 @@ export default {
       this.modifyForm.repayTime = val.strUpdateTime;
       this.modifyForm.payType = val.payType;
       this.modifyForm.remark = val.remark;
+      this.modifyForm.repaymentResult = 1;
     }
   },
   watch: {
@@ -663,6 +668,7 @@ export default {
         this.modifyForm.repayTime = '';
         this.modifyForm.payType = '';
         this.modifyForm.remark = '';
+        this.modifyForm.repaymentResult = '';
       }
     }
   },

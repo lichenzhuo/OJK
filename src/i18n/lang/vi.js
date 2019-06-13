@@ -1439,6 +1439,12 @@ const vi = {
       no4: 'Có thể mượn thời gian ngắn nhất',
       no5: 'Chu kỳ dài nhất có sẵn',
       no6: 'Tăng trưởng diện tích chu kì'
+    },
+    idType:{
+      no1: 'CMND 1',
+      no2: 'CMND 2',
+      no3: 'CMND 3',
+      no4: 'Không biết',
     }
   },
   back: {
@@ -1691,6 +1697,11 @@ const vi = {
     no53: '还款成功',
     no54: '身份证类型',
     no55: '请选择身份证类型',
+    no56: '银行卡有效期月',
+    no57: '开户行地址',
+    no58: '申请GPS地址',
+    no59: '家庭地址',
+    no60: '公司地址',
   },
   yn:{
     no51:'评分',

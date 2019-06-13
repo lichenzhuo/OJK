@@ -78,7 +78,8 @@
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
           <p><span>{{$t('yn.no28')}}:</span>
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
-          <p v-if="!(title==='kilatloan'&&auditType==1)" class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
+          <!-- v-if="!(title==='kilatloan'&&auditType==1)" -->
+          <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
             <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
             <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
           </p>

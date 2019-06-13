@@ -62,7 +62,7 @@
           <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
               <span>{{$t('add.no46')}}:</span>
-              <el-select size="small" v-model="formInline.isguaqi" :placeholder="$t('public.placeholder')">
+              <el-select size="small" v-model="formInline.isHang" :placeholder="$t('public.placeholder')">
                 <el-option v-for="item in options7" :key="item.value" :label="$t(item.label)" :value="item.value">
                 </el-option>
               </el-select>
@@ -175,10 +175,10 @@
             </template>
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="isguaqi" :label="$t('add.no46')" >
-              <!-- <template slot-scope="scope">
-                <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
-              </template> -->
+            <el-table-column align="center" prop="isHang" :label="$t('add.no46')" >
+              <template slot-scope="scope">
+                <span>{{$t($store.getters.ishang_status(scope.row.isHang))}}</span>
+              </template>
             </el-table-column>
           </template>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="220">
@@ -190,7 +190,7 @@
                 {{$t('public.no67')}}
               </span>
               <span 
-                v-if="$store.state.common.lang==='vi'"
+                v-if="$store.state.common.lang==='vi'&&scope.row.isHang==-1"
                 class="table_opr" 
                 @click="showAgain(scope.row)"
               >
@@ -240,10 +240,17 @@
     </el-dialog>
 
     <!-- 重新放款弹窗 -->
-    <el-dialog :title="$t('add.no47')" :visible.sync="againFlag" width="800px">
+    <el-dialog :title="$t('add.no47')" :visible.sync="againFlag" width="900px">
       <p>{{$t('userDetail.reject_status.no5')+ ': ' + againDetail.tranferResult}}</p>
       <p>{{$t('add.no51') + ': ' + againDetail.thirdChannel}}</p>
-      <p>{{$t('add.no50')}}</p>
+      <p class="mt15">*{{$t('add.no50')}}</p>
+      <!-- <div class="detail-line">
+        <span>{{$t('public.userId')}}: <i>{{againDetail.userId}}</i> </span>
+        <span>{{$t('public.userName')}}: <i>{{againDetail.userName}}</i> </span>
+        <span>{{$t('public.userPhone')}}: <i>{{againDetail.userPhone}}</i> </span>
+        <span>{{$t('add.no48')}}: <i>{{againDetail.refundCount}}</i> </span>
+      </div> -->
+      
       <div class="left2right mt15">
         <span class="left">{{$t('public.userId')}}:</span>
         <div class="right">{{againDetail.userId}}</div>
@@ -269,11 +276,11 @@
           </el-select>
         </div>
       </div>
-      <el-form ref="form" :model="againForm" label-width="120px" size="small" :inline="true">
-        <template v-if="againDetail.accountType!==1">
+      <el-form ref="form" :model="againForm" label-width="134px" size="small" :inline="true">
+        <template v-if="againDetail.accountType!='1'">
           <el-form-item :label="$t('public.no19')">
-            <el-select size="small" v-model="againDetail.bankName" :placeholder="againDetail.bankName">
-              <el-option v-for="(item,i) in options3" :key="i" :label="$t(item.label)" :value="item.value">
+            <el-select size="small" v-model="againDetail.bankId" :placeholder="againDetail.bankName">
+              <el-option v-for="(item,i) in options3" :key="i" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
@@ -283,12 +290,20 @@
           <el-form-item :label="$t('yuenan.no20')">
             <el-input v-model="againDetail.cardFullname"></el-input>
           </el-form-item>
-          <el-form-item :label="$t('add.no49')">
-            <el-input v-model="againForm.name"></el-input>
-          </el-form-item>
-          <el-form-item :label="$t('add.no56')">
-            <el-input v-model="againForm.name"></el-input>
-          </el-form-item>
+          <template v-if="againDetail.accountType=='2'">
+            <el-form-item :label="$t('add.no49')">
+              <el-input v-model="againDetail.cardYear"></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('add.no56')">
+              <el-input v-model="againDetail.cardMonth"></el-input>
+            </el-form-item>
+            
+          </template>
+          <template v-if="againDetail.accountType=='3'">
+            <el-form-item :label="$t('add.no57')">
+              <el-input v-model="againDetail.branchName"></el-input>
+            </el-form-item>
+          </template>
         </template>
         <el-form-item :label="$t('yuenan.no19')">
           <el-input v-model="againDetail.email"></el-input>
@@ -330,7 +345,7 @@ export default {
         loanTimeEnd: '',
         applyTimeBegin: '',
         applyTimeEnd: '',
-        isguaqi: '',
+        isHang: '',
         orderState: ''
       },
       currentPage: 1, // 当前页下标
@@ -338,12 +353,12 @@ export default {
       options2: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       options3: [], // 银行名称
       options4: [
-        {id:1,label:'Ngluaong',value: 1},
-        {id:2,label:'ATM_Card',value:2},
-        {id:3,label:'bankAccount',value:3}
+        {id:1,label:'Ngluaong',value: '1'},
+        {id:2,label:'ATM_Card',value:'2'},
+        {id:3,label:'bankAccount',value:'3'}
       ], // 账户类型
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
-      options7: this.$store.state.options.isOverdue_option, // 是否挂起
+      options7: this.$store.state.options.ishang_option, // 是否挂起
       tableData: [], // 借款信息数据模拟
       surePutFlag: false, // 详情弹窗
       againFlag: false, // 重新放款弹窗
@@ -351,7 +366,16 @@ export default {
       resultStatus: '', // 向支付通道返回的结果状态码
       resultDesc: '',// 向支付通道返回的结果描述
       againForm: {},
-      againDetail: {},
+      againDetail: {
+        accountType: '',
+        bankId: '',
+        bankAccount: '',
+        cardFullname: '',
+        cardYear: '',
+        cardMonth: '',
+        branchName: '',
+        email: '',
+      },
     }
   },
   methods: {
@@ -454,18 +478,33 @@ export default {
         payoutType: this.againDetail.accountType,
         bankAccount: this.againDetail.bankAccount,
         cardFullname: this.againDetail.cardFullname,
+        cardMonth: this.againDetail.cardMonth,
+        cardYear: this.againDetail.cardYear,
+        branchName: this.againDetail.branchName,
+        bankId: this.againDetail.bankId,
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.resultStatus = res.data.data.transferStatus;
-          this.resultDesc = res.data.data.transferStatusDesc;
+          this.$globalMsg.success(this.$t('message.success'));
+          this.putList();
+          this.againClose();
         } else {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
     },
     againClose(){
-      this.againDetail = {};
+      this.againDetail = {
+        accountType: '',
+        bankId: '',
+        bankAccount: '',
+        cardFullname: '',
+        cardYear: '',
+        cardMonth: '',
+        branchName: '',
+        email: '',
+      };
+      // this.againDetail.accountType = '';
       this.againFlag = false;
     },
     showAgain(row){
@@ -473,6 +512,7 @@ export default {
       this.againDetail.orderNo = row.orderNo
       this.againDetail.userPhone = row.userPhone
       this.againDetail.userId = row.userId
+      this.againDetail.userName = row.userName
       this.getBankList();
       this.getDetailData();
     },
@@ -536,6 +576,8 @@ export default {
           this.againDetail.bankAccount = res.data.data.bankAccount
           this.againDetail.bankName = res.data.data.bankName
           this.againDetail.cardYear = res.data.data.cardYear
+          this.againDetail.cardMonth = res.data.data.cardMonth
+          this.againDetail.bankId = res.data.data.bankId==0?'':res.data.data.bankId
           // this.againFlag = true
         }
       })
@@ -559,6 +601,11 @@ export default {
         this.formInline.loanTimeBegin = '';
         this.formInline.loanTimeEnd = '';
       }
+    },
+    againFlag(val){
+      if(!val){
+        this.againClose();
+      }
     }
   },
   mounted () {
@@ -578,5 +625,19 @@ export default {
 <style scoped lang="scss">
   .mg50{
     margin: 0 50px;
+  }
+  .detail-line{
+    margin: 10px 0;
+    font-size: 15px;
+    color: #333a4d;
+    font-weight: bold;
+    span{
+      margin-right: 50px;
+      i{
+        font-style: normal;
+        color: #585858;
+        font-weight: normal;
+      }
+    }
   }
 </style>

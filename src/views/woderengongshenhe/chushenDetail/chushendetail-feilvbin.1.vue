@@ -1,103 +1,124 @@
 <template>
-  <div v-if="data" class="public_main">
-    <div class="crumbs" v-if="block==2">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/myFirstAuditList'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="crumbs" v-else>
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{path:'/peopleFirstAudit'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+  <div v-if="data" class="public_main pos-re">
+    <div class="pos pos-fix" >
+      <div class="crumbs" v-if="block==2">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('myAuditList.no1')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/myFirstAuditList'}">{{$t('myAuditList.no2')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div class="crumbs" v-else>
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item>{{$t('riskManage.crumbsOne')}}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{path:'/peopleFirstAudit'}">{{$t('riskManage.crumbsTwo')}}</el-breadcrumb-item>
+          <el-breadcrumb-item>{{$t('myAuditList.no10')}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
 
-    <!-- ------------- 用户详情,借款详情 ------------------------ -->
-    <div class="tabs">
-      <ul class="tabs_title">
-        <li v-for="(value,index) in arr3" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
-          <span>{{value.title}}</span>
-        </li>
-      </ul>
-      <ul class="tabs_main">
-        <li  v-show="active2==1">
-          <div class="oneLineHasFour">
-            <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
-              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('new.no55')}}:</span>
-              <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>{{$t('public.userId')}}:</span><span>{{data.userBase.id | dataIsTrue}}</span></p>
-            <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span></p>
-            <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
-            <p><span>{{$t('public.sex')}}:</span>
-              <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>{{$t('public.no3')}}:</span>
-              <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
-            </p>
-            <p><span>{{$t('public.no5')}}:</span>
-              <span>{{$t($store.getters.education(data.userSelf.degree))}}</span>
-            </p>
-            <p><span>{{$t('public.birthday')}}:</span>
-              <span>{{data.userSelf.birthday | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('new.no56')}}:</span>
-              <span>{{$store.getters.getAge(data.userSelf.birthday)}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>ID Card:</span>
-              <span>{{data.userIdcard.idCard | dataIsTrue}}</span>
-            </p>
-            <p><span>Bank No:</span>
-              <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
-            </p>
-          </div>
-        </li>
-        <li  v-show="active2==2">
-          <div class="oneLineHasFour">
-            <p><span>{{$t('fei.no29')}}{{$t('new.no48')}}:</span>
-              <span>{{data.orderExtra.appName | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('fei.no29')}}{{$t('new.no49')}}:</span>
-              <span>{{data.orderExtra.appPackage | dataIsTrue}}</span>
-            </p>
-          </div>
-          <div class="oneLineHasFour">
-            <p><span>{{$t('fei.loanId')}}:</span>
-              <span>{{data.order.id | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.no30')}}:</span>
-              <span>{{$store.getters.moneySplit(data.order.loanAmount)}}</span>
-            </p>
-            <p><span>{{$t('public.no31')}}:</span> 
-              <span>{{data.order.productPeriod | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('public.CreateDate')}}:</span> 
-              <span>{{data.order.strCreateTime | dataIsTrue}}</span>
-            </p>
-          </div>
-          <!-- <div class="oneLineHasFour">
-            <p><span>{{$t('fei.no17')}}:</span>
-              <span>{{data.order.instalment | dataIsTrue}}</span>
-            </p>
-            <p><span>{{$t('fei.no22')}}:</span>
-              <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
-            </p>
-          </div> -->
-        </li>
-      </ul>
+      <!-- ------------- 用户详情,借款详情 ------------------------ -->
+      <div class="tabs">
+        <ul class="tabs_title">
+          <li v-for="(value,index) in arr3" :key="index" :class="{active:active2==value.id}" @click="active2=value.id">
+            <span>{{value.title}}</span>
+          </li>
+        </ul>
+        <ul class="tabs_main">
+          <li  v-show="active2==1">
+            <div class="oneLineHasFour">
+              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
+                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('new.no55')}}:</span>
+                <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.userId')}}:</span><span>{{data.userBase.id | dataIsTrue}}</span></p>
+              <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span></p>
+              <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
+              <p><span>{{$t('public.sex')}}:</span>
+                <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.no3')}}:</span>
+                <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
+              </p>
+              <p><span>{{$t('public.no5')}}:</span>
+                <span>{{$t($store.getters.education(data.userSelf.degree))}}</span>
+              </p>
+              <p><span>{{$t('public.birthday')}}:</span>
+                <span>{{data.userSelf.birthday | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('new.no56')}}:</span>
+                <span>{{$store.getters.getAge(data.userSelf.birthday)}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('auditDetail.no47')}}:</span>
+                <span>{{data.userIdcard.industryName | dataIsTrue}}</span>
+              </p>
+              <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
+              <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
+            </div>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no59')}}:</span>
+                <span>
+                  {{data.userSelf.liveProvinceName | dataIsTrue}} -
+                  {{data.userSelf.liveCityName | dataIsTrue}} -
+                  {{data.userSelf.liveAddress | dataIsTrue}}
+                </span>
+              </p>
+            </div>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no60')}}:</span>
+                <span>
+                  {{data.userWork.companyProvinceName | dataIsTrue}} -
+                  {{data.userWork.companyCityName | dataIsTrue}} -
+                  {{data.userWork.companyAddress | dataIsTrue}}
+                </span>
+              </p>
+            </div>
+          </li>
+          <li  v-show="active2==2">
+            <div class="oneLineHasFour">
+              <p><span>{{$t('fei.no29')}}{{$t('new.no48')}}:</span>
+                <span>{{data.orderExtra.appName | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('fei.no29')}}{{$t('new.no49')}}:</span>
+                <span>{{data.orderExtra.appPackage | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('fei.loanId')}}:</span>
+                <span>{{data.order.id | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no30')}}:</span>
+                <span>{{$store.getters.moneySplit(data.order.loanAmount)}}</span>
+              </p>
+              <p><span>{{$t('public.no31')}}:</span> 
+                <span>{{data.order.productPeriod | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.CreateDate')}}:</span> 
+                <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+              </p>
+            </div>
+            <!-- <div class="oneLineHasFour">
+              <p><span>{{$t('fei.no17')}}:</span>
+                <span>{{data.order.instalment | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('fei.no22')}}:</span>
+                <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
+              </p>
+            </div> -->
+          </li>
+        </ul>
+      </div>
     </div>
     
+    <div style="height:410px"></div>
+
     <!-------------------------- 审核信息 -------------------->
     <div class="tabs mt15">
       <ul class="tabs_title">
@@ -123,9 +144,11 @@
               </div>
               <div class="imgbox">
                 <div v-if="data.userIdcard.idcardPhotoUrl" class="imglist pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
+                  <span>{{$t('pic.no12')}}</span>
                   <img :src="data.userIdcard.idcardPhotoUrl" alt="证件照" >
                 </div>
                 <div v-if="data.userIdcard.facetimePhotoUrl" class="imglist pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
+                  <span>{{$t('pic.no13')}}</span>
                   <img :src="data.userIdcard.facetimePhotoUrl" alt="活体照" >
                 </div>
               </div>
@@ -142,16 +165,19 @@
               </div>
               <div class="imgbox">
                 <div v-if="data.userBank.bankPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userBank.bankPicUrl})">
+                  <span>{{$t('pic.no7')}}</span>
                   <img :src="data.userBank.bankPicUrl" alt="银行卡照片" >
                 </div>
                 <template v-if="data.userSelf.picType==1">
                   <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
+                    <span>{{$t('pic.no14')}}</span>
                     <img :src="data.userSelf.livePicUrl" alt="居住照" >
                   </div>
                 </template>
                 <template else>
                   <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
-                    <img :src="data.userSelf.workPicUrl" alt="居住照" >
+                    <span>{{$t('pic.no15')}}</span>
+                    <img :src="data.userSelf.workPicUrl" alt="工作照" >
                   </div>
                 </template>
               </div>
@@ -164,7 +190,7 @@
                 <div class="oneLineHasOne">
                   <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
                 </div>
-                <div class="oneLineHasOne">
+                <!-- <div class="oneLineHasOne">
                   <p><span>entry time:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
@@ -181,12 +207,14 @@
                 </div>
                 <div class="oneLineHasOne">
                   <p><span>company full address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
-                </div>
+                </div> -->
                 <div class="imgbox">
                   <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+                    <span>{{$t('pic.no16')}}</span>
                     <img :src="data.userWork.incomePicUrl" alt="工资单照片" >
                   </div>
                   <div v-if="data.userWork.workCardPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.workCardPicUrl})">
+                    <span>{{$t('pic.no17')}}</span>
                     <img :src="data.userWork.workCardPicUrl" alt="工牌" >
                   </div>
                 </div> 
@@ -444,9 +472,11 @@
                 </div>
                 <div class="imgbox">
                   <div v-if="data.userIdcard.idcardPhotoUrl" class="imglist pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
+                    <span>{{$t('pic.no12')}}</span>
                     <img :src="data.userIdcard.idcardPhotoUrl" alt="证件照" >
                   </div>
                   <div v-if="data.userIdcard.facetimePhotoUrl" class="imglist pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
+                    <span>{{$t('pic.no13')}}</span>
                     <img :src="data.userIdcard.facetimePhotoUrl" alt="活体照" >
                   </div>
                 </div>
@@ -463,16 +493,19 @@
                 </div>
                 <div class="imgbox">
                   <div v-if="data.userBank.bankPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userBank.bankPicUrl})">
+                    <span>{{$t('pic.no7')}}</span>
                     <img :src="data.userBank.bankPicUrl" alt="银行卡照片" >
                   </div>
                   <template v-if="data.userSelf.picType==1">
                     <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
+                      <span>{{$t('pic.no14')}}</span>
                       <img :src="data.userSelf.livePicUrl" alt="居住照" >
                     </div>
                   </template>
                   <template else>
                     <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
-                      <img :src="data.userSelf.workPicUrl" alt="居住照" >
+                      <span>{{$t('pic.no15')}}</span>
+                      <img :src="data.userSelf.workPicUrl" alt="工作照" >
                     </div>
                   </template>
                 </div>
@@ -486,7 +519,7 @@
                   <div class="oneLineHasOne">
                     <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
                   </div>
-                  <div class="oneLineHasOne">
+                  <!-- <div class="oneLineHasOne">
                     <p><span>entry time:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
@@ -503,12 +536,14 @@
                   </div>
                   <div class="oneLineHasOne">
                     <p><span>company full address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
-                  </div>
+                  </div> -->
                   <div class="imgbox">
                     <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+                      <span>{{$t('pic.no16')}}</span>
                       <img :src="data.userWork.incomePicUrl" alt="工资单照片" >
                     </div>
                     <div v-if="data.userWork.workCardPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.workCardPicUrl})">
+                      <span>{{$t('pic.no17')}}</span>
                       <img :src="data.userWork.workCardPicUrl" alt="工牌" >
                     </div>
                   </div> 
@@ -537,15 +572,18 @@
                   </div>
                   <div class="imgbox">
                     <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+                      <span>{{$t('pic.no18')}}</span>
                       <img :src="data.userWork.incomePicUrl" alt="授权许可证" >
                     </div>
                     <template v-if="data.userSelf.picType==1">
                       <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
-                        <img :src="data.userSelf.workPicUrl" alt="居住照" >
+                        <span>{{$t('pic.no15')}}</span>
+                        <img :src="data.userSelf.workPicUrl" alt="工作照" >
                       </div>
                     </template>
                     <template else>
                       <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
+                        <span>{{$t('pic.no14')}}</span>
                         <img :src="data.userSelf.livePicUrl" alt="居住照" >
                       </div>
                     </template>
@@ -1053,10 +1091,10 @@ export default {
         {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
         {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
         
-        {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-        {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-        {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-        {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+        // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+        // {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+        // {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+        // {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
       ],
       supplementArray:[],
       phoneradioArray:[
@@ -1220,10 +1258,10 @@ export default {
               {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
               // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
 
-              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              // {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              // {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              // {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
             ]
           }else{
             this.radioArray = [
@@ -1232,10 +1270,10 @@ export default {
               {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
               {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
               // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
-              {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
-              {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              // {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
+              // {id: 16, title: 'Pic location', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              // {id: 17, title: 'Is the company number a landline?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
             ]
           }
           if(res.data.data.userWork.industry!='7'){
@@ -1753,9 +1791,18 @@ export default {
     margin-top: 10px;
     .imglist{
       width: 140px;
-      height: 100px;
+      height: 140px;
       margin-right: 10px;
+      span{
+        height: 40px;
+        font-size: 12px;
+      }
+      img{
+        width: 100%;
+        height: 100px;
+      }
     }
+
   }
 
   .write-table{
@@ -1902,4 +1949,25 @@ export default {
       }
     }
   }
+  .pos-re{
+    position: relative;
+  }
+  .pos-abs{
+    position: absolute;
+  }
+  .pos-fix{
+    position: fixed;
+  }
+  .pos{
+    background-color: #fff;
+    width: calc(100% - 330px);
+    z-index: 1009;
+  }
+  .crumbs{
+    padding-top: 30px;
+  }
+  .public_main{
+    padding-top: 0;
+  }
+  
 </style>

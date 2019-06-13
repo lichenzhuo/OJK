@@ -172,6 +172,11 @@ const options = {
       {value: 2, label: 'loanMoney.isOverdue_options.no1'}, // 是
       {value: 1, label: 'loanMoney.isOverdue_options.no2'}// 否
     ],
+    ishang_option: [// 是否挂起
+      {value: '', label: 'public.placeholder'}, //
+      {value: -1, label: 'loanMoney.isOverdue_options.no1'}, // 是
+      {value: 1, label: 'loanMoney.isOverdue_options.no2'}// 否
+    ],
     partialRepaymentApplyPayTypeOption: [// 还款方式
       {value: 'permata', label: 'finance.partialRepaymentApplyPayTypeOption.no1'},
       {value: 'mandiri', label: 'finance.partialRepaymentApplyPayTypeOption.no2'},
@@ -663,8 +668,8 @@ const options = {
     ],
     backSuccessOrfailed_option: [
       {value: '', label: 'public.placeholder'},
-      {value: '1', label: 'userDetail.reject_status.no6'},
-      {value: '2', label: 'add.no53'},
+      {value: -1, label: 'userDetail.reject_status.no6'},
+      {value: 1, label: 'add.no53'},
     ]
   }
 }

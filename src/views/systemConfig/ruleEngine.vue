@@ -85,7 +85,8 @@
             <th>禁言天数</th>
           </tr>
           <!-- 不需要修改的类型 -->
-          <tr v-if="type1Array.includes(detailData.id)">
+          <!-- v-if="type1Array.includes(detailData.id)" -->
+          <tr >
             <td >
               {{detailData.ruleType}}
             </td>
@@ -120,7 +121,7 @@
           </tr>
 
           <!-- id等于2的时候 -->
-          <tr v-else-if="detailData.id==2">
+          <!-- <tr v-else-if="detailData.id==2">
             <td >
               {{detailData.ruleType}}
             </td>
@@ -167,10 +168,10 @@
             <td>
               <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
             </td>
-          </tr>
+          </tr> -->
 
           <!-- 剩下的所有可输入的类型 -->
-          <tr v-else>
+          <!-- <tr v-else>
             <td >
               {{detailData.ruleType}}
             </td>
@@ -219,7 +220,7 @@
             <td>
               <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
             </td>
-          </tr>
+          </tr> -->
         </table>
       </div>
       <template v-if="detailData.id==2">
@@ -338,7 +339,7 @@ export default {
       this.sequence = row.executeSort;
       this.notTalking = row.exceuteLimit;
       this.result = row.executeResult;
-      this.getModifyHistory()
+      // this.getModifyHistory()
       this.detailFlag = true;
     },
     submit(){
@@ -356,77 +357,77 @@ export default {
         executeResult: this.result,
         exceuteLimit: this.notTalking,
         executeSort: this.sequence,
-        conditionOne: this.conditionOne,
-        conditionTwo: this.conditionTwo,
-        conditionThree: this.conditionThree,
-        thresholdOne: this.thresholdOne,
-        thresholdTwo: this.thresholdTwo,
-        thresholdThree: this.thresholdThree,
-        cityList: [],
+        // conditionOne: this.conditionOne,
+        // conditionTwo: this.conditionTwo,
+        // conditionThree: this.conditionThree,
+        // thresholdOne: this.thresholdOne,
+        // thresholdTwo: this.thresholdTwo,
+        // thresholdThree: this.thresholdThree,
+        // cityList: [],
       }
-      if(this.detailData.id==2){
-        this.cityIds.forEach(value=>{
-          switch(value){
-            case 1:
-              option.cityList.push(`${value},ACEH`);
-              break;
-            case 14:
-              option.cityList.push(`${value},RIAU`);
-              break;
-            case 16:
-              option.cityList.push(`${value},SUMATERA SELATAN`);
-              break;
-            case 18:
-              option.cityList.push(`${value},LAMPUNG`);
-              break;
-            case 19:
-              option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
-              break;
-            case 52:
-              option.cityList.push(`${value},NUSA TENGGARA BARAT`);
-              break;
-            case 53:
-              option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
-              break;
-            case 65:
-              option.cityList.push(`${value},KALIMANTAN UTARA`);
-              break;
-            case 71:
-              option.cityList.push(`${value},SULAWESI UTARA`);
-              break;
-            case 72:
-              option.cityList.push(`${value},SULAWESI TENGAH`);
-              break;
-            case 73:
-              option.cityList.push(`${value},SULAWESI SELATAN`);
-              break;
-            case 74:
-              option.cityList.push(`${value},SULAWESI TENGGARA`);
-              break;
-            case 75:
-              option.cityList.push(`${value},GORONTALO`);
-              break;
-            case 76:
-              option.cityList.push(`${value},SULAWESI BARAT`);
-              break;
-            case 81:
-              option.cityList.push(`${value},MALUKU`);
-              break;
-            case 82:
-              option.cityList.push(`${value},MALUKU UTARA`);
-              break;
-            case 94:
-              option.cityList.push(`${value},PAPUA`);
-              break;
-            case 8171:
-              option.cityList.push(`${value},KOTA AMBON`);
-              break;
-            case 9401:
-              option.cityList.push(`${value},KABUPATEN MERAUKE`);
-              break;
-          }
-        })
-      }
+      // if(this.detailData.id==2){
+      //   this.cityIds.forEach(value=>{
+      //     switch(value){
+      //       case 1:
+      //         option.cityList.push(`${value},ACEH`);
+      //         break;
+      //       case 14:
+      //         option.cityList.push(`${value},RIAU`);
+      //         break;
+      //       case 16:
+      //         option.cityList.push(`${value},SUMATERA SELATAN`);
+      //         break;
+      //       case 18:
+      //         option.cityList.push(`${value},LAMPUNG`);
+      //         break;
+      //       case 19:
+      //         option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
+      //         break;
+      //       case 52:
+      //         option.cityList.push(`${value},NUSA TENGGARA BARAT`);
+      //         break;
+      //       case 53:
+      //         option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
+      //         break;
+      //       case 65:
+      //         option.cityList.push(`${value},KALIMANTAN UTARA`);
+      //         break;
+      //       case 71:
+      //         option.cityList.push(`${value},SULAWESI UTARA`);
+      //         break;
+      //       case 72:
+      //         option.cityList.push(`${value},SULAWESI TENGAH`);
+      //         break;
+      //       case 73:
+      //         option.cityList.push(`${value},SULAWESI SELATAN`);
+      //         break;
+      //       case 74:
+      //         option.cityList.push(`${value},SULAWESI TENGGARA`);
+      //         break;
+      //       case 75:
+      //         option.cityList.push(`${value},GORONTALO`);
+      //         break;
+      //       case 76:
+      //         option.cityList.push(`${value},SULAWESI BARAT`);
+      //         break;
+      //       case 81:
+      //         option.cityList.push(`${value},MALUKU`);
+      //         break;
+      //       case 82:
+      //         option.cityList.push(`${value},MALUKU UTARA`);
+      //         break;
+      //       case 94:
+      //         option.cityList.push(`${value},PAPUA`);
+      //         break;
+      //       case 8171:
+      //         option.cityList.push(`${value},KOTA AMBON`);
+      //         break;
+      //       case 9401:
+      //         option.cityList.push(`${value},KABUPATEN MERAUKE`);
+      //         break;
+      //     }
+      //   })
+      // }
       this.$axios.post('',option).then(res=>{
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'));

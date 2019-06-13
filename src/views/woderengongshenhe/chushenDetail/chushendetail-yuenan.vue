@@ -242,13 +242,13 @@
               </div>
               <div>
                 <span>{{$t('add.no54')}}:</span>
-                <template v-if="block==2">
+                <template v-if="peopleOne_audit==''||peopleOne_audit==undediend">
                   <el-select size="small" v-model="idcardType" :placeholder="$t('public.placeholder')">
                     <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                   </el-select>
                 </template>
-                <span v-else>{{data.userIdcardVN.idcardType}}</span>
+                <span v-else>{{$t($store.getters.idCardType_status(data.userIdcard.idcardType))}}</span>
               </div>
             </div>
             <div class="xuan-2-1-1-3">
@@ -973,9 +973,9 @@ export default {
       options3: [], // 初审驳回原因2下拉框
       options4: [], // 退回原因下拉框
       options6: [
-        {id: 1, label: 'CMND 1',value: '1'},
-        {id: 2, label: 'CMND 1',value: '2'},
-        {id: 3, label: 'CMND 1',value: '3'},
+        {id: 1, label: 'CMND 1',value: 1},
+        {id: 2, label: 'CMND 2',value: 2},
+        {id: 3, label: 'CMND 3',value: 3},
       ], // 身份证类型
       idcardType: '',// 身份证类型
       remark: '', // 备注信息内容
@@ -1085,7 +1085,7 @@ export default {
           this.data.webInfo = res.data.data.webInfo
           this.data.userFaceBook = res.data.data.userFaceBook
           this.data.userOrderCount = res.data.data.userOrderCount
-          this.data.userIdcardVN = res.data.data.userIdcardVN
+          // this.data.userIdcardVN = res.data.data.userIdcardVN
           if (res.data.data.recentCollection !== '') {
             this.tableData = res.data.data.recentCollection
           }
@@ -1836,7 +1836,7 @@ export default {
     padding: 5px 0;
     display: flex;
     .chu-select-left{
-      width: 8%;
+      width: 10%;
     }
     .chu-select-right{
       width: 90%;

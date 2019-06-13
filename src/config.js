@@ -25,6 +25,7 @@ const oladmin_ph = 'oladmin_ph'; // 国内访问国外正式系统
 const oladmin_kl = 'oladmin_kl'; // 国内访问国外正式系统
 
 const pesodana = 'pesodana'; // 国内访问国外正式系统
+const danayn = 'danayn.com'; // 国内访问国外正式系统
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -49,6 +50,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(pesodana) > -1) {
   domain = `http://api.pesodana.com`;
   headerTotal = 'Go Dana';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
+} else if (fullCurrentDomain.indexOf(danayn) > -1) {
+  domain = `http://api.danayn.com`;
+  headerTotal = 'EasyCash';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
