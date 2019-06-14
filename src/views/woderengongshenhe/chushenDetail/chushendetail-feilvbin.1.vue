@@ -1172,7 +1172,9 @@ export default {
         userLiveGPS: '',
         userWorkPhotoGPS: '',
       },
-      callOutList: []
+      callOutList: [],
+      allSelectFlag1: false,
+      allSelectFlag2: false,
     }
   },
   computed: {// 选项卡国际化
@@ -1618,37 +1620,48 @@ export default {
       }
       if(type==1){
         option.remark = this.oneRemark
-        this.radioArray.every(value=>{
-          value.value!=''
-        })
+        if(this.radioArray.every(value=>value.value!='')){
+          this.allSelectFlag1 = true
+        }
+        
       }
       if(type==2){
         option.remark = this.twoRemark
+        if(this.radioArray.every(value=>{
+          return value.value!=''||value.radioInput!=''||value.oneInput!=''||value.twoInput!=''
+        })){
+          this.allSelectFlag2 = true
+        }
       }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          if(res.data.data == 2 ){
-            if(type==1){
-              this.viewNumbe = 2
-            }
-            if(type==2){
+      if(this.allSelectFlag1||this.allSelectFlag2){
+        this.$axios.post('', option).then(res => {
+          if (res.data.header.code == 0) {
+            if(res.data.data == 2 ){
+              if(type==1){
+                this.viewNumbe = 2
+              }
+              if(type==2){
+                this.viewNumbe = 3
+              }
+              if(type==3){
+                this.supplementFlag = true
+              }
+            }else if (res.data.data == -1) {
+              this.viewNumbe = 3
+              if(type==3){
+                this.supplementFlag = true
+              }
+            }else if (res.data.data == 1){
               this.viewNumbe = 3
             }
-            if(type==3){
-              this.supplementFlag = true
-            }
-          }else if (res.data.data == -1) {
-            this.viewNumbe = 3
-            if(type==3){
-              this.supplementFlag = true
-            }
-          }else if (res.data.data == 1){
-            this.viewNumbe = 3
+          } else {
+            this.$globalMsg.error(res.data.header.msg)
           }
-        } else {
-          this.$globalMsg.error(res.data.header.msg)
-        }
-      })
+        })
+      }else {
+        return this.$globalMsg.error(this.$t('add.no66'))
+      }
+      
     },
     getSupplementInfo(){
       let option = {
