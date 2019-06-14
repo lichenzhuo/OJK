@@ -1709,6 +1709,14 @@ const phl = {
     no58: '申请GPS地址',
     no59: '家庭地址',
     no60: '公司地址',
+    no61: '*该用户为复借用户，无须进行资料审核，但必须确认用户的当前工作状态',
+    no62: 'work/business status',
+    no63: 'no change',
+    no64: 'changed',
+    no65: 'unemployeed/business failed',
+    no66: '请先审核',
+    no67: '通过',
+    no68: '拒绝',
   },
   yn:{
     loanUse:{

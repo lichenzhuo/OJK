@@ -577,7 +577,7 @@ export default {
           this.againDetail.bankName = res.data.data.bankName
           this.againDetail.cardYear = res.data.data.cardYear
           this.againDetail.cardMonth = res.data.data.cardMonth
-          this.againDetail.bankId = res.data.data.bankId==0?'':res.data.data.bankId
+          this.againDetail.bankId = (res.data.data.bankId==0||res.data.data.bankId==1)?'':String(res.data.data.bankId)
           // this.againFlag = true
         }
       })

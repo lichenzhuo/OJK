@@ -23,9 +23,9 @@
             <span>{{value.title}}</span>
           </li>
         </ul>
-        <ul class="tabs_main">
+        <ul class="tabs_main pos_height">
           <li  v-show="active2==1">
-            <div class="oneLineHasFour">
+            <div class="oneLineHasTwo">
               <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
@@ -60,7 +60,7 @@
                 <span>{{data.userIdcard.industryName | dataIsTrue}}</span>
               </p>
               <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
-              <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
+              <p style="width:50%"><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
             </div>
             <div class="oneLineHasOne">
               <p><span>{{$t('add.no59')}}:</span>
@@ -82,7 +82,7 @@
             </div>
           </li>
           <li  v-show="active2==2">
-            <div class="oneLineHasFour">
+            <div class="oneLineHasTwo">
               <p><span>{{$t('fei.no29')}}{{$t('new.no48')}}:</span>
                 <span>{{data.orderExtra.appName | dataIsTrue}}</span>
               </p>
@@ -104,14 +104,11 @@
                 <span>{{data.order.strCreateTime | dataIsTrue}}</span>
               </p>
             </div>
-            <!-- <div class="oneLineHasFour">
-              <p><span>{{$t('fei.no17')}}:</span>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no58')}}:</span>
                 <span>{{data.order.instalment | dataIsTrue}}</span>
               </p>
-              <p><span>{{$t('fei.no22')}}:</span>
-                <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
-              </p>
-            </div> -->
+            </div>
           </li>
         </ul>
       </div>
@@ -1621,6 +1618,9 @@ export default {
       }
       if(type==1){
         option.remark = this.oneRemark
+        this.radioArray.every(value=>{
+          value.value!=''
+        })
       }
       if(type==2){
         option.remark = this.twoRemark
@@ -1968,6 +1968,10 @@ export default {
   }
   .public_main{
     padding-top: 0;
+  }
+  .pos_height{
+    overflow-y: scroll;
+    height: 300px;
   }
   
 </style>

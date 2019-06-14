@@ -23,9 +23,9 @@
             <span>{{value.title}}</span>
           </li>
         </ul>
-        <ul class="tabs_main">
+        <ul class="tabs_main pos_height">
           <li  v-show="active2==1">
-            <div class="oneLineHasFour">
+            <div class="oneLineHasTwo">
               <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
@@ -56,16 +56,33 @@
               </p>
             </div>
             <div class="oneLineHasFour">
-              <p><span>ID Card:</span>
-                <span>{{data.userIdcard.idCard | dataIsTrue}}</span>
+              <p><span>{{$t('auditDetail.no47')}}:</span>
+                <span>{{data.userIdcard.industryName | dataIsTrue}}</span>
               </p>
-              <p><span>Bank No:</span>
-                <span>{{data.userBank.bankAccount | dataIsTrue}}</span>
+              <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
+              <p style="width:50%"><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
+            </div>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no59')}}:</span>
+                <span>
+                  {{data.userSelf.liveProvinceName | dataIsTrue}} -
+                  {{data.userSelf.liveCityName | dataIsTrue}} -
+                  {{data.userSelf.liveAddress | dataIsTrue}}
+                </span>
+              </p>
+            </div>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no60')}}:</span>
+                <span>
+                  {{data.userWork.companyProvinceName | dataIsTrue}} -
+                  {{data.userWork.companyCityName | dataIsTrue}} -
+                  {{data.userWork.companyAddress | dataIsTrue}}
+                </span>
               </p>
             </div>
           </li>
           <li  v-show="active2==2">
-            <div class="oneLineHasFour">
+            <div class="oneLineHasTwo">
               <p><span>{{$t('fei.no29')}}{{$t('new.no48')}}:</span>
                 <span>{{data.orderExtra.appName | dataIsTrue}}</span>
               </p>
@@ -87,20 +104,18 @@
                 <span>{{data.order.strCreateTime | dataIsTrue}}</span>
               </p>
             </div>
-            <!-- <div class="oneLineHasFour">
-              <p><span>{{$t('fei.no17')}}:</span>
+            <div class="oneLineHasOne">
+              <p><span>{{$t('add.no58')}}:</span>
                 <span>{{data.order.instalment | dataIsTrue}}</span>
               </p>
-              <p><span>{{$t('fei.no22')}}:</span>
-                <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
-              </p>
-            </div> -->
+            </div>
           </li>
         </ul>
       </div>
     </div>
     
-    <div style="height:340px"></div>
+    <div style="height:410px"></div>
+
     <!-------------------------- 审核信息 -------------------->
     <div class="tabs mt15">
       <ul class="tabs_title">
@@ -266,64 +281,25 @@
             </div>
             
             <div class="right">
-              <template v-if="data.userWork.industry!='7'">
-                <h4 class="mg10">company contact :</h4>
-                <ul class="right-ul">
-                  <li class="right-list">
-                    <span class="mr20 text-right w200">company landline:</span>
-                    <div class="group">
-                      <el-input 
-                        v-if="radioArray.filter(value=>value.id==17)[0].value=='No'"
-                        size="small" 
-                        v-model="changeuser.phone" 
-                        style="width:224px;margin-right:20px"
-                        @change="modifyUserInfo(3)"></el-input>
-                      <span v-else class="mr20">{{data.userWork.companyPhone}}</span>
-                      <i class="el-icon-phone phone " @click="showTelAudit(2)"></i>
-                    </div>
-                  </li>
-                  <li class="right-list">
-                    <span class="mr20 text-right w200">call out:</span>
-                    <div class="group ">
-                      <div class="span_flex">
-                        <template >
-                        <span v-for="(item,index) in callOutList" :key="index" class="no">
-                          {{item.result?item.result:' '}}
-                        </span>
-                        <br >
-                        </template>
-                        
-                      </div>
-                      
-                    </div>
-                  </li>
-                  <li  class="right-list mt15" v-for="item in phoneradioArray.filter(value=>value.id==35)" :key="item.id">
-                    <span class="mr20 text-right w200">{{item.title}}</span>
-                    <div class="group">
-                      <el-radio-group v-model="item.value" @change="radioChange(item.value, item.id, 2)">
-                        <el-radio v-for="(value,index) in item.radioGroup" :key="index" :label="value.label"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </li>
-                  <!-- <li class="right-list mt15">
-                    <span class="mr20 text-right w200">verify information:</span>
-                    <div class="group">
-                      <el-input size="small" style="width:80px;margin-right:20px"></el-input>
-                      <el-radio-group v-model="phoneViewSelect.id">
-                        <el-radio label="hesitate"></el-radio>
-                        <el-radio label="non-C"></el-radio>
-                      </el-radio-group>
-                    </div>
-                  </li> -->
-                </ul>
-              </template>
+              <h4 class="fs14">{{$t('add.no61')}}</h4>
+              <h4 class="mg10">本人 :</h4>
+              <ul class="right-ul">
+                <li class="right-list" v-if="data.userUrgentContact.contactOnePhone!=''">
+                  <div class="group">
+                    <span title="结果" >{{phoneViewSelect.call_a}}</span>
+                    <span class="mr25">{{$t('public.name')}}:{{data.userBase.name | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.userTel')}}:{{data.userBase.phone | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.no17')}}:本人</span>
+                    <i class="el-icon-phone phone" @click="showTelAudit(1)"></i>
+                  </div>
+                </li>
+              </ul>
             
               <h4 class="mg10">emergency contact :</h4>
               <ul class="right-ul">
                 <li class="right-list" v-if="data.userUrgentContact.contactOnePhone!=''">
-                  <span class="mr20 text-right w200">call--A:</span>
                   <div class="group">
-                    <span title="结果" class="mr25">{{phoneViewSelect.call_a}}</span>
+                    <span title="结果" >{{phoneViewSelect.call_a}}</span>
                     <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactOneName | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span>
@@ -331,9 +307,8 @@
                   </div>
                 </li>
                 <li class="right-list" v-if="data.userUrgentContact.contactTwoPhone!=''">
-                  <span class="mr20 text-right w200">call--B:</span>
                   <div class="group">
-                    <span title="结果" class="mr25">{{phoneViewSelect.call_b}}</span>
+                    <span title="结果" >{{phoneViewSelect.call_b}}</span>
                     <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactTwoPhone | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span>
@@ -341,9 +316,8 @@
                   </div>
                 </li>
                 <li class="right-list" v-if="data.userUrgentContact.contactThreePhone!=''">
-                  <span class="mr20 text-right w200">call--C:</span>
                   <div class="group">
-                    <span title="结果" class="mr25">{{phoneViewSelect.call_c}}</span>
+                    <span title="结果" >{{phoneViewSelect.call_c}}</span>
                     <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span>
@@ -351,13 +325,25 @@
                   </div>
                 </li>
               </ul>
+
+              <h4 class="mg10">company contact :</h4>
+              <ul class="right-ul">
+                <li class="right-list">
+                  <span class="mr20 text-right w200">company landline:</span>
+                  <div class="group">
+                    <span  class="mr20">{{data.userWork.companyPhone}}</span>
+                    <i class="el-icon-phone phone " @click="showTelAudit(2)"></i>
+                  </div>
+                </li>
+              </ul>
               
               <h4 class="mg10">personal suggestion:</h4>
               <div class="suggest mg10">
-                <el-input type="textarea" :rows="6" v-model="twoRemark" @change="areachange(2)" maxlength="400"></el-input>
+                <el-input type="textarea" :rows="6" v-model="oneRemark" @change="areachange(2)" maxlength="400"></el-input>
               </div>
               <div class="button mt20 flex flex-center">
-                <el-button type="primary" @click="submit(2)">{{$t('public.no49')}}</el-button>
+                <el-button class="mlr10" type="primary" @click="submit(1)">{{$t('add.no67')}}</el-button>
+                <el-button class="mlr10" type="primary" @click="submit(-1)">{{$t('add.no68')}}</el-button>
               </div>
 
             </div>
@@ -522,18 +508,15 @@
                 <p class="mg10">{{$t('public.no32')}}:{{data.approveAdminName}}</p>
                 <p class="mg10">{{$t('new.no9')}}:{{oldReview.createTime + ' ~ ' + oldReview.updateTime}}</p>
                 <ul class="right-ul">
-                  <li class="right-list" v-for="item in radioArray" :key="item.id">
-                    <span class="mr20">{{item.title}}</span>
+                  <li class="right-list" >
+                    <span class="mr20">{{$t('add.no62')}}</span>
                     <div class="group">
-                      <el-radio-group v-model="item.value" disabled>
-                        <el-radio v-for="(value,index) in item.radioGroup" :key="index" :label="value.label"></el-radio>
+                      <el-radio-group v-model="radioArray[0].value" disabled>
+                        <el-radio v-for="(value,index) in radioArray[0].radioGroup" :key="index" :label="value.label"></el-radio>
                       </el-radio-group>
                     </div>
                   </li>
-                  <h4 class="mg10">personal suggestion:</h4>
-                  <div class="suggest mg10">
-                    <el-input type="textarea" :rows="6" v-model="oneRemark" disabled></el-input>
-                  </div>
+                  <p class="mg10">personal suggestion:</p>
 
                 </ul>
               </div>
@@ -601,10 +584,61 @@
       <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
     </transition>
 
+    <!-- ------------------ 点击电话审核弹窗开始 -------------------- -->
+    <div v-if="telFlag1||telFlag2||telFlag3" class="reply">
+      <div class="reply-main">
+        <div class="reply-main-head">
+          <span></span>
+          <p>{{$t('auditDetail.no42')}}</p>
+          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="telClose"></i>
+        </div>
+        <div class="reply-main-con">
+          <div class="left2right">
+            <span class="left" style="width:120px">call to whom?:</span>
+            <div class="right">
+              {{telType}}
+            </div>
+          </div>
+          <div class="left2right">
+            <span class="left" style="width:120px">result:</span>
+            <div class="right">
+              <el-select size="small" v-model="telStatus" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </div>
+          </div>
+          <div class="left2right" v-if="telFlag1">
+            <span class="left" style="width:120px">{{$t('add.no62')}}:</span>
+            <div class="right">
+              <el-radio-group v-model="telStatus1" @change="radioChange(telStatus1, 37, 4)">
+                <el-radio v-for="(value,index) in radioArray[0].radioGroup" :key="index" :label="value.label"></el-radio>
+              </el-radio-group>
+            </div>
+          </div>
+          <div class="left2right">
+            <span class="left" style="width:120px">remark:</span>
+            <div class="right">
+              <el-input type="textarea" rows="4" v-model="telRemark"></el-input>
+            </div>
+          </div>
+          <div class="left2right">
+            <span class="left"></span>
+            <div class="right">
+              <el-button type="primary" @click="telAuditSure">{{$t('public.no49')}}</el-button>
+              <el-button type="primary" @click="telClose">{{$t('public.no50')}}</el-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div v-else class="back">
     <p>{{$t('public.no23')}}，<span @click="back">{{$t('back.no1')}}</span> {{$t('back.no2')}}</p>
   </div>
+
+  
 </template>
 <script>
 
@@ -668,11 +702,18 @@ export default {
       phoneViewSelect: {
         // work: 'normal'
       },
-      radioArray: [
-        {id: 36, title: 'work/business status', value: '', radioGroup: [ { label: 'no change' }, { label: 'changed' }, { label: 'unemployeed/business failed' } ] }
+      radioArray:[
+        {id: 37, title: 'work/business status', value: '', radioGroup: [ { label: 'no change' }, { label: 'changed' }, { label: 'unemployeed/business failed' } ]} 
       ],
       viewNumber: 0,
       oneRemark: '',
+      telStatus: '', // 电话审核下拉框选中项
+      telRemark: '', // 电话审核备注信息内容
+      telStatus1: '', // 电话审核备注信息内容
+      telType: '', // 电话类型
+      options: [{id:1,label:'Yes',value:'Yes'},{id:2,label:'No',value:'No'},{id:3,label:'non-c',value:'non-c'}],
+      telRadioId: '',// 紧急联系人选中项ID
+      isTelAudit: false,
     }
   },
   computed: {// 选项卡国际化
@@ -790,58 +831,116 @@ export default {
           }
           if(res.data.data.oldReview){
             if(this.block==1){
-              this.viewNumber = 3
+              this.viewNumbe = 3
             }else{
               if(this.data.order.status==-20||this.data.order.status==21){
-                this.viewNumber = 3
-              }else {
+                this.viewNumbe = 3
+              }else{
                 if(res.data.data.oldReview.some(value => value.status == -1)){
-                  this.viewNumber = 1
-                }else {
-                  this.viewNumber = 3
+                  this.viewNumbe = 1
+                }else{
+                  this.viewNumbe = 3
                 }
               }
             }
-            this.oldReview.createTime = res.data.data.oldReview[0].createTime
-            this.oldReview.updateTime = res.data.data.oldReview[0].updateTime
             res.data.data.oldReview.forEach(value => {
               if (value.childType==997){
                 this.oneRemark = value.result
               } else {
                 if(this.radioArray.filter(item => value.childType == item.id)[0]){
                   this.radioArray.filter(item => value.childType == item.id)[0].value = value.result
-                  
                 }
               }
             })
+
           }
-          
         }
       })
     },
     submit(type){
+      if(this.isTelAudit){
+        let option = {
+          header: {
+            ...this.$base,
+            action: this.$store.state.actionMap.ME0025,
+            'sessionid': this.sessionid
+          },
+          orderNo: this.orderNo,
+          orderId: this.orderId,
+          userId: this.userId,
+          approveResult: type,
+        }
+        this.$axios.post('', option).then(res => {
+          if (res.data.header.code == 0) {
+            this.viewNumber = 3
+          } else {
+            this.$globalMsg.error(res.data.header.msg)
+          }
+        })
+      }else{
+        return this.$globalMsg.error(this.$t('add.no66'))
+      }
+      
+    },
+    areachange(){
+      this.radioChange(this.oneRemark,997,4)
+    },
+    showTelAudit(type,id) {
+      if(type == 1){
+        this.telFlag1 = true;
+        this.telType = 'personal contact';
+      }
+      if(type == 2){
+        this.telFlag2 = true;
+        this.telType = 'company contact';
+      }
+      if(type == 3){
+        this.telFlag3 = true;
+        this.telRadioId = id;
+        this.telType = id==31?'emergency contact-A':id==32?'emergency contact-B':id==33?'emergency contact-C':'emergency contact';
+      }
+    },
+    telClose () {
+      this.telFlag1 = false
+      this.telFlag2 = false
+      this.telFlag3 = false
+      this.telStatus = ''
+      this.telStatus1 = ''
+      this.telRemark = ''
+    },
+    telAuditSure(){
+      if(this.telFlag1&&this.telStatus1==''){
+        return this.$globalMsg.error(this.$t('public.no88'))
+      }
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.ME0025,
+          action: this.$store.state.actionMap.ME0018,
           'sessionid': this.sessionid
         },
         orderNo: this.orderNo,
         orderId: this.orderId,
         userId: this.userId,
-        approveResult: type,
+        phoneType: this.telType,
+        phoneFeedback: this.telStatus,
+        remark: this.telRemark
+      }
+      if(this.telFlag1){
+        option.parentType = 4;
+        option.workStatus = this.telStatus1;
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.viewNumber = 3
+          if(this.telFlag1){
+            this.isTelAudit = true
+          }
+          this.$globalMsg.success(this.$t('message.success'))
+          this.telClose()
         } else {
           this.$globalMsg.error(res.data.header.msg)
         }
       })
     },
-    areachange(){
-      this.radioChange(this.oneRemark,997,4)
-    }
   },
   watch: {
     
@@ -870,11 +969,10 @@ export default {
   }
   .mr20{
     display: inline-block;
-    width: 160px;
-    margin-right: 20px;
+    margin-right: 10px;
   }
   .mr25{
-    margin-right: 20px;
+    margin-right: 15px;
   }
   .phone{
     font-size: 20px;
@@ -916,9 +1014,18 @@ export default {
     margin-top: 10px;
     .imglist{
       width: 140px;
-      height: 100px;
+      height: 140px;
       margin-right: 10px;
+      span{
+        height: 40px;
+        font-size: 12px;
+      }
+      img{
+        width: 100%;
+        height: 100px;
+      }
     }
+
   }
 
   .write-table{
@@ -999,7 +1106,7 @@ export default {
     line-height: 20px;
   }
   .w200{
-    width: 300px;
+    width: 150px;
   }
   
   .reply{
@@ -1010,6 +1117,7 @@ export default {
     top: 0;
     @include flex-cen;
     background-color: rgba(182, 189, 205, 0.6);
+    z-index: 1009;
     .reply-main{
       width: 650px;
       height: auto;
@@ -1078,12 +1186,16 @@ export default {
   .pos{
     background-color: #fff;
     width: calc(100% - 330px);
-    z-index: 1009;
+    z-index: 100;
   }
   .crumbs{
     padding-top: 30px;
   }
   .public_main{
     padding-top: 0;
+  }
+  .pos_height{
+    overflow-y: scroll;
+    height: 300px;
   }
 </style>
