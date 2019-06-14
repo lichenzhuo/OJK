@@ -26,6 +26,7 @@ const oladmin_kl = 'oladmin_kl'; // 国内访问国外正式系统
 
 const pesodana = 'pesodana'; // 国内访问国外正式系统
 const danayn = 'danayn.com'; // 国内访问国外正式系统
+const dongvtm = 'dongvtm'; // 国内访问国外正式系统
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -129,6 +130,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(vnPRO1) > -1) {
   domain = `https://api.mydong.vn`;
+  headerTotal = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(dongvtm) > -1) {
+  domain = `http://api.dongvtm.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
