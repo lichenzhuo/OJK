@@ -29,8 +29,8 @@
               <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
-              <p><span>{{$t('new.no55')}}:</span>
-                <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
+              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
+                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
             </div>
             <div class="oneLineHasFour">
@@ -57,7 +57,7 @@
             </div>
             <div class="oneLineHasFour">
               <p><span>{{$t('auditDetail.no47')}}:</span>
-                <span>{{data.userIdcard.industryName | dataIsTrue}}</span>
+                <span>{{data.userWork.industryName | dataIsTrue}}</span>
               </p>
               <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
               <p style="width:50%"><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
@@ -106,7 +106,7 @@
             </div>
             <div class="oneLineHasOne">
               <p><span>{{$t('add.no58')}}:</span>
-                <span>{{data.order.instalment | dataIsTrue}}</span>
+                <span>{{data.order.orderAddress | dataIsTrue}}</span>
               </p>
             </div>
           </li>
@@ -114,7 +114,7 @@
       </div>
     </div>
     
-    <div style="height:350px"></div>
+    <div style="height:365px"></div>
 
     <!-------------------------- 审核信息 -------------------->
     <div class="tabs mt15">
@@ -171,7 +171,7 @@
                     <img :src="data.userSelf.livePicUrl" alt="居住照" >
                   </div>
                 </template>
-                <template else>
+                <template v-else>
                   <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
                     <span>{{$t('pic.no15')}}</span>
                     <img :src="data.userSelf.workPicUrl" alt="工作照" >
@@ -230,10 +230,10 @@
                   <p><span>business hour:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
-                  <p><span>monthly business cost:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
+                  <p><span>monthly business cost:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
-                  <p><span>monthly business earning:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
+                  <p><span>monthly business earning:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
                   <p><span>business address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
@@ -249,7 +249,7 @@
                       <img :src="data.userSelf.workPicUrl" alt="工作照" >
                     </div>
                   </template>
-                  <template else>
+                  <template v-else>
                     <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
                       <span>{{$t('pic.no14')}}</span>
                       <img :src="data.userSelf.livePicUrl" alt="居住照" >
@@ -268,7 +268,7 @@
                 <template v-if="data.deviceInfo!=''">
                   <tr v-for="(value,index) in data.deviceInfo" :key="index">
                     <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                    <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'-'+$store.getters.longitudeAndLatitude(value.longitude)}}</td>
+                    <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
                   </tr>
                 </template>
                 <template v-else>
@@ -395,7 +395,7 @@
                       <img :src="data.userSelf.livePicUrl" alt="居住照" >
                     </div>
                   </template>
-                  <template else>
+                  <template v-else>
                     <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
                       <span>{{$t('pic.no15')}}</span>
                       <img :src="data.userSelf.workPicUrl" alt="工作照" >
@@ -455,10 +455,10 @@
                     <p><span>business hour:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
-                    <p><span>monthly business cost:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
+                    <p><span>monthly business cost:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
-                    <p><span>monthly business earning:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
+                    <p><span>monthly business earning:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
                     <p><span>business address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
@@ -474,7 +474,7 @@
                         <img :src="data.userSelf.workPicUrl" alt="工作照" >
                       </div>
                     </template>
-                    <template else>
+                    <template v-else>
                       <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
                         <span>{{$t('pic.no14')}}</span>
                         <img :src="data.userSelf.livePicUrl" alt="居住照" >
@@ -493,7 +493,7 @@
                   <template v-if="data.deviceInfo!=''">
                     <tr v-for="(value,index) in data.deviceInfo" :key="index">
                       <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                      <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'-'+$store.getters.longitudeAndLatitude(value.longitude)}}</td>
+                      <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
                     </tr>
                   </template>
                   <template v-else>
@@ -857,7 +857,7 @@ export default {
       })
     },
     submit(type){
-      if(this.isTelAudit){
+      if(this.isTelAudit&&this.oneRemark){
         let option = {
           header: {
             ...this.$base,
@@ -868,6 +868,7 @@ export default {
           orderId: this.orderId,
           userId: this.userId,
           approveResult: type,
+          remark: this.oneRemark
         }
         this.$axios.post('', option).then(res => {
           if (res.data.header.code == 0) {
@@ -1196,6 +1197,6 @@ export default {
   }
   .pos_height{
     overflow-y: scroll;
-    height: 230px;
+    height: 250px;
   }
 </style>

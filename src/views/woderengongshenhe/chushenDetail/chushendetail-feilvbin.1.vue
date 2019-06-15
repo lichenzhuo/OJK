@@ -29,8 +29,8 @@
               <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
-              <p><span>{{$t('new.no55')}}:</span>
-                <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
+              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
+                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>
             </div>
             <div class="oneLineHasFour">
@@ -57,7 +57,7 @@
             </div>
             <div class="oneLineHasFour">
               <p><span>{{$t('auditDetail.no47')}}:</span>
-                <span>{{data.userIdcard.industryName | dataIsTrue}}</span>
+                <span>{{data.userWork.industryName | dataIsTrue}}</span>
               </p>
               <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
               <p style="width:50%"><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
@@ -106,7 +106,7 @@
             </div>
             <div class="oneLineHasOne">
               <p><span>{{$t('add.no58')}}:</span>
-                <span>{{data.order.instalment | dataIsTrue}}</span>
+                <span>{{data.order.orderAddress | dataIsTrue}}</span>
               </p>
             </div>
           </li>
@@ -114,7 +114,7 @@
       </div>
     </div>
     
-    <div style="height:410px"></div>
+    <div style="height:365px"></div>
 
     <!-------------------------- 审核信息 -------------------->
     <div class="tabs mt15">
@@ -171,7 +171,7 @@
                     <img :src="data.userSelf.livePicUrl" alt="居住照" >
                   </div>
                 </template>
-                <template else>
+                <template v-else>
                   <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
                     <span>{{$t('pic.no15')}}</span>
                     <img :src="data.userSelf.workPicUrl" alt="工作照" >
@@ -230,25 +230,28 @@
                   <p><span>business hour:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
-                  <p><span>monthly business cost:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
+                  <p><span>monthly business cost:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
-                  <p><span>monthly business earning:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
+                  <p><span>monthly business earning:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
                   <p><span>business address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
                 </div>
                 <div class="imgbox">
                   <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
+                    <span>{{$t('pic.no18')}}</span>
                     <img :src="data.userWork.incomePicUrl" alt="授权许可证" >
                   </div>
                   <template v-if="data.userSelf.picType==1">
                     <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
-                      <img :src="data.userSelf.workPicUrl" alt="居住照" >
+                      <span>{{$t('pic.no15')}}</span>
+                      <img :src="data.userSelf.workPicUrl" alt="工作照" >
                     </div>
                   </template>
-                  <template else>
+                  <template v-else>
                     <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
+                      <span>{{$t('pic.no14')}}</span>
                       <img :src="data.userSelf.livePicUrl" alt="居住照" >
                     </div>
                   </template>
@@ -265,7 +268,7 @@
                 <template v-if="data.deviceInfo!=''">
                   <tr v-for="(value,index) in data.deviceInfo" :key="index">
                     <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                    <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'-'+$store.getters.longitudeAndLatitude(value.longitude)}}</td>
+                    <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
                   </tr>
                 </template>
                 <template v-else>
@@ -363,13 +366,13 @@
                 <li class="right-list">
                   <span class="mr20 text-right w200">company landline:</span>
                   <div class="group">
-                    <el-input 
+                    <!-- <el-input 
                       v-if="radioArray.filter(value=>value.id==17)[0].value=='No'"
                       size="small" 
                       v-model="changeuser.phone" 
                       style="width:224px;margin-right:20px"
-                      @change="modifyUserInfo(3)"></el-input>
-                    <span v-else class="mr20">{{data.userWork.companyPhone}}</span>
+                      @change="modifyUserInfo(3)"></el-input> -->
+                    <span  class="mr20">{{data.userWork.companyPhone}}</span>
                     <i class="el-icon-phone phone " @click="showTelAudit(2)"></i>
                   </div>
                 </li>
@@ -396,16 +399,6 @@
                     </el-radio-group>
                   </div>
                 </li>
-                <!-- <li class="right-list mt15">
-                  <span class="mr20 text-right w200">verify information:</span>
-                  <div class="group">
-                    <el-input size="small" style="width:80px;margin-right:20px"></el-input>
-                    <el-radio-group v-model="phoneViewSelect.id">
-                      <el-radio label="hesitate"></el-radio>
-                      <el-radio label="non-C"></el-radio>
-                    </el-radio-group>
-                  </div>
-                </li> -->
               </ul>
             </template>
             
@@ -499,7 +492,7 @@
                       <img :src="data.userSelf.livePicUrl" alt="居住照" >
                     </div>
                   </template>
-                  <template else>
+                  <template v-else>
                     <div v-if="data.userSelf.workPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.workPicUrl})">
                       <span>{{$t('pic.no15')}}</span>
                       <img :src="data.userSelf.workPicUrl" alt="工作照" >
@@ -559,10 +552,10 @@
                     <p><span>business hour:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
-                    <p><span>monthly business cost:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
+                    <p><span>monthly business cost:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
-                    <p><span>monthly business earning:</span><span>{{data.userWork.monthCost | dataIsTrue}}</span></p>
+                    <p><span>monthly business earning:</span><span>{{data.userWork.monthIncome | dataIsTrue}}</span></p>
                   </div>
                   <div class="oneLineHasOne">
                     <p><span>business address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
@@ -578,7 +571,7 @@
                         <img :src="data.userSelf.workPicUrl" alt="工作照" >
                       </div>
                     </template>
-                    <template else>
+                    <template v-else>
                       <div v-if="data.userSelf.livePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userSelf.livePicUrl})">
                         <span>{{$t('pic.no14')}}</span>
                         <img :src="data.userSelf.livePicUrl" alt="居住照" >
@@ -597,7 +590,7 @@
                   <template v-if="data.deviceInfo!=''">
                     <tr v-for="(value,index) in data.deviceInfo" :key="index">
                       <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                      <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'-'+$store.getters.longitudeAndLatitude(value.longitude)}}</td>
+                      <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
                     </tr>
                   </template>
                   <template v-else>
@@ -738,9 +731,11 @@
               <template v-if="SupplementInfo.userIdCard.newIdcardPhotoUrl">
                 <div class="imgbox">
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.idcardPhotoUrl})">
+                    <span>{{$t('pic.no12')}}</span>
                     <img :src="SupplementInfo.userIdCard.idcardPhotoUrl" alt="证件照" title="证件照">
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userIdCard.newIdcardPhotoUrl})">
+                    <span>&nbsp;</span>
                     <img :src="SupplementInfo.userIdCard.newIdcardPhotoUrl" title="证件照" >
                   </div>
                 </div>
@@ -753,9 +748,11 @@
                 <!-- 银行卡照片 -->
                 <div class="imgbox" >
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.bankPicUrl})">
+                    <span>{{$t('pic.no7')}}</span>
                     <img :src="SupplementInfo.userBank.bankPicUrl" title="银行卡照片" >
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userBank.newBankPicUrl})">
+                    <span>&nbsp;</span>
                     <img :src="SupplementInfo.userBank.newBankPicUrl" title="银行卡照片" >
                   </div>
                 </div>
@@ -768,9 +765,11 @@
                 <!-- 居住/工作场所照片 -->
                 <div class="imgbox">
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.workPicUrl})">
+                    <span>{{$t('pic.no15')}}</span>
                     <img :src="SupplementInfo.userSelf.workPicUrl" title="工作场所照片" >
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newWorkPicUrl})">
+                    <span>&nbsp;</span>
                     <img :src="SupplementInfo.userSelf.newWorkPicUrl" title="工作场所照片" >
                   </div>
                 </div> 
@@ -783,10 +782,12 @@
                 <!-- 居住/工作场所照片 -->
                 <div class="imgbox" >
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.livePicUrl})">
-                    <img :src="SupplementInfo.userSelf.livePicUrl" title="生活照片" >
+                    <span>{{$t('pic.no14')}}</span>
+                    <img :src="SupplementInfo.userSelf.livePicUrl" title="居住照" >
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userSelf.newLivePicUrl})">
-                    <img :src="SupplementInfo.userSelf.newLivePicUrl" title="生活照片" >
+                    <span>&nbsp;</span>
+                    <img :src="SupplementInfo.userSelf.newLivePicUrl" title="居住照" >
                   </div>
                   
                 </div> 
@@ -799,10 +800,12 @@
                 <!-- 工资单/工作证明 -->
                 <div class="imgbox" >
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.incomePicUrl})">
-                    <img :src="SupplementInfo.userWork.incomePicUrl" title="工作证明" >
+                    <span>{{$t('pic.no16')}}</span>
+                    <img :src="SupplementInfo.userWork.incomePicUrl" title="工资条" >
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newIncomePicUrl})">
-                    <img :src="SupplementInfo.userWork.newIncomePicUrl" title="工作证明" >
+                    <span>&nbsp;</span>
+                    <img :src="SupplementInfo.userWork.newIncomePicUrl" title="工资条" >
                   </div>
                 </div> 
                 <div class="oneLineHasOne" v-if="SupplementInfo.userInComeGPS">
@@ -814,9 +817,11 @@
                 <!-- 工牌 -->
                 <div class="imgbox">
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.workCardPicUrl})">
+                    <span>{{$t('pic.no16')}}</span>
                     <img :src="SupplementInfo.userWork.workCardPicUrl" title="工牌" >
                   </div>
                   <div class="imglist pic" @click="openBox({imgUrl:SupplementInfo.userWork.newWorkCardPicUrl})">
+                    <span>&nbsp;</span>
                     <img :src="SupplementInfo.userWork.newWorkCardPicUrl" title="工牌" >
                   </div>
                   
@@ -1135,13 +1140,7 @@ export default {
             { label: 'hesitate' }, { label: 'non-c' }
           ] 
         },
-        {id: 35, title: 'verify information',  oneInput: '', radioInput: '', value: '', 
-          radioGroup: [ 
-            { label: 'True' }, 
-            { label: 'false' },
-            { label: 'non-c' }
-          ] 
-        }
+        
       ],
       replenishArray:[
 
@@ -1279,22 +1278,15 @@ export default {
             this.radioArray.push(
               {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
             )
-            // this.phoneradioArray.push(
-            //   {id: 29, title: 'attended or not when apply',  oneInput: '', radioInput: '', value: '', 
-            //     radioGroup: [ 
-            //       { label: 'No' }, 
-            //       { label: 'Yes' }
-            //     ] 
-            //   },
-            //   {id: 30, title: 'why not attended',  oneInput: '', radioInput: '', value: '', 
-            //     radioGroup: [ 
-            //       { label: 'on leave' }, 
-            //       { label: 'outside the office' }, 
-            //       { label: 'on business trip' },
-            //       { label: 'unemployeed' }
-            //     ] 
-            //   },
-            // )
+            this.phoneradioArray.push(
+              {id: 35, title: 'verify information',  oneInput: '', radioInput: '', value: '', 
+                radioGroup: [ 
+                  { label: 'True' }, 
+                  { label: 'false' },
+                  { label: 'non-c' }
+                ] 
+              }
+            )
           }
           if(res.data.data.userSelf.picType==1){
             this.radioArray.push(
@@ -1532,6 +1524,7 @@ export default {
                 this.oneRemark = value.result
               } else {
                 if(this.radioArray.filter(item => value.childType == item.id)[0]){
+                  
                   this.radioArray.filter(item => value.childType == item.id)[0].value = value.result
                 }
               }
@@ -1564,7 +1557,7 @@ export default {
               }else{
                 if(value.childType==998){
                   this.twoRemark = value.result
-                }else if(value.childType<34){
+                }else if(value.childType!=34){
                   if(Number(value.result)){
                     if(this.phoneradioArray.filter(item => value.childType == item.id)[0]){
                       this.phoneradioArray.filter(item => value.childType == item.id)[0].radioInput = value.result
@@ -1653,6 +1646,9 @@ export default {
               }
             }else if (res.data.data == 1){
               this.viewNumbe = 3
+              if(type==3){
+                this.supplementFlag = true
+              }
             }
           } else {
             this.$globalMsg.error(res.data.header.msg)
@@ -1905,6 +1901,7 @@ export default {
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 1010;
     @include flex-cen;
     background-color: rgba(182, 189, 205, 0.6);
     .reply-main{
@@ -1984,7 +1981,7 @@ export default {
   }
   .pos_height{
     overflow-y: scroll;
-    height: 300px;
+    height: 250px;
   }
   
 </style>
