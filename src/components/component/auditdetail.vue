@@ -6,7 +6,7 @@
       </li>
     </ul>
     <ul class="tabs_main">
-      <li  v-if="active2==1">
+      <li  v-show="active2==1">
         <div class="oneLineHasFour">
           <p><span>{{$t('new.no48')}}:</span><span>{{data.userBase.appName | dataIsTrue}}</span></p>
           <p><span>{{$t('new.no49')}}:</span><span>{{data.userBase.appPackage | dataIsTrue}}</span></p>
@@ -70,7 +70,7 @@
           <p><span>{{$t('public.no34')}}:</span><span>{{data.order.orderAddress | dataIsTrue}}</span></p>
         </div>
       </li>
-      <li  v-if="active2==2">
+      <li  v-show="active2==2">
         <div class="oneLineHasFour">
           <p><span>{{$t('new.no48')}}:</span>
           <span>{{data.orderExtra.appName | dataIsTrue}}</span></p>
@@ -78,11 +78,11 @@
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
           <p><span>{{$t('yn.no28')}}:</span>
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
-          <p class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
+          <!-- v-if="!(title==='kilatloan'&&auditType==1)" -->
+          <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
             <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
             <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
           </p>
-
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('operationDetail.no2')}}:</span>
@@ -126,10 +126,11 @@
 </template>
 <script>
 export default {
-  props: ['data'],
+  props: ['data','auditType'],
   data () {
     return {
-      active2: 1
+      active2: 1,
+      title: ''
     }
   },
   computed: {
@@ -142,12 +143,12 @@ export default {
   },
   methods: {
 
+  },
+  mounted(){
+    this.title = global.config.headerTotal
   }
 }
 </script>
 <style lang="scss" scoped>
-  .pinfen{
-    font-size: 18px;
-    color: coral;
-  }
+  
 </style>

@@ -62,14 +62,14 @@
         <div class="search-input">
           <span>{{$t('new.no48')}}:</span>
           <el-select size="small" clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="(item,i) in options3" :key="i" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
           <span>{{$t('new.no49')}}:</span>
           <el-select size="small" clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="(item,i) in options4" :key="i" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>

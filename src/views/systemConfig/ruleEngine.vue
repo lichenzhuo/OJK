@@ -65,7 +65,7 @@
         </el-pagination>
       </div>
     </el-row> -->
-
+    
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="30vh">
       <div class="box">
         <table class="box">
@@ -84,6 +84,8 @@
             <th>阈值3</th>
             <th>禁言天数</th>
           </tr>
+          <!-- 不需要修改的类型 -->
+          <!-- v-if="type1Array.includes(detailData.id)" -->
           <tr >
             <td >
               {{detailData.ruleType}}
@@ -117,9 +119,118 @@
               <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
             </td>
           </tr>
+
+          <!-- id等于2的时候 -->
+          <!-- <tr v-else-if="detailData.id==2">
+            <td >
+              {{detailData.ruleType}}
+            </td>
+            <td >
+              <el-input type="number" size="small" style="width:60px" v-model="sequence"></el-input>
+            </td>
+            <td >
+              <el-switch
+                v-model="isUsing"
+                active-color="#13ce66"
+                inactive-color="#dddddd">
+              </el-switch>
+            </td>
+            <td class="nowrap">
+              <el-radio-group v-model="result" size="small">
+                <el-radio :label="-1" >reject</el-radio>
+                <el-radio :label="2">pass</el-radio>
+                <el-radio :label="1">Transfer</el-radio>
+              </el-radio-group>
+            </td>
+            <td >
+              <el-select size="small" clearable v-model="conditionOne" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </td>
+            <td>{{detailData.thresholdOne}}</td>
+            <td>{{detailData.logicRelationOne}}</td>
+            <td>
+              <el-select size="small" clearable v-model="conditionTwo" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </td>
+            <td>{{detailData.thresholdTwo}}</td>
+            <td>{{detailData.logicRelationTwo}}</td>
+            <td>
+              <el-select size="small" clearable v-model="conditionThree" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </td>
+            <td>{{detailData.thresholdThree}}</td>
+            <td>
+              <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
+            </td>
+          </tr> -->
+
+          <!-- 剩下的所有可输入的类型 -->
+          <!-- <tr v-else>
+            <td >
+              {{detailData.ruleType}}
+            </td>
+            <td >
+              <el-input type="number" size="small" style="width:60px" v-model="sequence"></el-input>
+            </td>
+            <td >
+              <el-switch
+                v-model="isUsing"
+                active-color="#13ce66"
+                inactive-color="#dddddd">
+              </el-switch>
+            </td>
+            <td class="nowrap">
+              <el-radio-group v-model="result" size="small">
+                <el-radio :label="-1" >reject</el-radio>
+                <el-radio :label="2">pass</el-radio>
+                <el-radio :label="1">Transfer</el-radio>
+              </el-radio-group>
+            </td>
+            <td>{{detailData.conditionOne}}</td>
+            <td>
+              <el-input v-if="detailData.conditionOne" type="number" size="small" style="width:80px" v-model="thresholdOne"></el-input>
+              <span v-else>-</span>
+            </td>
+            <td>{{detailData.logicRelationOne}}</td>
+            <td>{{detailData.conditionTwo}}</td>
+            <td>
+              <el-input v-if="detailData.conditionTwo&&detailData.id!=3" type="number" size="small" style="width:80px" v-model="thresholdTwo"></el-input>
+              <el-select v-else-if="detailData.id==3" size="small" clearable v-model="thresholdTwo" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+              <span v-else>-</span>
+            </td>
+            <td>{{detailData.logicRelationTwo}}</td>
+            <td>{{detailData.conditionThree}}</td>
+            <td>
+              <el-input v-if="detailData.conditionThree&&detailData.id!=53" type="number" size="small" style="width:80px" v-model="thresholdThree"></el-input>
+              <el-select v-else-if="detailData.id==53" size="small" clearable v-model="thresholdThree" :placeholder="$t('public.placeholder')">
+                <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+              <span v-else>-</span>
+            </td>
+            <td>
+              <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
+            </td>
+          </tr> -->
         </table>
       </div>
-      
+      <template v-if="detailData.id==2">
+        <h4>风控禁区的筛选</h4>
+        <el-checkbox-group v-model="cityIds">
+          <el-checkbox v-for="(value,i) in options4" :key="i" :label="value.value">{{value.label}}</el-checkbox>
+        </el-checkbox-group>
+      </template>
+      <p class="mt15">上次修改时间:{{modifyHitory.strCreateTime}}</p>
+      <p class="mt15">上次修改内容:{{modifyHitory.all}}</p>
       <div class="button">
         <el-button type="primary" @click="submit">确认</el-button>
         <el-button type="primary" @click="detailClose">取消</el-button>
@@ -130,6 +241,7 @@
 
   </div>
 </template>
+
 <script>
 export default {
   name: 'ruleEngine',
@@ -141,13 +253,62 @@ export default {
       // 当前页下标
       currentPage: 1,
       // 用户信息数据模拟
-      tableData:[],
+      tableData: [],
+      type1Array: [1,23,25,37,48,49,50,51,54,56,57,58],
       detailFlag: false,
       sequence: '',// 顺序
       isUsing: false,// 是否启用
       result: '',// 结果
       notTalking: '',// 结果
-      detailData:{}
+      detailData: {},
+      options1: [
+        {id: 1, label: 'OCR地址', value: 'OCR地址'},
+        {id: 2, label: '居住地', value: '居住地'},
+        {id: 3, label: 'GPS地址', value: 'GPS地址'},
+        {id: 4, label: '工作地', value: '工作地'},
+      ],
+      options2: [
+        {id: 1, label: '男', value: '男'},
+        {id: 2, label: '女', value: '女'}
+      ],
+      options3: [
+        {id: 1, label: 'S1', value: 'S1'},
+        {id: 2, label: 'S2', value: 'S2'},
+        {id: 3, label: 'm1', value: 'm1'},
+        {id: 4, label: 'm2', value: 'm2'},
+        {id: 5, label: 'm3', value: 'm3'},
+        {id: 6, label: 'm3+', value: 'm3+'},
+      ],
+      options4: [
+        {id: 11, label: 'ACEH', value: 11},
+        {id: 14, label: 'RIAU', value: 14},
+        {id: 16, label: 'SUMATERA SELATAN', value: 16},
+        {id: 18, label: 'LAMPUNG', value: 18},
+        {id: 19, label: 'KEPULAUAN BANGKA BELITUNG', value: 19},
+        {id: 52, label: 'NUSA TENGGARA BARAT', value: 52},
+        {id: 53, label: 'NUSA TENGGARA TIMUR', value: 53},
+        {id: 65, label: 'KALIMANTAN UTARA', value: 65},
+        {id: 71, label: 'SULAWESI UTARA', value: 71},
+        {id: 72, label: 'SULAWESI TENGAH', value: 72},
+        {id: 73, label: 'SULAWESI SELATAN', value: 73},
+        {id: 74, label: 'SULAWESI TENGGARA', value: 74},
+        {id: 75, label: 'GORONTALO', value: 75},
+        {id: 76, label: 'SULAWESI BARAT', value: 76},
+        {id: 81, label: 'MALUKU', value: 81},
+        {id: 82, label: 'MALUKU UTARA', value: 82},
+        {id: 94, label: 'PAPUA', value: 94},
+        {id: 8171, label: 'KOTA AMBON', value: 8171},
+        {id: 9401, label: 'KABUPATEN MERAUKE', value: 9401},
+      ],
+      collectionType: [],
+      conditionOne: '',
+      conditionTwo: '',
+      conditionThree: '',
+      thresholdOne: '',
+      thresholdTwo: '',
+      thresholdThree: '',
+      cityIds: [],
+      modifyHitory: {}
     }
   },
   methods: {
@@ -178,6 +339,7 @@ export default {
       this.sequence = row.executeSort;
       this.notTalking = row.exceuteLimit;
       this.result = row.executeResult;
+      // this.getModifyHistory()
       this.detailFlag = true;
     },
     submit(){
@@ -195,7 +357,77 @@ export default {
         executeResult: this.result,
         exceuteLimit: this.notTalking,
         executeSort: this.sequence,
+        // conditionOne: this.conditionOne,
+        // conditionTwo: this.conditionTwo,
+        // conditionThree: this.conditionThree,
+        // thresholdOne: this.thresholdOne,
+        // thresholdTwo: this.thresholdTwo,
+        // thresholdThree: this.thresholdThree,
+        // cityList: [],
       }
+      // if(this.detailData.id==2){
+      //   this.cityIds.forEach(value=>{
+      //     switch(value){
+      //       case 1:
+      //         option.cityList.push(`${value},ACEH`);
+      //         break;
+      //       case 14:
+      //         option.cityList.push(`${value},RIAU`);
+      //         break;
+      //       case 16:
+      //         option.cityList.push(`${value},SUMATERA SELATAN`);
+      //         break;
+      //       case 18:
+      //         option.cityList.push(`${value},LAMPUNG`);
+      //         break;
+      //       case 19:
+      //         option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
+      //         break;
+      //       case 52:
+      //         option.cityList.push(`${value},NUSA TENGGARA BARAT`);
+      //         break;
+      //       case 53:
+      //         option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
+      //         break;
+      //       case 65:
+      //         option.cityList.push(`${value},KALIMANTAN UTARA`);
+      //         break;
+      //       case 71:
+      //         option.cityList.push(`${value},SULAWESI UTARA`);
+      //         break;
+      //       case 72:
+      //         option.cityList.push(`${value},SULAWESI TENGAH`);
+      //         break;
+      //       case 73:
+      //         option.cityList.push(`${value},SULAWESI SELATAN`);
+      //         break;
+      //       case 74:
+      //         option.cityList.push(`${value},SULAWESI TENGGARA`);
+      //         break;
+      //       case 75:
+      //         option.cityList.push(`${value},GORONTALO`);
+      //         break;
+      //       case 76:
+      //         option.cityList.push(`${value},SULAWESI BARAT`);
+      //         break;
+      //       case 81:
+      //         option.cityList.push(`${value},MALUKU`);
+      //         break;
+      //       case 82:
+      //         option.cityList.push(`${value},MALUKU UTARA`);
+      //         break;
+      //       case 94:
+      //         option.cityList.push(`${value},PAPUA`);
+      //         break;
+      //       case 8171:
+      //         option.cityList.push(`${value},KOTA AMBON`);
+      //         break;
+      //       case 9401:
+      //         option.cityList.push(`${value},KABUPATEN MERAUKE`);
+      //         break;
+      //     }
+      //   })
+      // }
       this.$axios.post('',option).then(res=>{
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'));
@@ -213,6 +445,74 @@ export default {
       this.result = '';
       this.notTalking = '';
     },
+    getcollectionType(){ // 获取催收阶段
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+        },
+        optionGroup:'overdue.type'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionName;
+          })
+          this.collectionType = arr;
+        }
+      })
+    },
+    getModifyHistory(){// 获取上次修改记录
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0003,
+          'sessionid': this.sessionid
+        },
+        id: this.detailData.id,
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let history = res.data.data;
+          this.modifyHitory.strCreateTime = history.strCreateTime
+          let str = ''
+          if(history.exceuteLimit){
+            str+=`禁言天数:${history.exceuteLimit}, `
+          }
+          if(history.executeResult){
+            str+=`执行结果:${history.executeResult}, `
+          }
+          if(history.executeSort){
+            str+=`执行顺序:${history.executeSort}, `
+          }
+          if(history.status){
+            str+=`是否启用:${history.status}, `
+          }
+          if(history.conditionOne){
+            str+=`条件1:${history.conditionOne}, `
+          }
+          if(history.thresholdOne){
+            str+=`阈值1:${history.thresholdOne}, `
+          }
+          if(history.conditionTwo){
+            str+=`条件2:${history.conditionTwo}, `
+          }
+          if(history.thresholdTwo){
+            str+=`阈值2:${history.thresholdTwo}, `
+          }
+          if(history.conditionThree){
+            str+=`条件3:${history.conditionThree}, `
+          }
+          if(history.thresholdThree){
+            str+=`阈值3:${history.thresholdThree}, `
+          }
+          this.modifyHitory.all = str
+          // this.modifyHitory.all = `禁言天数:${history.exceuteLimit}, 执行结果:${history.executeResult}, 执行顺序:${history.executeSort}, 是否启用:${history.status}, 条件1:${history.conditionOne}, 阈值1:${history.thresholdOne}, 条件2:${history.conditionTwo}, 阈值2:${history.thresholdTwo},  阈值3:${history.conditionThree},  阈值3:${history.thresholdThree},`
+        }
+      })
+    }
   },
   watch: {
     detailFlag(){
@@ -227,6 +527,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
   .ruletable{
     width: 100%;

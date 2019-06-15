@@ -15,7 +15,7 @@
       </el-breadcrumb>
     </div>
 
-    <audit-detail :data="data"></audit-detail>
+    <audit-detail :data="data"  :audit-type="2"></audit-detail>
 
     <!-------------------------- 选项卡 -------------------->
     <div class="xuanxiangka">

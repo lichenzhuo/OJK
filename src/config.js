@@ -26,7 +26,7 @@ const oladmin_kl = 'oladmin_kl'; // 国内访问国外正式系统
 
 const pesodana = 'pesodana'; // 国内访问国外正式系统
 const danayn = 'danayn.com'; // 国内访问国外正式系统
-const dongvtm = 'dongvtm'; // 国内访问国外正式系统
+const dongvtm = 'dongvtm.com'; // 国内访问国外正式系统
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -56,7 +56,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(danayn) > -1) {
   domain = `http://api.danayn.com`;
-  headerTotal = 'Go Dana';
+  headerTotal = 'EasyCash';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
@@ -80,6 +80,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf('dongcash.com') > -1) {
   domain = `http://api.dongcash.com`;
+  headerTotal = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+}  else if (fullCurrentDomain.indexOf(dongvtm) > -1) {
+  domain = `http://api.dongvtm.com`;
   headerTotal = 'My Dong';
   lang = 'vi';
   first_unit = '';
@@ -154,7 +160,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(instantcsh) > -1) {
   domain = `http://api.instantcsh.com`;
-  headerTotal = 'My Dong';
+  headerTotal = 'i Cash';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
@@ -174,12 +180,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   moneySplit = '$1,';
 } else {
   // domain = 'http://api.sanjinxia.com'; //  id测试接口
-  // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
+  domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
   // domain = `http://10.0.53.89:10025`; // vn 本地接口
-  domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
+  // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
   headerTotal = 'Go Dana';
-  lang = 'PHL';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
 }

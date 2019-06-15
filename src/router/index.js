@@ -10,6 +10,7 @@ let adminhome;
 
 let proManage// 产品管理列表
 let chushendetail//  我的初审订单详情
+let oldpeople//  我的初审订单详情
 let fushendetail//  我的复审订单详情
 // @@@@@@@@@@@@@@@@@@@@@@@  财务数据列表  @@@@@@@@@@@@@@@@@@@@@@@
 let backloglist
@@ -47,6 +48,7 @@ if (store.state.common.lang === 'id') {
   proManage = resolve => require(['../views/proManage/proManage-feilvbin.vue'], resolve)
   // chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.vue'], resolve)
   chushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/chushendetail-feilvbin.1.vue'], resolve)
+  oldpeople = resolve => require(['../views/woderengongshenhe/chushenDetail/oldpeople-feilvbin.vue'], resolve)
   fushendetail = resolve => require(['../views/woderengongshenhe/chushenDetail/fushendetail-feilvbin.vue'], resolve)
   backloglist = resolve => require(['../views/finance/backloglist-feilvbin.vue'], resolve)
   putloglist = resolve => require(['../views/finance/putloglist-feilvbin.vue'], resolve)
@@ -227,6 +229,7 @@ const router = new Router({
                     {path: '/myFirstAuditList', name: 'myFirstAuditList', component: myFirstAuditList },
                         //  ----------------  我的初审订单详情   -----------------
                         {path: '/chushendetail', name: 'chushendetail', component: chushendetail },
+                        {path: '/oldpeople', name: 'oldpeople', component: oldpeople },
                         {path: '/test', name: 'test', component: test },
 
                     {path: '/mySecondtAuditList', name: 'mySecondtAuditList', component: mySecondtAuditList },

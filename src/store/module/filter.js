@@ -150,6 +150,28 @@ const filters = {
           return 'auditDetail.isAdressBook.no2' // 否
       }
     },
+    ishang_status: () => (status) => { // 是否在通讯录订单状态
+      switch (status) {
+        case -1:
+          return 'auditDetail.isAdressBook.no1' // 是
+        default:
+          return 'auditDetail.isAdressBook.no2' // 否
+      }
+    },
+    idCardType_status: () => (status) => { // 是否在通讯录订单状态
+      switch (status) {
+        case 1:
+          return 'yuenan.idType.no1' // cnmd1
+        case 2:
+          return 'yuenan.idType.no2' // cnmd2
+        case 3:
+          return 'yuenan.idType.no3' // cnmd3
+        case 0:
+          return 'yuenan.idType.no4' // 未知
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
     is_addressBook1: () => (status) => { // 是否在通讯录订单状态
       switch (status) {
         case 1:

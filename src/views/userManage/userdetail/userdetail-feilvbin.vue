@@ -79,7 +79,9 @@
         </li>
         <li v-if="active==2">
           <div class="oneLineHasThree">
-            <p><span>{{$t('public.no1')}}:</span> <span>{{userSelf.name+' '+userSelf.middleName+' '+userSelf.surname}}</span>
+            <p><span>{{$t('public.no1')}}:</span> 
+            <span v-if="userSelf.name">{{userSelf.name+' '+userSelf.middleName+' '+userSelf.surname}}</span>
+            <span v-else>-</span>
             </p>
 
             <p><span>{{$t('public.sex')}}:</span> <span>{{$t($store.getters.sexStatus(userSelf.sex))}}</span></p>

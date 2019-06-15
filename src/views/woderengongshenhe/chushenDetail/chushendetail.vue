@@ -16,7 +16,7 @@
     </div>
     
     
-    <audit-detail :data="data"></audit-detail>
+    <audit-detail :data="data" :audit-type="1"></audit-detail>
 
     <!-------------------------- 选项卡 -------------------->
     <div class="xuanxiangka">

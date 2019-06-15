@@ -779,6 +779,7 @@
     <p>{{$t('public.no23')}}，<span @click="back">{{$t('back.no1')}}</span> {{$t('back.no2')}}</p>
   </div>
 </template>
+
 <script>
 import telRecordList from '../../../components/component/teltable'
 import noteRecordList from '../../../components/component/notetable-feilvbin'
@@ -1282,6 +1283,7 @@ export default {
   }
 }
 </script>
+
 <style scoped lang="scss">
 @mixin flex-cen {
   display: flex;
@@ -1577,6 +1579,19 @@ $color2:#000;
   width: 200px;
   height: 110px;
   margin-right: 40px;
+}
+.loansTypeImg{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  margin-bottom: 15px;
+  padding-top: 10px;
+  .loansTypeImg-1{
+    width: 200px;
+    height: 110px;
+    margin-right: 40px;
+  }
 }
 
 </style>
