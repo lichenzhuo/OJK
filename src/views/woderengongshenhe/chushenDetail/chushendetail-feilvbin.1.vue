@@ -1633,7 +1633,7 @@ export default {
           this.allSelectFlag2 = true
         }
       }
-      if(this.allSelectFlag1||this.allSelectFlag2){
+      if((type==1&&this.allSelectFlag1)||(type==2&&this.allSelectFlag2)||type==3){
         this.$axios.post('', option).then(res => {
           if (res.data.header.code == 0) {
             if(res.data.data == 2 ){

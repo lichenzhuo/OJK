@@ -184,13 +184,13 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="220">
             <template slot-scope="scope" >
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'"
+                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'&&scope.row.isHang!==-1"
                 class="table_opr" 
                 @click="sure(scope.row.orderNo)">
                 {{$t('public.no67')}}
               </span>
               <span 
-                v-if="$store.state.common.lang==='vi'&&scope.row.isHang==-1"
+                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_RE_LENDING')&&$store.state.common.lang==='vi'&&scope.row.isHang==-1"
                 class="table_opr" 
                 @click="showAgain(scope.row)"
               >
@@ -242,16 +242,43 @@
     <!-- 重新放款弹窗 -->
     <el-dialog :title="$t('add.no47')" :visible.sync="againFlag" width="900px">
       <p>{{$t('userDetail.reject_status.no5')+ ': ' + againDetail.tranferResult}}</p>
-      <p>{{$t('add.no51') + ': ' + againDetail.thirdChannel}}</p>
-      <p class="mt15">*{{$t('add.no50')}}</p>
+      <p class="mgt10">{{$t('add.no51') + ': ' + againDetail.thirdChannel}}</p>
+      <p class="mt15 red mb20">*{{$t('add.no50')}}</p>
+      <div class="tabs">
+        <ul class="tabs_main">
+          <li>
+            <div class="oneLineHasTwo">
+              <p><span style="font-weight:500;">{{$t('public.userId')}}:</span>
+                <span>{{againDetail.userId | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.userName')}}:</span>
+                <span>{{againDetail.userName | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="oneLineHasTwo">
+              <p><span style="font-weight:500;">{{$t('public.userPhone')}}:</span>
+                <span>{{againDetail.userPhone | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('add.no48')}}:</span>
+                <span>{{againDetail.refundCount | dataIsTrue}}</span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      
+      
+      
       <!-- <div class="detail-line">
         <span>{{$t('public.userId')}}: <i>{{againDetail.userId}}</i> </span>
         <span>{{$t('public.userName')}}: <i>{{againDetail.userName}}</i> </span>
+      </div>
+      <div class="detail-line">
         <span>{{$t('public.userPhone')}}: <i>{{againDetail.userPhone}}</i> </span>
         <span>{{$t('add.no48')}}: <i>{{againDetail.refundCount}}</i> </span>
       </div> -->
       
-      <div class="left2right mt15">
+      <!-- <div class="left2right mt15">
         <span class="left">{{$t('public.userId')}}:</span>
         <div class="right">{{againDetail.userId}}</div>
       </div>
@@ -266,9 +293,9 @@
       <div class="left2right mt15 ">
         <span class="left">{{$t('add.no48')}}:</span>
         <div class="right">{{againDetail.refundCount}}</div>
-      </div>
-      <div class="left2right mt15">
-        <span class="left">{{$t('yuenan.no18')}}:</span>
+      </div> -->
+      <div class="left2right">
+        <span class="left" style="text-align:left;font-weight:500;">{{$t('yuenan.no18')}}:</span>
         <div class="right">
           <el-select size="small" v-model="againDetail.accountType" :placeholder="$t('public.placeholder')">
             <el-option v-for="(item,i) in options4" :key="i" :label="item.label" :value="item.value">
@@ -276,7 +303,7 @@
           </el-select>
         </div>
       </div>
-      <el-form ref="form" :model="againForm" label-width="134px" size="small" :inline="true">
+      <el-form ref="form" :model="againForm" label-width="134px" size="small" :inline="true" label-position="left">
         <template v-if="againDetail.accountType!='1'">
           <el-form-item :label="$t('public.no19')">
             <el-select size="small" v-model="againDetail.bankId" :placeholder="againDetail.bankName">
@@ -285,33 +312,34 @@
             </el-select>
           </el-form-item>
           <el-form-item :label="$t('public.no20')">
-            <el-input v-model="againDetail.bankAccount"></el-input>
+            <el-input v-model="againDetail.bankAccount" style="width:215px"></el-input>
           </el-form-item>
           <el-form-item :label="$t('yuenan.no20')">
-            <el-input v-model="againDetail.cardFullname"></el-input>
+            <el-input v-model="againDetail.cardFullname" style="width:215px"></el-input>
           </el-form-item>
           <template v-if="againDetail.accountType=='2'">
             <el-form-item :label="$t('add.no49')">
-              <el-input v-model="againDetail.cardYear"></el-input>
+              <el-input v-model="againDetail.cardYear" style="width:215px"></el-input>
             </el-form-item>
             <el-form-item :label="$t('add.no56')">
-              <el-input v-model="againDetail.cardMonth"></el-input>
+              <el-input v-model="againDetail.cardMonth" style="width:215px"></el-input>
             </el-form-item>
             
           </template>
           <template v-if="againDetail.accountType=='3'">
             <el-form-item :label="$t('add.no57')">
-              <el-input v-model="againDetail.branchName"></el-input>
+              <el-input v-model="againDetail.branchName" style="width:215px"></el-input>
             </el-form-item>
           </template>
         </template>
         <el-form-item :label="$t('yuenan.no19')">
-          <el-input v-model="againDetail.email"></el-input>
+          <el-input v-model="againDetail.email" style="width:215px"></el-input>
         </el-form-item>
       </el-form>
       <div class="flex flex-center">
-        <el-button class="mg50" type="primary" @click="againSubmit">{{$t('public.no49')}}</el-button>
-        <el-button class="mg50" type="primary" @click="againClose">{{$t('public.no50')}}</el-button>
+        <el-button class="mg50" type="info" @click="againClose"> {{$t('public.no50')}} </el-button>
+        <el-button class="mg50" type="primary" @click="againSubmit">{{$t('add.no47')}}</el-button>
+        
       </div>
     </el-dialog>
 
@@ -639,5 +667,14 @@ export default {
         font-weight: normal;
       }
     }
+  }
+  .tabs .tabs_main > li{
+    padding: 0;
+    .oneLineHasTwo{
+      margin-bottom: 0;
+    }
+  }
+  .mgt10{
+    margin-top: 10px;
   }
 </style>

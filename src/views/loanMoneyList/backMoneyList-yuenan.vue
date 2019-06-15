@@ -345,11 +345,11 @@
         <el-form-item :label="$t('public.no83')" >
           <el-input type="text" style="width:200px;" :disabled="modifyForm.repaymentResult==-1" v-model="modifyForm.btId"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('public.orderStatus')">
+        <!-- <el-form-item :label="$t('public.orderStatus')">
           <el-select v-model="modifyForm.status" :disabled="modifyForm.repaymentResult==-1" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in modify_orderStatus " :key="i"></el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item :label="$t('yuenan.no27')">
           <el-select v-model="modifyForm.payType" :disabled="modifyForm.repaymentResult==-1" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in backChannel" :key="i"></el-option>

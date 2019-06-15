@@ -114,7 +114,7 @@
       </div>
     </div>
     
-    <div style="height:410px"></div>
+    <div style="height:350px"></div>
 
     <!-------------------------- 审核信息 -------------------->
     <div class="tabs mt15">
@@ -505,8 +505,8 @@
               </div>
               
               <div class="right">
-                <p class="mg10">{{$t('public.no32')}}:{{data.approveAdminName}}</p>
-                <p class="mg10">{{$t('new.no9')}}:{{oldReview.createTime + ' ~ ' + oldReview.updateTime}}</p>
+                <h4 class="fs14 mg10">{{$t('add.no61')}}</h4>
+                <p class="mg10"></p>
                 <ul class="right-ul">
                   <li class="right-list" >
                     <span class="mr20">{{$t('add.no62')}}</span>
@@ -516,8 +516,7 @@
                       </el-radio-group>
                     </div>
                   </li>
-                  <p class="mg10">personal suggestion:</p>
-
+                  <p class="mg10">personal suggestion:{{this.oneRemark}}</p>
                 </ul>
               </div>
             </div>
@@ -831,15 +830,15 @@ export default {
           }
           if(res.data.data.oldReview){
             if(this.block==1){
-              this.viewNumbe = 3
+              this.viewNumber = 3
             }else{
               if(this.data.order.status==-20||this.data.order.status==21){
-                this.viewNumbe = 3
+                this.viewNumber = 3
               }else{
                 if(res.data.data.oldReview.some(value => value.status == -1)){
-                  this.viewNumbe = 1
+                  this.viewNumber = 1
                 }else{
-                  this.viewNumbe = 3
+                  this.viewNumber = 3
                 }
               }
             }
@@ -928,6 +927,7 @@ export default {
       if(this.telFlag1){
         option.parentType = 4;
         option.workStatus = this.telStatus1;
+        this.radioArray[0].value = this.telStatus1
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -1196,6 +1196,6 @@ export default {
   }
   .pos_height{
     overflow-y: scroll;
-    height: 300px;
+    height: 230px;
   }
 </style>
