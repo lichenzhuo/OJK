@@ -440,6 +440,12 @@ export default {
     tableRowChange (val) {
       this.tableSelect = val.id;
       this.radioVal = val.id;
+    },
+    tableRowClassName({row, rowIndex}) {
+      if (rowIndex === 1) {
+        return 'info-row';
+      }
+      return '';
     }
   },
   watch: {
@@ -470,5 +476,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+  .el-table .info-row {
+    background: #409eff;
+  }
 </style>

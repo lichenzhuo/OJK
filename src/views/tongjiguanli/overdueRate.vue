@@ -15,26 +15,26 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="6" :lg="4" :xl="4" v-if="$store.state.common.lang!=='PHL'">
+        <el-col :md="6" :lg="4" :xl="4" >
           <div class="search-input">
             <span>{{$t('proManage.period')}}:</span>
             <el-input size="small" label="orderId" v-model="formInline.period"></el-input>
           </div>
         </el-col>
-          <div class="search-input">
-            <span>{{$t('totalManage.timeSelect')}}:</span>
-            <el-date-picker 
-              id="date1"
-              v-model="searchTime" 
-              size="small"
-              value-format="yyyy-MM-dd" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
+        <div class="search-input">
+          <span>{{$t('totalManage.timeSelect')}}:</span>
+          <el-date-picker 
+            id="date1"
+            v-model="searchTime" 
+            size="small"
+            value-format="yyyy-MM-dd" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_INCOME_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
@@ -59,7 +59,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68" v-if="$store.state.common.lang!=='PHL'">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" min-width="68" >
           </el-table-column>
           <el-table-column align="center" prop="loanCount" :label="$t('totalManage.lendingCount')" min-width="100">
           </el-table-column>

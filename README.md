@@ -27,3 +27,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+三方系统打包不需要规则引擎页面,初审复审详情不需要评分展示

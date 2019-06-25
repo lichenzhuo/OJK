@@ -27,6 +27,9 @@
           <div class="oneLineHasFour">
             <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName | dataIsTrue}}</span> </p>
             <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage | dataIsTrue}}</span> </p>
+            <!-- <p><span>{{$t('add.no70')}}:</span>
+              <span>{{data.userBase.regChannel | dataIsTrue}}</span>
+            </p> -->
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
@@ -68,7 +71,7 @@
           <div class="oneLineHasFour">
             <p><span>{{$t('new.no48')}}:</span> <span>{{data.orderExtra.appName | dataIsTrue}}</span> </p>
             <p style="width:50%;"><span>{{$t('new.no49')}}:</span> <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
-            <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
+            <p v-if="windowTitle==='My Dong'" class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
               <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
               <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
             </p>
@@ -111,6 +114,9 @@
                 {{$store.state.common.vi_currency}}
               </span>
             </p>
+            <!-- <p><span>{{$t('add.no69')}}:</span>
+              <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
+            </p> -->
           </div>
         </li>
         <!-- ------------ 优惠券详情 ------------------------ -->
@@ -919,6 +925,7 @@ export default {
   data () {
     return {
       flag: true,
+      windowTitle: '',
       block: '', // 控制审核提交操作是否显示
       telFlag: false,
       telFlag1: false,
@@ -1539,6 +1546,7 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
+    this.windowTitle = global.config.headerTotal
 
     this.userId = this.$route.query.userid
     this.orderNo = this.$route.query.orderNo

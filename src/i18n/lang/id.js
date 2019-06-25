@@ -1680,6 +1680,8 @@ const id = {
     no66: '请先审核',
     no67: '通过',
     no68: '拒绝',
+    no69: 'Media Pengajuan',
+    no70: 'Media Pendaftaran',
   },
   ...idLocale
 }

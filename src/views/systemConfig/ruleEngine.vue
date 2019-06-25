@@ -7,6 +7,28 @@
       </el-breadcrumb>
     </div>
 
+    <!-- ------------搜索查询栏开始-------------- -->
+    <div class="search">
+      <el-row type="flex" justify="start" :gutter="10">
+        <el-col :md="8" :lg="5" :xl="4">
+          <div class="search-input">
+            <span>规则ID:</span>
+            <el-input size="small" label="phone" v-model="formInline.id"></el-input>
+          </div>
+        </el-col>
+        <div class="search-input">
+          <span>是否启用:</span>
+          <el-select size="small" clearable v-model="formInline.status" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input ml15">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
+      </el-row>
+    </div>
+
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
       <template>
@@ -20,6 +42,11 @@
           <el-table-column align="center" prop="status" label="是否启用">
             <template slot-scope="scope">
               <span >{{scope.row.status==1?'是':'否'}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="executeResult" label="执行结果">
+            <template slot-scope="scope">
+              <span >{{scope.row.executeResult==1?'Transfer':scope.row.executeResult==2?'pass':scope.row.executeResult==-1?'reject':''}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="conditionOne" label="条件1">
@@ -86,7 +113,7 @@
           </tr>
           <!-- 不需要修改的类型 -->
           <!-- v-if="type1Array.includes(detailData.id)" -->
-          <tr >
+          <tr v-if="type1Array.includes(detailData.id)">
             <td >
               {{detailData.ruleType}}
             </td>
@@ -121,7 +148,7 @@
           </tr>
 
           <!-- id等于2的时候 -->
-          <!-- <tr v-else-if="detailData.id==2">
+          <tr v-else-if="detailData.id==2">
             <td >
               {{detailData.ruleType}}
             </td>
@@ -168,10 +195,10 @@
             <td>
               <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
             </td>
-          </tr> -->
+          </tr>
 
           <!-- 剩下的所有可输入的类型 -->
-          <!-- <tr v-else>
+          <tr v-else>
             <td >
               {{detailData.ruleType}}
             </td>
@@ -220,7 +247,7 @@
             <td>
               <el-input type="number" size="small" style="width:80px" v-model="notTalking"></el-input>
             </td>
-          </tr> -->
+          </tr>
         </table>
       </div>
       <template v-if="detailData.id==2">
@@ -229,8 +256,8 @@
           <el-checkbox v-for="(value,i) in options4" :key="i" :label="value.value">{{value.label}}</el-checkbox>
         </el-checkbox-group>
       </template>
-      <p class="mt15">上次修改时间:{{modifyHitory.strCreateTime}}</p>
-      <p class="mt15">上次修改内容:{{modifyHitory.all}}</p>
+      <p class="mt15">上次修改时间: {{modifyHitory.strCreateTime}} </p>
+      <p class="mt15" >上次修改内容: <span v-html="modifyHitory.all"> {{modifyHitory.all}} </span>   </p>
       <div class="button">
         <el-button type="primary" @click="submit">确认</el-button>
         <el-button type="primary" @click="detailClose">取消</el-button>
@@ -250,8 +277,11 @@ export default {
       flag: true,
       sessionid: '',
       pageTotal: 0,
-      // 当前页下标
-      currentPage: 1,
+      currentPage: 1,// 当前页下标
+      formInline: {// 查询信息数据对应字段
+        id: '',
+        status: '',
+      },
       // 用户信息数据模拟
       tableData: [],
       type1Array: [1,23,25,37,48,49,50,51,54,56,57,58],
@@ -267,38 +297,32 @@ export default {
         {id: 3, label: 'GPS地址', value: 'GPS地址'},
         {id: 4, label: '工作地', value: '工作地'},
       ],
-      options2: [
-        {id: 1, label: '男', value: '男'},
-        {id: 2, label: '女', value: '女'}
-      ],
-      options3: [
-        {id: 1, label: 'S1', value: 'S1'},
-        {id: 2, label: 'S2', value: 'S2'},
-        {id: 3, label: 'm1', value: 'm1'},
-        {id: 4, label: 'm2', value: 'm2'},
-        {id: 5, label: 'm3', value: 'm3'},
-        {id: 6, label: 'm3+', value: 'm3+'},
-      ],
+      options2: [],
+      options3: [],
       options4: [
-        {id: 11, label: 'ACEH', value: 11},
-        {id: 14, label: 'RIAU', value: 14},
-        {id: 16, label: 'SUMATERA SELATAN', value: 16},
-        {id: 18, label: 'LAMPUNG', value: 18},
-        {id: 19, label: 'KEPULAUAN BANGKA BELITUNG', value: 19},
-        {id: 52, label: 'NUSA TENGGARA BARAT', value: 52},
-        {id: 53, label: 'NUSA TENGGARA TIMUR', value: 53},
-        {id: 65, label: 'KALIMANTAN UTARA', value: 65},
-        {id: 71, label: 'SULAWESI UTARA', value: 71},
-        {id: 72, label: 'SULAWESI TENGAH', value: 72},
-        {id: 73, label: 'SULAWESI SELATAN', value: 73},
-        {id: 74, label: 'SULAWESI TENGGARA', value: 74},
-        {id: 75, label: 'GORONTALO', value: 75},
-        {id: 76, label: 'SULAWESI BARAT', value: 76},
-        {id: 81, label: 'MALUKU', value: 81},
-        {id: 82, label: 'MALUKU UTARA', value: 82},
-        {id: 94, label: 'PAPUA', value: 94},
-        {id: 8171, label: 'KOTA AMBON', value: 8171},
-        {id: 9401, label: 'KABUPATEN MERAUKE', value: 9401},
+        {id: 11, label: 'ACEH', value: '11'},
+        {id: 14, label: 'RIAU', value: '14'},
+        {id: 16, label: 'SUMATERA SELATAN', value: '16'},
+        {id: 18, label: 'LAMPUNG', value: '18'},
+        {id: 19, label: 'KEPULAUAN BANGKA BELITUNG', value: '19'},
+        {id: 52, label: 'NUSA TENGGARA BARAT', value: '52'},
+        {id: 53, label: 'NUSA TENGGARA TIMUR', value: '53'},
+        {id: 65, label: 'KALIMANTAN UTARA', value: '65'},
+        {id: 71, label: 'SULAWESI UTARA', value: '71'},
+        {id: 72, label: 'SULAWESI TENGAH', value: '72'},
+        {id: 73, label: 'SULAWESI SELATAN', value: '73'},
+        {id: 74, label: 'SULAWESI TENGGARA', value: '74'},
+        {id: 75, label: 'GORONTALO', value: '75'},
+        {id: 76, label: 'SULAWESI BARAT', value: '76'},
+        {id: 81, label: 'MALUKU', value: '81'},
+        {id: 82, label: 'MALUKU UTARA', value: '82'},
+        {id: 94, label: 'PAPUA', value: '94'},
+        {id: 8171, label: 'KOTA AMBON', value: '8171'},
+        {id: 9401, label: 'KABUPATEN MERAUKE', value: '9401'},
+      ],
+      options5: [
+        {id:1,label:'启用',value:'1'},
+        {id:2,label:'不启用',value:'-1'},
       ],
       collectionType: [],
       conditionOne: '',
@@ -339,8 +363,16 @@ export default {
       this.sequence = row.executeSort;
       this.notTalking = row.exceuteLimit;
       this.result = row.executeResult;
-      // this.getModifyHistory()
-      this.detailFlag = true;
+      this.thresholdOne = row.thresholdOne;
+      this.thresholdTwo = row.thresholdTwo;
+      this.thresholdThree = row.thresholdThree;
+      this.getModifyHistory();
+      if(row.cityIds){
+        row.cityIds.forEach(value=>{
+          this.cityIds.push(value)
+        })
+      }
+      
     },
     submit(){
       if(this.result==''&&this.notTalking==''&&this.sequence==''){
@@ -357,77 +389,77 @@ export default {
         executeResult: this.result,
         exceuteLimit: this.notTalking,
         executeSort: this.sequence,
-        // conditionOne: this.conditionOne,
-        // conditionTwo: this.conditionTwo,
-        // conditionThree: this.conditionThree,
-        // thresholdOne: this.thresholdOne,
-        // thresholdTwo: this.thresholdTwo,
-        // thresholdThree: this.thresholdThree,
-        // cityList: [],
+        conditionOne: this.conditionOne,
+        conditionTwo: this.conditionTwo,
+        conditionThree: this.conditionThree,
+        thresholdOne: this.thresholdOne,
+        thresholdTwo: this.thresholdTwo,
+        thresholdThree: this.thresholdThree,
+        cityList: [],
       }
-      // if(this.detailData.id==2){
-      //   this.cityIds.forEach(value=>{
-      //     switch(value){
-      //       case 1:
-      //         option.cityList.push(`${value},ACEH`);
-      //         break;
-      //       case 14:
-      //         option.cityList.push(`${value},RIAU`);
-      //         break;
-      //       case 16:
-      //         option.cityList.push(`${value},SUMATERA SELATAN`);
-      //         break;
-      //       case 18:
-      //         option.cityList.push(`${value},LAMPUNG`);
-      //         break;
-      //       case 19:
-      //         option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
-      //         break;
-      //       case 52:
-      //         option.cityList.push(`${value},NUSA TENGGARA BARAT`);
-      //         break;
-      //       case 53:
-      //         option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
-      //         break;
-      //       case 65:
-      //         option.cityList.push(`${value},KALIMANTAN UTARA`);
-      //         break;
-      //       case 71:
-      //         option.cityList.push(`${value},SULAWESI UTARA`);
-      //         break;
-      //       case 72:
-      //         option.cityList.push(`${value},SULAWESI TENGAH`);
-      //         break;
-      //       case 73:
-      //         option.cityList.push(`${value},SULAWESI SELATAN`);
-      //         break;
-      //       case 74:
-      //         option.cityList.push(`${value},SULAWESI TENGGARA`);
-      //         break;
-      //       case 75:
-      //         option.cityList.push(`${value},GORONTALO`);
-      //         break;
-      //       case 76:
-      //         option.cityList.push(`${value},SULAWESI BARAT`);
-      //         break;
-      //       case 81:
-      //         option.cityList.push(`${value},MALUKU`);
-      //         break;
-      //       case 82:
-      //         option.cityList.push(`${value},MALUKU UTARA`);
-      //         break;
-      //       case 94:
-      //         option.cityList.push(`${value},PAPUA`);
-      //         break;
-      //       case 8171:
-      //         option.cityList.push(`${value},KOTA AMBON`);
-      //         break;
-      //       case 9401:
-      //         option.cityList.push(`${value},KABUPATEN MERAUKE`);
-      //         break;
-      //     }
-      //   })
-      // }
+      if(this.detailData.id==2){
+        this.cityIds.forEach(value=>{
+          switch(value){
+            case '1':
+              option.cityList.push(`${value},ACEH`);
+              break;
+            case '14':
+              option.cityList.push(`${value},RIAU`);
+              break;
+            case '16':
+              option.cityList.push(`${value},SUMATERA SELATAN`);
+              break;
+            case '18':
+              option.cityList.push(`${value},LAMPUNG`);
+              break;
+            case '19':
+              option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
+              break;
+            case '52':
+              option.cityList.push(`${value},NUSA TENGGARA BARAT`);
+              break;
+            case '53':
+              option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
+              break;
+            case '65':
+              option.cityList.push(`${value},KALIMANTAN UTARA`);
+              break;
+            case '71':
+              option.cityList.push(`${value},SULAWESI UTARA`);
+              break;
+            case '72':
+              option.cityList.push(`${value},SULAWESI TENGAH`);
+              break;
+            case '73':
+              option.cityList.push(`${value},SULAWESI SELATAN`);
+              break;
+            case '74':
+              option.cityList.push(`${value},SULAWESI TENGGARA`);
+              break;
+            case '75':
+              option.cityList.push(`${value},GORONTALO`);
+              break;
+            case '76':
+              option.cityList.push(`${value},SULAWESI BARAT`);
+              break;
+            case '81':
+              option.cityList.push(`${value},MALUKU`);
+              break;
+            case '82':
+              option.cityList.push(`${value},MALUKU UTARA`);
+              break;
+            case '94':
+              option.cityList.push(`${value},PAPUA`);
+              break;
+            case '8171':
+              option.cityList.push(`${value},KOTA AMBON`);
+              break;
+            case '9401':
+              option.cityList.push(`${value},KABUPATEN MERAUKE`);
+              break;
+          }
+        })
+      }
       this.$axios.post('',option).then(res=>{
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'));
@@ -444,6 +476,13 @@ export default {
       this.isUsing = false;
       this.result = '';
       this.notTalking = '';
+      this.conditionOne = '';
+      this.conditionTwo = '';
+      this.conditionThree = '';
+      this.thresholdOne = '';
+      this.thresholdTwo = '';
+      this.thresholdThree = '';
+      this.modifyHitory = {};
     },
     getcollectionType(){ // 获取催收阶段
       let option = {
@@ -460,7 +499,7 @@ export default {
             value.label = value.optionName;
             value.value = value.optionName;
           })
-          this.collectionType = arr;
+          this.options3 = arr;
         }
       })
     },
@@ -475,43 +514,70 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let history = res.data.data;
-          this.modifyHitory.strCreateTime = history.strCreateTime
-          let str = ''
-          if(history.exceuteLimit){
-            str+=`禁言天数:${history.exceuteLimit}, `
+          if(res.data.data){
+            let history = res.data.data;
+            this.modifyHitory.strCreateTime = history.strCreateTime
+            let str = ''
+            if(history.exceuteLimit){
+              str+=` 禁言天数: ${history.exceuteLimit}; `
+            }
+            if(history.executeResult){
+              str+=` 执行结果: ${history.executeResult==-1?'拒绝':history.executeResult==1?'转人工':'直接放款'}; `
+            }
+            if(history.executeSort){
+              str+=` 执行顺序: ${history.executeSort}; `
+            }
+            if(history.status){
+              str+=` 是否启用: ${history.status==1?'启用':'不启用'}; `
+            }
+            if(history.conditionOne){
+              str+=` 条件1: ${history.conditionOne}; `
+            }
+            if(history.thresholdOne){
+              str+=` 阈值1: ${history.thresholdOne}; `
+            }
+            if(history.conditionTwo){
+              str+=`条件2: ${history.conditionTwo}; `
+            }
+            if(history.thresholdTwo){
+              str+=` 阈值2: ${history.thresholdTwo}; `
+            }
+            if(history.conditionThree){
+              str+=` 条件3: ${history.conditionThree}; `
+            }
+            if(history.thresholdThree){
+              str+=` 阈值3: ${history.thresholdThree}; `
+            }
+            this.modifyHitory.all = str
+            // this.modifyHitory.all = `禁言天数:${history.exceuteLimit}, 执行结果:${history.executeResult}, 执行顺序:${history.executeSort}, 是否启用:${history.status}, 条件1:${history.conditionOne}, 阈值1:${history.thresholdOne}, 条件2:${history.conditionTwo}, 阈值2:${history.thresholdTwo},  阈值3:${history.conditionThree},  阈值3:${history.thresholdThree},`
+          
           }
-          if(history.executeResult){
-            str+=`执行结果:${history.executeResult}, `
-          }
-          if(history.executeSort){
-            str+=`执行顺序:${history.executeSort}, `
-          }
-          if(history.status){
-            str+=`是否启用:${history.status}, `
-          }
-          if(history.conditionOne){
-            str+=`条件1:${history.conditionOne}, `
-          }
-          if(history.thresholdOne){
-            str+=`阈值1:${history.thresholdOne}, `
-          }
-          if(history.conditionTwo){
-            str+=`条件2:${history.conditionTwo}, `
-          }
-          if(history.thresholdTwo){
-            str+=`阈值2:${history.thresholdTwo}, `
-          }
-          if(history.conditionThree){
-            str+=`条件3:${history.conditionThree}, `
-          }
-          if(history.thresholdThree){
-            str+=`阈值3:${history.thresholdThree}, `
-          }
-          this.modifyHitory.all = str
-          // this.modifyHitory.all = `禁言天数:${history.exceuteLimit}, 执行结果:${history.executeResult}, 执行顺序:${history.executeSort}, 是否启用:${history.status}, 条件1:${history.conditionOne}, 阈值1:${history.thresholdOne}, 条件2:${history.conditionTwo}, 阈值2:${history.thresholdTwo},  阈值3:${history.conditionThree},  阈值3:${history.thresholdThree},`
+          this.detailFlag = true;
         }
       })
+    },
+    getsexStatus () { // 获取app名字和包名
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+          'sessionid': this.sessionid
+        },
+        optionGroup:'sex'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionName;
+          })
+          this.options2 = arr;
+        }
+      })
+    },
+    select(){
+      this.getTableData()
     }
   },
   watch: {
@@ -523,7 +589,10 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
-    this.getTableData()
+    this.getTableData();
+    this.getsexStatus();
+    this.getcollectionType();
+    
   }
 }
 </script>
