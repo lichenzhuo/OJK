@@ -102,12 +102,12 @@
           </el-table-column>
           <el-table-column align="center" prop="canAdvanceDay" :label="$t('proManage.canAdvanceDay')">
           </el-table-column>
-          <el-table-column align="center" prop="userGrade" :label="$t('proManage.userGrade')">
+          <!-- <el-table-column align="center" prop="userGrade" :label="$t('proManage.userGrade')">
             <template slot-scope="scope">
               <span v-if="scope.row.userGrade!=''">{{scope.row.userGrade}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="minSuccessRepayments" label="成功还款次数≥">
           </el-table-column>
           <el-table-column align="center" prop="userOverdueMaxDays" label="最大逾期天数≤">

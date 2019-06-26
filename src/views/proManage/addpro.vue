@@ -76,6 +76,18 @@ export default {
         }
       }
     }
+    var validateNumber2 = (rule, value, callback) => {
+      let reg = /^\+?[0-9]*$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.num')))
+        }
+      }
+    }
     var validateFloat = (rule, value, callback) => {
       let reg = /^[0-9]+(.[0-9]{1,4})?$/
       if (value === '') {
@@ -130,7 +142,7 @@ export default {
           { validator: validateNumber, trigger: 'blur' }
         ],
         minSuccessRepayments: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber2, trigger: 'blur' }
         ],
         userGrade: [
           { required: true, trigger: 'change' }

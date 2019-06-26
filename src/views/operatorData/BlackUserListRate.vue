@@ -12,7 +12,7 @@
       <p>{{$t('channelData.no17')}}</p>
     </div>
      
-  <!-- ------------- 搜索查询栏 ------------------------ -->
+    <!-- ------------- 搜索查询栏 ------------- -->
     <search-filter 
       :filter="filter" 
       @search="search" 
@@ -21,7 +21,7 @@
       :outputRight="$store.state.common.permiss.includes('RIGHT_CHANNEL_DATA_EXP')">
     </search-filter>
   
-  <!-- ----- 选项卡 ------ -->
+    <!-- ----- 选项卡 ------ -->
     <div class="tabs" v-if="$store.state.common.permiss.includes('RIGHT_CHANNEL_DATA_LIST')">
       <template>
         <el-tabs v-model="activeTab" @tab-click="search">
@@ -123,6 +123,7 @@
 
   </div>
 </template>
+
 <script>
 import searchFilter from '../../components/component/filter'
 export default {
