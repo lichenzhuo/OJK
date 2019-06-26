@@ -150,15 +150,19 @@ let collectionGroup = resolve => require(['../views/staffManage/collectionGroup.
 let servicePeopleList = resolve => require(['../views/staffManage/servicePeopleList.vue'], resolve)
 let serviceGroup = resolve => require(['../views/staffManage/serviceGroup.vue'], resolve)
 
+// @@@@@@@@@@@@@@@@@@@@@@@   运营数据   @@@@@@@@@@@@@@@@@@@@@@@'
+let inviteFriend = resolve => require(['../views/operatorData/inviteFriend.vue'], resolve)
+let cash = resolve => require(['../views/operatorData/cash.vue'], resolve)
+let channelData = resolve => require(['../views/operatorData/channelData.vue'], resolve)
+let BlackUserListRate = resolve => require(['../views/operatorData/BlackUserListRate.vue'], resolve)
+// BlackUserListRate
 // @@@@@@@@@@@@@@@@@@@@@@@   运营管理   @@@@@@@@@@@@@@@@@@@@@@@
 let couponSetting = resolve => require(['../views/operatorManage/couponSetting.vue'], resolve)
 let activity = resolve => require(['../views/operatorManage/activity.vue'], resolve)
 let otherCoupons = resolve => require(['../views/operatorManage/otherCoupons.vue'], resolve)
 let couponUsed = resolve => require(['../views/operatorManage/couponUsed.vue'], resolve)
 let popularizeList = resolve => require(['../views/operatorManage/popularizeList.vue'], resolve)
-let inviteFriend = resolve => require(['../views/operatorData/inviteFriend.vue'], resolve)
-let cash = resolve => require(['../views/operatorData/cash.vue'], resolve)
-let channelData = resolve => require(['../views/operatorData/channelData.vue'], resolve)
+
 let ManualnotePut = resolve => require(['../views/operatorManage/ManualnotePut.vue'], resolve)
 let buildInNotePut = resolve => require(['../views/operatorManage/buildInNotePut.vue'], resolve)
 
@@ -306,15 +310,19 @@ const router = new Router({
                     {path: '/servicePeopleList', name: 'servicePeopleList', component: servicePeopleList },
                     {path: '/serviceGroup', name: 'serviceGroup', component: serviceGroup },
 
+                    // @@@@@@@@@@@@@@@@@@@@@@@   运营数据   @@@@@@@@@@@@@@@@@@@@@@@
+                    {path: '/inviteFriend', name: 'inviteFriend', component: inviteFriend },
+                    {path: '/cash', name: 'cash', component: cash },
+                    {path: '/channelData', name: 'channelData', component: channelData },
+                    {path: '/BlackUserListRate', name: 'BlackUserListRate', component: BlackUserListRate },
+
                     // @@@@@@@@@@@@@@@@@@@@@@@   运营管理相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/couponSetting', name: 'couponSetting', component: couponSetting },
                     {path: '/activity', name: 'activity', component: activity },
                     {path: '/otherCoupons', name: 'otherCoupons', component: otherCoupons },
                     {path: '/couponUsed', name: 'couponUsed', component: couponUsed },
                     {path: '/popularizeList', name: 'popularizeList', component: popularizeList },
-                    {path: '/inviteFriend', name: 'inviteFriend', component: inviteFriend },
-                    {path: '/cash', name: 'cash', component: cash },
-                    {path: '/channelData', name: 'channelData', component: channelData },
+                    
                     {path: '/manualnoteput', name: 'ManualnotePut', component: ManualnotePut },
                     {path: '/buildinnoteput', name: 'buildInNotePut', component: buildInNotePut },
 

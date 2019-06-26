@@ -1605,11 +1605,11 @@ $color2:#000;
     width: 410px;
     height: auto;
     display: flex;
-    margin: 20px 0;
+    margin: 20px 10px;
     justify-content: space-between;
     .idimg{
       width: 200px;
-      height: auto;
+      height: 150px;
     }
   }
 }

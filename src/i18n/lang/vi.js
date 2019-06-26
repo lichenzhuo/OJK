@@ -1710,6 +1710,8 @@ const vi = {
     no66: '请先审核',
     no67: '通过',
     no68: '拒绝',
+    no69: 'Kênh xin vay',
+    no70: 'Kênh đăng ký',
   },
   yn:{
     no51:'điểm số',

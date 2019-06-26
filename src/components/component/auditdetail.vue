@@ -57,6 +57,9 @@
           <p><span>Email:</span>
             <span>{{data.userSelf.email | dataIsTrue}}</span>
           </p>
+          <p><span>{{$t('add.no70')}}:</span>
+            <span>{{data.userBase.regChannel | dataIsTrue}}</span>
+          </p>
         </div>
         <div class="oneLineHasOne">
           <p><span>{{$t('public.no6')}}:</span>
@@ -118,6 +121,9 @@
           </p>
           <p><span>{{$t('public.CreateDate')}}:</span>
             <span>{{data.order.strCreateTime | dataIsTrue}}</span>
+          </p>
+          <p><span>{{$t('add.no69')}}:</span>
+            <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
           </p>
         </div>
       </li>

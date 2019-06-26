@@ -243,6 +243,34 @@
     <el-dialog :title="$t('add.no47')" :visible.sync="againFlag" width="900px">
       <p>{{$t('userDetail.reject_status.no5')+ ': ' + againDetail.tranferResult}}</p>
       <p class="mgt10">{{$t('add.no51') + ': ' + againDetail.thirdChannel}}</p>
+      <p class="mt15 red " v-if="againDetail.refundCount>0">最近一次的成功放款账户</p>
+      <table class="box" width="100%" v-if="againDetail.refundCount>0">
+        <tr>
+          <th width="13%">{{$t('yuenan.no18')}}</th>
+          <th width="13%">{{$t('public.no19')}}</th>
+          <th width="13%">{{$t('public.no20')}}</th>
+          <th width="13%">{{$t('yuenan.no20')}}</th>
+          <th width="13%">{{$t('yuenan.no19')}}</th>
+          <th width="13%">{{$t('yuenan.no21')}}</th>
+          <th width="9%">{{$t('public.no22')}}</th>
+        </tr>
+        <template v-if="againDetail.successUserBankVN!==null&&againDetail.successUserBankVN!==undefined&&againDetail.successUserBankVN!=''">
+          <tr >
+              <td >{{againDetail.successUserBankVN.bankType | dataIsTrue}}</td>
+              <td>{{againDetail.successUserBankVN.bankType==='NganLuong'?'-':againDetail.successUserBankVN.bankName}}</td>
+              <td>{{againDetail.successUserBankVN.bankType==='NganLuong'?'-':againDetail.successUserBankVN.bankAccount}}</td>
+              <td >{{againDetail.successUserBankVN.cardFullname}}</td>
+              <td>{{againDetail.successUserBankVN.email}}</td>
+              <td>{{againDetail.successUserBankVN.cardYear+'-'+againDetail.successUserBankVN.cardMonth}}</td>
+              <td >{{againDetail.successUserBankVN.status==1?$t('userDetail.bankId_status.no1'):$t('userDetail.bankId_status.no2')}}</td>
+          </tr>
+        </template>
+        <template v-else>
+          <div style="textAlign:center;width:500%;height:40px;lineHeight:40px">
+            {{$t('public.no23')}}
+          </div>
+        </template>
+      </table>
       <p class="mt15 red mb20">*{{$t('add.no50')}}</p>
       <div class="tabs">
         <ul class="tabs_main">
@@ -471,7 +499,7 @@ export default {
     sure (id) { // 确认放款款弹窗
       this.orderNo = id;
       this.surePutFlag = true;
-      // this.putMoneyResult();
+      this.putMoneyResult();
     },
     putMoneyResult () { // 点击确认放款按钮项第三方查询结果
       let option = {
@@ -594,18 +622,19 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.againDetail.email = res.data.data.email
-          this.againDetail.accountType = res.data.data.accountType
-          this.againDetail.refundCount = res.data.data.refundCount
-          this.againDetail.tranferResult = res.data.data.tranferResult
-          this.againDetail.thirdChannel = res.data.data.thirdChannel
-          this.againDetail.cardFullname = res.data.data.cardFullname
-          this.againDetail.branchName = res.data.data.branchName
-          this.againDetail.bankAccount = res.data.data.bankAccount
-          this.againDetail.bankName = res.data.data.bankName
-          this.againDetail.cardYear = res.data.data.cardYear
-          this.againDetail.cardMonth = res.data.data.cardMonth
-          this.againDetail.bankId = (res.data.data.bankId==0||res.data.data.bankId==1)?'':String(res.data.data.bankId)
+          this.againDetail.email = res.data.data.orderUserBankVN.email
+          this.againDetail.accountType = res.data.data.orderUserBankVN.accountType
+          this.againDetail.refundCount = res.data.data.orderUserBankVN.refundCount
+          this.againDetail.tranferResult = res.data.data.orderUserBankVN.tranferResult
+          this.againDetail.thirdChannel = res.data.data.orderUserBankVN.thirdChannel
+          this.againDetail.cardFullname = res.data.data.orderUserBankVN.cardFullname
+          this.againDetail.branchName = res.data.data.orderUserBankVN.branchName
+          this.againDetail.bankAccount = res.data.data.orderUserBankVN.bankAccount
+          this.againDetail.bankName = res.data.data.orderUserBankVN.bankName
+          this.againDetail.cardYear = res.data.data.orderUserBankVN.cardYear
+          this.againDetail.cardMonth = res.data.data.orderUserBankVN.cardMonth
+          this.againDetail.successUserBankVN = res.data.data.successUserBankVN
+          this.againDetail.bankId = (res.data.data.orderUserBankVN.bankId==0||res.data.data.orderUserBankVN.bankId==1)?'':String(res.data.data.orderUserBankVN.bankId)
           // this.againFlag = true
         }
       })
@@ -676,5 +705,49 @@ export default {
   }
   .mgt10{
     margin-top: 10px;
+  }
+  .box{
+    width: 100%;
+  }
+  table{
+    margin-bottom: 1em;
+    overflow: auto;
+    box-sizing: border-box;
+    display: table;
+    text-shadow: 0px 1px 0px #fff;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #292e31;
+    font-size: 14px;
+    tr:last-child {
+        border-bottom: 1px solid #ccc;
+    }
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+    th {
+        padding: 5px 10px;
+        border-bottom: 1px solid #ccc;
+        vertical-align: bottom;
+        line-height: 1.6;
+        text-align: left;
+        font-weight: bold;
+        display: table-cell;
+    }
+    tr:nth-child(odd)>td {
+        background-color: #f8f8f8;
+    }
+    td.nowrap {
+        word-break: keep-all;
+        white-space: nowrap;
+    }
+    td{
+        display: table-cell;
+        padding: 10px;
+        vertical-align: top;
+        line-height: 1.6;
+    }
   }
 </style>

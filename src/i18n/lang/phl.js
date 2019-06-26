@@ -1717,6 +1717,8 @@ const phl = {
     no66: 'Please finish all terms.',
     no67: 'approve',
     no68: 'decline',
+    no69: '申请渠道',
+    no70: '注册渠道',
   },
   yn:{
     loanUse:{

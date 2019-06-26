@@ -187,7 +187,7 @@
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_LIST')">
       <template>
         <el-table :data="tableData" size="small" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="55">
+          <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('public.orderId')">
           </el-table-column>
@@ -480,6 +480,9 @@ export default {
     },
     handleSelectionChange (val) { // 表格选中项数据
       this.multipleSelection = val;
+    },
+    unSelect (row) {
+      return row.status != 51;
     },
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderIds == '') {
