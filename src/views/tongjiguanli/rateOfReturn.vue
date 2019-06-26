@@ -58,52 +58,43 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" v-if="$store.state.common.lang!=='PHL'">
-          </el-table-column>
           <el-table-column align="center" prop="shouldReturnCount" :label="$t('totalManage.returnCount')">
+            <template slot-scope="scope">
+              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundCountRate)}}%</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="receivableAmount" :label="$t('totalManage.returnMoney')">
+          <el-table-column align="center" prop="receivableAmount" :label="$t('add.no80')">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}
                 {{$store.getters.moneySplit(scope.row.receivableAmount)}}
                 {{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="refundCount" :label="$t('totalManage.realReturnCount')">
+          <el-table-column align="center" prop="refundCount" label="D0">
           </el-table-column>
-          <el-table-column align="center" prop="refundAmount" :label="$t('totalManage.realReturnMonry')">
-            <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}
-                {{$store.getters.moneySplit(scope.row.refundAmount)}}
-                {{$store.state.common.vi_currency}}</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D1">
           </el-table-column>
-          <el-table-column align="center" prop="unpaidCount" :label="$t('totalManage.noReturnCount')">
+          <el-table-column align="center" prop="refundCount" label="D2">
           </el-table-column>
-          <el-table-column align="center" prop="unpaidAmount" :label="$t('totalManage.noReturnMonry')">
-            <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.unpaidAmount)}}{{$store.state.common.vi_currency}}</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D3">
           </el-table-column>
-          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundCountRate" :label="$t('add.no16')+'('+$t('totalManage.money')+')'">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundCountRate)}}%</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D4">
           </el-table-column>
-          <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundAmountRate" :label="$t('add.no16')+'('+$t('totalManage.order')+')'">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundAmountRate)}}%</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D5">
           </el-table-column>
-          <el-table-column align="center" prop="moneyRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.money')+')'">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D6">
           </el-table-column>
-          <el-table-column align="center" prop="countRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.order')+')'">
-            <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
-            </template>
+          <el-table-column align="center" prop="refundCount" label="D7">
+          </el-table-column>
+          <el-table-column align="center" prop="refundCount" label="D8">
+          </el-table-column>
+          <el-table-column align="center" prop="refundCount" label="D9">
+          </el-table-column>
+          <el-table-column align="center" prop="refundCount" label="D10">
+          </el-table-column>
+          <el-table-column align="center" prop="refundCount" label="D15">
+          </el-table-column>
+          <el-table-column align="center" prop="refundCount" label="D15+">
           </el-table-column>
         </el-table>
       </template>
@@ -204,34 +195,17 @@ export default {
     },
     getSummaries() {// 总和
       let sums;
-      if(this.$store.state.common.lang!=='PHL'){
-        sums = [
-          this.$t('public.addTotal'),
-          '-',
-          this.tableData1.shouldReturnCount,
-          this.$store.getters.moneySplit(this.tableData1.receivableAmount),
-          this.tableData1.refundCount,
-          this.$store.getters.moneySplit(this.tableData1.refundAmount),
-          this.tableData1.unpaidCount,
-          this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
-          this.$store.getters.twoPoint(this.tableData1.firstOverRefundCountRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.firstOverRefundAmountRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
-        ]
-      }else{
-        sums = [
-          this.$t('public.addTotal'),
-          this.tableData1.shouldReturnCount,
-          this.$store.getters.moneySplit(this.tableData1.receivableAmount),
-          this.tableData1.refundCount,
-          this.$store.getters.moneySplit(this.tableData1.refundAmount),
-          this.tableData1.unpaidCount,
-          this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
-        ]
-      }
+      sums = [
+        this.$t('public.addTotal'),
+        this.tableData1.shouldReturnCount,
+        this.$store.getters.moneySplit(this.tableData1.receivableAmount),
+        this.tableData1.refundCount,
+        this.$store.getters.moneySplit(this.tableData1.refundAmount),
+        this.tableData1.unpaidCount,
+        this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
+        this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
+        this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+      ]
       return sums;
     }
   },

@@ -208,6 +208,8 @@ const actionmap = {
     // 渠道数据
     channelDataList: 'CHANNEL0001',
     channelDataExcel: 'CHANNEL0002',
+    BLACKRATE0001: 'BLACKRATE0001',
+    BLACKRATE0002: 'BLACKRATE0002',
     // 委外管理
     outSourcedList: 'ENTRUST0001',
     outSourcedList_goback: 'ENTRUST0002',

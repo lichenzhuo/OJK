@@ -308,6 +308,11 @@
                   return index.index == '12'
                 })[0].subs.push({index: 'channelData', title: 'channelData.crumbsTwo'})
               }
+              if (value.uniqueSign == 'MENU_BLACK_RATE_DATA') {
+                item.filter(index => {
+                  return index.index == '12'
+                })[0].subs.push({index: 'BlackUserListRate', title: 'channelData.no17'})
+              }
       
               // 贷后运营
               if (value.uniqueSign == 'MENU_LOANS_OPERATES') {

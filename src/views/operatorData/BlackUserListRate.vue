@@ -17,12 +17,12 @@
       :filter="filter" 
       @search="search" 
       @output="putExcel" 
-      :searchRight="$store.state.common.permiss.includes('RIGHT_CHANNEL_DATA_QUERY')"
-      :outputRight="$store.state.common.permiss.includes('RIGHT_CHANNEL_DATA_EXP')">
+      :searchRight="$store.state.common.permiss.includes('RIGHT_BLACK_RATE_QUERY')"
+      :outputRight="$store.state.common.permiss.includes('RIGHT_BLACK_RATE_EXP')">
     </search-filter>
   
     <!-- ----- 选项卡 ------ -->
-    <div class="tabs" v-if="$store.state.common.permiss.includes('RIGHT_CHANNEL_DATA_LIST')">
+    <div class="tabs" v-if="$store.state.common.permiss.includes('RIGHT_BLACK_RATE_LIST')">
       <template>
         <el-tabs v-model="activeTab" @tab-click="search">
           <el-tab-pane :label="$t('channelData.day')" name="1">
@@ -205,7 +205,7 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.channelDataList,
+          action: this.$store.state.actionMap.BLACKRATE0001,
           sessionid: sessionStorage.getItem('sessionid'),
           page: {
             index: this.page.current,
@@ -243,7 +243,7 @@ export default {
         let option = {
           header: {
             ...this.$base,
-            action: this.$store.state.actionMap.channelDataExcel,
+            action: this.$store.state.actionMap.BLACKRATE0002,
             sessionid: sessionStorage.getItem('sessionid'),
             page: {
               index: this.page.current,
