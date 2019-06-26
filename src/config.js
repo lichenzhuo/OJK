@@ -17,7 +17,7 @@ const vnBACK = 'back.mydong'; // 越南生产环境
 const phBACK = 'back.getpeso'; // 菲律宾生产环境
 
 const vnCASH = 'dongcash'; // 菲律宾生产环境
-const instantcsh = 'instantcsh'; // 越南没有LOGO的
+const instantcsh = 'instantcsh'; // 越南没有LOGO的I Cash
 
 const oladmin_yn = 'oladmin_yn'; // 国内访问国外正式系统
 const oladmin_vn = 'oladmin_vn'; // 国内访问国外正式系统
@@ -37,8 +37,11 @@ let lang = '';
 let first_unit = '';
 let last_unit = '';
 let moneySplit = '$1.';
+let headerImg = '';
 if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   domain = `http://api.sanjinxia.com`;
+  headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   headerTotal = 'Go Dana';
   lang = 'id';
   first_unit = 'Rp';
@@ -46,12 +49,14 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(oladmin_yn) > -1) {
   domain = `http://olapi_yn.sanjinxia.com`;
   headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(pesodana) > -1) {
   domain = `http://api.pesodana.com`;
   headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
@@ -64,18 +69,21 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(oladmin_kl) > -1) {
   domain = `http://olapi_kl.sanjinxia.com`;
   headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnDEV) > -1) {
   domain = `http://api-vn.sanjinxia.com`;
   headerTotal = 'My Dong';
+  headerImg = 'My Dong';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(oladmin_vn) > -1) {
   domain = `http://olapi_vn.sanjinxia.com`;
   headerTotal = 'My Dong';
+  headerImg = 'My Dong';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
@@ -85,21 +93,17 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf('dongcash.com') > -1) {
-  domain = `http://api.dongcash.com`;
-  headerTotal = 'My Dong';
-  lang = 'vi';
-  first_unit = '';
-  last_unit = 'VND';
-}  else if (fullCurrentDomain.indexOf(dongvtm) > -1) {
+} else if (fullCurrentDomain.indexOf(dongvtm) > -1) {
   domain = `http://api.dongvtm.com`;
   headerTotal = 'My Dong';
+  headerImg = 'dongvtm';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(phDEV) > -1) {
   domain = `http://api-ph.sanjinxia.com`;
   headerTotal = 'Get Peso';
+  headerImg = 'Get Peso';
   lang = 'PHL';
   first_unit = '';
   last_unit = 'PHP';
@@ -107,6 +111,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(oladmin_ph) > -1) {
   domain = `http://olapi_ph.sanjinxia.com`;
   headerTotal = 'Get Peso';
+  headerImg = 'Get Peso';
   lang = 'PHL';
   first_unit = '';
   last_unit = 'PHP';
@@ -114,6 +119,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(ynPRO) > -1) {
   domain = `http://api.myrupiah123.com`;
   headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
@@ -126,30 +132,28 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(ynPRO1) > -1) {
   domain = `http://api.kilatrupiah.com`;
   headerTotal = 'kilatrupiah';
+  headerImg = 'kilatrupiah';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(ynPRO2) > -1) {
   domain = `http://api.kilatloan.com`;
   headerTotal = 'kilatloan';
+  headerImg = 'kilatloan';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
   domain = `http://api.dongabc.com`;
   headerTotal = 'My Dong';
+  headerImg = 'My Dong';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(vnPRO1) > -1) {
   domain = `https://api.mydong.vn`;
   headerTotal = 'My Dong';
-  lang = 'vi';
-  first_unit = '';
-  last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(dongvtm) > -1) {
-  domain = `http://api.dongvtm.com`;
-  headerTotal = 'My Dong';
+  headerImg = 'My Dong';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
@@ -175,6 +179,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(phPRO) > -1) {
   domain = `https://api.getpeso.ph`;
   headerTotal = 'Get Peso';
+  headerImg = 'Get Peso';
   lang = 'PHL';
   first_unit = '';
   last_unit = 'PHP';
@@ -193,6 +198,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
   headerTotal = 'Go Dana';
+  headerImg = 'Go Dana';
   lang = 'id';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
@@ -202,6 +208,7 @@ global.config = {
   requestUrl: `${domain}/xjdApi/doCallAdmin`, // 请求地址
   excelUrl: `${domain}/xjdApi/exportExcel`, // 请求地址
   headerTotal: headerTotal,
+  headerImg: headerImg,
   documentTile: headerTotal+'后台管理系统',
   lang: lang,
   first_unit: first_unit,
