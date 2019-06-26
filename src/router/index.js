@@ -154,7 +154,7 @@ let serviceGroup = resolve => require(['../views/staffManage/serviceGroup.vue'],
 let inviteFriend = resolve => require(['../views/operatorData/inviteFriend.vue'], resolve)
 let cash = resolve => require(['../views/operatorData/cash.vue'], resolve)
 let channelData = resolve => require(['../views/operatorData/channelData.vue'], resolve)
-let BlackUserListRate = resolve => require(['../views/operatorData/BlackUserListRate.vue'], resolve)
+// let BlackUserListRate = resolve => require(['../views/operatorData/BlackUserListRate.vue'], resolve)
 // BlackUserListRate
 // @@@@@@@@@@@@@@@@@@@@@@@   运营管理   @@@@@@@@@@@@@@@@@@@@@@@
 let couponSetting = resolve => require(['../views/operatorManage/couponSetting.vue'], resolve)
@@ -314,7 +314,7 @@ const router = new Router({
                     {path: '/inviteFriend', name: 'inviteFriend', component: inviteFriend },
                     {path: '/cash', name: 'cash', component: cash },
                     {path: '/channelData', name: 'channelData', component: channelData },
-                    {path: '/BlackUserListRate', name: 'BlackUserListRate', component: BlackUserListRate },
+                    // {path: '/BlackUserListRate', name: 'BlackUserListRate', component: BlackUserListRate },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   运营管理相关   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/couponSetting', name: 'couponSetting', component: couponSetting },
