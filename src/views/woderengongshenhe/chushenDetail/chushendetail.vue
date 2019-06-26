@@ -1350,49 +1350,7 @@ $color1:#959fb9;
 $color2:#000;
 
 
-// 分割样式
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  span {
-    display: block;
-    float: left;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  .add{
-    margin-left: 4px;
-    width: 26px;
-    height: 26px;
-    font-size: 22px;
-    line-height: 26px;
-    border: 1px solid red;
-    text-align: center;
-    color: red;
-    border-radius: 7px;
-    cursor: pointer;
-  }
-  .tooltip{
-    width: 15px;
-    height: 15px;
-    img{
-      display: block;
-    }
-  }
-}
+
 .pai-active{
   margin: 16px 0 0;
 }
@@ -1537,11 +1495,11 @@ $color2:#000;
     width: 410px;
     height: auto;
     display: flex;
-    margin: 20px 0;
+    margin: 20px 10px;
     justify-content: space-between;
     .idimg{
       width: 200px;
-      height: auto;
+      height: 150px;
     }
   }
 }

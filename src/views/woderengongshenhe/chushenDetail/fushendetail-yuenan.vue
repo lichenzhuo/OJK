@@ -27,9 +27,9 @@
           <div class="oneLineHasFour">
             <p><span>{{$t('new.no48')}}:</span> <span>{{data.userBase.appName | dataIsTrue}}</span> </p>
             <p><span>{{$t('new.no49')}}:</span> <span>{{data.userBase.appPackage | dataIsTrue}}</span> </p>
-            <!-- <p><span>{{$t('add.no70')}}:</span>
+            <p><span>{{$t('add.no70')}}:</span>
               <span>{{data.userBase.regChannel | dataIsTrue}}</span>
-            </p> -->
+            </p>
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
@@ -70,7 +70,10 @@
         <li  v-if="active2==2">
           <div class="oneLineHasFour">
             <p><span>{{$t('new.no48')}}:</span> <span>{{data.orderExtra.appName | dataIsTrue}}</span> </p>
-            <p style="width:50%;"><span>{{$t('new.no49')}}:</span> <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
+            <p><span>{{$t('new.no49')}}:</span> <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> </p>
+            <p><span>{{$t('add.no69')}}:</span>
+              <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
+            </p>
             <p v-if="windowTitle==='My Dong'" class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
               <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
               <span style="color: coral;font-size:30px;" v-else>{{$t('yn.no52')}}</span>
@@ -286,26 +289,6 @@
                   </div>
                   <div v-else class="idimg pic" >
                     <img src="../../../assets/img/null.png" :title="$t('pic.no2')">
-                  </div>
-                </template>
-              </div>
-              <div class="idimgbox">
-                <template>
-                  <div v-if="data.userIdcard.idcardFairPhotoUrl" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.idcardFairPhotoUrl})">
-                    <img :src="data.userIdcard.idcardFairPhotoUrl" :alt="$t('pic.no5')" :title="$t('pic.no5')">
-                  </div>
-                  <div v-else class="idimg pic" >
-                    <img src="../../../assets/img/null.png" :title="$t('pic.no5')">
-                  </div>
-                </template>
-              </div>
-              <div class="idimgbox">
-                <template>
-                  <div v-if="data.userIdcard.idcardFairPhotoReverseUrl" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.idcardFairPhotoReverseUrl})">
-                    <img :src="data.userIdcard.idcardFairPhotoReverseUrl" :alt="$t('pic.no6')" :title="$t('pic.no6')">
-                  </div>
-                  <div v-else class="idimg pic" >
-                    <img src="../../../assets/img/null.png" :title="$t('pic.no6')">
                   </div>
                 </template>
               </div>
@@ -1649,14 +1632,14 @@ $color2:#000;
   }
   
   .idimgbox{
-    width: 35%;
+    width: 30%;
     height: auto;
     display: flex;
     margin: 20px 0;
     justify-content: space-between;
     .idimg{
       width: 200px;
-      height: auto;
+      height: 150px;
     }
   }
 }

@@ -19,14 +19,14 @@
         <div class="search-input">
           <span>{{$t('new.no48')}}:</span>
           <el-select size="small" filterable  clearable v-model="formInline.appName" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="(item,i) in options3" :key="i" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
           <span>{{$t('new.no49')}}:</span>
           <el-select size="small" filterable clearable v-model="formInline.appPackage" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="(item,i) in appNameOption" :key="i" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -108,6 +108,10 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="minSuccessRepayments" label="成功还款次数≥">
+          </el-table-column>
+          <el-table-column align="center" prop="userOverdueMaxDays" label="最大逾期天数≤">
+          </el-table-column>
           <el-table-column align="center" prop="appPackage" :label="$t('new.no49')">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
@@ -115,7 +119,7 @@
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"
                 class="table_opr"
-                @click="modifyPre(scope.row.id,scope.row.productAmount,scope.row.productPeriod,scope.row.feeRate,scope.row.dayInterest,scope.row.overdueInterest,scope.row.overdueMaxAmount,scope.row.overdueMaxDays,scope.row.canAdvanceDay,scope.row.userGrade,scope.row.appPackage)">
+                @click="modifyPre(scope.row.id,scope.row.productAmount,scope.row.productPeriod,scope.row.feeRate,scope.row.dayInterest,scope.row.overdueInterest,scope.row.overdueMaxAmount,scope.row.overdueMaxDays,scope.row.canAdvanceDay,scope.row.userGrade,scope.row.appPackage,scope.row.minSuccessRepayments,scope.row.userOverdueMaxDays)">
               {{$t('public.no29')}}/{{$t('public.no51')}}
               </span>
               <span 
@@ -159,7 +163,6 @@
     <!-- ----------------------确认是否删除结束------------------- -->
     
     <!-- ----------------------添加修改产品开始------------------ -->
-
     <el-dialog :title="$t('proManage.add')" :visible.sync="add" width="550px">
       <addpro 
         :addclose="addclose" 
@@ -177,7 +180,7 @@
         ref="ruleForm2" 
         :rules="rules" 
         label-width="130px" :model="ruleForm2">
-        <el-form-item :label="$t('new.no48')" prop="userGrade">
+        <el-form-item :label="$t('new.no48')" prop="appPackage">
           <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名">
             <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
@@ -207,7 +210,13 @@
         <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
             <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.userGrade')" prop="userGrade">
+        <el-form-item label="成功还款次数≥" prop="minSuccessRepayments">
+            <el-input type="text" v-model="ruleForm2.minSuccessRepayments" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="最大逾期天数≤" prop="userOverdueMaxDays">
+            <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" auto-complete="off"></el-input>
+        </el-form-item>
+        <!-- <el-form-item :label="$t('proManage.userGrade')" prop="userGrade">
           <el-checkbox-group v-model="ruleForm2.userGrade">
             <div class="types">
               <ul>
@@ -217,7 +226,7 @@
               </ul>
             </div>
           </el-checkbox-group>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
             <el-button type="primary" @click="modifySure('ruleForm2')">{{$t('public.no41')}}</el-button>
             <el-button @click="reset">{{$t('public.no50')}}</el-button>
@@ -290,6 +299,18 @@ export default{
         }
       }
     }
+    var validateNumber2 = (rule, value, callback) => {
+      let reg = /^\+?[0-9]*$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.num')))
+        }
+      }
+    }
     var validateFloat = (rule, value, callback) => {
       let reg = /^[0-9]+(.[0-9]{1,4})?$/
       if (value === '') {
@@ -325,6 +346,8 @@ export default{
         overdueMaxAmount: '',
         userGrade: [],
         appPackage: '',
+        minSuccessRepayments: '',
+        userOverdueMaxDays: '',
       },
       tableData: [], // 数据模拟
       del: false, // 删除弹窗
@@ -359,7 +382,13 @@ export default{
         canAdvanceDay: [
           { validator: validateNumber, trigger: 'blur' }
         ],
+        minSuccessRepayments: [
+          { validator: validateNumber2, trigger: 'blur' }
+        ],
         userGrade: [
+          { required: true, trigger: 'change' }
+        ],
+        appPackage: [
           { required: true, trigger: 'change' }
         ]
       },
@@ -404,8 +433,10 @@ export default{
       this.ruleForm2.overdueMaxAmount = arr[5];
       this.ruleForm2.overdueMaxDays = arr[6];
       this.ruleForm2.canAdvanceDay = arr[7];
-      this.ruleForm2.userGrade = arr[8].split(',');
+      // this.ruleForm2.userGrade = arr[8].split(',');
       this.ruleForm2.appPackage = arr[9];
+      this.ruleForm2.minSuccessRepayments = arr[10];
+      this.ruleForm2.userOverdueMaxDays = arr[11];
     },
     reset () {
       this.modify = false;
@@ -442,7 +473,7 @@ export default{
               },
               method: 'edit',
               ...this.ruleForm2,
-              userGrade:this.ruleForm2.userGrade.join(','),
+              // userGrade:this.ruleForm2.userGrade.join(','),
               id: this.modifyId
             }
             this.$axios.post('', option).then(res => {
