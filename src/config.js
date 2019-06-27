@@ -165,7 +165,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(vnCASH) > -1) {
   domain = `http://api.dongcash.com`;
-  headerTotal = 'My Dong';
+  headerTotal = 'DEMO';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';

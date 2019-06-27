@@ -7,7 +7,7 @@
           <img v-if="header==='kilatrupiah'" class="logo-img" src="../../assets/img/logo_rupiah.png" alt="">
           <img v-if="header==='kilatloan'" class="logo-img" src="../../assets/img/logo_loan.png" alt="">
           <img v-if="header==='dongvtm'" class="logo-img" src="../../assets/img/logo_vtm.png" alt="">
-            <span style="font-size:32px;font-weight:900;color:#1D7BFF;font-style: italic;">{{header}}</span>
+            <span style="font-size:32px;font-weight:900;color:#1D7BFF;font-style: italic;">{{headerTitle}}</span>
             <span style="margin:0 14px;font-size:26px;">丨</span>
             {{$t('header.title')}}
         </div>
@@ -151,6 +151,7 @@ export default {
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.header = global.config.headerImg
+    this.headerTitle = global.config.headerTotal
   }
 }
 </script>
