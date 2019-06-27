@@ -15,10 +15,6 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
-          <span>{{$t('proManage.period')}}:</span>
-          <el-input size="small" label="orderId" v-model="formInline.period"></el-input>
-        </div>
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 
