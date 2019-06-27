@@ -16,7 +16,7 @@ const ynBACK = 'back.myrupiah123'; // 印尼包生产环境
 const vnBACK = 'back.mydong'; // 越南生产环境
 const phBACK = 'back.getpeso'; // 菲律宾生产环境
 
-const vnCASH = 'dongcash'; // 菲律宾生产环境
+const vnCASH = 'dongcash'; // 越南没有LOGO的
 const instantcsh = 'instantcsh'; // 越南没有LOGO的
 
 const oladmin_yn = 'oladmin_yn'; // 国内访问国外正式系统
@@ -155,7 +155,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'VND';
 } else if (fullCurrentDomain.indexOf(vnCASH) > -1) {
   domain = `http://api.dongcash.com`;
-  headerTotal = 'My Dong';
+  headerTotal = 'DEMO';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';

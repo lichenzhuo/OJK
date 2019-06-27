@@ -83,21 +83,27 @@
                   </el-table-column>
                   <el-table-column align="center" prop="appTypeName" :label="$t('new.no49')" >
                   </el-table-column>
-                  <el-table-column align="center" prop="installCount" :label="$t('channelData.no23')">
+                  <el-table-column align="center" prop="applyCount" :label="$t('channelData.no23')">
                   </el-table-column>
-                  <el-table-column align="center" prop="registerCount" :label="$t('channelData.no18')">
-                  </el-table-column>
-                  <el-table-column align="center" prop="orderCount" :label="$t('channelData.no19')">
-                  </el-table-column>
-                  <el-table-column align="center" prop="orderMoneyCount" :label="$t('channelData.no20')">
-                  </el-table-column>
-                  <el-table-column align="center" prop="loanCount" :label="$t('channelData.no21')">
-                  </el-table-column>
-                  <el-table-column align="center" prop="loanMoneyCount" :label="$t('channelData.no17')">
-                  </el-table-column>
-                  <el-table-column align="center" prop="installRate" :label="$t('channelData.no9')">
+                  <el-table-column align="center" prop="applyRate" :label="$t('channelData.no18')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.installRate!==null&&scope.row.installRate!==undefined&&scope.row.installRate!==''">{{$store.getters.twoPoint(scope.row.installRate)}}%</span>
+                      <span v-if="scope.row.applyRate!==null&&scope.row.applyRate!==undefined&&scope.row.applyRate!==''">{{$store.getters.twoPoint(scope.row.applyRate)}}%</span>
+                      <span v-else>{{$store.state.common.nullData}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column align="center" prop="loanCount" :label="$t('channelData.no19')">
+                  </el-table-column>
+                  <el-table-column align="center" prop="loanRate" :label="$t('channelData.no20')">
+                    <template slot-scope="scope">
+                      <span v-if="scope.row.loanRate!==null&&scope.row.loanRate!==undefined&&scope.row.loanRate!==''">{{$store.getters.twoPoint(scope.row.loanRate)}}%</span>
+                      <span v-else>{{$store.state.common.nullData}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column align="center" prop="blackUserHitCount" :label="$t('channelData.no21')">
+                  </el-table-column>
+                  <el-table-column align="center" prop="blackUserHitRate" :label="$t('channelData.no17')">
+                    <template slot-scope="scope">
+                      <span v-if="scope.row.blackUserHitRate!==null&&scope.row.blackUserHitRate!==undefined&&scope.row.blackUserHitRate!==''">{{$store.getters.twoPoint(scope.row.blackUserHitRate)}}%</span>
                       <span v-else>{{$store.state.common.nullData}}</span>
                     </template>
                   </el-table-column>
@@ -148,32 +154,6 @@ export default {
       condition: {},
       flag:true,
       showCheckbox: false,
-      showOptions: [
-        {
-          value:1,
-          label: 'channelData.no12'
-        },
-        {
-          value:2,
-          label: 'channelData.no13'
-        },
-        {
-          value:3,
-          label: 'channelData.no14'
-        },
-        {
-          value:4,
-          label: 'channelData.no15'
-        },
-        {
-          value:5,
-          label: 'channelData.no16'
-        },
-        {
-          value:6,
-          label: 'channelData.no17'
-        }
-      ],
       checkList: [],
       pickerOptions: {
 				disabledDate(time) {

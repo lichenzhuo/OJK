@@ -670,7 +670,14 @@ const options = {
       {value: '', label: 'public.placeholder'},
       {value: -1, label: 'userDetail.reject_status.no6'},
       {value: 1, label: 'add.no53'},
-    ]
+    ],
+    marriage_option: [
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'userDetail.marriage_status.no1'},
+      {value: 2, label: 'userDetail.marriage_status.no2'},
+      {value: 3, label: 'userDetail.marriage_status.no3'},
+      {value: 4, label: 'userDetail.marriage_status.no4'},
+    ],
   }
 }
 export default options

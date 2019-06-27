@@ -69,8 +69,11 @@ const actionmap = {
     RISKCONTROL0017: 'RISKCONTROL0017',
     RISKCONTROL0018: 'RISKCONTROL0018',
     RISKCONTROL0019: 'RISKCONTROL0019',
+    RISKCONTROL0020: 'RISKCONTROL0020',
     ME0015: 'ME0015',
     ME0016: 'ME0016',
+    CM0018: 'CM0018',
+    CM0019: 'CM0019',
     
     // 我的审核订单
     myAuditOne_list: 'ME0001', // 我的人工初审
@@ -165,6 +168,8 @@ const actionmap = {
     kf_myOveDate_detail_submit: 'KF0015',
     kf_total: 'KF0020',
     kf_total_excel: 'KF0021',
+    KF0023: 'KF0023',
+    KF0025: 'KF0025',
     // 组名相关
     group_List: 'GROUP0004',
     group_type: 'GROUP0003',

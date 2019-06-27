@@ -64,11 +64,23 @@
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-1">
-              <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span> </p>
+              <!-- 姓名 -->
+              <p v-if="(data.userBase.name).toLowerCase()===(data.userIdcard.ocrName?data.userIdcard.ocrName.toLowerCase():'')"><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span> </p>
+              <p v-else ><span class="red">{{$t('public.no1')}}:</span><span class="red">{{data.userBase.name}}</span><i v-if="block==2&&data.order.status!=-20&&data.order.status!=21" class="el-icon-edit font20" @click="showOCRChange(1)"></i></p>
+
               <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span> </p>
-              <p><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span> </p>
+              <!-- 身份证号 -->
+              <p v-if="(data.userIdcard.idCard).toLowerCase()===(data.userIdcard.ocrIdCard?data.userIdcard.ocrIdCard.toLowerCase():'')"><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span> </p>
+              <p v-else ><span class="red">{{$t('public.no2')}}:</span><span class="red">{{data.userIdcard.idCard}}</span><i v-if="block==2&&data.order.status!=-20&&data.order.status!=21" class="el-icon-edit font20" @click="showOCRChange(2)"></i></p>
+
               <p><span>{{$t('auditDetail.no10')}}:</span><span>{{String(data.userIdcard.similarity).slice(0,5)}}%</span></p>
               <p><span style="color:red">{{$t('new.no51')}}:</span><span style="color:red">{{data.loginCount | dataIsTrue}}</span> </p>
+              <!-- 婚姻状况 -->
+              <p v-if="(data.userSelf.strMarriage).toLowerCase()===(data.userIdcard.ocrMaritalStatus?data.userIdcard.ocrMaritalStatus.toLowerCase():'')"><span>{{$t('public.no3')}}:</span>
+                <!-- <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span> -->
+                <span>{{data.userSelf.strMarriage}}</span>
+              </p>
+              <p v-else ><span class="red">{{$t('public.no3')}}:</span><span class="red">{{data.userSelf.strMarriage}}</span><i v-if="block==2&&data.order.status!=-20&&data.order.status!=21" class="el-icon-edit font20" @click="showOCRChange(3)"></i></p>
             </div>
             <div class="xuan-2-1-1-1">
               <div class="idimgbox">
@@ -123,7 +135,8 @@
                 <p><span>{{$t('public.no13')}}:</span><span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.userWork.monthIncome)}}{{$store.state.common.vi_currency}}</span> </p>
               </div>
               <div class="xuan-2-1-1-22">
-                <p><span>{{$t('public.no11')}}:</span><span>{{data.userWork.title | dataIsTrue}}</span></p>
+                <p v-if="(data.userWork.title).toLowerCase()===(data.userIdcard.ocrOccupation?data.userIdcard.ocrOccupation.toLowerCase():'')"><span>{{$t('public.no11')}}:</span><span>{{data.userWork.title | dataIsTrue}}</span></p>
+                <p v-else><span class="red">{{$t('public.no11')}}:</span><span class="red">{{data.userWork.title | dataIsTrue}}</span><i v-if="block==2&&data.order.status!=-20&&data.order.status!=21" class="el-icon-edit font20" @click="showOCRChange(4)"></i></p>
                 <p><span>{{$t('public.no12')}}:</span><span>{{data.userWork.companyPhone}}</span></p>
                 <p><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
               </div>
@@ -628,6 +641,35 @@
     </el-dialog>
     <!-- ----------------------添加紧急联系人结束------------------- -->
 
+    <!-- ----------------------OCR对比修改开始------------------ -->
+    <el-dialog :title="$t('public.no51')" :visible.sync="OCRchangeFlag" width="650px">
+      <div class="left2right">
+        <span class="left">OCR-{{OCRchangeDetail.OCRname}}:</span>
+        <div class="right">{{OCRchangeDetail.OCRkey}}</div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{OCRchangeDetail.baseName}}:</span>
+        <div class="right">{{OCRchangeDetail.baseKey}}</div>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.no51')}}:</span>
+        <div class="right">
+          <el-input v-if="OCRchangeDetail.type!=3" size="small" style="width:300px" v-model="OCRchangeDetail.changeValue"></el-input>
+          <el-select v-else size="small" v-model="OCRchangeDetail.changeValue" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options7" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <div class="right">
+          <el-button type="primary" size="small" @click="OCRChangeSure">{{$t('public.no49')}}</el-button>
+        </div>
+      </div>
+    </el-dialog>
+    <!-- ----------------------OCR对比修改结束------------------- -->
+
   </div>
   <div v-else class="back">
     <p>{{$t('public.no23')}}，<span @click="back">{{$t('back.no1')}}</span> {{$t('back.no2')}}</p>
@@ -703,6 +745,7 @@ export default {
       telStatus: '', // 电话审核下拉框选中项
       telRemark: '', // 电话审核备注信息内容
       options1: this.$store.state.options.peopleAuditOne_option, // 初审是否通过下拉选框
+      options7: this.$store.state.options.marriage_option, // 婚姻状况下拉框
       status2: '', // 初审驳回原因1
       options2: [], // 初审驳回原因下拉框
       status3: '', // 初审驳回原因2
@@ -729,7 +772,16 @@ export default {
         contactName: '',
         contactPhone: ''
       },
-      telNumber:''
+      telNumber: '',
+      OCRchangeFlag: false,
+      OCRchangeDetail: {
+        type: '',
+        OCRname: '',
+        OCRkey: '',
+        baseName: '',
+        baseKey: '',
+        changeValue: ''
+      }
     }
   },
   computed: {// 选项卡国际化
@@ -1272,6 +1324,69 @@ export default {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
+    },
+    showOCRChange(type){// 修改OCR对比信息
+      this.OCRchangeDetail.type = type;
+      if(type==1){
+        this.OCRchangeDetail.OCRname = this.$t('public.name');
+        this.OCRchangeDetail.OCRkey = this.data.userIdcard.ocrName;
+        this.OCRchangeDetail.baseName = this.$t('public.name');
+        this.OCRchangeDetail.baseKey = this.data.userBase.name;
+      }
+      if(type==2){
+        this.OCRchangeDetail.OCRname = this.$t('public.no2');
+        this.OCRchangeDetail.OCRkey = this.data.userIdcard.ocrIdCard;
+        this.OCRchangeDetail.baseName = this.$t('public.no2');
+        this.OCRchangeDetail.baseKey = this.data.userIdcard.idCard;
+      }
+      if(type==3){
+        this.OCRchangeDetail.OCRname = this.$t('public.no3');
+        this.OCRchangeDetail.OCRkey = this.data.userIdcard.ocrMaritalStatus;
+        this.OCRchangeDetail.baseName = this.$t('public.no3');
+        this.OCRchangeDetail.baseKey = this.$t(this.$store.getters.marriage(this.data.userSelf.marriage));
+      }
+      if(type==4){
+        this.OCRchangeDetail.OCRname = this.$t('public.no11');
+        this.OCRchangeDetail.OCRkey = this.data.userIdcard.ocrOccupation;
+        this.OCRchangeDetail.baseName = this.$t('public.no11');
+        this.OCRchangeDetail.baseKey = this.data.userWork.title;
+      }
+      this.OCRchangeFlag = true;
+    },
+    OCRChangeSure(){
+      if (this.OCRchangeDetail.changeValue === '') {
+        this.$globalMsg.error(this.$t('new.no54'));
+        return
+      }
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.RISKCONTROL0020,
+          'sessionid': this.sessionid
+        },
+        orderId: this.orderId,
+        type: this.OCRchangeDetail.type,
+        info: this.OCRchangeDetail.changeValue,
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('message.success'));
+          this.OCRChangeClose();
+          this.detail();
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+        
+      })
+    },
+    OCRChangeClose(){
+      this.OCRchangeFlag = false;
+      this.OCRchangeDetail.OCRname = '';
+      this.OCRchangeDetail.OCRkey = '';
+      this.OCRchangeDetail.baseName = '';
+      this.OCRchangeDetail.baseKey = '';
+      this.OCRchangeDetail.type = '';
+      this.OCRchangeDetail.changeValue = '';
     }
   },
   watch: {
@@ -1344,11 +1459,17 @@ export default {
       margin: 0 10px;
       word-break: break-all;
     } 
+    .red{
+      color: crimson;
+    }
   }
 }
 $color1:#959fb9;
 $color2:#000;
 
+.font20{
+  font-size: 20px;
+}
 
 
 .pai-active{
@@ -1419,6 +1540,9 @@ $color2:#000;
       @include p-span;
       p{
         margin: 20px;
+        span.red{
+          color: crimson;
+        }
       }
     }
     .xuan-2-1-2-2{
@@ -1438,6 +1562,9 @@ $color2:#000;
         @include p-span;
         p{
           width: 33%;
+          span.red{
+            color: crimson;
+          }
         }
       }
     }

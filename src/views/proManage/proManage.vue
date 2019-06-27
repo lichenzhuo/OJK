@@ -359,31 +359,31 @@ export default{
       appNameOption: [], // APP名字下拉框
       rules: {// 验证规则
         productAmount: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         productPeriod: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
         ],
         feeRate: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         dayInterest: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         overdueInterest: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         overdueMaxAmount: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         overdueMaxDays: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
         ],
         canAdvanceDay: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
         ],
         minSuccessRepayments: [
-          { validator: validateNumber2, trigger: 'blur' }
+          { validator: validateNumber2, trigger: 'blur', required: true }
         ],
         userGrade: [
           { required: true, trigger: 'change' }

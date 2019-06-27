@@ -93,7 +93,7 @@
       </div>
     </el-row> -->
     
-    <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="30vh">
+    <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="20vh">
       <div class="box">
         <table class="box">
           <tr>
@@ -366,11 +366,13 @@ export default {
       this.thresholdOne = row.thresholdOne;
       this.thresholdTwo = row.thresholdTwo;
       this.thresholdThree = row.thresholdThree;
+      this.conditionOne = row.conditionOne;
+      this.conditionTwo = row.conditionTwo;
+      this.conditionThree = row.conditionThree;
       this.getModifyHistory();
-      if(row.cityIds){
-        row.cityIds.forEach(value=>{
-          this.cityIds.push(value)
-        })
+      
+      if(row.cityIds&&row.cityIds.length){
+        this.cityIds = row.cityIds
       }
       
     },
@@ -400,63 +402,44 @@ export default {
       if(this.detailData.id==2){
         this.cityIds.forEach(value=>{
           switch(value){
-            case '1':
-              option.cityList.push(`${value},ACEH`);
-              break;
+            case '11':
+              return option.cityList.push(`${value},ACEH`);
             case '14':
-              option.cityList.push(`${value},RIAU`);
-              break;
+              return option.cityList.push(`${value},RIAU`);
             case '16':
-              option.cityList.push(`${value},SUMATERA SELATAN`);
-              break;
+              return option.cityList.push(`${value},SUMATERA SELATAN`);
             case '18':
-              option.cityList.push(`${value},LAMPUNG`);
-              break;
+              return option.cityList.push(`${value},LAMPUNG`);
             case '19':
-              option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
-              break;
+              return option.cityList.push(`${value},KEPULAUAN BANGKA BELITUNG`);
             case '52':
-              option.cityList.push(`${value},NUSA TENGGARA BARAT`);
-              break;
+              return option.cityList.push(`${value},NUSA TENGGARA BARAT`);
             case '53':
-              option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
-              break;
+              return option.cityList.push(`${value},NUSA TENGGARA TIMUR`);
             case '65':
-              option.cityList.push(`${value},KALIMANTAN UTARA`);
-              break;
+              return option.cityList.push(`${value},KALIMANTAN UTARA`);
             case '71':
-              option.cityList.push(`${value},SULAWESI UTARA`);
-              break;
+              return option.cityList.push(`${value},SULAWESI UTARA`);
             case '72':
-              option.cityList.push(`${value},SULAWESI TENGAH`);
-              break;
+              return option.cityList.push(`${value},SULAWESI TENGAH`);
             case '73':
-              option.cityList.push(`${value},SULAWESI SELATAN`);
-              break;
+              return option.cityList.push(`${value},SULAWESI SELATAN`);
             case '74':
-              option.cityList.push(`${value},SULAWESI TENGGARA`);
-              break;
+              return option.cityList.push(`${value},SULAWESI TENGGARA`);
             case '75':
-              option.cityList.push(`${value},GORONTALO`);
-              break;
+              return option.cityList.push(`${value},GORONTALO`);
             case '76':
-              option.cityList.push(`${value},SULAWESI BARAT`);
-              break;
+              return option.cityList.push(`${value},SULAWESI BARAT`);
             case '81':
-              option.cityList.push(`${value},MALUKU`);
-              break;
+              return option.cityList.push(`${value},MALUKU`);
             case '82':
-              option.cityList.push(`${value},MALUKU UTARA`);
-              break;
+              return option.cityList.push(`${value},MALUKU UTARA`);
             case '94':
-              option.cityList.push(`${value},PAPUA`);
-              break;
+              return option.cityList.push(`${value},PAPUA`);
             case '8171':
-              option.cityList.push(`${value},KOTA AMBON`);
-              break;
+              return option.cityList.push(`${value},KOTA AMBON`);
             case '9401':
-              option.cityList.push(`${value},KABUPATEN MERAUKE`);
-              break;
+              return option.cityList.push(`${value},KABUPATEN MERAUKE`);
           }
         })
       }
