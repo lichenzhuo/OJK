@@ -346,7 +346,7 @@
                 <td>{{value.macAddress | dataIsTrue}}</td>
                 <td>{{value.wifiBssid | dataIsTrue}}</td>
                 <!-- <td>{{value.gpsAddress | dataIsTrue}}</td> -->
-                <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'-'+$store.getters.longitudeAndLatitude(value.longitude)}}</td>
+                <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
                 <td>{{value.strCreateTime | dataIsTrue}}</td>
               </tr>
             </template>

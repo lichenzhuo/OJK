@@ -139,6 +139,7 @@ export default {
       formInline: {// 用户查询信息数据对应字段
         approveTimeBegin: '',
         approveTimeEnd: '',
+        period: ''
       },
       currentPage: 1, // 当前页下标
       tableData: [],// 列表数据模拟
