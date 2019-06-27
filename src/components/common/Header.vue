@@ -81,6 +81,7 @@ export default {
     return {
       sessionid: '',
       header: '',
+      headerTitle: '',
       flag: false,
       ruleForm2: {
         oldPassword: '',

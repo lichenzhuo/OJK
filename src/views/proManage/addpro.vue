@@ -31,7 +31,13 @@
         <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
           <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.userGrade')" >
+        <el-form-item label="成功还款次数≥" prop="minSuccessRepayments">
+            <el-input type="text" v-model="ruleForm2.minSuccessRepayments" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="最大逾期天数≤" prop="userOverdueMaxDays">
+            <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" auto-complete="off"></el-input>
+        </el-form-item>
+        <!-- <el-form-item :label="$t('proManage.userGrade')" >
           <el-checkbox-group v-model="ruleForm2.userGrade">
             <div class="types">
               <ul>
@@ -41,7 +47,7 @@
               </ul>
             </div>
           </el-checkbox-group>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
             <el-button @click="addclose">{{$t('public.no50')}}</el-button>
@@ -60,6 +66,18 @@ export default {
   data () {
     var validateNumber = (rule, value, callback) => {
       let reg = /^\+?[1-9][0-9]*$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.num')))
+        }
+      }
+    }
+    var validateNumber2 = (rule, value, callback) => {
+      let reg = /^\+?[0-9]*$/
       if (value === '') {
         callback(new Error(this.$t('login.required')))
       } else {
@@ -94,32 +112,40 @@ export default {
         canAdvanceDay: '',
         overdueMaxAmount: '',
         appPackage: '',
-        userGrade: []
+        userGrade: [],
+        minSuccessRepayments: '',
+        userOverdueMaxDays: '',
       },
       rules: {// 验证规则
         productAmount: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         productPeriod: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
         ],
         feeRate: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         dayInterest: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         overdueInterest: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         validateZero: [
-          { validator: validateFloat, trigger: 'blur' }
+          { validator: validateFloat, trigger: 'blur', required: true }
+        ],
+        overdueMaxAmount: [
+          { validator: validateFloat, trigger: 'blur', required: true }
         ],
         overdueMaxDays: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
         ],
         canAdvanceDay: [
-          { validator: validateNumber, trigger: 'blur' }
+          { validator: validateNumber, trigger: 'blur', required: true }
+        ],
+        minSuccessRepayments: [
+          { validator: validateNumber2, trigger: 'blur', required: true }
         ],
         userGrade: [
           { required: true, trigger: 'change' }
@@ -141,7 +167,7 @@ export default {
         },
         method: 'add',
         ...this.ruleForm2,
-        userGrade:this.ruleForm2.userGrade.join(',')
+        // userGrade:this.ruleForm2.userGrade.join(',')
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
