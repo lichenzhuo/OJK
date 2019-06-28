@@ -46,6 +46,8 @@
                 </div>
               </el-tooltip>
             </template>
+
+
             <p v-if="data.order.status==30&&block==2" @click="openTelWindow(data.userBase.phone,'1')" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
           </div>
           <div class="xuan-2-1-1">
@@ -78,14 +80,7 @@
           <!-- 第二行 -->
           <div class="paixu">
             <span></span><p>{{$t('auditDetail.no5')}}</p>
-            <template v-if="data.userWork.companyCheckResult!==undefined&&data.userWork.companyCheckResult!==''">
-              <el-tooltip class="item" effect="dark" :content="data.userWork.companyCheckResult==1?$t('auditDetail.no6'):$t('auditDetail.no7')" placement="right">
-                <div class="tooltip pic">
-                  <img v-if="data.userWork.companyCheckResult==1" src="../../../assets/img/lv.png" alt="">
-                  <img v-else src="../../../assets/img/hong.png" alt="">
-                </div>
-              </el-tooltip>
-            </template>
+            
             <p v-if="data.order.status==30&&block==2" @click="openTelWindow(data.userWork.companyPhone,'2')" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
           </div>
           <div class="xuan-2-1-1">
@@ -148,69 +143,54 @@
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span></p>
-              <div class="tooltip pic">
-                <img v-if="data.contactOne!==undefined&&data.contactOne!==0" src="../../../assets/img/lv.png" alt="">
-                <img v-else src="../../../assets/img/hong.png" alt="">
-              </div>
+              
               <p v-if="data.order.status==30&&block==2" style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               @click="openTelWindow(data.userUrgentContact.contactOnePhone,'3')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactOne+$t('auditDetail.no9')}}</p>
+              
             </div>
             <div class="xuan-2-1-2-1">
               <p>2</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactTwoPhone}}</span></p>
-              <div class="tooltip pic">
-                <img v-if="data.contactTwo!==undefined&&data.contactTwo!==0" src="../../../assets/img/lv.png" alt="">
-                <img v-else src="../../../assets/img/hong.png" alt="">
-              </div>
+              
               <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2"
               @click="openTelWindow(data.userUrgentContact.contactTwoPhone,'4')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactTwo+$t('auditDetail.no9')}}</p>
+              
             </div>
             <div class="xuan-2-1-2-1">
               <p>3</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span></p>
-              <div class="tooltip pic">
-                <img v-if="data.contactThree!==undefined&&data.contactThree!==0" src="../../../assets/img/lv.png" alt="">
-                <img v-else src="../../../assets/img/hong.png" alt="">
-              </div>
+              
               <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2" 
               @click="openTelWindow(data.userUrgentContact.contactThreePhone,'5')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactThree+$t('auditDetail.no9')}}</p>
+              
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFourName">
               <p>4</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFourRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFourName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFourPhone | dataIsTrue}}</span></p>
-              <div class="tooltip pic">
-                <img v-if="data.contactFour!==undefined&&data.contactFour!==0" src="../../../assets/img/lv.png" alt="">
-                <img v-else src="../../../assets/img/hong.png" alt="">
-              </div>
+              
               <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2" 
               @click="openTelWindow(data.userUrgentContact.contactFourPhone,'8')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactFour+$t('auditDetail.no9')}}</p>
+              
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFiveName">
               <p>5</p>
               <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFiveRelationName | dataIsTrue}}</span></p>
               <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFiveName | dataIsTrue}}</span></p>
               <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFivePhone | dataIsTrue}}</span></p>
-              <div class="tooltip pic">
-                <img v-if="data.contactFive!==undefined&&data.contactFive!==0" src="../../../assets/img/lv.png" alt="">
-                <img v-else src="../../../assets/img/hong.png" alt="">
-              </div>
+              
               <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
               v-if="data.order.status==30&&block==2" 
               @click="openTelWindow(data.userUrgentContact.contactFivePhone,'9')">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:16px">{{$t('auditDetail.no8')+data.contactFive+$t('auditDetail.no9')}}</p>
+              
             </div>
           </div>
           <!-- 第四行 -->

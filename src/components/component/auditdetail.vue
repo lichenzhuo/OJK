@@ -14,8 +14,8 @@
             <span>{{$t('new.no55')}}:</span>
             <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
           </p>
-          <p><span>{{$t('yn.no27')}}:</span>
-            <span>{{data.userWork.payDate | dataIsTrue}}</span>
+          <p><span>{{$t('add.no70')}}:</span>
+            <span>{{data.userBase.regChannel | dataIsTrue}}</span>
           </p>
         </div>
         <div class="oneLineHasFour">
@@ -29,9 +29,9 @@
             <span>{{$t('public.sex')}}:</span>
             <span>{{$t($store.getters.sexStatus(data.userSelf.sex))}}</span>
           </p>
-          <p><span>{{$t('public.no3')}}:</span>
+          <!-- <p><span>{{$t('public.no3')}}:</span>
             <span>{{$t($store.getters.marriage(data.userSelf.marriage))}}</span>
-          </p>
+          </p> -->
           <p><span>{{$t('public.no4')}}:</span>
             <span>{{$t($store.getters.birthState(data.userSelf.bear))}}</span>
           </p>
@@ -57,9 +57,10 @@
           <p><span>Email:</span>
             <span>{{data.userSelf.email | dataIsTrue}}</span>
           </p>
-          <p><span>{{$t('add.no70')}}:</span>
-            <span>{{data.userBase.regChannel | dataIsTrue}}</span>
+          <p><span>{{$t('yn.no27')}}:</span>
+            <span>{{data.userWork.payDate | dataIsTrue}}</span>
           </p>
+
         </div>
         <div class="oneLineHasOne">
           <p><span>{{$t('public.no6')}}:</span>
@@ -79,8 +80,9 @@
           <span>{{data.orderExtra.appName | dataIsTrue}}</span></p>
           <p><span>{{$t('new.no49')}}:</span>
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
-          <p><span>{{$t('yn.no28')}}:</span>
-          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
+          <p><span>{{$t('add.no69')}}:</span>
+            <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
+          </p>
           <!-- v-if="!(title==='kilatloan'&&auditType==1)" -->
           <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>
             <span style="color: coral;font-size:30px;" v-if="data.orderExtra.auditStrategy">{{data.orderExtra.auditStrategy}}</span>
@@ -97,6 +99,7 @@
           <p><span>{{$t('public.no31')}}:</span>
             <span>{{data.order.productPeriod | dataIsTrue}}</span>
           </p>
+          
         </div>
         <div class="oneLineHasFour">
           <p><span>{{$t('proManage.feeRate')}}:</span>
@@ -122,9 +125,8 @@
           <p><span>{{$t('public.CreateDate')}}:</span>
             <span>{{data.order.strCreateTime | dataIsTrue}}</span>
           </p>
-          <p><span>{{$t('add.no69')}}:</span>
-            <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
-          </p>
+          <p><span>{{$t('yn.no28')}}:</span>
+          <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
         </div>
       </li>
     </ul>

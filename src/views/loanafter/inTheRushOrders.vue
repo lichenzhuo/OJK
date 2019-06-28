@@ -344,10 +344,12 @@
       <p class="form-p">
         <span class="form-span2">{{$t('loanAfterManage.type')}}:</span>
         <span class="mr20">{{this.options3.filter(value=>value.value==this.noallotOrdersType)[0]?this.options3.filter(value=>value.value==this.noallotOrdersType)[0].label:''}}</span>
-        <span class="form-span2">{{$t('add.no77')}}:</span>
-        <span class="mr20">{{noallotOrdersNew}}</span>
-        <span class="form-span2">{{$t('add.no76')}}:</span>
-        <span class="mr20">{{noallotOrdersOld}}</span>
+      </p>
+      <p class="form-p mb20">
+        <span class="form-span2 blue">{{$t('add.no77')}}:</span>
+        <span class="mr20 blue">{{noallotOrdersNew}}</span>
+        <span class="form-span2 green">{{$t('add.no76')}}:</span>
+        <span class="mr20 green">{{noallotOrdersOld}}</span>
       </p>
       <el-table :data="tableData2" size="small" style="min-height:440px">
         <el-table-column type="index" :label="$t('serviceManage.index')">
@@ -872,4 +874,20 @@ export default {
 .mb5{
   margin-bottom: 6px;
 }
+.blue{
+  color: rgb(15, 117, 233);
+}
+.green{
+  color: rgb(12, 199, 127);
+}
+div.el-dialog__body{
+  padding-top: 0;
+}
+.mt-20{ 
+  margin-top: -20px;
+}
+
+
+
+
 </style>
