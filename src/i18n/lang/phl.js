@@ -1587,7 +1587,7 @@ const phl = {
     no17: 'black list matching',
     no18: 'daily black listmatching /applicants',
     no19: 'loan disbursed',
-    no20: '占今日放款量比例',
+    no20: 'disbursement from marketing(daily)',
     no21: 'black list matching',
     no22: 'date applied',
     no23: 'applicant',

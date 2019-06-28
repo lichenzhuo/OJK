@@ -333,8 +333,8 @@
     <!-- ------------------ 点击个性分单弹窗开始 -------------------- -->
     <el-dialog :title="$t('OutsourcedManage.no14')" :visible.sync="selfdomFlag"  width="1200px">
       <p class="form-p">
-        <span class="form-span2">{{$t('loanAfterManage.type')}}:</span>
-        <span class="mr20">{{this.remindType.filter(value=>value.value==this.noallotOrdersType)[0]?this.remindType.filter(value=>value.value==this.noallotOrdersType)[0].label:''}}</span>
+        <span v-if="$store.state.common.lang!=='PHL'" class="form-span2">{{$t('loanAfterManage.type')}}:</span>
+        <span v-if="$store.state.common.lang!=='PHL'" class="mr20">{{this.remindType.filter(value=>value.value==this.noallotOrdersType)[0]?this.remindType.filter(value=>value.value==this.noallotOrdersType)[0].label:''}}</span>
         <span class="form-span2">{{$t('add.no77')}}:</span>
         <span class="mr20">{{noallotOrdersNew}}</span>
         <span class="form-span2">{{$t('add.no76')}}:</span>
