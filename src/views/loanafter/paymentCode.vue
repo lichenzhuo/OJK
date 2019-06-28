@@ -15,30 +15,22 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.orderId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="6" :lg="4" :xl="3">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" label="userId" v-model="formInline.userId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
-            <el-input size="small" label="name" v-model="formInline.name"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userTel')}}:</span>
-            <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('loanAfterManage.paycodeState')}}:</span>
           <el-select clearable size="small" v-model="formInline.codeStatus" :placeholder="$t('public.placeholder')">

@@ -3,26 +3,18 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('teleMarketing.no1')}}</el-breadcrumb-item>
-        <el-breadcrumb-item>{{$t('serviceManage.crumbsTwo')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('teleMarketing.no2')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
 
     <div class="paixu">
       <span></span>
-      <p>{{$t('serviceManage.crumbsTwo')}}</p>
+      <p>{{$t('teleMarketing.no2')}}</p>
     </div>
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-          <div class="search-input">
-            <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.orderId"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
-          </div>
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
             <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
@@ -31,62 +23,36 @@
             <span>{{$t('public.userTel')}}:</span>
             <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-          <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
-            <span>{{$t('serviceManage.service')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.serviceName"></el-input>
+          <div class="search-input">
+            <span>{{$t('public.no2')}}:</span>
+            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-        <div class="search-input" v-else>
-          <span>{{$t('serviceManage.service')}}:</span>
-          <el-select clearable size="small" filterable v-model="formInline.serviceName" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
-        </div>
         <div class="search-input">
-          <span>{{$t('public.orderStatus')}}:</span>
+          <span>{{$t('teleMarketing.no6')}}:</span>
           <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('new.no34')}}:</span>
+          <span>{{$t('teleMarketing.no7')}}:</span>
           <el-select size="small" v-model="formInline.serviceStatus" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
-        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
-          <span>{{$t('add.no12')}}:</span>
-          <el-select size="small" v-model="formInline.remindType" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in remindType" :key="item.value" :label="item.label" :value="item.value">
+        <div class="search-input">
+          <span>{{$t('teleMarketing.no8')}}:</span>
+          <el-select size="small" v-model="formInline.people" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
-        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
-          <span>{{$t('public.no28')}}:</span>
-          <el-input size="small" style="width:50px;" v-model="formInline.overdueBegin"></el-input>
-          ~
-          <el-input size="small" style="width:50px;" v-model="formInline.overdueEnd"></el-input>
-        </div>
-        <template v-if="$store.state.common.lang==='vi'">
-            <div class="search-input">
-              <span>{{$t('websiteLoans.no5')}}:</span>
-              <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-        </template>
-        <div class="search-input" v-if="$store.state.common.lang==='PHL'">
-          <span>{{$t('fei.no15')}}:</span>
-          <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
-        </div>
-        <div class="search-input" v-if="$store.state.common.lang==='PHL'">
-          <span>{{$t('serviceManage.noticeTime')}}:</span>
+        <div class="search-input">
+          <span>{{$t('public.no21')}}:</span>
           <el-date-picker 
             size="small"
-            v-model="searchTime3" 
+            v-model="searchTime1" 
             value-format="yyyy-MM-dd" 
             type="daterange" 
             range-separator="~" 
@@ -95,66 +61,6 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
-        <div class="search-input">
-          <span>{{$t('public.no58')}}:</span>
-          <el-date-picker 
-            size="small"
-            v-model="searchTime" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth" 
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-        <div class="search-input">
-          <span>{{$t('public.no59')}}:</span>
-          <el-date-picker 
-            size="small"
-            v-model="searchTime1" 
-            type="daterange" 
-            range-separator="~" 
-            :default-value="$store.state.common.preMonth" 
-            :start-placeholder="$t('public.beginTime')" 
-            :end-placeholder="$t('public.endTime')">
-          </el-date-picker>
-        </div>
-        <div class="search-input">
-          <span>{{$t('public.no90')}}:</span>
-          <form autocomplete="off">
-            <el-date-picker 
-              size="small"
-              v-model="searchTime2" 
-              type="daterange" 
-              range-separator="~"
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </form>
-        </div>
-        <template v-if="$store.state.common.lang!=='PHL'">
-          <div class="search-input" >
-            <span>{{$t('new.no87')}}:</span>
-            <el-date-picker 
-              size="small"
-              v-model="searchTime5" 
-              value-format="yyyy-MM-dd" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
-          <div class="search-input" >
-            <span>{{$t('new.no88')}}:</span>
-            <el-select size="small" v-model="formInline.callStatus" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options6" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
@@ -353,7 +259,7 @@
         </el-table-column>
         <el-table-column align="center" prop="remainAmount" :label="$t('OutsourcedManage.no23')" min-width="90">
         </el-table-column>
-        <el-table-column align="center" prop="operation" :label="$t('public.operation')" width="240">
+        <el-table-column align="center" prop="operation" :label="$t('public.operation')" width="220">
           <template slot-scope="scope">
            <div class="fenpei mb5">
               <span>{{$t('add.no78')}}</span>
@@ -386,7 +292,7 @@
 </template>
 <script>
 export default {
-  name: 'nobackOrderList',
+  name: 'marketing',
   data () {
     return {
       sessionid: '',
@@ -394,40 +300,19 @@ export default {
       loadFlag: true,
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
-      searchTime: [], // 还款时间
-      searchTime1: [], // 应还时间
-      searchTime2: [], // 派单日期
-      searchTime3: [], // 提醒时间
-      searchTime5: [], // 最近群呼时间
+      searchTime1: [], // 添加时间
       formInline: { // 用户查询信息数据对应字段
         orderId: '',
-        userId: '',
+        idcard: '',
         name: '',
         phone: '',
-        orderLoanType: '',
-        remindType: '',
-        orderState: '',
-        serviceStatus: '',
-        serviceName: '',
-        remindCount: '',
         reminderTimeBegin:'',
         reminderTimeEnd:'',
-        loanTimeBegin: '',
-        loanTimeEnd: '',
-        mustRefundTimeBegin: '',
-        mustRefundTimeEnd: '',
-        serviceTimeStart: '',
-        serviceTimeEnd: '',
-        overdueBegin: '',
-        callStatus: '',
-        callStartTime:'',
-        callEndTime:'',
-        overdueEnd: ''
       },
       currentPage: 1, // 当前页下标
-      options1: this.$store.state.options.order_select, // 订单状态下拉选框信息
-      options2: this.$store.state.options.notice_option, // 提醒状态下拉选框信息
-      options3: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options1: this.$store.state.options.order_select, // 渠道来源
+      options2: this.$store.state.options.isOverdue_option, // 是否更进
+      options3: this.$store.state.options.loansType_options, // 电销员
       tableData: [],// 借款信息数据模拟
       options4: [], // 在职客服员列表
       options5: [], // 在职客服员列表
@@ -700,7 +585,6 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'));
-          this.dataList();
         } else {
           this.$globalMsg.error(res.data.header.msg);
         }

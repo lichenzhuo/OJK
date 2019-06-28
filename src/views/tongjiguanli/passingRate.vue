@@ -15,12 +15,10 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="8" :lg="5" :xl="4" v-if="$store.state.common.lang!=='PHL'">
-          <div class="search-input" >
+          <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
             <span>{{$t('public.no25')}}:</span>
-            <el-input size="small" v-model="formInline.period"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.period"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 

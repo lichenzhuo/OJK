@@ -16,12 +16,10 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.orderId"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('finance.payType')}}:</span>
           <el-select size="small" v-model="formInline.payType" :placeholder="$t('public.placeholder')">

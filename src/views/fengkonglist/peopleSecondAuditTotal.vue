@@ -15,12 +15,10 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" :gutter="10" justify="start">
-        <el-col :md="8" :lg="6" :xl="5">
           <div class="search-input">
             <span>{{$t('public.no32')}}:</span>
-            <el-input size="small" label="name" v-model="formInline.name"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('new.no20')}}:</span>
           <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">

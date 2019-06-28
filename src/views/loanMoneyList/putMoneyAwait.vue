@@ -15,18 +15,14 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.orderId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.userPhone')}}:</span>
-            <el-input size="small" label="tel" v-model="formInline.phone"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('finance.putMoneyType')}}:</span>
           <el-select size="small" v-model="formInline.loanType" :placeholder="$t('public.placeholder')">

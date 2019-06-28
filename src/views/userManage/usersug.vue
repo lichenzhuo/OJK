@@ -16,19 +16,15 @@
     <!-- ------------ 搜索查询栏开始 -------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="8" :lg="6" :xl="4">
           <div class="search-input">
             <span>{{$t('public.registerPhone')}}:</span>
-            <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-        </el-col>
         <template v-if="$store.state.common.lang==='vi'">
-          <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
               <span>{{$t('public.no2')}}:</span>
-              <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
+              <el-input size="small" style="width:130px;" v-model="formInline.idCard"></el-input>
             </div>
-          </el-col>
         </template>
         <div class="search-input">
           <span>{{$t('public.submitDate')}}:</span>

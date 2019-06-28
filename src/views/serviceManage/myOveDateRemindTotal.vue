@@ -18,7 +18,7 @@
         <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
           <span>{{$t('add.no12')}}:</span>
           <el-select size="small" v-model="formInline.remindType" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in remindType" :key="item.value" :label="$t(item.label)" :value="item.value">
+            <el-option v-for="item in remindType" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>

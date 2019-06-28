@@ -14,25 +14,19 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row type="flex" justify="start" >
-        <el-col :md="8" :lg="5" :xl="4">
+      <el-row type="flex" justify="start" :gutter="10">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline2.orderId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline2.orderId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.name')}}:</span>
-            <el-input size="small" label="userName" v-model="formInline2.userName"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline2.userName"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userTel')}}:</span>
-            <el-input size="small" label="userPhone" v-model="formInline2.userPhone"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline2.userPhone"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('loanAfterManage.status')}}:</span>
           <el-select size="small" v-model="formInline.status" :placeholder="$t('public.placeholder')">

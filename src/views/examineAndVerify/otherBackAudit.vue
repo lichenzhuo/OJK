@@ -14,19 +14,15 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row type="flex" justify="start" >
-        <el-col :md="8" :lg="5" :xl="4">
+      <el-row type="flex" justify="start" :gutter="10">
           <div class="search-input">
             <span>{{$t('public.orderId')}}:</span>
-            <el-input size="small" label="orderId" v-model="formInline.orderId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.orderId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" label="userName" v-model="formInline.userId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('public.submitDate')}}:</span>
           <el-date-picker 

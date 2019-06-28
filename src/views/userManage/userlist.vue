@@ -15,36 +15,26 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="6" :lg="4" :xl="4">
           <div class="search-input">
             <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" v-model="formInline.userId"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.userName')}}:</span>
-            <el-input size="small" v-model="formInline.name"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.userPhone')}}:</span>
-            <el-input size="small" v-model="formInline.phone"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="5">
           <div class="search-input">
             <span>{{$t('public.loanNum')}}:</span>
-            <el-input size="small" v-model="formInline.orderCount"></el-input>
+            <el-input size="small" style="width:130px;" v-model="formInline.orderCount"></el-input>
           </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
           <div class="search-input">
             <span>{{$t('public.registerChannel')}}:</span>
-            <el-input size="small" label="regChannel" v-model="formInline.regChannel"></el-input>
+            <el-input size="small" style="width:130px;" label="regChannel" v-model="formInline.regChannel"></el-input>
           </div>
-        </el-col>
         <div class="search-input">
           <span>{{$t('public.approveStatus')}}:</span>
           <el-select size="small" v-model="formInline.isAuth" :placeholder="$t('public.placeholder')">
@@ -81,12 +71,10 @@
               </el-option>
             </el-select>
           </div>
-          <el-col :md="8" :lg="5" :xl="4">
             <div class="search-input">
               <span>{{$t('public.no2')}}:</span>
               <el-input size="small" label="idCard" v-model="formInline.idCard"></el-input>
             </div>
-          </el-col>
         </template>
           <div class="search-input">
             <span>{{$t('public.registerDate')}}:</span>

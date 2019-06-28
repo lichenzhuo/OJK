@@ -18,17 +18,14 @@
 
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
-      <el-row :gutter=10>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('loanAfterManage.status')}}:</span>
-            <el-select size="small" v-model="formInline.status" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-        </el-col>
-        <el-col :md="14" :lg="11" :xl="7">
+      <el-row type="flex" justify="start" :gutter="10">
+        <div class="search-input">
+          <span>{{$t('loanAfterManage.status')}}:</span>
+          <el-select size="small" v-model="formInline.status" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
           <div class="search-input">
             <span>{{$t('totalManage.timeSelect')}}:</span>
             <el-date-picker 
@@ -43,14 +40,9 @@
               :end-placeholder="$t('public.endTime')">
             </el-date-picker>
           </div>
-        </el-col>
-        <template >
-          <el-col :md="3" :lg="2" :xl="2">
-            <div class="search-input">
-              <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
-            </div>
-          </el-col>
-        </template>
+        <div class="search-input">
+          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+        </div>
       </el-row>
     </div>
 

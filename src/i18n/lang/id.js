@@ -1497,7 +1497,13 @@ const id = {
     no14: 'Jumlah user untuk pinjaman lebih dari 3',
     no15: 'Total jatuh tempo',
     no16: 'Nilai total jatuh tempo',
-    no17: '黑名单命中率'
+    no17: '黑名单命中率',
+    no18: '占今日申请量比例',
+    no19: '放款笔数',
+    no20: '占今日放款量比例',
+    no21: '黑名单命中个数',
+    no22: '申请日期',
+    no23: '申请笔数',
   },
   activity: {
     crumbsOne: 'Manajemen operasi',
@@ -1682,6 +1688,17 @@ const id = {
     no68: '拒绝',
     no69: 'Media Pengajuan',
     no70: 'Media Pendaftaran',
+    no71: '转电销',
+    no72: '营销转化',
+    no73: '用户数量',
+    no74: '导流APP链接',
+    no75: '手动个性分单',
+    no76: '未分配的老客单量',
+    no77: '未分配的新客单量',
+    no78: '分配新客',
+    no79: '分配老客',
+    no80: '新客占比',
+    no81: '已还总单量',
   },
   ...idLocale
 }
