@@ -130,11 +130,11 @@
                   </el-table-column>
                   <el-table-column align="center" prop="overdueCountMoney" :label="$t('channelData.no16')" v-if="checkList.includes(5)">
                   </el-table-column>
-                  <el-table-column align="center" prop="blackUserHitRate" :label="$t('channelData.no17')"  v-if="checkList.includes(6)">
+                  <!-- <el-table-column align="center" prop="blackUserHitRate" :label="$t('channelData.no17')"  v-if="checkList.includes(6)">
                     <template slot-scope="scope">
                       <span>{{$store.getters.twoPoint(scope.row.blackUserHitRate)}}%</span>
                     </template>
-                  </el-table-column>
+                  </el-table-column> -->
                 </el-table>
               </template>
             </div>
@@ -201,10 +201,6 @@ export default {
         {
           value:5,
           label: 'channelData.no16'
-        },
-        {
-          value:6,
-          label: 'channelData.no17'
         }
       ],
       checkList: [],

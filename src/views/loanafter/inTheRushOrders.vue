@@ -762,7 +762,7 @@ export default {
         },
         ...this.formInline,
         newOrderCounts: this.allocationNumber1,
-        oldOrderCounts: this.allocationNumber1,
+        oldOrderCounts: this.allocationNumber2,
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
