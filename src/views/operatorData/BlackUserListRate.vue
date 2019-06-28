@@ -216,6 +216,7 @@ export default {
         const self = this
         self.condition = {
           mediaSource: this.filter.channelData?this.filter.channelData:'',
+          appType: this.filter.appType?this.filter.appType:'',
           timeType: this.activeTab?this.activeTab:1,
           timeBegin: parseInt(this.activeTab)===1?(this.selectDay[0]?this.selectDay[0]:''):parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:'',
           timeEnd: parseInt(this.activeTab)===1?(this.selectDay[1]?this.selectDay[1]:''):''

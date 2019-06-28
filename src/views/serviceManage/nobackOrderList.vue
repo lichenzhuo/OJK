@@ -178,11 +178,11 @@
       </el-row>
     </div>
 
-    <!-- v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')" -->
+    <!-- v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_INDIVIDUAL_ORDERS')" -->
     <div class="list_operation" >
       <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
       <el-button 
-        v-if="isshowselfdom=='true'"
+        v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_INDIVIDUAL_ORDERS')&&isshowselfdom=='true'"
         type="primary" 
         @click="selfdomAllotBegin"
       >

@@ -183,7 +183,7 @@
       v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_TRANSFER')"
        type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
       <el-button 
-        v-if="isshowselfdom=='true'"
+        v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INDIVIDUAL_ORDERS')&&isshowselfdom=='true'"
         type="primary" 
         @click="selfdomAllotBegin"
       >

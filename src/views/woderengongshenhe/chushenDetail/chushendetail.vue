@@ -654,7 +654,7 @@
       <div class="left2right">
         <span class="left">{{$t('public.no51')}}:</span>
         <div class="right">
-          <el-input v-if="OCRchangeDetail.type!=3" size="small" style="width:300px" v-model="OCRchangeDetail.changeValue"></el-input>
+          <el-input v-if="OCRchangeDetail.type!=3" :maxlength="maxlength" size="small" style="width:300px" v-model="OCRchangeDetail.changeValue"></el-input>
           <el-select v-else size="small" v-model="OCRchangeDetail.changeValue" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options7" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
@@ -821,6 +821,14 @@ export default {
       arr.push({id: 1, title: this.$t('operationDetail.tab1.no1')})
       arr.push({id: 2, title: this.$t('operationDetail.tab1.no2')})
       return arr
+    },
+    maxlength() {
+      if(this.OCRchangeDetail.type==1||this.OCRchangeDetail.type==4){
+        return 30
+      }else if(this.OCRchangeDetail.type==2){
+        return 20
+      }
+      return 30
     }
   },
   methods: {
