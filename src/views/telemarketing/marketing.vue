@@ -15,18 +15,18 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-          <div class="search-input">
-            <span>{{$t('public.name')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.userTel')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.no2')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
-          </div>
+        <div class="search-input">
+          <span>{{$t('public.name')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.userTel')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no2')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
+        </div>
         <div class="search-input">
           <span>{{$t('teleMarketing.no6')}}:</span>
           <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
@@ -92,86 +92,36 @@
         <el-table :data="tableData" size="small" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')">
-          </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.userId')">
+          <el-table-column align="center" prop="id" :label="$t('teleMarketing.no8')">
           </el-table-column>
           <el-table-column align="center" prop="userName" :label="$t('public.name')">
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')">
-              <template slot-scope="scope">
-                <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
-              <template slot-scope="scope">
-                <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
-              </template>
-            </el-table-column>
-          </template>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
-            </template>
+          <el-table-column align="center" prop="userId" :label="$t('public.no2')">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="userId" :label="$t('add.no74')">
           </el-table-column>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
-            </el-table-column>
-          </template>
-          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
+          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no6')">
           </el-table-column>
-          <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
+          <el-table-column align="center" prop="userId" :label="$t('public.no21')">
           </el-table-column>
-          <el-table-column align="center" prop="strServiceAllotTime" :label="$t('public.no90')" width="86">
+          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no7')">
           </el-table-column>
-          <el-table-column align="center" prop="serviceName" :label="$t('serviceManage.service')">
+          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no9')">
           </el-table-column>
-          <el-table-column align="center" prop="serviceStatus" :label="$t('new.no34')" min-width="80">
-            <template slot-scope="scope">
-              <span>{{$t($store.getters.myoveNoticeStatus(scope.row.serviceStatus))}}</span>
-            </template>
+          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no10')">
           </el-table-column>
-          <template v-if="$store.state.common.lang==='vi'">
-            <el-table-column align="center" prop="remindNumbers" :label="$t('yuenan.no24')">
-            </el-table-column>
-          </template>
-          <el-table-column align="center" prop="status" :label="$t('public.orderStatus')">
-            <template slot-scope="scope">
-              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
-            </template>
+          <el-table-column align="center" prop="userId" :label="$t('public.CreateDate')">
           </el-table-column>
-          <template v-if="$store.state.common.lang==='PHL'">
-            <el-table-column align="center" prop="strRemindTime" :label="$t('serviceManage.noticeTime')">
-            </el-table-column>
-            <el-table-column align="center" prop="serviceRecordTodayCount" :label="$t('fei.no15')">
-            </el-table-column>
-          </template>
-          <template v-if="$store.state.common.lang!=='PHL'">
-            <el-table-column align="center" prop="strCallTime" :label="$t('new.no87')" width="86">
-            </el-table-column>
-            <el-table-column align="center" prop="callStatus" :label="$t('new.no88')">
-              <template slot-scope="scope">
-                <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="remindType" :label="$t('add.no12')">
-              <template slot-scope="scope">
-                <span >{{$store.getters.serveStatus(scope.row.remindType)}}</span>
-              </template>
-            </el-table-column>
-          </template>
+          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no11')">
+          </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_DETAIL')"
+                
                 class="table_opr" 
-                @click="loanDetali(scope.row.orderNo,scope.row.userId,scope.row.id)"
+                @click="selectDetail(scope.row.orderNo,scope.row.userId,scope.row.id)"
               >
               {{$t('public.no29')}}
               </span>
@@ -200,7 +150,7 @@
 
     <!-- ------------------ 点击转派弹窗开始 -------------------- -->
     <el-dialog :title="$t('loanAfterManage.redeploy')" :visible.sync="redeployFlag" width="650px">
-      <div class="left2right">
+      <!-- <div class="left2right">
         <span class="left">{{$t('public.orderId')}}:</span>
         <div class="right">
           {{orderIds.join()}}
@@ -211,7 +161,7 @@
         <div class="right">
           {{userIds.join()}}
         </div>
-      </div>
+      </div> -->
       <div class="left2right">
         <span class="left">{{$t('loanAfterManage.redeployTo')}}:</span>
         <div class="right">
@@ -262,12 +212,8 @@
         <el-table-column align="center" prop="operation" :label="$t('public.operation')" width="220">
           <template slot-scope="scope">
            <div class="fenpei mb5">
-              <span>{{$t('add.no78')}}</span>
+              <span>{{$t('OutsourcedManage.no24')}}</span>
               <el-input style="width:60px;" size="mini" v-model="inputValueNew[scope.row.adminId]"></el-input>
-            </div>
-            <div class="fenpei">
-              <span>{{$t('add.no79')}}</span>
-              <el-input style="width:60px;" size="mini" v-model="inputValueOld[scope.row.adminId]"></el-input>
             </div>
           </template>
         </el-table-column>
@@ -287,6 +233,46 @@
       
     </el-dialog>
     <!-- ------------------ 点击个性分单弹窗结束 -------------------- -->
+
+    <!-- ------------------ 查看详情弹窗开始 -------------------- -->
+    <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag"  width="1000px">
+      <p class="form-p">
+        <span class="form-span2">{{$t('public.userTel')}}:</span>
+        <span class="mr20">{{noallotOrdersNew}}</span>
+        <span class="form-span2">{{$t('public.name')}}:</span>
+        <span class="mr20">{{noallotOrdersOld}}</span>
+      </p>
+      <el-table :data="tableData2" size="small" style="min-height:240px">
+        <el-table-column type="index" :label="$t('public.no21')">
+        </el-table-column>
+        <el-table-column align="center" prop="adminName" :label="$t('auditDetail.no43')" >
+        </el-table-column>
+        <el-table-column align="center" prop="account" :label="$t('operationDetail.no25')" >
+        </el-table-column>
+        <el-table-column align="center" prop="adminTotalAmount" :label="$t('teleMarketing.no14')" >
+        </el-table-column>
+        <el-table-column align="center" prop="recallAmount" :label="$t('public.no37')" >
+        </el-table-column>
+      </el-table>
+      <el-row type="flex" justify="end">
+        <el-pagination
+          @current-change="handleCurrentChange2"
+          :current-page="currentPage2"
+          layout="prev, pager, next, ->"
+          :total="pageTotal2?pageTotal2:0">
+        </el-pagination>
+      </el-row>
+      
+    </el-dialog>
+    <!-- ------------------ 查看详情弹窗结束 -------------------- -->
+
+    <!-- 添加营销数据 -->
+    <el-dialog :title="$t('public.no29')" :visible.sync="addDataFlag"  width="500px">
+      <el-button>{{$t('teleMarketing.no16')}}</el-button>
+      <p class="form-p">
+        <span class="form-span2">{{$t('teleMarketing.no13')}}:</span>
+      </p>
+    </el-dialog>
 
   </div>
 </template>
@@ -310,6 +296,8 @@ export default {
         reminderTimeEnd:'',
       },
       currentPage: 1, // 当前页下标
+      currentPage2: 1, // 当前页下标
+      pageTotal2: 0, // 分页总数
       options1: this.$store.state.options.order_select, // 渠道来源
       options2: this.$store.state.options.isOverdue_option, // 是否更进
       options3: this.$store.state.options.loansType_options, // 电销员
@@ -338,6 +326,8 @@ export default {
       inputValueOld: {},// 个性分单分配的值老客
       allocationNumber1: [],// 个性分单新客分单集合
       allocationNumber2: [],// 个性分单老客分单集合
+      addDataFlag: false,
+      detailFlag: false,
     }
   },
   methods: {
@@ -380,7 +370,7 @@ export default {
         })
       }
     },
-    loanDetali (orderNo, userId, orderId) { // 查看详情操作
+    selectDetail (orderNo, userId, orderId) { // 查看详情操作
       this.$router.push({path: '/telnoticedetail', query: {userId, orderNo, orderId, type:2}});
     },
     dataList () { // 获取借款列表
@@ -608,6 +598,9 @@ export default {
         }
       })
     },
+    handleCurrentChange2(){
+      
+    }
   },
   watch: {
     searchTime () {

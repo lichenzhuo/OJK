@@ -15,26 +15,26 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-          <div class="search-input">
-            <span>{{$t('public.userId')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.userName')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.userPhone')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.loanNum')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.orderCount"></el-input>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.registerChannel')}}:</span>
-            <el-input size="small" style="width:130px;" label="regChannel" v-model="formInline.regChannel"></el-input>
-          </div>
+        <div class="search-input">
+          <span>{{$t('public.userId')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.userId"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.userName')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.userPhone')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.loanNum')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.orderCount"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.registerChannel')}}:</span>
+          <el-input size="small" style="width:130px;" label="regChannel" v-model="formInline.regChannel"></el-input>
+        </div>
         <div class="search-input">
           <span>{{$t('public.approveStatus')}}:</span>
           <el-select size="small" v-model="formInline.isAuth" :placeholder="$t('public.placeholder')">
@@ -91,19 +91,20 @@
           </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_QUERY')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
           </div>
         </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_EXP')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+            <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
           </div>
         </template>
       </el-row>
     </div>
 
     <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_ADD_SPECIAL_USER_STATUS')">
-      <el-button type="primary" class="button-color" @click="addFlagShow">{{$t('new.no65')}}</el-button>
+      <el-button type="primary"  @click="addFlagShow">{{$t('new.no65')}}</el-button>
+      <el-button type="primary"  @click="showMarketing">{{$t('add.no71')}}</el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
@@ -116,6 +117,7 @@
           style="width: 100%"
           highlight-current-row
           @current-change="tableRowChange"
+          :row-class-name="tableRowClassName"
         >
           <el-table-column align="right" label="" width="60">
             <template slot-scope="scope">
@@ -172,6 +174,7 @@
           style="width: 100%"
           highlight-current-row
           @current-change="tableRowChange"
+          :row-class-name="tableRowClassName"
         >
           <el-table-column align="right" label="" width="60">
             <template slot-scope="scope">
@@ -233,6 +236,7 @@
       </div>
     </el-row>
 
+    <!-- ------------  添加特殊名单  ------------------------ -->
     <el-dialog :title="$t('new.no65')" :visible.sync="addFlag" width="40%">
       <el-form :model="addUser" size="small" ref="copyForm" label-width="120px">
         <el-form-item :label="$t('public.userSelfStatus')">
@@ -248,6 +252,26 @@
           <el-button type="primary" @click="addUserSubmit">{{$t('public.no47')}}</el-button>
         </el-form-item>
       </el-form>
+    </el-dialog>
+
+    <!-- ------------  转电销  ------------------------ -->
+    <el-dialog :title="$t('add.no72')" :visible.sync="marketingFlag" width="560">
+      <div class="left2right">
+        <span class="left">{{$t('add.no73')}}:</span>
+        <span class="right">0000000</span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('add.no74')}}:  </span>
+        <span class="right">
+          <el-input size="small"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" size="small" @click="marketingSure">{{$t('proManage.sure')}}</el-button>
+        </span>
+      </div>
     </el-dialog>
 
 
@@ -295,8 +319,12 @@ export default {
         userStatus: '',
         remark: ''
       },
-      tableSelect:'',
-      radioVal:'',
+      tableSelect: '',
+      radioVal: '',
+      marketingFlag: false,
+      marketing:{
+
+      }
     }
   },
   methods: {
@@ -430,11 +458,17 @@ export default {
       this.radioVal = val.id;
     },
     tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 1) {
+      if (row.id == 658921) {
         return 'info-row';
       }
       return '';
-    }
+    },
+    showMarketing() {
+      this.marketingFlag = true
+    },
+    marketingSure() {
+      this.marketingFlag = false
+    },
   },
   watch: {
     searchTime () {
@@ -463,8 +497,8 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
-  .el-table .info-row {
-    background: #409eff;
+<style >
+  div.el-table tr.info-row {
+    background: #b7d9fc;
   }
 </style>
