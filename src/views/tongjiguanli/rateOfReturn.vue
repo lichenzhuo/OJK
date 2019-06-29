@@ -42,6 +42,8 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
+    <p style="font-size:14px;color:red;margin-bottom:5px;">注：D0为首逾数据，D1为逾期1天的回款率；以下表中数据已订单维度计算，不包含部分还款<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据更新时间为北京时间8点、12点、18点、21点</p>
     <div class="table">
       <template>
         <el-table :data="tableData" size="small" 
