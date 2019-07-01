@@ -59,14 +59,12 @@
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="newCustomerPassRate" :label="$t('add.no21')">
             <template slot-scope="scope">
-              <span class="red" v-if="scope.row.newCustomerPassRate!=''">{{$store.getters.twoPoint(scope.row.newCustomerPassRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.newCustomerPassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="newCustomerOverRate" :label="$t('add.no22')">
             <template slot-scope="scope">
-              <span class="red" v-if="scope.row.newCustomerOverRate!=''">{{$store.getters.twoPoint(scope.row.newCustomerOverRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span class="red">{{$store.getters.twoPoint(scope.row.newCustomerOverRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="oldCustomerOrders" :label="$t('add.no23')">
@@ -75,26 +73,22 @@
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="oldCustomerPassRate" :label="$t('add.no25')">
             <template slot-scope="scope">
-              <span class="red" v-if="scope.row.oldCustomerPassRate!=''">{{$store.getters.twoPoint(scope.row.oldCustomerPassRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span class="red">{{$store.getters.twoPoint(scope.row.oldCustomerPassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="oldCustomerOverRate" :label="$t('add.no26')">
             <template slot-scope="scope">
-              <span class="red" v-if="scope.row.oldCustomerOverRate!=''">{{$store.getters.twoPoint(scope.row.oldCustomerOverRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span class="red">{{$store.getters.twoPoint(scope.row.oldCustomerOverRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label-class-name="green"  prop="customerPassRate" :label="$t('add.no27')">
             <template slot-scope="scope">
-              <span class="green" v-if="scope.row.customerPassRate!=''">{{$store.getters.twoPoint(scope.row.customerPassRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span class="green">{{$store.getters.twoPoint(scope.row.customerPassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label-class-name="green"  prop="customerOverRate" :label="$t('add.no28')">
             <template slot-scope="scope">
-              <span class="green" v-if="scope.row.customerOverRate!=''">{{$store.getters.twoPoint(scope.row.customerOverRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span class="green">{{$store.getters.twoPoint(scope.row.customerOverRate)}}</span>
             </template>
           </el-table-column>
           <!-- <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')" min-width="100">
@@ -206,14 +200,14 @@ export default {
         '-',
         this.tableData1.newCustomerOrders,
         this.tableData1.newCustomerPassOrders,
-        this.$store.getters.twoPoint(this.tableData1.newCustomerPassRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.newCustomerOverRate)+'%',
+        this.$store.getters.twoPoint(this.tableData1.newCustomerPassRate),
+        this.$store.getters.twoPoint(this.tableData1.newCustomerOverRate),
         this.tableData1.oldCustomerOrders,
         this.tableData1.oldCustomerPassOrders,
-        this.$store.getters.twoPoint(this.tableData1.oldCustomerPassRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.oldCustomerOverRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.customerPassRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.customerOverRate)+'%'
+        this.$store.getters.twoPoint(this.tableData1.oldCustomerPassRate),
+        this.$store.getters.twoPoint(this.tableData1.oldCustomerOverRate),
+        this.$store.getters.twoPoint(this.tableData1.customerPassRate),
+        this.$store.getters.twoPoint(this.tableData1.customerOverRate)
         // this.$store.getters.twoPoint(this.tableData1.reviewSuccessRateCounts)+'%',
       ];
       return sums;

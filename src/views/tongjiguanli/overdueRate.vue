@@ -77,14 +77,12 @@
           </el-table-column>
           <el-table-column align="center" prop="moneyRate" :label="$t('totalManage.firstRate')+'('+$t('totalManage.money')+')'" min-width="100">
             <template slot-scope="scope">
-              <span v-if="scope.row.moneyRate!==null&&scope.row.moneyRate!==undefined&&scope.row.moneyRate!==''">{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.moneyRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="countRate" :label="$t('totalManage.firstRate')+'('+$t('totalManage.order')+')'" min-width="80">
             <template slot-scope="scope">
-              <span v-if="scope.row.countRate!==null&&scope.row.countRate!==undefined&&scope.row.countRate!==''">{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.countRate)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -197,8 +195,8 @@ export default {
           this.$store.getters.moneySplit(this.tableData1.loanAmount),
           this.tableData1.refundCount,
           this.$store.getters.moneySplit(this.tableData1.refundAmount),
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.moneyRate),
+          this.$store.getters.twoPoint(this.tableData1.countRate),
         ]
       }else{
         sums = [
@@ -207,8 +205,8 @@ export default {
           this.$store.getters.moneySplit(this.tableData1.loanAmount),
           this.tableData1.refundCount,
           this.$store.getters.moneySplit(this.tableData1.refundAmount),
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.moneyRate),
+          this.$store.getters.twoPoint(this.tableData1.countRate),
         ];
       }
       return sums;

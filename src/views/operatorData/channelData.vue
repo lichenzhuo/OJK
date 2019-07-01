@@ -104,20 +104,17 @@
                   </el-table-column>
                   <el-table-column align="center" prop="installRate" :label="$t('channelData.no9')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.installRate!==null&&scope.row.installRate!==undefined&&scope.row.installRate!==''">{{$store.getters.twoPoint(scope.row.installRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.installRate)}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="registerRate" :label="$t('channelData.no10')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.registerRate!==null&&scope.row.registerRate!==undefined&&scope.row.registerRate!==''">{{$store.getters.twoPoint(scope.row.registerRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.registerRate)}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="loanRate" :label="$t('channelData.no11')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.loanRate!==null&&scope.row.loanRate!==undefined&&scope.row.loanRate!==''">{{$store.getters.twoPoint(scope.row.loanRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.loanRate)}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="repeatTwice" :label="$t('channelData.no12')" v-if="checkList.includes(1)">

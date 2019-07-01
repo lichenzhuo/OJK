@@ -76,20 +76,17 @@
           </el-table-column>
           <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')">
             <template slot-scope="scope">
-              <span v-if="scope.row.feeRate!=''">{{$store.getters.twoPoint(scope.row.feeRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.feeRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="dayInterest" :label="$t('proManage.dayInterest')">
             <template slot-scope="scope">
-              <span v-if="scope.row.dayInterest!=''">{{$store.getters.twoPoint(scope.row.dayInterest)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.dayInterest)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueInterest" :label="$t('proManage.overdueInterest')">
             <template slot-scope="scope">
-              <span v-if="scope.row.overdueInterest!=''">{{$store.getters.twoPoint(scope.row.overdueInterest)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.overdueInterest)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueMaxAmount" :label="$t('proManage.overdueMaxAmount')">

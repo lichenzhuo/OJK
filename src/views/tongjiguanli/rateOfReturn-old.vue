@@ -87,22 +87,22 @@
           </el-table-column>
           <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundCountRate" :label="$t('add.no16')+'('+$t('totalManage.money')+')'">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundCountRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundCountRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="firstOverRefundAmountRate" :label="$t('add.no16')+'('+$t('totalManage.order')+')'">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundAmountRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.firstOverRefundAmountRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="moneyRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.money')+')'">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.moneyRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.moneyRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="countRate" :label="$t('totalManage.overDueNow')+'('+$t('totalManage.order')+')'">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.countRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.countRate)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -214,10 +214,10 @@ export default {
           this.$store.getters.moneySplit(this.tableData1.refundAmount),
           this.tableData1.unpaidCount,
           this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
-          this.$store.getters.twoPoint(this.tableData1.firstOverRefundCountRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.firstOverRefundAmountRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.firstOverRefundCountRate),
+          this.$store.getters.twoPoint(this.tableData1.firstOverRefundAmountRate),
+          this.$store.getters.twoPoint(this.tableData1.moneyRate),
+          this.$store.getters.twoPoint(this.tableData1.countRate),
         ]
       }else{
         sums = [
@@ -228,8 +228,8 @@ export default {
           this.$store.getters.moneySplit(this.tableData1.refundAmount),
           this.tableData1.unpaidCount,
           this.$store.getters.moneySplit(this.tableData1.unpaidAmount),
-          this.$store.getters.twoPoint(this.tableData1.moneyRate)+'%',
-          this.$store.getters.twoPoint(this.tableData1.countRate)+'%',
+          this.$store.getters.twoPoint(this.tableData1.moneyRate),
+          this.$store.getters.twoPoint(this.tableData1.countRate),
         ]
       }
       return sums;

@@ -105,10 +105,10 @@
           <span>{{data.order.productPeriod | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('proManage.dayInterest')}}:</span>
-          <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
+          <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}</span>
         </p>
         <p><span>{{$t('proManage.feeRate')}}:</span>
-          <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
+          <span>{{$store.getters.twoPoint(data.order.feeRate)}}</span>
         </p>
       </div> 
       <div class="oneLineHasFour">

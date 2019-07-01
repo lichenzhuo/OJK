@@ -77,22 +77,22 @@
           </el-table-column>
           <el-table-column align="center" prop="dayInterest" label="日利率">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.dayInterest)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.dayInterest)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="feeRate" label="服务费率">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.feeRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.feeRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="userGrade" label="逾期费率">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.overdueInterest)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.overdueInterest)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueMaxRate" label="逾期封顶">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.overdueMaxRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.overdueMaxRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueMaxDays" label="逾期最大天数">

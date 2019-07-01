@@ -165,7 +165,7 @@
             </div>
             <div class="oneLineHasFour">
               <p><span>{{$t('proManage.feeRate')}}:</span>
-                <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
+                <span>{{$store.getters.twoPoint(data.order.feeRate)}}</span>
               </p>
               <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
                 <span>{{$store.state.common.id_currency}}
@@ -173,7 +173,7 @@
                   {{$store.state.common.vi_currency}}</span>
               </p>
               <p><span>{{$t('operationDetail.no4')}}:</span>
-                <span>{{$store.getters.twoPoint(data.order.overdueInterestRate)}}%</span>
+                <span>{{$store.getters.twoPoint(data.order.overdueInterestRate)}}</span>
               </p>
               <p><span>{{$t('operationDetail.no5')}}:</span>
                 <span>{{$store.state.common.id_currency}}
@@ -201,7 +201,7 @@
             </div> 
             <div class="oneLineHasFour">
               <p><span>{{$t('operationDetail.no3')}}:</span>
-                <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
+                <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}</span>
               </p>
               <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
                 <span>{{$store.state.common.id_currency}}

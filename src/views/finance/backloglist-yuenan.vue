@@ -144,8 +144,7 @@
           </el-table-column>
           <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')">
             <template slot-scope="scope">
-              <span v-if="scope.row.overdueInterestRate!=''">{{$store.getters.twoPoint(scope.row.overdueInterestRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.overdueInterestRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">

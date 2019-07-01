@@ -97,13 +97,13 @@
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('proManage.feeRate')}}:</span>
-              <span>{{$store.getters.twoPoint(data.order.feeRate)}}%</span>
+              <span>{{$store.getters.twoPoint(data.order.feeRate)}}</span>
             </p>
             <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.feeAmount)}}{{$store.state.common.vi_currency}}</span>
             </p>
             <p><span>{{$t('operationDetail.no3')}}:</span>
-              <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}%</span>
+              <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}</span>
             </p>
             <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.currentInterest)}}{{$store.state.common.vi_currency}}</span>

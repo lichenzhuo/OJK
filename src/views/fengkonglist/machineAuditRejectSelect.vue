@@ -401,7 +401,7 @@
                   </el-table-column>
                   <el-table-column align="center" prop="rejectPercent" :label="$t('add.no36')">
                     <template slot-scope="scope">
-                      <span>{{$store.getters.twoPoint(scope.row.rejectPercent)}}%</span>
+                      <span>{{$store.getters.twoPoint(scope.row.rejectPercent)}}</span>
                     </template>
                   </el-table-column>
                   <!-- <el-table-column align="center" prop="registerRate" :label="$t('channelData.no10')">

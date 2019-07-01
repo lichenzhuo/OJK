@@ -171,10 +171,22 @@ const common = {
       if(typeof str === 'undefined' || str === ''){
         return '-'
       }else{
-        var aNew
-        var re = /([0-9]+\.[0-9]{2})[0-9]*/
-        aNew = String(str * 100).replace(re, '$1')
-        return aNew
+        // var aNew
+        // var re = /([0-9]+\.[0-9]{2})[0-9]*/
+        // aNew = String(str * 100).replace(re, '$1')
+        // return aNew+'%'
+        var value = Math.round(parseFloat(str) * 100);
+        var xsd = value.toString().split(".");
+        if (xsd.length == 1) {
+            value = value.toString() + ".00%";
+            return value;
+        }
+        if (xsd.length > 1) {
+            if (xsd[1].length < 2) {
+                value = value.toString() + "0%";
+            }
+            return value;
+        }
       }
       
     },

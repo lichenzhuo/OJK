@@ -95,20 +95,17 @@
           </el-table-column>
           <el-table-column align="center" prop="returnMoney" :label="$t('OutsourcedManage.no29')">
             <template slot-scope="scope">
-              <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="returnCountRate" :label="$t('OutsourcedManage.no30')+'('+$t('totalManage.order')+')'">
             <template slot-scope="scope">
-              <span v-if="scope.row.returnCountRate!==null&&scope.row.returnCountRate!==undefined&&scope.row.returnCountRate!==''">{{$store.getters.twoPoint(scope.row.returnCountRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.returnCountRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="returnMoneyRate" :label="$t('OutsourcedManage.no30')+'('+$t('totalManage.money')+')'">
             <template slot-scope="scope">
-              <span v-if="scope.row.returnMoneyRate!==null&&scope.row.returnMoneyRate!==undefined&&scope.row.returnMoneyRate!==''">{{$store.getters.twoPoint(scope.row.returnMoneyRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.returnMoneyRate)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -296,8 +293,8 @@ export default {
         this.$store.getters.moneySplit(this.tableData1.allMoney),
         this.tableData1.returnCount,
         this.$store.getters.moneySplit(this.tableData1.returnMoney),
-        this.$store.getters.twoPoint(this.tableData1.returnCountRate)+'%',
-        this.$store.getters.twoPoint(this.tableData1.returnMoneyRate)+'%',
+        this.$store.getters.twoPoint(this.tableData1.returnCountRate),
+        this.$store.getters.twoPoint(this.tableData1.returnMoneyRate),
       ];
       return sums;
     }

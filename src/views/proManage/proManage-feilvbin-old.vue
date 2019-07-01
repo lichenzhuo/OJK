@@ -80,18 +80,15 @@
           <div class="product-bottom">
             <p>
               <span>{{$t('proManage.dayInterest')}}</span>
-              <span v-if="item.dayInterest!==null&&item.dayInterest!==undefined&&item.dayInterest!==''">{{$store.getters.twoPoint(item.dayInterest)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(item.dayInterest)}}</span>
             </p>
             <p>
               <span>{{$t('proManage.feeRate')}}</span>
-              <span v-if="item.feeRate!==null&&item.feeRate!==undefined&&item.feeRate!==''">{{$store.getters.twoPoint(item.feeRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(item.feeRate)}}</span>
             </p>
             <p>
               <span>{{$t('proManage.overdueInterest')}}</span>
-              <span v-if="item.overdueInterest!==null&&item.overdueInterest!==undefined&&item.overdueInterest!==''">{{$store.getters.twoPoint(item.overdueInterest)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(item.overdueInterest)}}</span>
             </p>
             
             
@@ -99,8 +96,7 @@
           <div class="product-bottom">
             <p>
               <span>{{$t('proManage.overdueMaxAmount')}}</span>
-              <span v-if="item.overdueMaxRate!==null&&item.overdueMaxRate!==undefined&&item.overdueMaxRate!==''">{{$store.getters.twoPoint(item.overdueMaxRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(item.overdueMaxRate)}}</span>
             </p>
             <p>
               <span>{{$t('proManage.overdueMaxDays')}}</span>

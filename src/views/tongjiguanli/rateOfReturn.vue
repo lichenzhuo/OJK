@@ -60,74 +60,74 @@
           </el-table-column>
           <el-table-column align="center" prop="newCustomerRate" :label="$t('add.no80')">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.newCustomerRate)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.newCustomerRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="refundCount" :label="$t('add.no81')">
           </el-table-column>
           <el-table-column align="center" prop="d0" label="D0">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d0)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d0)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d1" label="D1">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d1)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d1)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d2" label="D2">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d2)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d2)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d3" label="D3">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d3)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d3)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d4" label="D4">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d4)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d4)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d5" label="D5">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d5)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d5)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d6" label="D6">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d6)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d6)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d7" label="D7">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d7)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d7)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d8" label="D8">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d8)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d8)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d9" label="D9">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d9)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d9)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d10" label="D10">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d10)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d10)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d15" label="D15">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d15)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d15)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="d15More" label="D15+">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.d15More)}}%</span>
+              <span>{{$store.getters.twoPoint(scope.row.d15More)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -232,21 +232,21 @@ export default {
       sums = [
         this.$t('public.addTotal'),
         this.tableData1.shouldReturnCount,
-        this.$store.getters.twoPoint(this.tableData1.newCustomerRate)+'%',
+        this.$store.getters.twoPoint(this.tableData1.newCustomerRate),
         this.tableData1.refundCount,
-        this.$store.getters.twoPoint(this.tableData1.d0)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d1)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d2)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d3)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d4)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d5)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d6)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d7)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d8)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d9)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d10)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d15)+'%',
-        this.$store.getters.twoPoint(this.tableData1.d15More)+'%',
+        this.$store.getters.twoPoint(this.tableData1.d0),
+        this.$store.getters.twoPoint(this.tableData1.d1),
+        this.$store.getters.twoPoint(this.tableData1.d2),
+        this.$store.getters.twoPoint(this.tableData1.d3),
+        this.$store.getters.twoPoint(this.tableData1.d4),
+        this.$store.getters.twoPoint(this.tableData1.d5),
+        this.$store.getters.twoPoint(this.tableData1.d6),
+        this.$store.getters.twoPoint(this.tableData1.d7),
+        this.$store.getters.twoPoint(this.tableData1.d8),
+        this.$store.getters.twoPoint(this.tableData1.d9),
+        this.$store.getters.twoPoint(this.tableData1.d10),
+        this.$store.getters.twoPoint(this.tableData1.d15),
+        this.$store.getters.twoPoint(this.tableData1.d15More),
       ]
       return sums;
     }

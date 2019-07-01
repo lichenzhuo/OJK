@@ -87,16 +87,14 @@
           </el-table-column>
           <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')">
             <template slot-scope="scope">
-              <span v-if="scope.row.successRate!=''">{{$store.getters.twoPoint(scope.row.successRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.successRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="overdueCount" :label="$t('new.no3')">
           </el-table-column>
           <el-table-column align="center" prop="overdueRate" :label="$t('new.no4')">
             <template slot-scope="scope">
-              <span v-if="scope.row.overdueRate!=''">{{$store.getters.twoPoint(scope.row.overdueRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.overdueRate)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -248,9 +246,9 @@ export default {
         this.tableData1.reviewCounts,
         this.tableData1.successCounts,
         this.tableData1.failCounts,
-        this.$store.getters.twoPoint(this.tableData1.successRateCounts)+'%',
+        this.$store.getters.twoPoint(this.tableData1.successRateCounts),
         this.tableData1.overdueCounts,
-        this.$store.getters.twoPoint(this.tableData1.overdueRateCounts)+'%',
+        this.$store.getters.twoPoint(this.tableData1.overdueRateCounts),
       ];
       return sums;
     }

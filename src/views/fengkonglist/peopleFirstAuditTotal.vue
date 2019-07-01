@@ -88,16 +88,14 @@
           </el-table-column>
           <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')" min-width="100">
             <template slot-scope="scope">
-              <span v-if="scope.row.successRate!=''">{{$store.getters.twoPoint(scope.row.successRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.successRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="reviewSuccessCount" :label="$t('new.no6')" min-width="100">
           </el-table-column>
           <el-table-column align="center" prop="reviewSuccessRate" :label="$t('new.no7')" min-width="100">
             <template slot-scope="scope">
-              <span v-if="scope.row.reviewSuccessRate!=''">{{$store.getters.twoPoint(scope.row.reviewSuccessRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.reviewSuccessRate)}}</span>
             </template>
           </el-table-column>
         </el-table>

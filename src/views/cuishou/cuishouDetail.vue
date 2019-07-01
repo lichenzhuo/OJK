@@ -204,13 +204,13 @@
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('proManage.feeRate')}}:</span>
-              <span>{{$store.getters.twoPoint(data.orderInfo.feeRate)}}%</span>
+              <span>{{$store.getters.twoPoint(data.orderInfo.feeRate)}}</span>
             </p>
             <p><span>{{$t('loanMoneyDetail.feeAmount')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.feeAmount)}}{{$store.state.common.vi_currency}}</span>
             </p>
             <p><span>{{$t('operationDetail.no4')}}:</span>
-              <span>{{$store.getters.twoPoint(data.orderInfo.overdueInterestRate)}}%</span>
+              <span>{{$store.getters.twoPoint(data.orderInfo.overdueInterestRate)}}</span>
             </p>
             <p><span>{{$t('operationDetail.no5')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -232,7 +232,7 @@
           </div>  
           <div class="oneLineHasFour">
             <p><span>{{$t('operationDetail.no3')}}:</span>
-              <span >{{$store.getters.twoPoint(data.orderInfo.dayInterestRate)}}%</span>
+              <span >{{$store.getters.twoPoint(data.orderInfo.dayInterestRate)}}</span>
             </p>
             <p><span>{{$t('loanMoneyDetail.currentInterest')}}:</span>
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.currentInterest)}}{{$store.state.common.vi_currency}}</span>

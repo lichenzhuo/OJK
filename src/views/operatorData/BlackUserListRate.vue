@@ -87,24 +87,21 @@
                   </el-table-column>
                   <el-table-column align="center" prop="applyRate" :label="$t('channelData.no18')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.applyRate!==null&&scope.row.applyRate!==undefined&&scope.row.applyRate!==''">{{$store.getters.twoPoint(scope.row.applyRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.applyRate)}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="loanCount" :label="$t('channelData.no19')">
                   </el-table-column>
                   <el-table-column align="center" prop="loanRate" :label="$t('channelData.no20')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.loanRate!==null&&scope.row.loanRate!==undefined&&scope.row.loanRate!==''">{{$store.getters.twoPoint(scope.row.loanRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.loanRate)}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column align="center" prop="blackUserHitCount" :label="$t('channelData.no21')">
                   </el-table-column>
                   <el-table-column align="center" prop="blackUserHitRate" :label="$t('channelData.no17')">
                     <template slot-scope="scope">
-                      <span v-if="scope.row.blackUserHitRate!==null&&scope.row.blackUserHitRate!==undefined&&scope.row.blackUserHitRate!==''">{{$store.getters.twoPoint(scope.row.blackUserHitRate)}}%</span>
-                      <span v-else>{{$store.state.common.nullData}}</span>
+                      <span>{{$store.getters.twoPoint(scope.row.blackUserHitRate)}}</span>
                     </template>
                   </el-table-column>
                 </el-table>

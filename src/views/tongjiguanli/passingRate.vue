@@ -69,20 +69,17 @@
           </el-table-column>
           <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="machinePassRate" :label="$t('add.no13')">
             <template slot-scope="scope">
-              <span v-if="scope.row.machinePassRate!=''">{{$store.getters.twoPoint(scope.row.machinePassRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.machinePassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="manualReviewPassRate" :label="$t('add.no14')">
             <template slot-scope="scope">
-              <span v-if="scope.row.manualReviewPassRate!=''">{{$store.getters.twoPoint(scope.row.manualReviewPassRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.manualReviewPassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column v-if="$store.state.common.lang!=='PHL'" align="center" prop="lendRate" :label="$t('add.no15')">
             <template slot-scope="scope">
-              <span v-if="scope.row.lendRate!=''">{{$store.getters.twoPoint(scope.row.lendRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span>
+              <span>{{$store.getters.twoPoint(scope.row.lendRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="laveCount" :label="$t('totalManage.laveCount')">
@@ -193,9 +190,9 @@ export default {
           this.tableData1.machineCounts,
           this.tableData1.firstCounts,
           this.tableData1.reviewCounts,
-          this.$store.getters.twoPoint(this.tableData1.machinePassRateAll)+'%',
-          this.$store.getters.twoPoint(this.tableData1.manualReviewPassRateAll)+'%',
-          this.$store.getters.twoPoint(this.tableData1.lendRateAll)+'%',
+          this.$store.getters.twoPoint(this.tableData1.machinePassRateAll),
+          this.$store.getters.twoPoint(this.tableData1.manualReviewPassRateAll),
+          this.$store.getters.twoPoint(this.tableData1.lendRateAll),
           this.tableData1.laveCounts,
         ]
       }else{

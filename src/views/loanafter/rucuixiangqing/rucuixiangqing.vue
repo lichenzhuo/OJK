@@ -227,16 +227,14 @@
           </div>
           <div class="xuan-2-2-1">
             <p>{{$t('proManage.feeRate')}}:
-              <span v-if="data.orderInfo.feeRate!==null&&data.orderInfo.feeRate!==undefined&&data.orderInfo.feeRate!==''">{{$store.getters.twoPoint(data.orderInfo.feeRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+              <span>{{$store.getters.twoPoint(data.orderInfo.feeRate)}}%</span>
             </p>
             <p>{{$t('loanMoneyDetail.feeAmount')}}:
               <span v-if="data.orderInfo.feeAmount!==null&&data.orderInfo.feeAmount!==undefined&&data.orderInfo.feeAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.feeAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span> 
             </p>
             <p>{{$t('operationDetail.no4')}}:
-              <span v-if="data.orderInfo.overdueInterestRate!==null&&data.orderInfo.overdueInterestRate!==undefined&&data.orderInfo.overdueInterestRate!==''">{{$store.getters.twoPoint(data.orderInfo.overdueInterestRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+              <span>{{$store.getters.twoPoint(data.orderInfo.overdueInterestRate)}}</span>
             </p>
             <p>{{$t('operationDetail.no5')}}:
               <span v-if="data.orderInfo.overdueInterest!==null&&data.orderInfo.overdueInterest!==undefined&&data.orderInfo.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -263,8 +261,7 @@
           </div> 
           <div class="xuan-2-2-1">
             <p>{{$t('operationDetail.no3')}}:
-              <span v-if="data.orderInfo.dayInterestRate!==null&&data.orderInfo.dayInterestRate!==undefined&&data.orderInfo.dayInterestRate!==''">{{$store.getters.twoPoint(data.orderInfo.dayInterestRate)}}%</span>
-              <span v-else>{{$store.state.common.nullData}}</span> 
+              <span>{{$store.getters.twoPoint(data.orderInfo.dayInterestRate)}}</span>
             </p>
             <p>{{$t('loanMoneyDetail.currentInterest')}}:
               <span v-if="data.orderInfo.currentInterest!==null&&data.orderInfo.currentInterest!==undefined&&data.orderInfo.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.currentInterest)}}{{$store.state.common.vi_currency}}</span>
