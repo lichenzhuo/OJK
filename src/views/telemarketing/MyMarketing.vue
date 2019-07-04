@@ -423,13 +423,14 @@ export default {
           this.$axios.post('', option).then(res => {
             if (res.data.header.code == 0) {
               this.$globalMsg.success(this.$t('message.success'))
+              setTimeout(()=>{
+                this.getTableData()
+              },1000)
             } else {
               this.$globalMsg.error(this.$t('idManage.err'))
             }
           })
-          setTimeout(()=>{
-            this.getTableData()
-          },500)
+          
           this.addClose()
         }
       })

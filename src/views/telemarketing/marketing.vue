@@ -537,6 +537,7 @@ export default {
       }
     },
     getchannel(){ // 获取渠道下拉框数据
+      this.options1 = []
       let option = {
         header: {
           ...this.$base,
@@ -680,13 +681,15 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           this.$globalMsg.success(res.data.data);
+          setTimeout(()=>{
+            this.getTableData()
+            this.getchannel()
+          },1000)
         } else {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
-      setTimeout(()=>{
-        this.getTableData()
-      },500)
+      
       this.addDataFlag = false;
       this.fileList = [];
       
