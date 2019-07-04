@@ -176,6 +176,13 @@ let loansApplyList = resolve => require(['../views/websiteLoans/loansApplyList.v
 let badMannersAudit = resolve => require(['../views/examineAndVerify/badMannersAudit.vue'], resolve)
 let otherBackAudit = resolve => require(['../views/examineAndVerify/otherBackAudit.vue'], resolve)
 
+// @@@@@@@@@@@@@@@@@@@@@@@   电话营销   @@@@@@@@@@@@@@@@@@@@@@@
+let marketing = resolve => require(['../views/telemarketing/marketing.vue'], resolve)
+let MyMarketing = resolve => require(['../views/telemarketing/MyMarketing.vue'], resolve)
+let EverydayPerformanceTotal = resolve => require(['../views/telemarketing/EverydayPerformanceTotal.vue'], resolve)
+let EverydayMarketingTotal = resolve => require(['../views/telemarketing/EverydayMarketingTotal.vue'], resolve)
+
+
 // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
 let ruleEngine = resolve => require(['../views/systemConfig/ruleEngine.vue'], resolve)
 
@@ -331,6 +338,12 @@ const router = new Router({
                     {path: '/usersubmitdetail', name: 'userSubmitDetail', component: userSubmitDetail },
                     {path: '/mytailafterorder', name: 'myTailafterOrder', component: myTailafterOrder },
                     {path: '/loansapplylist', name: 'loansApplyList', component: loansApplyList },
+
+                    // @@@@@@@@@@@@@@@@@@@@@@@   电话营销   @@@@@@@@@@@@@@@@@@@@@@@
+                    {path: '/marketing', name: 'marketing', component: marketing },
+                    {path: '/MyMarketing', name: 'MyMarketing', component: MyMarketing },
+                    {path: '/EverydayMarketingTotal', name: 'EverydayMarketingTotal', component: EverydayMarketingTotal },
+                    {path: '/EverydayPerformanceTotal', name: 'EverydayPerformanceTotal', component: EverydayPerformanceTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/ruleEngine', name: 'ruleEngine', component: ruleEngine },

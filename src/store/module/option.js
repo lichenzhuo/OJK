@@ -69,6 +69,16 @@ const options = {
       {value: '-5', label: 'myAuditList.telThrough_status.no5'}, // 接通真实
       {value: '1', label: 'myAuditList.telThrough_status.no6'} // 关系有假
     ],
+    telResult_select: [// 通话结果下拉框
+      {value: '', label: 'public.placeholder'},
+      {value: -1, label: 'myAuditList.telThrough_status.no1'}, // 未接
+      {value: -2, label: 'myAuditList.telThrough_status.no2'}, // 关机
+      {value: -3, label: 'myAuditList.telThrough_status.no3'}, // 停机
+      {value: -4, label: 'myAuditList.telThrough_status.no4'}, // 空号
+      {value: -5, label: 'myAuditList.telThrough_status.no5'}, // 接通真实
+      {value: 1, label: 'myAuditList.telThrough_status.no6'}, // 关系有假
+      {value: 2, label: 'myAuditList.telThrough_status.no7'} // 其它
+    ],
     userOrderStatus: [// 用户身份下拉框
       {value: '', label: 'public.placeholder'},
       { value: '1', label: 'idManage.order_options.no1' }, // 超级管理员

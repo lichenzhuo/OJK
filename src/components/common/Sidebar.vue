@@ -622,6 +622,40 @@
                 })[0].subs.push({index: 'loansapplylist', title: 'websiteLoans.no4'})
               }
 
+              // 电销管理
+              if (value.uniqueSign == 'MENU_PHONE_MARKET') {
+                item.push({
+                  icon: 'el-icon-menu',
+                  index: '19',
+                  title: 'teleMarketing.no1',
+                  subs: []
+                })
+              }
+             // 电销列表
+              if (value.uniqueSign == 'MENU_PHONE_MARKET_LIST') {
+                item.filter(index => {
+                  return index.index == '19'
+                })[0].subs.push({index: 'marketing', title: 'teleMarketing.no2'})
+              }
+              // 我的电销
+              if (value.uniqueSign == 'MENU_PHONE_MY_MARKET') {
+                item.filter(index => {
+                  return index.index == '19'
+                })[0].subs.push({index: 'MyMarketing', title: 'teleMarketing.no3'})
+              }
+              // 每日业绩统计
+              if (value.uniqueSign == 'MENU_PHONE_MARKET_PERFORMANCE') {
+                item.filter(index => {
+                  return index.index == '19'
+                })[0].subs.push({index: 'EverydayPerformanceTotal', title: 'teleMarketing.no4'})
+              }
+              // 每日电销统计
+              if (value.uniqueSign == 'MENU_PHONE_MARKET_CONVERT') {
+                item.filter(index => {
+                  return index.index == '19'
+                })[0].subs.push({index: 'EverydayMarketingTotal', title: 'teleMarketing.no5'})
+              }
+
               if(this.headerTitle!='vaytocdo'){
                 // 系统配置
                 if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {

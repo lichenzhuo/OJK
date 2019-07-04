@@ -218,7 +218,8 @@ const filters = {
 
         case 2:
           return 'myAuditList.telThrough_status.no7' // 其它
-
+          default:
+            return 'finance.backLog_options_status.no12' // -
       }
     },
     education: () => (status) => { // 教育程度

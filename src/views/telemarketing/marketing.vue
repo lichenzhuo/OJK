@@ -25,26 +25,26 @@
         </div>
         <div class="search-input">
           <span>{{$t('public.no2')}}:</span>
-          <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
+          <el-input size="small" style="width:130px;" v-model="formInline.idCard"></el-input>
         </div>
         <div class="search-input">
           <span>{{$t('teleMarketing.no6')}}:</span>
-          <el-select size="small" v-model="formInline.orderState" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
+          <el-select clearable size="small" @clear="clearChannel" v-model="formInline.regChannel" :placeholder="$t('public.placeholder')">
+            <el-option  v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('teleMarketing.no7')}}:</span>
-          <el-select size="small" v-model="formInline.serviceStatus" :placeholder="$t('public.placeholder')">
+          <span>{{$t('teleMarketing.no9')}}:</span>
+          <el-select size="small" v-model="formInline.isFollowup" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="search-input">
-          <span>{{$t('teleMarketing.no8')}}:</span>
-          <el-select size="small" v-model="formInline.people" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
+          <span>{{$t('teleMarketing.no7')}}:</span>
+          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in adminOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -61,14 +61,14 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_QUERY')">
+        <template v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_QUARY')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary" @click="select">{{$t('public.select')}}</el-button>
           </div>
         </template>
-        <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_EXP')">
+        <template v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_EXP')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+            <el-button type="primary" @click="putExcel">{{$t('public.excel')}}</el-button>
           </div>
         </template>
       </el-row>
@@ -76,9 +76,20 @@
 
     <!-- v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_INDIVIDUAL_ORDERS')" -->
     <div class="list_operation" >
-      <el-button type="primary" @click="todayRedeploy">{{$t('loanAfterManage.redeploy')}}</el-button>
       <el-button 
-        v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_INDIVIDUAL_ORDERS')&&isshowselfdom=='true'"
+        v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_ADDDATA')"
+        type="primary" 
+        @click="showaddData"
+       >{{$t('teleMarketing.no12')}}
+       </el-button>
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_TRANSFER')"
+        type="primary" 
+        @click="todayRedeploy"
+      >{{$t('loanAfterManage.redeploy')}}
+      </el-button>
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_SEPERATE')"
         type="primary" 
         @click="selfdomAllotBegin"
       >
@@ -87,41 +98,47 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_LIST')">
+    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_LIST_LIST')">
       <template>
-        <el-table :data="tableData" size="small" v-loading="loadFlag" stripe @selection-change="handleSelectionChange">
+        <el-table :data="tableData" 
+        size="small" 
+        v-loading="loadFlag" 
+        stripe @selection-change="handleSelectionChange">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('teleMarketing.no8')">
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')">
+          <el-table-column align="center" prop="name" :label="$t('public.name')">
           </el-table-column>
-          <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
+          <el-table-column align="center" prop="phone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.no2')">
+          <el-table-column align="center" prop="idCard" :label="$t('public.no2')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('add.no74')">
+          <el-table-column align="center" prop="appUrl" :label="$t('add.no74')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no6')">
+          <el-table-column align="center" prop="regChannel" :label="$t('teleMarketing.no6')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.no21')">
+          <el-table-column align="center" prop="strCreateTime" :label="$t('public.no21')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no7')">
+          <el-table-column align="center" prop="adminName" :label="$t('teleMarketing.no7')">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no9')">
+          <el-table-column align="center" prop="followUpStatus" :label="$t('teleMarketing.no9')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.is_addressBook(scope.row.followUpStatus))}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no10')">
+          <el-table-column align="center" prop="strFinalFollowupTime" :label="$t('teleMarketing.no10')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('public.CreateDate')">
+          <el-table-column align="center" prop="strApplyTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="userId" :label="$t('teleMarketing.no11')">
+          <el-table-column align="center" prop="strLoanTime" :label="$t('teleMarketing.no11')" width="86">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
-                
+                v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_DETAIL')"
                 class="table_opr" 
-                @click="selectDetail(scope.row.orderNo,scope.row.userId,scope.row.id)"
+                @click="selectDetail(scope.row.adminId,scope.row.userId,scope.row.name,scope.row.phone)"
               >
               {{$t('public.no29')}}
               </span>
@@ -133,7 +150,7 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REFUND_LIST')">
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MARKET_LIST_LIST')">
         <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -166,7 +183,7 @@
         <span class="left">{{$t('loanAfterManage.redeployTo')}}:</span>
         <div class="right">
           <el-select size="small" v-model="redeployStatus" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options4" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="item in adminOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -189,25 +206,23 @@
     <!-- ------------------ 点击个性分单弹窗开始 -------------------- -->
     <el-dialog :title="$t('OutsourcedManage.no14')" :visible.sync="selfdomFlag"  width="1200px">
       <p class="form-p">
-        <span class="form-span2">{{$t('loanAfterManage.type')}}:</span>
-        <span class="mr20">{{this.remindType.filter(value=>value.value==this.noallotOrdersType)[0]?this.remindType.filter(value=>value.value==this.noallotOrdersType)[0].label:''}}</span>
+        <span class="form-span2">{{$t('teleMarketing.no6')}}:</span>
+        <span class="mr20">{{this.formInline.regChannel}}</span>
         <span class="form-span2">{{$t('add.no77')}}:</span>
         <span class="mr20">{{noallotOrdersNew}}</span>
-        <span class="form-span2">{{$t('add.no76')}}:</span>
-        <span class="mr20">{{noallotOrdersOld}}</span>
       </p>
-      <el-table :data="tableData2" size="small" style="min-height:440px">
+      <el-table :data="tableData2" size="small" style="min-height:240px">
         <el-table-column type="index" :label="$t('serviceManage.index')">
         </el-table-column>
-        <el-table-column align="center" prop="adminName" :label="$t('public.name')" min-width="100">
+        <el-table-column align="center" prop="name" :label="$t('public.name')" min-width="100">
         </el-table-column>
-        <el-table-column align="center" prop="account" :label="$t('OutsourcedManage.no25')" min-width="70">
+        <el-table-column align="center" prop="loginName" :label="$t('OutsourcedManage.no25')" min-width="70">
         </el-table-column>
-        <el-table-column align="center" prop="adminTotalAmount" :label="$t('OutsourcedManage.no21')" min-width="70">
+        <el-table-column align="center" prop="distributeUser" :label="$t('teleMarketing.no35')" min-width="70">
         </el-table-column>
-        <el-table-column align="center" prop="recallAmount" :label="$t('OutsourcedManage.no22')" min-width="70">
+        <el-table-column align="center" prop="followUpDistributeUser" :label="$t('teleMarketing.no36')" min-width="70">
         </el-table-column>
-        <el-table-column align="center" prop="remainAmount" :label="$t('OutsourcedManage.no23')" min-width="90">
+        <el-table-column align="center" prop="noFollowUpDistributeUser" :label="$t('teleMarketing.no37')" min-width="90">
         </el-table-column>
         <el-table-column align="center" prop="operation" :label="$t('public.operation')" width="220">
           <template slot-scope="scope">
@@ -237,29 +252,38 @@
     <!-- ------------------ 查看详情弹窗开始 -------------------- -->
     <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag"  width="1000px">
       <p class="form-p">
-        <span class="form-span2">{{$t('public.userTel')}}:</span>
-        <span class="mr20">{{noallotOrdersNew}}</span>
         <span class="form-span2">{{$t('public.name')}}:</span>
-        <span class="mr20">{{noallotOrdersOld}}</span>
+        <span class="mr20">{{detailData.name}}</span>
+        <span class="form-span2">{{$t('public.userTel')}}:</span>
+        <span class="mr20">{{detailData.phone}}</span>
       </p>
-      <el-table :data="tableData2" size="small" style="min-height:240px">
-        <el-table-column type="index" :label="$t('public.no21')">
+      <el-table :data="tableData3" size="small" style="min-height:240px">
+        <el-table-column align="center" prop="strCreateTime" :label="$t('public.no21')">
         </el-table-column>
-        <el-table-column align="center" prop="adminName" :label="$t('auditDetail.no43')" >
+        <el-table-column align="center" prop="callResult" :label="$t('auditDetail.no43')" >
+          <template slot-scope="scope">
+              <span>{{$t($store.getters.tel_through(scope.row.callResult))}}</span>
+            </template>
         </el-table-column>
-        <el-table-column align="center" prop="account" :label="$t('operationDetail.no25')" >
+        <el-table-column align="center" prop="isSendMessage" :label="$t('operationDetail.no25')" >
+          <template slot-scope="scope">
+              <span>{{$t($store.getters.is_addressBook(scope.row.isSendMessage))}}</span>
+            </template>
         </el-table-column>
-        <el-table-column align="center" prop="adminTotalAmount" :label="$t('teleMarketing.no14')" >
+        <el-table-column align="center" prop="isBorrow" :label="$t('teleMarketing.no14')" >
+          <template slot-scope="scope">
+              <span>{{$t($store.getters.is_addressBook(scope.row.isBorrow))}}</span>
+            </template>
         </el-table-column>
-        <el-table-column align="center" prop="recallAmount" :label="$t('public.no37')" >
+        <el-table-column align="center" prop="remark" :label="$t('public.no37')" >
         </el-table-column>
       </el-table>
       <el-row type="flex" justify="end">
         <el-pagination
-          @current-change="handleCurrentChange2"
-          :current-page="currentPage2"
+          @current-change="handleCurrentChange3"
+          :current-page="currentPage3"
           layout="prev, pager, next, ->"
-          :total="pageTotal2?pageTotal2:0">
+          :total="pageTotal3?pageTotal3:0">
         </el-pagination>
       </el-row>
       
@@ -267,11 +291,23 @@
     <!-- ------------------ 查看详情弹窗结束 -------------------- -->
 
     <!-- 添加营销数据 -->
-    <el-dialog :title="$t('public.no29')" :visible.sync="addDataFlag"  width="500px">
-      <el-button>{{$t('teleMarketing.no16')}}</el-button>
-      <p class="form-p">
-        <span class="form-span2">{{$t('teleMarketing.no13')}}:</span>
+    <el-dialog :title="$t('teleMarketing.no12')" :visible.sync="addDataFlag"  width="500px">
+      <div class="box">
+        <el-upload class="upload-demo" :action="$axios.defaults.baseURL" :http-request="httpRequest" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+          :before-upload="beforeUpload" :on-remove="removeHandler" :on-success="uploadSuccess" ref="upload">
+          <!-- <el-button size="small" type="primary">{{$t('teleMarketing.no16')}}</el-button> -->
+          <span class="upload">{{$t('teleMarketing.no16')}}</span>
+        </el-upload>
+        
+      </div>
+      
+      <p class="form-p mt15">
+        <span class="form-span2 cp" @click="downExcel">{{$t('teleMarketing.no13')}}:</span>
       </p>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addDataFlag = false">{{$t('public.no50')}}</el-button>
+        <el-button type="primary" @click="addExcel">{{$t('public.no49')}}</el-button>
+      </span>
     </el-dialog>
 
   </div>
@@ -288,19 +324,23 @@ export default {
       pageNumber: 10, // 每页条数
       searchTime1: [], // 添加时间
       formInline: { // 用户查询信息数据对应字段
-        orderId: '',
-        idcard: '',
+        adminId: '',
+        idCard: '',
         name: '',
         phone: '',
-        reminderTimeBegin:'',
-        reminderTimeEnd:'',
+        regChannel: '',
+        isFollowup: '',
+        addTimeBegin:'',
+        addTimeEnd:'',
       },
       currentPage: 1, // 当前页下标
       currentPage2: 1, // 当前页下标
+      currentPage3: 1, // 当前页下标
       pageTotal2: 0, // 分页总数
-      options1: this.$store.state.options.order_select, // 渠道来源
+      pageTotal3: 0, // 分页总数
+      options1: [], // 渠道来源
       options2: this.$store.state.options.isOverdue_option, // 是否更进
-      options3: this.$store.state.options.loansType_options, // 电销员
+      adminOptions: [], // 电销员
       tableData: [],// 借款信息数据模拟
       options4: [], // 在职客服员列表
       options5: [], // 在职客服员列表
@@ -319,6 +359,7 @@ export default {
       selfdomFlag: false,// 个性分单弹窗
       tableData1: [],// 个性分单列表信息数据
       tableData2: [],// 个性分单列表信息数据
+      tableData3: [],// 个性分单列表信息数据
       noallotOrdersType: '',// 个性平均分单未分配总量
       noallotOrdersNew: 0,// 个性平均分单未分配总量
       noallotOrdersOld: 0,// 个性平均分单未分配总量
@@ -328,23 +369,33 @@ export default {
       allocationNumber2: [],// 个性分单老客分单集合
       addDataFlag: false,
       detailFlag: false,
+      detailData:{
+
+      },
+      fileList: [],
+      fileReader: '',
+      base64Str: '',
+      fileType: '',
     }
   },
   methods: {
+    clearChannel(){
+      this.formInline.regChannel = '';
+    },
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
-      this.dataList();
+      this.getTableData();
     },
     handleCurrentChange (val) { // 分页按钮操作
       this.currentPage = val;
-      this.dataList();
+      this.getTableData();
     },
     select () { // 点击查询按钮操作
       this.$store.commit('noBackOrderList', this.formInline);
       if (this.flag) {
         this.currentPage = 1;
         this.flag = false;
-        this.dataList();
+        this.getTableData();
       }
     },
     putExcel () { // excel下载操作
@@ -353,7 +404,7 @@ export default {
         let option = {
           header: {
             ...this.$base,
-            action: this.$store.state.actionMap.kf_noBackOrder_excel,
+            action: this.$store.state.actionMap.PHONEMARKET0001EXP,
             'page': {'index': this.currentPage, 'size': this.pageNumber},
             'sessionid': this.sessionid
           },
@@ -370,15 +421,43 @@ export default {
         })
       }
     },
-    selectDetail (orderNo, userId, orderId) { // 查看详情操作
-      this.$router.push({path: '/telnoticedetail', query: {userId, orderNo, orderId, type:2}});
+    selectDetail (adminId, userId, name, phone) { // 查看详情操作
+      this.detailData.adminId = adminId;
+      this.detailData.userId = userId;
+      this.detailData.name = name;
+      this.detailData.phone = phone;
+      this.getDetailTable()
     },
-    dataList () { // 获取借款列表
+    getDetailTable(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.PHONEMARKET0006,
+          'page': {'index': this.currentPage3, 'size': 10},
+          'sessionid': this.sessionid
+        },
+        ...this.detailData
+      };
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.tableData3 = res.data.data;
+          this.pageTotal3 = res.data.header.page.total;
+          this.detailFlag = true;
+        }else{
+          this.$globalMsg.error(res.data.header.msg)
+        }
+      })
+    },
+    handleCurrentChange3(val){
+      this.currentPage3 = val;
+      this.getDetailTable()
+    },
+    getTableData () { // 获取列表数据
       this.loadFlag = true;
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.kf_noBackOrder,
+          action: this.$store.state.actionMap.PHONEMARKET0001,
           'page': {'index': this.currentPage, 'size': this.pageNumber},
           'sessionid': this.sessionid
         },
@@ -389,37 +468,18 @@ export default {
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
           this.pageTotal = res.data.header.page.total;
+          
         }else{
           this.$globalMsg.error(res.data.header.msg)
         }
         this.loadFlag = false;
       })
     },
-    chuPeople () { // 获取客服人员列表数据
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.kf_people_option,
-          'sessionid': this.sessionid
-        },
-        type: '3'
-      };
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          let arr = res.data.data;
-          arr.forEach(value => {
-            value.value = value.id;
-            value.label = value.name;
-          })
-          this.options4 = arr;
-        }
-      })
-    },
     handleSelectionChange (val) { // 表格选中项数据
       this.multipleSelection = val;
     },
     unSelect (row) {
-      return row.status != 51;
+      return (row.followUpStatus != 1||(row.followUpStatus == -1&&row.strApplyTime == ''));
     },
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderIds == '') {
@@ -457,12 +517,11 @@ export default {
         let option = {
           header: {
             ...this.$base,
-            action: this.$store.state.actionMap.zhipai,
+            action: this.$store.state.actionMap.PHONEMARKET0005,
             'sessionid': this.sessionid
           },
-          operType: '4',
-          orderIds: this.orderIds,
-          oper: this.redeployStatus,
+          adminId: this.redeployStatus,
+          transferList: this.orderIds,
           remark: this.reason
         };
         this.$axios.post('', option).then(res => {
@@ -472,34 +531,67 @@ export default {
           } else {
             this.$globalMsg.error(res.data.header.msg);
           }
-          this.dataList();
+          this.getTableData();
           this.redeployClose();
         })
       }
     },
-    getremindTypes(){ // 获取催收阶段
+    getchannel(){ // 获取渠道下拉框数据
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.back_reason,
-        },
-        optionGroup:'customer.type'
+          action: this.$store.state.actionMap.PHONEMARKET0011,
+          'sessionid': this.sessionid
+        }
       }
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
           let arr = res.data.data;
           arr.forEach(value=>{
-            value.label = value.optionName;
-            value.value = value.optionValue;
+            this.options1.push({value,label:value})
           })
-          this.remindType = arr;
+        }
+      })
+    },
+    getexcelHref(){ // 获取渠道下拉框数据
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+          'sessionid': this.sessionid
+        },
+        optionGroup:'excel.url'
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          window.location.href = res.data.data[0].optionName;
+        }
+      })
+    },
+    getpeople(){ // 获取电销员下拉框
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.kf_people_option,
+          'sessionid': this.sessionid
+        },
+        outSource: 1,
+        type: 4
+      }
+      this.$axios.post('', option).then(res => {
+        this.flag = true;
+        if (res.data.header.code == 0) {
+          res.data.data.forEach(value=>{
+            this.adminOptions.push({value:value.id,label:value.name})
+          })
         }
       })
     },
     selfdomAllotBegin(){// 个性分单按钮点击操作
-      if(this.$store.state.common.lang!=='PHL'&&!this.formInline.remindType){
-        return this.$globalMsg.error(this.$t('add.no37'));
+      if(this.formInline.addTimeBegin===''||this.formInline.regChannel===''){
+        return this.$globalMsg.error(this.$t('add.no82'));
       }
       this.selfdomFlag = true;
       this.getselfdomTable();
@@ -508,25 +600,21 @@ export default {
       this.tableData1 = [];
       this.tableData2 = [];
       this.noallotOrdersNew = 0;
-      this.noallotOrdersOld = 0;
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.KF0023,
+          action: this.$store.state.actionMap.PHONEMARKET0008,
           'sessionid': this.sessionid
         },
-        ...this.formInline,
-        adminId:this.adminId
+        ...this.formInline
       }
       this.$axios.post('', option).then(res => {
         this.flag = true;
         if (res.data.header.code == 0) {
-          this.tableData1 = res.data.data.personLityOrders;
+          this.tableData1 = res.data.data.distributionPhoneMarketList;
           this.tableData2 = this.tableData1.slice(0,10);
           this.pageTotal1 = this.tableData1.length;
-          this.noallotOrdersType = res.data.data.type;
-          this.noallotOrdersOld = res.data.data.oldUnallocatedCount;
-          this.noallotOrdersNew = res.data.data.newUnallocatedCount;
+          this.noallotOrdersNew = res.data.data.noDistributeUserAll.noDistributeUserAll;
         }
       })
     },
@@ -536,41 +624,32 @@ export default {
     },
     selfdomSure(){// 个性分单确认按钮
       let sum1 = 0;
-      let sum2 = 0;
       let arr = [];
-      let brr = [];
       for (var index in this.inputValueNew){
         if(this.inputValueNew[index]!=''){
           sum1+=Number(this.inputValueNew[index]);
-          arr.push({adminId:index,count:Number(this.inputValueNew[index])});
-        }
-      }
-      for (var key in this.inputValueOld){
-        if(this.inputValueOld[key]!=''){
-          sum2 += Number(this.inputValueOld[key]);
-          brr.push({adminId:key,count:Number(this.inputValueOld[key])});
+          arr.push({adminId:index,distributeCount:Number(this.inputValueNew[index])});
         }
       }
       this.allocationNumber1 = arr;
-      this.allocationNumber2 = brr;
-      // console.log(this.allocationNumber)
-      if(this.allocationNumber1==''&&this.allocationNumber2==''){
+      
+      if(this.allocationNumber1==''){
         this.$globalMsg.error(this.$t('OutsourcedManage.no20'));
         return false;
       }
-      if(sum1>Number(this.noallotOrdersNew)||sum2>Number(this.noallotOrdersOld)){
+      if(sum1>Number(this.noallotOrdersNew)){
         this.$globalMsg.error(this.$t('OutsourcedManage.no19'));
         return false;
       }
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.KF0025,
+          action: this.$store.state.actionMap.PHONEMARKET0009,
           'sessionid': this.sessionid
         },
         ...this.formInline,
-        newOrderCounts: this.allocationNumber1,
-        oldOrderCounts: this.allocationNumber2,
+        noDistributeAllCount: this.noallotOrdersNew,
+        distributeList: this.allocationNumber1
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -579,73 +658,86 @@ export default {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
-      this.inputValueOld = {};
+      setTimeout(()=>{
+        this.getTableData()
+      },500)
       this.inputValueNew = {};
       this.selfdomFlag = false;
     },
-    getshowStatus () { // 判断个性分单是否展示
+    showaddData(){
+      this.addDataFlag = true;
+    },
+    addExcel(){
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.back_reason,
+          action: this.$store.state.actionMap.PHONEMARKET0010,
           'sessionid': this.sessionid
         },
-        optionGroup:'automatic.switch.customer'
+        fileType: this.fileType,
+        fileBase64: this.base64Str,
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.isshowselfdom = res.data.data[0].optionValue;
+          this.$globalMsg.success(res.data.data);
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
         }
       })
-    },
-    handleCurrentChange2(){
+      setTimeout(()=>{
+        this.getTableData()
+      },500)
+      this.addDataFlag = false;
+      this.fileList = [];
       
-    }
+    },
+    downExcel(){
+      this.getexcelHref()
+    },
+    // 上传文件相关
+    httpRequest (options) {
+      let file = options.file;
+      // console.log(file.name.split('.')[file.name.split('.').length-1])
+      if (file) {
+        this.fileReader.readAsDataURL(file);
+      }
+      this.fileReader.onload = () => {
+        let base64Str = this.fileReader.result;
+        this.base64Str = this.fileReader.result.split(",")[1];
+        this.fileType = file.name.split('.')[file.name.split('.').length-1]
+        options.onSuccess("123", file);
+      };
+    },
+    removeHandler (file) {
+      this.fileList=this.fileList.filter(value=>{
+        return file.uid!==value.uid;
+      })
+    },
+    beforeUpload (file) {
+      
+      // const isIMAGE = file.type === 'application/pdf';
+      if (this.fileList.length >= 1) {
+        this.$globalMsg.error('最多上传一个');
+        return false;
+      }
+      // if (!isIMAGE) {
+      //   this.$globalMsg.error('文件类型错误');
+      //   return false;
+      // }
+    },
+    uploadSuccess (res, file) {
+      let data = res;
+      this.fileList.push({data,uid:file.uid})
+    },
   },
   watch: {
-    searchTime () {
-      if (this.searchTime) {
-        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
-        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
-      } else {
-        this.formInline.loanTimeBegin = '';
-        this.formInline.loanTimeEnd = '';
-      }
-    },
     searchTime1 () {
       if (this.searchTime1) {
-        this.formInline.mustRefundTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
-        this.formInline.mustRefundTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
+        this.formInline.addTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
+        this.formInline.addTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
       } else {
-        this.formInline.mustRefundTimeBegin = '';
-        this.formInline.mustRefundTimeEnd = '';
-      }
-    },
-    searchTime2 () {
-      if (this.searchTime2) {
-        this.formInline.serviceTimeStart = this.$store.getters.yyyy_m_d(this.searchTime2[0]);
-        this.formInline.serviceTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime2[1]);
-      } else {
-        this.formInline.serviceTimeStart = '';
-        this.formInline.serviceTimeEnd = '';
-      }
-    },
-    searchTime3 () {
-      if (this.searchTime3) {
-        this.formInline.reminderTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime3[0]);
-        this.formInline.reminderTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime3[1]);
-      } else {
-        this.formInline.reminderTimeBegin = '';
-        this.formInline.reminderTimeEnd = '';
-      }
-    },
-    searchTime5 () {
-      if (this.searchTime5) {
-        this.formInline.callStartTime = this.$store.getters.yyyy_m_d(this.searchTime5[0]);
-        this.formInline.callEndTime = this.$store.getters.yyyy_m_d(this.searchTime5[1]);
-      } else {
-        this.formInline.callStartTime = '';
-        this.formInline.callEndTime = '';
+        this.formInline.addTimeBegin = '';
+        this.formInline.addTimeEnd = '';
       }
     },
     multipleSelection () {
@@ -659,30 +751,43 @@ export default {
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
-    if (JSON.stringify(this.$store.state.common.noBackOrderList_select) !== '{}') {
-      this.formInline = this.$store.state.common.noBackOrderList_select;
-      if(this.formInline.loanTimeBegin!==''){
-        this.searchTime.push(this.formInline.loanTimeBegin);
-        this.searchTime.push(this.formInline.loanTimeEnd);
-      }
-      if(this.formInline.mustRefundTimeBegin!==''){
-        this.searchTime1.push(this.formInline.mustRefundTimeBegin);
-        this.searchTime1.push(this.formInline.mustRefundTimeEnd);
-      }
-    }
-    this.dataList();// 获取借款列表
-    this.chuPeople();
-    this.getremindTypes();
-    this.getshowStatus();
+    this.fileReader = new FileReader();
+    this.getTableData();
+    this.getpeople();// 获取在职电销员
+    this.getchannel();// 获取渠道来源
   }
 }
 </script>
 
 <style scoped lang="scss">
+  div .upload-demo .el-upload--text{
+    width: auto;
+  }
   .mr20{
     margin-right: 20px;
   }
   .mb5{
     margin-bottom: 6px;
   }
+  .box{
+    // width: 100px;
+    // height: 40px;
+    .el-upload--text {
+      width: 100px;
+      height: auto;
+    }
+  }
+  .el-upload {
+    width: auto;
+    height: auto;
+  }
+  .upload{
+    background-color: #3a8ee6;
+    display: inline-block;
+    color: #ffffff;
+    padding: 8px 6px;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
 </style>

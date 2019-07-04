@@ -102,9 +102,16 @@
       </el-row>
     </div>
 
-    <div class="list_operation" v-if="$store.state.common.permiss.includes('RIGHT_ADD_SPECIAL_USER_STATUS')">
-      <el-button type="primary"  @click="addFlagShow">{{$t('new.no65')}}</el-button>
-      <el-button type="primary"  @click="showMarketing">{{$t('add.no71')}}</el-button>
+    <div class="list_operation" >
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_ADD_SPECIAL_USER_STATUS')"
+        type="primary"  
+        @click="addFlagShow">{{$t('new.no65')}}</el-button>
+      <el-button 
+        v-if="$store.state.common.permiss.includes('RIGHT_TRANSFER_PHONEMARKET')"
+        type="primary" 
+        @click="showMarketing">{{$t('add.no71')}}
+      </el-button>
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
@@ -116,18 +123,10 @@
           size="small"
           style="width: 100%"
           highlight-current-row
-          @current-change="tableRowChange"
+          @selection-change="handleSelectionChange"
           :row-class-name="tableRowClassName"
         >
-          <el-table-column align="right" label="" width="60">
-            <template slot-scope="scope">
-              <template>
-                <el-radio v-model="radioVal"
-                          :label="scope.row.id"
-                          >&nbsp;
-                </el-radio>
-              </template>
-            </template>
+          <el-table-column type="selection"  width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('public.userId')" >
           </el-table-column>
@@ -173,18 +172,10 @@
           size="small" 
           style="width: 100%"
           highlight-current-row
-          @current-change="tableRowChange"
+          @selection-change="handleSelectionChange"
           :row-class-name="tableRowClassName"
         >
-          <el-table-column align="right" label="" width="60">
-            <template slot-scope="scope">
-              <template>
-                <el-radio v-model="radioVal"
-                          :label="scope.row.id"
-                          >&nbsp;
-                </el-radio>
-              </template>
-            </template>
+          <el-table-column type="selection"  width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" :label="$t('public.userId')" >
           </el-table-column>
@@ -258,12 +249,12 @@
     <el-dialog :title="$t('add.no72')" :visible.sync="marketingFlag" width="560">
       <div class="left2right">
         <span class="left">{{$t('add.no73')}}:</span>
-        <span class="right">0000000</span>
+        <span class="right">{{phoneMarketList.length}}</span>
       </div>
       <div class="left2right">
         <span class="left">{{$t('add.no74')}}:  </span>
         <span class="right">
-          <el-input size="small"></el-input>
+          <el-input size="small" v-model="marketing.appUrl"></el-input>
         </span>
       </div>
       <div class="left2right">
@@ -323,8 +314,12 @@ export default {
       radioVal: '',
       marketingFlag: false,
       marketing:{
-
-      }
+        appUrl: ''
+      },
+      tableSelection: [],
+      phoneMarketList: [],
+      orderIds: [],
+      userIds: [],
     }
   },
   methods: {
@@ -415,7 +410,7 @@ export default {
       })
     },
     addFlagShow () {
-      if(this.tableSelect==''){
+      if(this.userIds==''){
         this.$globalMsg.error(this.$t('public.no89'));
       }else{
         this.addFlag = true;
@@ -437,7 +432,7 @@ export default {
           action: this.$store.state.actionMap.addSpecialUser,
           'sessionid': this.sessionid
         },
-        id: this.tableSelect,
+        id: this.userIds,
         status: this.addUser.userStatus,
         remark:this.addUser.remark
       }
@@ -458,16 +453,52 @@ export default {
       this.radioVal = val.id;
     },
     tableRowClassName({row, rowIndex}) {
-      if (row.id == 658921) {
+      if (row.isPhoneMarket == 1) {
         return 'info-row';
       }
       return '';
     },
     showMarketing() {
-      this.marketingFlag = true
+      if(this.userIds==''){
+        this.$globalMsg.error(this.$t('public.no89'));
+      }else{
+        this.marketingFlag = true;
+      }
     },
     marketingSure() {
-      this.marketingFlag = false
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.PHONEMARKET0007,
+          'sessionid': this.sessionid
+        },
+        phoneMarketList: this.phoneMarketList,
+        appUrl:this.marketing.appUrl
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('message.success'))
+        }else {
+          this.$globalMsg.error(res.data.header.msg)
+        }
+        this.userList();
+        this.marketingFlag = false;
+        this.marketing.appUrl = '';
+      })
+      
+    },
+    handleSelectionChange (val) { // 表格选中项数据
+      this.tableSelection = val;
+    },
+    joinType () { // 选中数据做处理
+      let arr = [];
+      let brr = [];
+      this.tableSelection.forEach(value => {
+        arr.push({userId:value.id,phone:value.phone,name:value.name,regChannel:value.regChannel,idCard:value.idCard,isPhoneMarket:value.isPhoneMarket});
+        brr.push(value.id);
+      })
+      this.phoneMarketList = arr.filter(value=>value.isPhoneMarket!=1);
+      this.userIds = brr;
     },
   },
   watch: {
@@ -480,7 +511,10 @@ export default {
         this.formInline.regDateBegin = '';
         this.formInline.regDateEnd = '';
       }
-    }
+    },
+    tableSelection () {
+      this.joinType()
+    },
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');
@@ -499,6 +533,7 @@ export default {
 </script>
 <style >
   div.el-table tr.info-row {
-    background: #b7d9fc;
+    color: #2891fa;
   }
+  
 </style>
