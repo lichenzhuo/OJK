@@ -208,7 +208,7 @@
       <p class="form-p">
         <span class="form-span2">{{$t('teleMarketing.no6')}}:</span>
         <span class="mr20">{{this.formInline.regChannel}}</span>
-        <span class="form-span2">{{$t('add.no77')}}:</span>
+        <span class="form-span2">{{$t('OutsourcedManage.no17')}}:</span>
         <span class="mr20">{{noallotOrdersNew}}</span>
       </p>
       <el-table :data="tableData2" size="small" style="min-height:240px">

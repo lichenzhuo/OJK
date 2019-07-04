@@ -145,7 +145,7 @@
 
     <!-- ------------------ 查看详情弹窗开始 -------------------- -->
     <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag" width="800px">
-      <p class="form-p">
+      <p class="form-p mt-10">
         <span class="form-span2">{{$t('public.name')}}:</span>
         <span class="mr20">{{detailData.name}}</span>
         <span class="form-span2">{{$t('public.userTel')}}:</span>
@@ -512,5 +512,8 @@ export default {
   .mb5{
     margin-bottom: 6px;
   }
-  
+  .mt-10{
+    margin-top: -20px;
+    margin-bottom: 6px;
+  }
 </style>
