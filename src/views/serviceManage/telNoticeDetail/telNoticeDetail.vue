@@ -139,10 +139,10 @@
           <template v-if="$store.state.common.lang!=='PHL'">
             <div class="oneLineHasFour">
               <p><span>{{$t('new.no48')}}:</span>
-                <span>{{data.userBase.appName | dataIsTrue}}</span>
+                <span>{{data.orderExtra.appName | dataIsTrue}}</span>
               </p>
               <p style="width:50%"><span>{{$t('new.no49')}}:</span>
-                <span>{{data.userBase.appPackage | dataIsTrue}}</span> 
+                <span>{{data.orderExtra.appPackage | dataIsTrue}}</span> 
               </p>
             </div>
             <div class="oneLineHasFour">
@@ -601,6 +601,7 @@ export default {
       active3: 1, // 第三个选项卡当前选中项
       data: {// 页面信息汇总
         userBase: '',
+        orderExtra: '',
         userBank: '',
         userIdcard: '',
         userSelf: '',
@@ -705,6 +706,7 @@ export default {
           this.data.webInfo = res.data.data.webInfo;
           this.data.orderFacebook = res.data.data.orderFacebook;
           this.data.orderInstalment = res.data.data.orderInstalment;
+          this.data.orderExtra = res.data.data.orderExtra;
         } else {
           this.data = {}
         }
