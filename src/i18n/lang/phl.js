@@ -1691,6 +1691,7 @@ const phl = {
     no35:'total assigned user',
     no36:'followed up',
     no37:'to be followed up',
+    no38:'not assigned users exist, not available to assign',
   },
   add:{
     no1:'type',

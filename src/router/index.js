@@ -19,7 +19,7 @@ let userDetail//  ----------------  用户详情   -----------------
 let loanMoneyDetail//  ----------------  借款详情   -----------------
 let backMoney
 let cuishouDetail
-let test
+let test = resolve => require(['../views/test.vue'], resolve)
 
 if (store.state.common.lang === 'id') {
   adminhome = resolve => require(['../views/adminHome.vue'], resolve)

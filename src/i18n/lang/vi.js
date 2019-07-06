@@ -1683,6 +1683,7 @@ const vi = {
     no35:'Tổng Khách chỉ định',
     no36:'Khách đã theo dõi',
     no37:'Khách đợi theo dõi',
+    no38:'Tồn tại khách chưa chỉ định, không thể chuyển đổi',
   },
   add:{
     no1:'Loại phản hồi',

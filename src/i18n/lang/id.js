@@ -1654,6 +1654,7 @@ const id = {
     no35:'Total pembagian user',
     no36:'Sudah di follow up',
     no37:'Menunggu follow up',
+    no38:'Terdapat user yang belum dibagikan dan tidak dapat dialihkan',
   },
   add:{
     no1: 'Jenis umpan balik',

@@ -205,11 +205,11 @@
 
     <!-- ------------------ 点击个性分单弹窗开始 -------------------- -->
     <el-dialog :title="$t('OutsourcedManage.no14')" :visible.sync="selfdomFlag"  width="1200px">
-      <p class="form-p">
-        <span class="form-span2">{{$t('teleMarketing.no6')}}:</span>
-        <span class="mr20">{{this.formInline.regChannel}}</span>
-        <span class="form-span2">{{$t('OutsourcedManage.no17')}}:</span>
-        <span class="mr20">{{noallotOrdersNew}}</span>
+      <p class="form-p mt-10">
+        <span class="form-span2 red">{{$t('teleMarketing.no6')}}:</span>
+        <span class="mr20 red">{{this.formInline.regChannel}}</span>
+        <span class="form-span2 red">{{$t('OutsourcedManage.no17')}}:</span>
+        <span class="mr20 red">{{noallotOrdersNew}}</span>
       </p>
       <el-table :data="tableData2" size="small" style="min-height:240px">
         <el-table-column type="index" :label="$t('serviceManage.index')">
@@ -351,6 +351,7 @@ export default {
       multipleSelection: [], // 可勾选表格选中项
       orderIds: [], // 选中的订单ID数组
       userIds: [], // 选中的订单ID数组
+      userName: [], // 选中的信审员
       orderType: '', // 订单类型
       reason: '',// 转派原因描述
       pageTotal1: 0, // 个性分单分页总数
@@ -482,8 +483,11 @@ export default {
       return (row.followUpStatus != 1||(row.followUpStatus == -1&&row.strApplyTime == ''));
     },
     todayRedeploy () { // 转派按钮点击操作
+      
       if (this.orderIds == '') {
         this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
+      } else if(this.userName.some(value=>!value)){
+        this.$globalMsg.error(this.$t('teleMarketing.no38'));
       } else {
         this.redeployFlag = true;
       }
@@ -496,10 +500,13 @@ export default {
     joinType () { // 订单转派弹窗对应数据处理
       let arr = [];
       let brr = [];
+      let crr = [];
       this.multipleSelection.forEach(value => {
         arr.push(value.id);
         brr.push(value.userId);
+        crr.push(value.adminName);
       })
+      this.userName = crr;
       this.orderIds = arr;
       this.userIds = brr;
     },
@@ -792,5 +799,8 @@ export default {
     text-align: center;
     border-radius: 5px;
   }
-  
+  .mt-10{
+    margin-top: -20px;
+    margin-bottom: 6px;
+  }
 </style>
