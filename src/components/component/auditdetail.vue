@@ -14,8 +14,8 @@
             <span>{{$t('new.no55')}}:</span>
             <span>{{data.userSelf.whatsAPP | dataIsTrue}}</span>
           </p>
-          <p><span>{{$t('add.no70')}}:</span>
-            <span>{{data.userBase.regChannel | dataIsTrue}}</span>
+          <p><span style="color:crimson">{{$t('add.no70')}}:</span>
+            <span style="color:crimson">{{data.userBase.regChannel | dataIsTrue}}</span>
           </p>
         </div>
         <div class="oneLineHasFour">
@@ -80,8 +80,8 @@
           <span>{{data.orderExtra.appName | dataIsTrue}}</span></p>
           <p><span>{{$t('new.no49')}}:</span>
           <span>{{data.orderExtra.appPackage | dataIsTrue}}</span></p>
-          <p><span>{{$t('add.no69')}}:</span>
-            <span>{{data.orderExtra.partnerName | dataIsTrue}}</span>
+          <p><span style="color:crimson">{{$t('add.no69')}}:</span>
+            <span style="color:crimson">{{data.orderExtra.partnerName | dataIsTrue}}</span>
           </p>
           <!-- v-if="!(title==='kilatloan'&&auditType==1)" -->
           <p  class="pinfen"><span style="color: coral;font-size:30px;">{{$t('yn.no51')}}:</span>

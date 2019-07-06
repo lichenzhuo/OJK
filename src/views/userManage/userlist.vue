@@ -494,7 +494,7 @@ export default {
       let arr = [];
       let brr = [];
       this.tableSelection.forEach(value => {
-        arr.push({userId:value.id,phone:value.phone,name:value.name,regChannel:value.regChannel,idCard:value.idCard,isPhoneMarket:value.isPhoneMarket});
+        arr.push({userId:value.id,phone:value.phone,name:value.name,idCard:value.idCard,isPhoneMarket:value.isPhoneMarket});
         brr.push(value.id);
       })
       this.phoneMarketList = arr.filter(value=>value.isPhoneMarket!=1);
