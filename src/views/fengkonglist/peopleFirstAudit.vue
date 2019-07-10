@@ -50,13 +50,13 @@
           </el-select>
         </div>
         <template v-if="$store.state.common.lang==='vi'">
-          <div class="search-input">
+          <!-- <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
             <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
               <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>
             </el-select>
-          </div>
+          </div> -->
           <div class="search-input">
             <span>{{$t('public.no2')}}:</span>
             <el-input size="small" style="width:130px;" v-model="formInline.idCard"></el-input>
@@ -134,11 +134,11 @@
             </el-table-column>
             <el-table-column align="center" prop="idCard" :label="$t('public.no2')" >
             </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
+            <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
               <template slot-scope="scope">
                 <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </template>
           <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
             <template slot-scope="scope">

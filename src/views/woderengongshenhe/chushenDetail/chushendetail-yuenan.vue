@@ -279,6 +279,7 @@
                     </template>
                     
                   </div>
+                  
                   <div v-else class="idimg pic" >
                     <img src="../../../assets/img/null.png" :title="$t('pic.no1')">
                   </div>
@@ -1529,7 +1530,7 @@ export default {
 
 
 .back-p{
-  position: absolute;
+  // position: absolute;
   color: #1D7BFF;
   text-align: center;
   width: 100%;
@@ -1614,6 +1615,7 @@ export default {
       width: 40%;
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-around;
     }
     
   }
@@ -1657,8 +1659,9 @@ export default {
     width: 30%;
     height: auto;
     display: flex;
+    flex-wrap: wrap;
     margin: 20px 0;
-    // justify-content: space-between;
+    // align-content: flex-start;
     .idimg{
       width: 200px;
       height: 150px;

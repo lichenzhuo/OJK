@@ -64,8 +64,9 @@ export default {
       // 需要在拿到searchData后执行 初始化查询条件
     },
     search(filter) { // 搜索
-      console.log(filter)
-    
+      
+      let option = this.$store.getters.getBaseHeader('333333')
+      console.log(option)
     },
 
 

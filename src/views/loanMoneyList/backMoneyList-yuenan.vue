@@ -77,7 +77,7 @@
           ~
           <el-input size="small" style="width:80px" v-model="formInline.overdueEnd"></el-input>
         </div>
-        <template v-if="$store.state.common.lang==='vi'">
+        <!-- <template v-if="$store.state.common.lang==='vi'">
           <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
             <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -85,7 +85,7 @@
               </el-option>
             </el-select>
           </div>
-        </template>
+        </template> -->
         <div class="search-input">
           <span>{{$t('public.no58')}}:</span>
           <form autocomplete="off">
@@ -140,12 +140,12 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" >
           </el-table-column>
-          <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')" >
+          <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')" >
             <template slot-scope="scope">
               <span v-if="scope.row.orderLoanType!==null&&scope.row.orderLoanType!==undefined&&scope.row.orderLoanType!==''">{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="idCard" :label="$t('public.no2')" >
           </el-table-column>
           <el-table-column align="center" prop="loanAmount" :label="$t('public.no54')" width="100">

@@ -33,13 +33,13 @@
               </el-option>
             </el-select>
           </div>
-          <div class="search-input">
+          <!-- <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
             <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
               <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>
             </el-select>
-          </div>
+          </div> -->
           <div class="search-input">
             <span>{{$t('staffManage.xinshenyuan')}}:</span>
             <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
@@ -93,11 +93,11 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
+          <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="loanAmount" :label="$t('websiteLoans.no10')">
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('websiteLoans.no11')">

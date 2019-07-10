@@ -1,5 +1,6 @@
 // 初始化权限列表
 let list = JSON.parse(sessionStorage.getItem('list'))
+
 let filterPer = () => {
   let arr = []
   if (list) {
@@ -11,19 +12,14 @@ let filterPer = () => {
   }
   return arr
 }
-// console.log(global.config.headerTotal)
+
 // 获取当前时间的前一个月/秒时间，解决时间选择器出现1970的bug
 function getPreMonth () {
-  // var nowdate = new Date();
-  // nowdate.setMonth(nowdate.getMonth()-1);
   var prve = new Date(new Date().getTime()+1000)
-  // var y = nowdate.getFullYear();
-  // var m = nowdate.getMonth()+1;
-  // var d = nowdate.getDate();
-  // var formatwdate = y+'/'+m+'/'+d;
   var formatwdate = new Date(prve)
   return formatwdate
 }
+
 
 const common = {
   state: {
@@ -241,7 +237,7 @@ const common = {
       }
       
     },
-    longitudeAndLatitude: ()=>(str)=>{
+    longitudeAndLatitude: ()=>(str)=>{// 转换经纬度
       if(str==0){
         return '-'
       }else{
@@ -255,7 +251,7 @@ const common = {
         var miao = Number(Number('0.'+str3)*60).toFixed(2);
         return `${du}°${fen}′${miao}″`
       }
-    }
+    },
   },
   mutations: {
     filterPreList (state, list) { // 筛选初符合条件的路由

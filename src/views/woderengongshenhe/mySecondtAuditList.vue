@@ -53,7 +53,7 @@
             </el-option>
           </el-select>
         </div>
-        <template v-if="$store.state.common.lang==='vi'">
+        <!-- <template v-if="$store.state.common.lang==='vi'">
             <div class="search-input">
               <span>{{$t('websiteLoans.no5')}}:</span>
               <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -61,7 +61,7 @@
                 </el-option>
               </el-select>
             </div>
-        </template>
+        </template> -->
           <div class="search-input">
             <span>{{$t('public.CreateDate')}}:</span>
             <el-date-picker 
@@ -130,11 +130,11 @@
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
+            <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
               <template slot-scope="scope">
                 <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </template>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">

@@ -59,18 +59,4 @@ axios.interceptors.response.use((res) => {
 
 Vue.prototype.$axios = axios;
 
-axios.defaults.baseURL = global.config.requestUrl;// 线下接口
-
-// axios.defaults.baseURL = 'http://api.sanjinxia.com/xjdApi/doCallAdmin';// 印尼测试接口
-// axios.defaults.baseURL = 'http://api.myrupiah123.com/xjdApi/doCallAdmin';// 印尼上线接口2
-// axios.defaults.baseURL = 'http://api.kilatrupiah.com/xjdApi/doCallAdmin';// 印尼上线接口2
-// axios.defaults.baseURL = 'http://api.kilatloan.com/xjdApi/doCallAdmin';// 印尼上线接口2
-
-// axios.defaults.baseURL = 'http://api-vn.sanjinxia.com/xjdApi/doCallAdmin';// 越南测试接口
-// axios.defaults.baseURL = 'https://api.mydong.vn/xjdApi/doCallAdmin';// 越南上线接口
-
-// axios.defaults.baseURL = 'http://api-ph.sanjinxia.com/xjdApi/doCallAdmin'// 菲律宾测试接口
-//  axios.defaults.baseURL = 'https://api.getpeso.ph/xjdApi/doCallAdmin';// 菲律宾上线接口
-
-
-// ************** （还有excel表格下载接口需要更改）*************************
+axios.defaults.baseURL = global.config.requestUrl;

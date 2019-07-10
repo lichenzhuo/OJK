@@ -7,6 +7,7 @@ import options from './module/option'
 import common from './module/common'
 import watchstate from './module/watchState'
 import group from './module/group'
+import postHeader from './module/baseHeader'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
     watchstate,
     common,
     group,
-    options
+    options,
+    postHeader
   },
 
   actions: {

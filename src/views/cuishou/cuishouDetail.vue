@@ -295,7 +295,7 @@
               <th width="35%">{{$t('public.no37')}}</th>
               <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
             </tr>
-            <template v-if="phoneAuditLogTwo">
+            <template v-if="phoneAuditLogTwo!=''">
               <tr v-for="value in phoneAuditLogTwo" :key="value.id">
                 <td >{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
                 <td>{{value.userName | dataIsTrue}}</td>

@@ -33,13 +33,13 @@
               </el-option>
             </el-select>
           </div>
-          <div class="search-input">
+          <!-- <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
             <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
               <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>
             </el-select>
-          </div>
+          </div> -->
           <div class="search-input">
             <span>PC{{$t('public.submitDate')}}:</span>
             <form autocomplete="off">
@@ -95,11 +95,11 @@
           </el-table-column>
           <el-table-column align="center" prop="idCard" :label="$t('public.no2')">
           </el-table-column>
-          <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
+          <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="strSubTime" :label="'PC'+$t('public.submitDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strAppRegTime" :label="$t('public.registerDate')" width="86">

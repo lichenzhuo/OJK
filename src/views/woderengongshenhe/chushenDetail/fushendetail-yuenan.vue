@@ -619,38 +619,37 @@
 
     <!------------------------ 复审提交操作开始 ---------------------------->
     <template>
-      <div v-if="peopleTwo_audit!==null&&peopleTwo_audit!==undefined&&peopleTwo_audit!=''" class="chushenjilu">
-        <el-row>
-          <el-col :span="24">
-            <div class="paixu pai-active">
-              <span></span><p>{{$t('auditDetail.no62')}}</p>
-            </div>
-          </el-col>
-        </el-row>
-        <p class="chu-title">{{$t('auditDetail.no22')}}:</p>
-        <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-          <tr>
-            <th width="15%">{{$t('new.no59')}}</th>
-            <th width="15%">{{$t('public.no39')}}</th>
-            <th width="15%">{{$t('public.no40')}}</th>
-            <th width="40%">{{$t('public.no37')}}</th>
-            <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+      <div class="paixu pai-active">
+          <span></span><p>{{$t('auditDetail.no22')}}</p>
+        </div>
+      <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+        <tr>
+          <th width="15%">{{$t('new.no59')}}</th>
+          <th width="15%">{{$t('public.no39')}}</th>
+          <th width="15%">{{$t('public.no40')}}</th>
+          <th width="40%">{{$t('public.no37')}}</th>
+          <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
+        </tr>
+        <template v-if="phoneAuditTwo!=''">
+          <tr v-for="(value,index) in phoneAuditTwo" :key="index">
+            <td>{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
+            <td>{{value.userName | dataIsTrue}}</td>
+            <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
+            <td>{{value.remark | dataIsTrue}}</td>
+            <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
           </tr>
-          <template v-if="phoneAuditTwo!=''">
-            <tr v-for="(value,index) in phoneAuditTwo" :key="index">
-              <td>{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
-              <td>{{value.userName | dataIsTrue}}</td>
-              <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
-              <td>{{value.remark | dataIsTrue}}</td>
-              <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
-            </tr>
-          </template>
-          <template v-else>
-            <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
-              {{$t('public.no23')}}
-            </div>
-          </template>
-        </table>
+        </template>
+        <template v-else>
+          <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+            {{$t('public.no23')}}
+          </div>
+        </template>
+      </table>
+      <div v-if="peopleTwo_audit!==null&&peopleTwo_audit!==undefined&&peopleTwo_audit!=''" class="chushenjilu">
+        <div class="paixu pai-active">
+          <span></span><p>{{$t('auditDetail.no62')}}</p>
+        </div>
+        
         <div class="chu-select">
           <div class="chu-select-left">{{$t('auditDetail.no27')}}:</div>
           <div class="chu-select-right">
@@ -693,32 +692,6 @@
           </ul>
           <ul class="xuan-2">
             <li class="xuan-2-1" v-if="active1==1">
-              <p class="chu-title">{{$t('auditDetail.no22')}}:</p>
-              <div class="cardTable">
-                <table class="loan-table" width="100%" border="1" cellspacing="0" cellpadding="20">
-                  <tr>
-                    <th width="15%">{{$t('new.no59')}}</th>
-                    <th width="15%">{{$t('public.no39')}}</th>
-                    <th width="15%">{{$t('public.no40')}}</th>
-                    <th width="40%">{{$t('public.no37')}}</th>
-                    <th width="15%">{{$t('loanMoneyDetail.opeTime')}}</th>
-                  </tr>
-                  <template v-if="phoneAuditTwo!=''">
-                    <tr v-for="(value,index) in phoneAuditTwo" :key="index">
-                      <td>{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
-                      <td>{{value.userName | dataIsTrue}}</td>
-                      <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
-                      <td>{{value.remark | dataIsTrue}}</td>
-                      <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
-                    </tr>
-                  </template>
-                  <template v-else>
-                    <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
-                      {{$t('public.no23')}}
-                    </div>
-                  </template>
-                </table>
-              </div>
               <div class="chu-select1">
                 <div class="chu-select-left">{{$t('auditDetail.no28')}}</div>
                 <div class="chu-select-right">
@@ -1311,7 +1284,7 @@ export default {
 
     this.detail()// 页面详情数据
     // this.telRecord1()// 初审电话记录列表
-    this.telRecord2()// 初审电话记录列表
+    this.telRecord2()// 复审电话审核记录
     this.reject()// 驳回原因树状图
     // this.auditResult1()// 机审结果展示
     this.auditResult2()// 初审结果展示
@@ -1447,35 +1420,6 @@ $color2:#000;
   }
 }
 
-// 分割样式
-.paixu {
-  width: 100%;
-  height: 48px;
-  line-height: 48px;
-  background: rgba(224, 229, 246, 1);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  span {
-    display: block;
-    background-color: rgba(84, 126, 245, 1);
-    width: 4px;
-    height: 30px;
-    border-radius: 5px;
-  }
-  p {
-    color: rgba(84, 126, 245, 1);
-    font-size: 16px;
-    margin: 0 20px;
-  }
-  .tooltip{
-    width: 15px;
-    height: 15px;
-    img{
-      display: block;
-    }
-  }
-}
 .pai-active{
   margin: 16px 0 0;
 }
@@ -1568,7 +1512,7 @@ $color2:#000;
     height: auto;
     &>li{
       width: 100%;
-      padding: 20px;
+      padding: 10px 20px;
     }
     
   }

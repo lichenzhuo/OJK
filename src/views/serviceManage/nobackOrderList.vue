@@ -69,7 +69,7 @@
           ~
           <el-input size="small" style="width:50px;" v-model="formInline.overdueEnd"></el-input>
         </div>
-        <template v-if="$store.state.common.lang==='vi'">
+        <!-- <template v-if="$store.state.common.lang==='vi'">
             <div class="search-input">
               <span>{{$t('websiteLoans.no5')}}:</span>
               <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
@@ -77,7 +77,7 @@
                 </el-option>
               </el-select>
             </div>
-        </template>
+        </template> -->
         <div class="search-input" v-if="$store.state.common.lang==='PHL'">
           <span>{{$t('fei.no15')}}:</span>
           <el-input size="small" style="width:50px;" v-model="formInline.remindCount"></el-input>
@@ -200,11 +200,11 @@
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
+            <!-- <el-table-column align="center" prop="orderLoanType" :label="$t('websiteLoans.no5')">
               <template slot-scope="scope">
                 <span>{{$t($store.getters.loanTypeState(scope.row.orderLoanType))}}</span>
               </template>
-            </el-table-column>
+            </el-table-column> -->
           </template>
           <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
             <template slot-scope="scope">
