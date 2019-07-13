@@ -29,7 +29,9 @@ export default {
         channel: '',
         beginTime: '',
         endTime: '',
-      }
+      },
+      currentPage:'1',
+      pageNumber:'10',
     }
   },
   computed: {
@@ -65,7 +67,7 @@ export default {
     },
     search(filter) { // 搜索
       
-      let option = this.$store.getters.getBaseHeader('333333')
+      let option = this.$store.getters.getBaseHeader('333333',filter,{'index': this.currentPage, 'size': this.pageNumber})
       console.log(option)
     },
 

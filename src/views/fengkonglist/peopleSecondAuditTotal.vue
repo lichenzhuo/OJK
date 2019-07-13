@@ -92,11 +92,16 @@
           </el-table-column>
           <el-table-column align="center" prop="overdueCount" :label="$t('new.no3')">
           </el-table-column>
+          <el-table-column align="center" prop="loanCount" :label="$t('channelManage.no7')" >
+          </el-table-column>
+          <el-table-column align="center" prop="maturityCount" :label="$t('add.no87')" >
+          </el-table-column>
           <el-table-column align="center" prop="overdueRate" :label="$t('new.no4')">
             <template slot-scope="scope">
               <span>{{$store.getters.twoPoint(scope.row.overdueRate)}}</span>
             </template>
           </el-table-column>
+          
         </el-table>
       </template>
     </div>
@@ -248,7 +253,10 @@ export default {
         this.tableData1.failCounts,
         this.$store.getters.twoPoint(this.tableData1.successRateCounts),
         this.tableData1.overdueCounts,
+        this.tableData1.loanCounts,
+        this.tableData1.maturityCounts,
         this.$store.getters.twoPoint(this.tableData1.overdueRateCounts),
+        
       ];
       return sums;
     }

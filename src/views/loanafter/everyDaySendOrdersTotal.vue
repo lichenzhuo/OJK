@@ -219,7 +219,8 @@ export default {
       },
       peopleId: [],
       reason: '',
-      groupId: ''
+      groupId: '',
+      isshowselfdom: '',
     }
   },
   methods: {
@@ -270,7 +271,12 @@ export default {
       this.type = type;
       this.groupId = groupId || 0;
       this.operationAdmin2(this.type);// 获取催收员列表
-      this.redeployFlag = true;
+      if((this.isshowselfdom=='true'&&adminId!=0)||this.isshowselfdom=='false'){
+        this.redeployFlag = true;
+      }else{
+        this.$globalMsg.error(this.$t('teleMarketing.no38'));
+      }
+      
     },
     redeploySubmit () { // 确认转派操作
       if (this.peopleId == '') {
@@ -468,7 +474,23 @@ export default {
         this.tableData1.payPrincipalInterest,
       ];
       return sums;
-    }
+    },
+    getshowStatus () { // 判断个性分单是否展示
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+          'sessionid': this.sessionid
+        },
+        optionGroup:'automatic.switch.collection'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.isshowselfdom = res.data.data[0].optionValue;
+          
+        }
+      })
+    },
   },
   watch: {
     searchTime () {
@@ -496,6 +518,7 @@ export default {
     this.groupList();// 获取组员列表
     this.leaderName_option();// 获取组长列表
     this.getcollectionType();// 获取催收阶段
+    this.getshowStatus();// 获取催收阶段
   }
 }
 </script>

@@ -39,10 +39,10 @@
           <div class="paixu">
             <span></span>
             <p>{{$t('auditDetail.no2')}}</p>
-            <template v-if="data.userIdcard.identityCheckResult!==null&&data.userIdcard.identityCheckResult!==undefined">
-              <el-tooltip class="item" effect="dark" :content="data.userIdcard.identityCheckResult==1?$t('auditDetail.no3'):$t('auditDetail.no4')" placement="right">
+            <template v-if="data.userIdcard.score!==''">
+              <el-tooltip class="item" effect="dark" :content="data.userIdcard.score>=0.95?$t('auditDetail.no3'):$t('auditDetail.no4')" placement="right">
                 <div class="tooltip pic">
-                  <img v-if="data.userIdcard.identityCheckResult==1" src="../../../assets/img/lv.png" alt="">
+                  <img v-if="data.userIdcard.score>=0.95" src="../../../assets/img/lv.png" alt="">
                   <img v-else src="../../../assets/img/hong.png" alt="">
                 </div>
               </el-tooltip>
@@ -700,6 +700,7 @@ export default {
         orderList: '',
         orderMultiCheck: '',
         userUrgentContact: '',
+        oldUserIdCard: '',
         loginCount: '',
         userOrderCount: {},
         contactOtherOne: '',
@@ -847,6 +848,7 @@ export default {
           this.data.contactOtherOne = res.data.data.contactOtherOne;
           this.data.contactOtherTwo = res.data.data.contactOtherTwo;
           this.data.userOrderCount = res.data.data.userOrderCount;
+          this.data.oldUserIdCard = res.data.data.oldUserIdCard;
         }
       })
     },

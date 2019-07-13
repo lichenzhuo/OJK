@@ -59,12 +59,25 @@
               <span @click="openWindow(data.userFaceBook.fblink)" class="td-ul">{{data.userFaceBook.fblink | dataIsTrue}}</span>
             </p>
           </div>
-          <!-- <div class="oneLineHasOne">
-            <p>
-              <span>faceBook2:</span>
-              <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
-            </p>
-          </div> -->
+          <template v-if="data.oldUserIdCard">
+            <p  class="oneLineHasOne red fw600">{{$t('add.no88')}}</p>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('public.name')}}:</span>
+                <span>{{data.oldUserIdCard.name | dataIsTrue}}</span>
+              </p>
+              <p><span>{{$t('public.no2')}}:</span>
+                <span>{{data.oldUserIdCard.idCard | dataIsTrue}}</span>
+              </p>
+            </div>
+            <div class="oldimg flex flex-justify-start">
+              <div v-if="data.oldUserIdCard.idcardPhotoUrl" class="old_img pic" @click="openBox({imgUrl:data.oldUserIdCard.idcardPhotoUrl})">
+                <img :src="data.oldUserIdCard.idcardPhotoUrl"  :alt="$t('pic.no1')" :title="$t('pic.no1')">
+              </div>
+              <div v-if="data.oldUserIdCard.facetimePhotoUrl" class="old_img pic" @click="openBox({imgUrl:data.oldUserIdCard.facetimePhotoUrl})">
+                <img :src="data.oldUserIdCard.facetimePhotoUrl" :alt="$t('pic.no2')" :title="$t('pic.no2')">
+              </div>
+            </div>
+          </template>
         </li>
         <!-- ------------ 借款详情 ------------------------ -->
         <li  v-if="active2==2">
@@ -218,23 +231,23 @@
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-2">
-              <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                  <p>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%">
                     <span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name | dataIsTrue}}</span> 
                   </p>
-                  <p><span>{{$t('public.no2')}}:</span> <span>{{data.order.idCard | dataIsTrue}}</span> </p>
+                  <p style="width:50%"><span>{{$t('public.no2')}}:</span> <span>{{data.order.idCard | dataIsTrue}}</span> </p>
               </div>
-              <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                  <p>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%">
                     <span>{{$t('yuenan.no1')}}:</span> <span>{{data.userSelf.strIdCardAwardTime | dataIsTrue}}</span> 
                   </p>
-                  <p><span>{{$t('public.birthday')}}:</span> <span>{{data.userBase.birthday | dataIsTrue}}</span> </p>
+                  <p style="width:50%"><span>{{$t('public.birthday')}}:</span> <span>{{data.userBase.birthday | dataIsTrue}}</span> </p>
               </div>
-              <div class="xuan-2-1-1-22 xuan-2-1-1-50">
-                  <p><span>{{$t('yuenan.no2')}}:</span> 
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%"><span>{{$t('yuenan.no2')}}:</span> 
                     <span>{{data.userSelf.liveProvinceName | dataIsTrue}}</span>
                   </p>
-                  <p><span>{{$t('yuenan.no3')}}:</span> 
+                  <p style="width:50%"><span>{{$t('yuenan.no3')}}:</span> 
                     <span>{{data.userSelf.liveCityName | dataIsTrue}}</span> 
                   </p>
               </div>
@@ -251,7 +264,7 @@
               </div>
               <div>
                 <span>{{$t('add.no54')}}:</span>
-                <template v-if="peopleOne_audit==''||peopleOne_audit==undediend">
+                <template v-if="peopleOne_audit==''||peopleOne_audit==undefined">
                   <el-select size="small" v-model="idcardType" :placeholder="$t('public.placeholder')">
                     <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
@@ -397,34 +410,35 @@
           <!-- 第三行 -->
           <div class="paixu">
             <span></span><p>{{$t('public.no16')}}</p>
-            <template v-if="this.$store.state.common.permiss.includes('RIGHT_ORDER_URGRNT_CONTACT_OTHER_ADD')">
-              <p v-if="block==2&&data.userUrgentContact.otherTwoName===''" class="add" @click="addContentFlag">+</p>              
+            <!-- v-if="this.$store.state.common.permiss.includes('RIGHT_ORDER_URGRNT_CONTACT_OTHER_ADD')" -->
+            <template v-if="this.$store.state.common.permiss.includes('RIGHT_URGRNT_CONTACT_ADD')">
+              <p v-if="block==2&&data.order.status==20&&!data.userUrgentContact.contactThreeRelationName" class="add cp" @click="addContentFlag">+</p>              
             </template>
           </div>
           <div class="xuan-2-1-2">
             <div class="xuan-2-1-2-1">
-              <p>{{$t('public.no16')}}1 </p>
+              <p>1 </p>
               <p>{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span> </p>
               <p>{{$t('public.name')}}: <span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span> </p>
-              <template v-if="data.contactOne!==null&&data.contactOne!==undefined&&data.contactOne!==0">
+              <template v-if="data.contactOne!==undefined&&data.contactOne!==0">
                 <div class="tooltip pic">
                   <img src="../../../assets/img/lv.png" alt="">
                 </div>
               </template>
               <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
+                <div class="tooltip pic">
+                  <img src="../../../assets/img/hong.png" alt="">
+                </div>
               </template>
               <p v-if="data.order.status==20&&block==2" style="margin-left:20px;cursor:pointer;color:#1D7BFF"  @click="telFlag2=true">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactOne+$t('auditDetail.no9')}}</p>
+              <!-- <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactOne+$t('auditDetail.no9')}}</p> -->
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactTwoRelationName!==null&&data.userUrgentContact.contactTwoRelationName!==undefined&&data.userUrgentContact.contactTwoRelationName!==''">
-              <p>{{$t('public.no16')}}2 </p>
-              <p>{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.name')}}: <span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactTwoPhone | dataIsTrue}}</span> </p>
+            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactTwoRelationName">
+              <p>2 </p>
+              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span> </p>
+              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactTwoPhone | dataIsTrue}}</span> </p>
               <template v-if="data.contactTwo!==null&&data.contactTwo!==undefined&&data.contactTwo!==0">
                   <div class="tooltip pic">
                     <img src="../../../assets/img/lv.png" alt="">
@@ -436,10 +450,10 @@
                   </div>
               </template>
               <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" v-if="data.order.status==20&&block==2" @click="telFlag3=true">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactTwo+$t('auditDetail.no9')}}</p>
+              <!-- <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactTwo+$t('auditDetail.no9')}}</p> -->
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactThreeRelationName!==null&&data.userUrgentContact.contactThreeRelationName!==undefined&&data.userUrgentContact.contactThreeRelationName!==''">
-              <p>{{$t('public.no16')}}3 </p>
+            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactThreeRelationName">
+              <p>3 </p>
               <p>{{$t('public.no17')}}: <span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span> </p>
               <p>{{$t('public.name')}}: <span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span> </p>
               <p>{{$t('public.no18')}}: <span>{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span> </p>
@@ -454,44 +468,9 @@
                   </div>
               </template>
               <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" v-if="data.order.status==20&&block==2" @click="telFlag4=true">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactThree+$t('auditDetail.no9')}}</p>
+              <!-- <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactThree+$t('auditDetail.no9')}}</p> -->
             </div>
-            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.otherOneName!==''">
-              <p>{{$t('public.no16')}}4 </p>
-              <p>{{$t('public.no17')}}: <span>{{data.userUrgentContact.otherOneRelationName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.name')}}: <span>{{data.userUrgentContact.otherOneName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherOnePhone | dataIsTrue}}</span> </p>
-              <template v-if="data.contactOtherOne!==null&&data.contactOtherOne!==undefined&&data.contactOtherOne!==0">
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/lv.png" alt="">
-                  </div>
-              </template>
-              <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
-              </template>
-              <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" v-if="data.order.status==20&&block==2" @click="telFlag5=true">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactOtherOne+$t('auditDetail.no9')}}</p>
-            </div>
-            <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.otherTwoName!==''">
-              <p>{{$t('public.no16')}}5 </p>
-              <p>{{$t('public.no17')}}: <span>{{data.userUrgentContact.otherTwoRelationName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.name')}}: <span>{{data.userUrgentContact.otherTwoName | dataIsTrue}}</span> </p>
-              <p>{{$t('public.no18')}}: <span>{{data.userUrgentContact.otherTwoPhone | dataIsTrue}}</span> </p>
-              <template v-if="data.contactOtherTwo!==null&&data.contactOtherTwo!==undefined&&data.contactOtherTwo!==0">
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/lv.png" alt="">
-                  </div>
-              </template>
-              <template v-else>
-                  <div class="tooltip pic">
-                    <img src="../../../assets/img/hong.png" alt="">
-                  </div>
-              </template>
-              <p style="margin-left:20px;cursor:pointer;color:#1D7BFF" v-if="data.order.status==20&&block==2" @click="telFlag6=true">{{$t('auditDetail.no42')}}</p>
-              <p style="margin-left:20px">{{$t('auditDetail.no8')+data.contactOtherTwo+$t('auditDetail.no9')}}</p>
-            </div>
+            
           </div>
           <div class="paixu">
             <span></span><p>{{'FaceBook'+$t('yuenan.no35')}}</p>
@@ -757,7 +736,7 @@
     </transition>
 
     <!-- ------------------ 点击电话审核弹窗开始 -------------------- -->
-    <div v-if="telFlag||telFlag1||telFlag2||telFlag3||telFlag4||telFlag5||telFlag6" class="reply">
+    <div v-if="telFlag||telFlag1||telFlag2||telFlag3||telFlag4||telFlag5||telFlag6||telFlag7||telFlag8" class="reply">
       <div class="reply-main">
         <div class="reply-main-head">
           <span></span>
@@ -820,41 +799,35 @@
     <!-- ----------------------确认是否删除结束------------------- -->
 
     <!-- ----------------------添加紧急联系人开始------------------ -->
-    <div v-if="addContent" class="reply">
-      <div class="reply-main">
-        <div class="reply-main-head">
-          <span></span>
-          <p>{{$t('new.no50')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="addContentClose"></i>
-        </div>
-        <div class="reply-main-con">
-          <div class="chu-select">
-            <div class="chu-select-left">{{$t('public.no17')}}:</div>
-            <div class="chu-select-right">
-              <el-select size="small" v-model="instancyContent.contactRelation" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-          </div>
-          <div class="chu-select">
-            <div class="chu-select-left">{{$t('public.name')}}:</div>
-            <div class="chu-select-right">
-              <el-input size="small" style="width:300px" label="name" v-model="instancyContent.contactName"></el-input>
-            </div>
-          </div>
-          <div class="chu-select">
-            <div class="chu-select-left">{{$t('public.userTel')}}:</div>
-            <div class="chu-select-right">
-              <el-input size="small" style="width:300px" label="phone" v-model="instancyContent.contactPhone"></el-input>
-            </div>
-          </div>
-          <div class="del-but">
-            <div class="reply-but" @click="addContentSure">{{$t('public.no49')}}</div>
-          </div>
-        </div>
+    <el-dialog :title="$t('new.no50')" :visible.sync="addContent" width="560">
+      <div class="left2right">
+        <span class="left">{{$t('public.no17')}}:</span>
+        <span class="right">
+          <el-select size="small" v-model="instancyContent.relation" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options5" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </span>
       </div>
-    </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.name')}}:  </span>
+        <span class="right">
+          <el-input size="small" style="width:300px" maxlength="50" v-model="instancyContent.name"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.userTel')}}:  </span>
+        <span class="right">
+          <el-input size="small" type="tel" style="width:300px" maxlength="11" v-model="instancyContent.phone"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" size="small" @click="addContentSure">{{$t('proManage.sure')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
     <!-- ----------------------添加紧急联系人结束------------------- -->
     
   </div>
@@ -892,6 +865,8 @@ export default {
       telFlag4: false,
       telFlag5: false,
       telFlag6: false,
+      telFlag7: false,
+      telFlag8: false,
       backFlag1: false,
       backFlag2: false,
       backFlag3: false,
@@ -913,6 +888,7 @@ export default {
         orderMultiCheck: '',
         userUrgentContact: '',
         loginCount: '',
+        oldUserIdCard: '',
         userOrderCount: {},
         webInfo: '',
         userFaceBook: '',
@@ -959,9 +935,9 @@ export default {
       addContent: false, // 点击添加紧急联系人弹窗开关
       options5: [], // 点击添加紧急联系人弹窗关系下拉框
       instancyContent: {
-        contactRelation: '',
-        contactName: '',
-        contactPhone: ''
+        relation: '',
+        name: '',
+        phone: ''
       }
     }
   },
@@ -1050,6 +1026,7 @@ export default {
           this.data.webInfo = res.data.data.webInfo
           this.data.userFaceBook = res.data.data.userFaceBook
           this.data.userOrderCount = res.data.data.userOrderCount
+          this.data.oldUserIdCard = res.data.data.oldUserIdCard
           // this.data.userIdcardVN = res.data.data.userIdcardVN
           if (res.data.data.recentCollection !== '') {
             this.tableData = res.data.data.recentCollection
@@ -1260,6 +1237,16 @@ export default {
         option.relation = this.data.userUrgentContact.otherTwoRelation ? this.data.userUrgentContact.otherTwoRelation : ''
         option.userName = this.data.userUrgentContact.otherTwoName ? this.data.userUrgentContact.otherTwoName : ''
       }
+      if (this.telFlag7) {
+        option.phone = this.data.userUrgentContact.contactFourPhone ? this.data.userUrgentContact.contactFourPhone : '';
+        option.relation = this.data.userUrgentContact.contactFourRelation ? this.data.userUrgentContact.contactFourRelation : '';
+        option.userName = this.data.userUrgentContact.contactFourName ? this.data.userUrgentContact.contactFourName : '';
+      }
+      if (this.telFlag8) {
+        option.phone = this.data.userUrgentContact.contactFivePhone ? this.data.userUrgentContact.contactFivePhone : '';
+        option.relation = this.data.userUrgentContact.contactFiveRelation ? this.data.userUrgentContact.contactFiveRelation : '';
+        option.userName = this.data.userUrgentContact.contactFiveName ? this.data.userUrgentContact.contactFiveName : '';
+      }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           this.$globalMsg.success(this.$t('message.success'))
@@ -1276,6 +1263,8 @@ export default {
       this.telFlag2 = false
       this.telFlag3 = false
       this.telFlag4 = false
+      this.telFlag7 = false;
+      this.telFlag8 = false;
       this.telStatus = ''
       this.telRemark = ''
     },
@@ -1394,16 +1383,19 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'relation'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.relation
-          arr.forEach(value => {
-            this.options5.push({value: value.optionValue, label: value.optionName})
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.optionName;
+            value.value = value.optionValue;
           })
+          this.options5 = arr;
           this.addContent = true
         }
       })
@@ -1412,27 +1404,27 @@ export default {
       this.getRelation()
     },
     addContentSure () { // 添加紧急联系人确定
-      if (this.instancyContent.contactRelation === '') {
+      if (this.instancyContent.relation === '') {
         this.$globalMsg.error(this.$t('new.no52'))
         return
       }
-      if (this.instancyContent.contactName === '') {
+      if (this.instancyContent.name === '') {
         this.$globalMsg.error(this.$t('new.no53'))
         return
       }
-      if (this.instancyContent.contactPhone === '') {
+      if (this.instancyContent.phone === '') {
         this.$globalMsg.error(this.$t('new.no54'))
         return
       }
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.add_content,
+          action: this.$store.state.actionMap.ME0026,
           'sessionid': this.sessionid
         },
-        userId: this.userId,
-        orderNo: this.orderNo,
-        ...this.instancyContent
+        orderId: this.orderId,
+        ...this.instancyContent,
+        pageType: 1
       }
       if (this.flag) {
         this.flag = false
@@ -1451,9 +1443,9 @@ export default {
     addContentClose () { // 添加紧急联系人关闭
       this.addContent = false
       this.options5 = []
-      this.instancyContent.contactRelation = ''
-      this.instancyContent.contactName = ''
-      this.instancyContent.contactPhone = ''
+      this.instancyContent.relation = ''
+      this.instancyContent.name = ''
+      this.instancyContent.phone = ''
     },
     openWindow(href){
       if(href){
@@ -1524,6 +1516,9 @@ export default {
 </script>
 <style scoped lang="scss">
 
+.paixu{
+  margin-bottom: 6px;
+}
 .pai-active{
   margin: 30px 0 0;
 }
@@ -1568,7 +1563,7 @@ export default {
     height: auto;
     li{
       width: 100%;
-      padding: 20px;
+      padding: 10px 20px;
     }
     
   }
@@ -1599,7 +1594,7 @@ export default {
       padding-left: 20px;
       .xuan-2-1-1-22{
         display: flex;
-        margin: 15px 0;
+        margin: 0 0 10px;
         @include p-span;
         p{
           width: 33%;
@@ -1627,7 +1622,8 @@ export default {
       align-items: center;
       @include p-span;
       p{
-        padding-right: 50px;
+        font-size: 14px;
+        padding-right: 20px;
       }
       .tooltip{
         width: 15px;
@@ -2026,6 +2022,16 @@ export default {
     height: 110px;
     margin-right: 40px;
   }
+}
+.old_img{
+  width: 160px;
+  height: 100px;
+  margin-right: 20px;
+}
+.add{
+  font-size: 24px;
+  font-weight: 600;
+  color: crimson;
 }
 
 </style>

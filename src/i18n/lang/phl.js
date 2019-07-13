@@ -1445,6 +1445,8 @@ const phl = {
     no48: 'walang impormasyon',
     no49: '埋点信息',
     no50: '补充信息',
+    no51: 'Yes',
+    no52: 'No',
     status:{
       no1: 'Submit successfully',
       no2: 'Not due yet',
@@ -1692,6 +1694,11 @@ const phl = {
     no36:'followed up',
     no37:'to be followed up',
     no38:'not assigned users exist, not available to assign',
+    no39:'共导入用户',
+    no40:'共分配用户',
+    no41:'共跟进用户',
+    no42:'渠道',
+    no43:'每日渠道转化',
   },
   add:{
     no1:'type',
@@ -1776,6 +1783,12 @@ const phl = {
     no80: 'new borrower',
     no81: 'total repaid loan',
     no82: 'please choose channel and add time',
+    no83: '新客',
+    no84: '老客',
+    no85: 'other',
+    no86: '用户类型',
+    no87: '到期单量',
+    no88: '最近一笔已还款订单的身份信息',
   },
   yn:{
     loanUse:{

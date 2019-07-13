@@ -84,7 +84,7 @@
           </el-table-column>
           <el-table-column align="center" prop="phone" :label="$t('public.no18')">
           </el-table-column>
-          <el-table-column align="center" prop="createTime" :label="$t('public.no21')" width="86">
+          <el-table-column align="center" prop="createTime" :label="$t('public.no21')">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope">

@@ -69,35 +69,48 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="adminName" :label="$t('public.no32')" min-width="100">
+          <el-table-column align="center" prop="adminName" :label="$t('public.no32')" >
           </el-table-column>
-          <el-table-column align="center" prop="groupName" :label="$t('new.no18')" min-width="100">
+          <el-table-column align="center" prop="groupName" :label="$t('new.no18')" >
           </el-table-column>
-          <el-table-column align="center" prop="leaderName" :label="$t('new.no19')" min-width="100">
+          <el-table-column align="center" prop="leaderName" :label="$t('new.no19')" >
           </el-table-column>
-          <el-table-column align="center" prop="approveType" :label="$t('loanMoneyDetail.opeType2')" min-width="120">
+          <el-table-column align="center" prop="approveType" :label="$t('loanMoneyDetail.opeType2')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.auditType(scope.row.approveType))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="reviewCount" :label="$t('riskManage.reviewCount')" min-width="80">
+          <el-table-column align="center" prop="reviewCount" :label="$t('riskManage.reviewCount')" >
           </el-table-column>
-          <el-table-column align="center" prop="successCount" :label="$t('riskManage.successCount')" min-width="100">
+          <el-table-column align="center" prop="successCount" :label="$t('riskManage.successCount')" >
           </el-table-column>
-          <el-table-column align="center" prop="failCount" :label="$t('riskManage.failCount')" min-width="100">
+          <el-table-column align="center" prop="failCount" :label="$t('riskManage.failCount')" >
           </el-table-column>
-          <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')" min-width="100">
+          <el-table-column align="center" prop="successRate" :label="$t('riskManage.successRate')" >
             <template slot-scope="scope">
               <span>{{$store.getters.twoPoint(scope.row.successRate)}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="reviewSuccessCount" :label="$t('new.no6')" min-width="100">
+          <el-table-column align="center" prop="reviewSuccessCount" :label="$t('new.no6')" >
           </el-table-column>
-          <el-table-column align="center" prop="reviewSuccessRate" :label="$t('new.no7')" min-width="100">
+          <el-table-column align="center" prop="reviewSuccessRate" :label="$t('new.no7')" >
             <template slot-scope="scope">
               <span>{{$store.getters.twoPoint(scope.row.reviewSuccessRate)}}</span>
             </template>
           </el-table-column>
+          <template v-if="isSecond!=='true'">
+            <el-table-column align="center" prop="loanCount" :label="$t('channelManage.no7')" >
+            </el-table-column>
+            <el-table-column align="center" prop="maturityCount" :label="$t('add.no87')" >
+            </el-table-column>
+            <el-table-column align="center" prop="overdueCount" :label="$t('channelManage.no11')" >
+            </el-table-column>
+            <el-table-column align="center" prop="firstOverdueRate" :label="$t('add.no16')" >
+              <template slot-scope="scope">
+                <span>{{$store.getters.twoPoint(scope.row.firstOverdueRate)}}</span>
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
       </template>
     </div>
@@ -146,7 +159,8 @@ export default {
       tableData1: [],// 列表数据模拟
       rowStyle:{
         backgroundColor:'rgb(241,241,241)'
-      }
+      },
+      isSecond: ''
     }
   },
   methods: {
@@ -238,6 +252,21 @@ export default {
         }
       })
     },
+    getSystemConfig () { // 获取系统配置
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYS0003,
+          'sessionid': this.sessionid
+        },
+        key: 'is_review'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.isSecond = res.data.data.optionValue
+        }
+      })
+    },
     getSummaries() {// 总和
       const sums = [
         this.$t('public.addTotal'),
@@ -248,9 +277,13 @@ export default {
         this.tableData1.reviewCounts,
         this.tableData1.successCounts,
         this.tableData1.failCounts,
-        this.$store.getters.twoPoint(this.tableData1.successRateCounts)+'%',
+        this.$store.getters.twoPoint(this.tableData1.successRateCounts),
         this.tableData1.reviewSuccessCounts,
-        this.$store.getters.twoPoint(this.tableData1.reviewSuccessRateCounts)+'%',
+        this.$store.getters.twoPoint(this.tableData1.reviewSuccessRateCounts),
+        this.tableData1.loanCounts,
+        this.tableData1.maturityCounts,
+        this.tableData1.overdueCounts,
+        this.$store.getters.twoPoint(this.tableData1.firstOverdueRates),
       ];
       return sums;
     }
@@ -280,6 +313,7 @@ export default {
     this.getTableData();// 获取人工审核统计列表
     this.groupList();// 获取人工审核统计列表
     this.leaderName_option();// 获取人工审核统计列表
+    this.getSystemConfig();
   }
 }
 </script>

@@ -471,6 +471,7 @@ export default {
       inputValueOld: {},// 个性分单分配的值老客
       allocationNumber1: [],// 个性分单新客分单集合
       allocationNumber2: [],// 个性分单老客分单集合
+      userName: [],// 选中数据里所有的催收员
     }
   },
   methods: {
@@ -558,6 +559,8 @@ export default {
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderType == '') {
         this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
+      } else if(this.isshowselfdom=='true'&&this.userName.some(value=>!value)){
+        this.$globalMsg.error(this.$t('teleMarketing.no38'));
       } else {
         this.operationAdmin1();// 获取在职催收员列表
         this.redeployFlag = true;
@@ -625,9 +628,11 @@ export default {
       let arr = [];
       let brr = [];
       let crr = [];
+      let drr = [];
       this.multipleSelection.forEach(value => {
         arr.push(value.orderNo);
         brr.push(value.type);
+        drr.push(value.adminName);
       })
       brr = unique(brr);
       brr.forEach(item => {
@@ -656,6 +661,7 @@ export default {
           crr.push('S1');
         }
       })
+      this.userName = drr;
       this.orderIds = arr;
       this.orderType = crr.join();
     },
@@ -782,7 +788,6 @@ export default {
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           this.isshowselfdom = res.data.data[0].optionValue;
-          
         }
       })
     },

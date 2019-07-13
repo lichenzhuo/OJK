@@ -73,6 +73,26 @@
         <div class="oneLineHasOne">
           <p><span>{{$t('public.no34')}}:</span><span>{{data.order.orderAddress | dataIsTrue}}</span></p>
         </div>
+        <template v-if="data.oldUserIdCard">
+          <p  class="oneLineHasOne red fw600" >{{$t('add.no88')}}</p>
+          <div class="oneLineHasFour">
+            <p><span>{{$t('public.name')}}:</span>
+              <span>{{data.oldUserIdCard.name | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('public.no2')}}:</span>
+              <span>{{data.oldUserIdCard.idCard | dataIsTrue}}</span>
+            </p>
+          </div>
+          <div class="oldimg flex flex-justify-start">
+            <div v-if="data.oldUserIdCard.idcardPhotoUrl" class="old_img pic" @click="openBox({imgUrl:data.oldUserIdCard.idcardPhotoUrl})">
+              <img :src="data.oldUserIdCard.idcardPhotoUrl"  :alt="$t('pic.no1')" :title="$t('pic.no1')">
+            </div>
+            <div v-if="data.oldUserIdCard.facetimePhotoUrl" class="old_img pic" @click="openBox({imgUrl:data.oldUserIdCard.facetimePhotoUrl})">
+              <img :src="data.oldUserIdCard.facetimePhotoUrl" :alt="$t('pic.no2')" :title="$t('pic.no2')">
+            </div>
+          </div>
+        </template>
+        
       </li>
       <li  v-show="active2==2">
         <div class="oneLineHasFour">
@@ -130,15 +150,27 @@
         </div>
       </li>
     </ul>
+
+    <transition name="fade">
+      <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
+    </transition>
+
   </div>
 </template>
 <script>
+import appLightbox from './lightbox'// 图片点击放大组件
+
 export default {
   props: ['data','auditType'],
+  components: {
+    appLightbox
+  },
   data () {
     return {
       active2: 1,
-      title: ''
+      title: '',
+      currentObj: '',
+      lightBoxToggle: false, // 图片放大显示层开关
     }
   },
   computed: {
@@ -150,7 +182,13 @@ export default {
     }
   },
   methods: {
-
+    openBox: function (obj) { // 图片点击放大显示
+      this.currentObj = obj;
+      this.lightBoxToggle = !this.lightBoxToggle;
+    },
+    closeBox: function () { // 图片点击放大关闭
+      this.lightBoxToggle = false;
+    },
   },
   mounted(){
     this.title = global.config.headerTotal
@@ -158,5 +196,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  
+  .old_img{
+    width: 160px;
+    height: 100px;
+    margin-right: 20px;
+  }
 </style>

@@ -227,6 +227,7 @@ const actionmap = {
     outSourcedList_total_excel: 'ENTRUST0008',
     CM0016: 'CM0016',
     ENTRUST0010: 'ENTRUST0010',
+    REPORT0007: 'REPORT0007',
 
     // 官网贷款
     website_myorderList:'MT0001',
@@ -290,6 +291,7 @@ const actionmap = {
     ME0023:'ME0023',// 获取电话审核记录
     ME0024:'ME0024',// 获取电话审核记录
     ME0025:'ME0025',// 获取电话审核记录
+    ME0026:'ME0026',// 获取电话审核记录
     SYSCONFIG0003:'SYSCONFIG0003',// 获取电话审核记录
     
     ORDER00013:'ORDER00013',// 获取电话审核记录
@@ -312,6 +314,14 @@ const actionmap = {
     PHONEMARKET0009:'PHONEMARKET0009',
     PHONEMARKET0010:'PHONEMARKET0010',
     PHONEMARKET0011:'PHONEMARKET0011',
+
+    FLAT0001:'FLAT0001',
+    FLAT0002:'FLAT0002',
+    FLAT0003:'FLAT0003',
+    FLAT0004:'FLAT0004',
+
+    
+    SYS0003:'SYS0003',
 
   }
 

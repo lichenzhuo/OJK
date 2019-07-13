@@ -38,10 +38,10 @@
           <div class="paixu">
             <span></span>
             <p>{{$t('auditDetail.no2')}}</p>
-            <template v-if="data.userIdcard.identityCheckResult!==undefined">
-              <el-tooltip class="item" effect="dark" :content="data.userIdcard.identityCheckResult==1?$t('auditDetail.no3'):$t('auditDetail.no4')" placement="right">
+            <template v-if="data.userIdcard.score!==''">
+              <el-tooltip class="item" effect="dark" :content="data.userIdcard.score>=0.95?$t('auditDetail.no3'):$t('auditDetail.no4')" placement="right">
                 <div class="tooltip pic">
-                  <img v-if="data.userIdcard.identityCheckResult==1" src="../../../assets/img/lv.png" alt="">
+                  <img v-if="data.userIdcard.score>=0.95" src="../../../assets/img/lv.png" alt="">
                   <img v-else src="../../../assets/img/hong.png" alt="">
                 </div>
               </el-tooltip>
@@ -820,6 +820,7 @@ export default {
         orderExtra: '',
         orderList: '',
         orderMultiCheck: '',
+        oldUserIdCard: '',
         userUrgentContact: '',
         userOrderCount: {},
         contactOne: '',
@@ -961,6 +962,7 @@ export default {
           this.data.contactFour = res.data.data.contactFour;
           this.data.contactFive = res.data.data.contactFive;
           this.data.userOrderCount = res.data.data.userOrderCount;
+          this.data.oldUserIdCard = res.data.data.oldUserIdCard;
           if (res.data.data.userWork.companyCheckStr !== null && res.data.data.userWork.companyCheckStr !== undefined && res.data.data.userWork.companyCheckStr !== '') {
             this.companyCheckStr = JSON.parse(res.data.data.userWork.companyCheckStr)
           }
@@ -1839,6 +1841,12 @@ $color2:#000;
   img{
     display: block;
   }
+}
+
+.old_img{
+  width: 160px;
+  height: 100px;
+  margin-right: 20px;
 }
 
 </style>

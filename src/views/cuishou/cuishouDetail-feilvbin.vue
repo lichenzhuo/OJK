@@ -280,23 +280,25 @@
         <li  v-if="active4==1">
           <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
             <tr>
-              <th width="15%">{{$t('new.no59')}}</th>
-              <th width="15%">{{$t('public.no39')}}</th>
-              <th width="15%">{{$t('public.no40')}}</th>
+              <th width="10%">{{$t('new.no59')}}</th>
+              <th width="10%">{{$t('public.no39')}}</th>
+              <th width="10%">{{$t('public.userPhone')}}</th>
+              <th width="10%">{{$t('public.no40')}}</th>
               <th width="35%">{{$t('public.no37')}}</th>
-              <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
+              <th width="25%">{{$t('loanMoneyDetail.opeTime')}}</th>
             </tr>
-            <template v-if="phoneAuditLogTwo">
+            <template v-if="phoneAuditLogTwo!=''">
               <tr v-for="value in phoneAuditLogTwo" :key="value.id">
                 <td >{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
                 <td>{{value.userName | dataIsTrue}}</td>
+                <td>{{value.phone | dataIsTrue}}</td>
                 <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
                 <td>{{value.remark | dataIsTrue}}</td>
                 <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
               </tr>
             </template>
             <template v-else>
-              <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
                 {{$t('public.no23')}}
               </div>
             </template>
@@ -305,23 +307,25 @@
         <li  v-if="active4==2">
           <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
             <tr>
-              <th width="15%">{{$t('add.no12')}}</th>
-              <th width="15%">{{$t('public.no39')}}</th>
-              <th width="15%">{{$t('public.no40')}}</th>
+              <th width="10%">{{$t('add.no12')}}</th>
+              <th width="10%">{{$t('public.no39')}}</th>
+              <th width="10%">{{$t('public.userPhone')}}</th>
+              <th width="10%">{{$t('public.no40')}}</th>
               <th width="35%">{{$t('public.no37')}}</th>
-              <th width="20%">{{$t('loanMoneyDetail.opeTime')}}</th>
+              <th width="25%">{{$t('loanMoneyDetail.opeTime')}}</th>
             </tr>
             <template v-if="data.serviceRecordList!=''">
               <tr v-for="value in data.serviceRecordList" :key="value.id">
                 <td >{{$t('add.no42')}}</td>
                 <td>{{value.userName | dataIsTrue}}</td>
+                <td>{{value.userPhone | dataIsTrue}}</td>
                 <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
                 <td>{{value.remark | dataIsTrue}}</td>
                 <td>{{value.strCreateTime | dataIsTrue}}</td>
               </tr>
             </template>
             <template v-else>
-              <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
+              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
                 {{$t('public.no23')}}
               </div>
             </template>

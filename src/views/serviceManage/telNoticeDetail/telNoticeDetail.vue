@@ -83,9 +83,9 @@
               <span>{{$t('yuenan.no25')}}:</span>
               <span>{{data.userSelf.alternativePhone}}</span>
             </p>
-            <p><span>{{$t('websiteLoans.no5')}}:</span>
+            <!-- <p><span>{{$t('websiteLoans.no5')}}:</span>
               <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
-            </p>
+            </p> -->
             <p><span>E-mail:</span>
               <span>{{data.userBank.email}}</span>
             </p>

@@ -455,6 +455,7 @@ export default {
       inputValueOld: {},// 个性分单分配的值老客
       allocationNumber1: [],// 个性分单新客分单集合
       allocationNumber2: [],// 个性分单老客分单集合
+      userName: [],// 选中数据里所有的客服员
     }
   },
   methods: {
@@ -551,6 +552,8 @@ export default {
     todayRedeploy () { // 转派按钮点击操作
       if (this.orderIds == '') {
         this.$globalMsg.error(this.$t('loanAfterManage.selFirst'));
+      } else if(this.isshowselfdom=='true'&&this.userName.some(value=>!value)){
+        this.$globalMsg.error(this.$t('teleMarketing.no38'));
       } else {
         this.redeployFlag = true;
       }
@@ -563,12 +566,15 @@ export default {
     joinType () { // 订单转派弹窗对应数据处理
       let arr = [];
       let brr = [];
+      let crr = [];
       this.multipleSelection.forEach(value => {
         arr.push(value.id);
         brr.push(value.userId);
+        crr.push(value.serviceName);
       })
       this.orderIds = arr;
       this.userIds = brr;
+      this.userName = crr;
     },
     redeploySubmit () { // 转派确认操作
       if (this.redeployStatus == '') {

@@ -64,10 +64,13 @@ const BaseHeader = {
 
 const postHeader = {
   getters: {
-    getBaseHeader: ()=>(code,obj)=>{// 转换经纬度
+    getBaseHeader: ()=>(code,obj,pageObj)=>{// 转换经纬度
       var option = obj||{};
       option.header = BaseHeader;
       option.header.action = code;
+      if(pageObj){
+        option.header.page = pageObj
+      }
       return option
     }
   }

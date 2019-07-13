@@ -642,6 +642,8 @@ const options = {
       {value: 'ATM_OFFLINE', label: 'finance.backMoneyType_options.no6'}, // ATM_OFFLINE
       {value: 'BIDV', label: 'finance.backMoneyType_options.no8'}, // BIDV
       {value: 'ACB', label: 'finance.backMoneyType_options.no9'}, // ACB
+      {value: 'funpay_online', label: 'finance.backMoneyType_options.no9'}, // ACB
+      {value: 'funpay_offline', label: 'finance.backMoneyType_options.no9'}, // ACB
     ],
     groupCalls_options: [// 群呼结果
       {value: '', label: 'public.placeholder'},
@@ -687,6 +689,22 @@ const options = {
       {value: 2, label: 'userDetail.marriage_status.no2'},
       {value: 3, label: 'userDetail.marriage_status.no3'},
       {value: 4, label: 'userDetail.marriage_status.no4'},
+    ],
+    userType_option: [// 回款率列表用户类型
+      {value: '', label: 'public.placeholder'},
+      {value: 1, label: 'add.no83'},// 新客
+      {value: 2, label: 'add.no84'},// 老客
+      {value: -1, label: 'add.no85'},// other
+    ],
+    pingZhang_auditStatus: [
+      {value: '', label: 'public.placeholder'},
+      {value: 0, label: 'auditManage.no5'}, // 待审核
+      {value: 1, label: 'auditManage.no14'}, // 还款成功
+      {value: -1, label: 'userDetail.reject_status.no6'}, // 还款失败
+      {value: 50, label: 'userDetail.reject_status.no19'}, // 部分还款
+      {value: 51, label: 'auditManage.no15'}, // 全额还款
+      {value: -2, label: 'auditManage.no6'},// 未到账
+      {value: -3, label: 'auditManage.no16'}// 系统默认
     ],
   }
 }

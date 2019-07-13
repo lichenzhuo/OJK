@@ -28,6 +28,20 @@
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
         </div>
+        <div class="search-input">
+          <span>{{$t('public.no25')}}:</span>
+          <el-select clearable size="small" v-model="formInline.period" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('add.no86')}}:</span>
+          <el-select size="small" v-model="formInline.userStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_REPAY_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
@@ -42,8 +56,8 @@
     </div>
 
     <!-- -------------表单显示栏------------------------ -->
-    <p style="font-size:14px;color:red;margin-bottom:5px;">注：D0为首逾数据，D1为逾期1天的回款率；以下表中数据已订单维度计算，不包含部分还款<br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据更新时间为北京时间8点、12点、18点、21点</p>
+    <p style="font-size:14px;color:red;margin-bottom:5px;">注：D0为到期当天回款数据，D1为逾期1天的回款率；以下表中数据已订单维度计算，不包含部分还款<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据更新时间为每整点进行更新</p>
     <div class="table">
       <template>
         <el-table :data="tableData" size="small" 
@@ -163,13 +177,16 @@ export default {
       formInline: {
         period:'',
         dayBegin: '',
-        dayEnd: ''
+        dayEnd: '',
+        userStatus: '',
       },
       // 当前页下标
       currentPage: 1,
       // 用户信息数据模拟
       tableData:[],
-      tableData1:[]
+      tableData1:[],
+      options1: [],// 借款周期下拉框
+      options2: this.$store.state.options.userType_option,// 用户类型下拉框
     }
   },
   methods: {
@@ -249,6 +266,25 @@ export default {
         this.$store.getters.twoPoint(this.tableData1.d15More),
       ]
       return sums;
+    },
+    getPeriod(){// 获取借款周期下拉框
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.REPORT0007,
+          'sessionid': this.sessionid
+        }
+      };
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value => {
+            value.value = value.productPeriod;
+            value.label = value.productPeriod;
+          })
+          this.options1 = arr;
+        }
+      })
     }
   },
   watch: {
@@ -272,6 +308,7 @@ export default {
       }
     }
     this.getTableData();
+    this.getPeriod();
   }
 }
 </script>

@@ -15,10 +15,6 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-          <div class="search-input">
-            <span>{{$t('proManage.period')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.period"></el-input>
-          </div>
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 
@@ -32,6 +28,20 @@
             :start-placeholder="$t('public.beginTime')" 
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no25')}}:</span>
+          <el-select clearable size="small" v-model="formInline.period" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('add.no86')}}:</span>
+          <el-select size="small" v-model="formInline.userStatus" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
         </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_INCOME_QUERY')">
           <div class="search-input ml15">
@@ -125,6 +135,7 @@ export default {
       // 用户信息数据模拟
       tableData:[],
       tableData1:[],
+      options2:this.$store.state.options.userType_option,
       rowStyle:{
         backgroundColor:'rgb(241,241,241)'
       }
@@ -210,6 +221,25 @@ export default {
         ];
       }
       return sums;
+    },
+    getPeriod(){// 获取借款周期下拉框
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.REPORT0007,
+          'sessionid': this.sessionid
+        }
+      };
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value => {
+            value.value = value.productPeriod;
+            value.label = value.productPeriod;
+          })
+          this.options1 = arr;
+        }
+      })
     }
   },
   watch: {
@@ -233,6 +263,7 @@ export default {
       }
     }
     this.getTableData()
+    this.getPeriod()
   }
 }
 </script>

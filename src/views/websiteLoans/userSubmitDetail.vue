@@ -43,10 +43,10 @@
                 <span v-if="data.officiaUserDetails.idCard!==null&&data.officiaUserDetails.idCard!==undefined&&data.officiaUserDetails.idCard!==''">{{data.officiaUserDetails.idCard}}</span>
                 <span v-else>{{$store.state.common.nullData}}</span> 
               </p>
-              <p>{{$t('websiteLoans.no5')}}:
+              <!-- <p>{{$t('websiteLoans.no5')}}:
                 <span v-if="data.officiaUserDetails.orderLoanType!==null&&data.officiaUserDetails.orderLoanType!==undefined&&data.officiaUserDetails.orderLoanType!==''">{{$t($store.getters.loanTypeState(data.officiaUserDetails.orderLoanType))}}</span>
                 <span v-else>{{$store.state.common.nullData}}</span> 
-              </p>
+              </p> -->
             </div>
             <div class="xuan-2-2-1">
               <p >

@@ -200,24 +200,22 @@ const filters = {
       switch (status) {
         case -1:
           return 'myAuditList.telThrough_status.no1' // 未接
-
         case -2:
           return 'myAuditList.telThrough_status.no2' // 关机
-
         case -3:
           return 'myAuditList.telThrough_status.no3' // 停机
-
         case -4:
           return 'myAuditList.telThrough_status.no4' // 空号
-
         case -5:
           return 'myAuditList.telThrough_status.no5' // 关系有假
-
         case 1:
           return 'myAuditList.telThrough_status.no6' // 接通真实
-
         case 2:
           return 'myAuditList.telThrough_status.no7' // 其它
+        case 3:
+          return 'fei.no51' // YES
+        case 4:
+          return 'fei.no52' // NO
           default:
             return 'finance.backLog_options_status.no12' // -
       }
@@ -1463,6 +1461,26 @@ const filters = {
           return 'yuenan.no42' // ios
         case 2:
           return 'yuenan.no41' // android
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
+    applicationResult_status: () => (status) => { // 发送设备类型
+      switch (status) {
+        case 0:
+          return 'auditManage.no5' // 待审核
+        case 1:
+          return 'auditManage.no14' // 还款成功
+        case -1:
+          return 'userDetail.reject_status.no6' // 还款失败
+        case 50:
+          return 'userDetail.reject_status.no19' // 部分还款
+        case 51:
+          return 'auditManage.no15' // 全额还款
+        case -2:
+          return 'auditManage.no6' // 未到账
+        case -3:
+          return 'auditManage.no16' // 系统默认
         default:
           return 'finance.backLog_options_status.no12' // -
       }

@@ -15,10 +15,6 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-          <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
-            <span>{{$t('public.no25')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.period"></el-input>
-          </div>
         <div class="search-input">
           <span>{{$t('totalManage.timeSelect')}}:</span>
           <el-date-picker 
@@ -32,6 +28,21 @@
             :start-placeholder="$t('public.beginTime')" 
             :end-placeholder="$t('public.endTime')">
           </el-date-picker>
+        </div>
+        <div class="search-input" v-if="$store.state.common.lang!=='PHL'">
+          <span>{{$t('public.no25')}}:</span>
+          <el-select clearable size="small" v-model="formInline.period" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        
+        <div class="search-input">
+          <span>{{$t('channelManage.name')}}:</span>
+          <el-select clearable size="small" v-model="formInline.mediaSource" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
         </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_PASS_QUERY')">
           <div class="search-input ml15">
@@ -116,13 +127,16 @@ export default {
       // 用户查询信息数据对应字段
       formInline: {
         period: '',
+        mediaSource: '',
         dayBegin: '',
         dayEnd: ''
       },
       currentPage: 1, // 当前页下标
       // 用户信息数据模拟
       tableData: [],
-      tableData1: []
+      tableData1: [],
+      options1: [],
+      options2: [],
     }
   },
   methods: {
@@ -206,6 +220,45 @@ export default {
         ]
       }
       return sums;
+    },
+    getchannel(){ // 获取渠道下拉框数据
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+          'sessionid': this.sessionid
+        },
+        'optionGroup': this.$store.state.common.lang==='PHL'?'appsflyer.media.source':'media.source'
+      };
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value => {
+            value.value = value.optionName;
+            value.label = value.optionName;
+          })
+          this.options2 = arr;
+        }
+      })
+    },
+    getPeriod(){// 获取借款周期下拉框
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.REPORT0007,
+          'sessionid': this.sessionid
+        }
+      };
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value => {
+            value.value = value.productPeriod;
+            value.label = value.productPeriod;
+          })
+          this.options1 = arr;
+        }
+      })
     }
   },
   watch: {
@@ -229,6 +282,8 @@ export default {
       }
     }
     this.getTableData();
+    this.getchannel();
+    this.getPeriod();
   }
 }
 </script>

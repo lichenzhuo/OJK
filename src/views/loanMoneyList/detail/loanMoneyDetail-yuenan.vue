@@ -146,9 +146,9 @@
         </p>
       </div> 
       <div class="oneLineHasFour">
-        <p><span>{{$t('websiteLoans.no5')}}:</span>
+        <!-- <p><span>{{$t('websiteLoans.no5')}}:</span>
           <span>{{$t($store.getters.loanTypeState(data.order.orderLoanType))}}</span>
-        </p>
+        </p> -->
         <p><span>{{$t('public.no27')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.returnMoney)}}{{$store.state.common.vi_currency}}</span>
         </p>
