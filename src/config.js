@@ -29,6 +29,8 @@ const danayn = 'danayn.com'; // 国内访问国外正式系统
 const dongvtm = 'dongvtm.com'; // 国内访问国外正式系统
 const vaytocdo = 'vaytocdo'; // 国内访问国外正式系统
 
+const qlinkhy = 'qlinkhy'; // 三方
+
 const fullCurrentDomain = window.location.href.split('?')[0];
 
 let domain = '';
@@ -157,9 +159,16 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(vnBACK) > -1) {
-  domain = `http://apiyanshi.mydong.vn`;
+} else if (fullCurrentDomain.indexOf(vnPRO1) > -1) {
+  domain = `https://api.mydong.vn`;
   headerTotal = 'My Dong';
+  headerImg = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(qlinkhy) > -1) {
+  domain = `http://api.qlinkhy.com`;
+  headerTotal = 'Qlink';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
