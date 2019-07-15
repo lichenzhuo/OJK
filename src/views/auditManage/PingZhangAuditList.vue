@@ -14,8 +14,9 @@
 		<search-com 
 			:searchData="searchData" 
 			@search="search" 
-			:searchRight="$store.state.common.permiss.includes('RIGHT_RECORD_WITHDRAW_QUERY')"
-			:outputRight="true"
+			@putExcel="putExcel" 
+			:searchRight="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEWE_QUERY')"
+			:outputRight="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEWE_LIST_EXP')"
     ></search-com>
 
     <!-- -------------搜索查询栏------------------------ -->
@@ -70,44 +71,66 @@
     </div> -->
 
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_LIST')">
+    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEW_LIST')">
       <template>
         <el-table :data="tableData" size="small" stripe v-loading="loadFlag">
-          <el-table-column align="center" prop="id" :label="$t('public.orderId')" >
+          <el-table-column align="center" prop="orderId" :label="$t('public.orderId')" >
           </el-table-column>
           <el-table-column align="center" prop="repaymentNo" :label="$t('public.no83')" >
           </el-table-column>
           <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.loanAmount)}}
+                {{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')" >
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.returnMoney)}}
+                {{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center" prop="refundAmount" :label="$t('public.no57')" >
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.refundAmount)}}
+                {{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="strRefundTime" :label="$t('public.no60')" >
+          <el-table-column align="center" prop="refundTime" :label="$t('public.no60')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="thirdChannel" :label="$t('auditManage.no8')" >
           </el-table-column>
           <el-table-column align="center" prop="name" :label="$t('auditManage.no9')" >
           </el-table-column>
-          <el-table-column align="center" prop="strApplicationTime" :label="$t('public.submitDate')" >
+          <el-table-column align="center" prop="applicationTime" :label="$t('public.submitDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="applicationResult" :label="$t('auditManage.no10')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.applicationResult_status(scope.row.applicationResult))}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center" prop="status" :label="$t('auditManage.no3')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.applicationResult_status(scope.row.status))}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="strReviewTime" :label="$t('new.no9')" >
+          <el-table-column align="center" prop="reviewTime" :label="$t('new.no9')" width="86">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope" >
               <span 
+                v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEWE_OPERATING')&&scope.row.isNotReview==1"
                 class="table_opr" 
-                @click="sure(scope.row.orderNo)">
+                @click="showAudit(scope.row)">
                 {{$t('public.no76')}}
               </span>
               <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_SHOW')" 
+                v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEWE_VIEW')&&scope.row.isReview==1" 
                 class="table_opr"  
-                @click="showDetail(scope.row.orderNo,scope.row.userId)">
+                @click="showDetail(scope.row.orderId)">
                 {{$t('public.no29')}}
               </span>
             </template>
@@ -118,7 +141,7 @@
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
-      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_LIST')">
+      <div class="pages" v-if="$store.state.common.permiss.includes('RIGHT_ACCOUNTING_REVIEW_LIST')">
         <el-pagination
           @current-change="handleCurrentChange"
           :current-page="currentPage"
@@ -132,7 +155,7 @@
     </el-row>
 
     <!-- 查看详细弹窗 -->
-    <el-dialog :title="$t('public.no67')" :visible.sync="detailFlag" width="1100px">
+    <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag" width="1100px">
       <el-table :data="detailTableData" size="small">
 				<el-table-column align="center" prop="id" :label="$t('auditManage.no17')" >
 				</el-table-column>
@@ -143,16 +166,29 @@
 				<el-table-column align="center" prop="repaymentNo" :label="$t('public.no83')" >
 				</el-table-column>
 				<el-table-column align="center" prop="refundAmount" :label="$t('public.no65')" >
+          <template slot-scope="scope">
+            <span>{{$store.state.common.id_currency}}
+              {{$store.getters.moneySplit(scope.row.refundAmount)}}
+              {{$store.state.common.vi_currency}}</span>
+          </template>
 				</el-table-column>
-				<el-table-column align="center" prop="type" :label="$t('loanAfterManage.payType')" >
+				<el-table-column align="center" prop="thirdChannel" :label="$t('loanAfterManage.payType')" >
 				</el-table-column>
-				<el-table-column align="center" prop="strRefundTime" :label="$t('public.no60')" >
+				<el-table-column align="center" prop="refundTime" :label="$t('public.no60')" width="86">
         </el-table-column>
 				<el-table-column align="center" prop="repaymentStatus" :label="$t('add.no52')" >
+          <template slot-scope="scope">
+            <span>{{$t($store.getters.applicationResult_status(scope.row.repaymentStatus))}}</span>
+          </template>
 				</el-table-column>
 				<el-table-column align="center" prop="status" :label="$t('auditManage.no3')" >
+          <template slot-scope="scope">
+            <span>{{$t($store.getters.applicationResult_status(scope.row.status))}}</span>
+          </template>
 				</el-table-column>
-				<el-table-column align="center" prop="strReviewTime" :label="$t('new.no9')" >
+				<el-table-column align="center" prop="reviewTime" :label="$t('new.no9')" width="86">
+				</el-table-column>
+        <el-table-column align="center" prop="name" :label="$t('auditManage.no4')" width="86">
 				</el-table-column>
 			</el-table>
 			<el-row type="flex" justify="end">
@@ -161,7 +197,6 @@
 						@current-change="handleCurrentChange2"
 						:current-page="currentPage2"
 						layout=" prev, pager, next, total,->"
-						:page-size="pageNumber2"
 						:total="pageTotal2?pageTotal2:0">
 					</el-pagination>
 				</div>
@@ -169,29 +204,29 @@
     </el-dialog>
 
     <!-- 平账审核弹窗 -->
-    <el-dialog :title="$t('add.no47')" :visible.sync="PingZangFlag" width="1100px">
-      <p class="title">{{$t('userDetail.reject_status.no5')}}</p>
+    <el-dialog :title="$t('public.no76')" :visible.sync="PingZangFlag" width="1100px">
+      <p class="title" style="margin-top:-20px;">{{$t('operationDetail.tab1.no2')}}</p>
       <div class="oneLineHasThree">
 				<p><span>{{$t('public.orderId')}}:</span>
-					<span>{{againDetail.userId | dataIsTrue}}</span>
+					<span>{{AuditDetail.id | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('public.userName')}}:</span>
-					<span>{{againDetail.userName | dataIsTrue}}</span>
+					<span>{{AuditDetail.userName | dataIsTrue}}</span>
 				</p>
 			</div>
       <div class="oneLineHasThree">
 				<p><span>{{$t('public.no30')}}:</span>
-					<span>{{againDetail.userId | dataIsTrue}}</span>
+					<span>{{AuditDetail.loanAmount | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('public.no27')}}:</span>
-					<span>{{againDetail.userName | dataIsTrue}}</span>
+					<span>{{AuditDetail.returnMoney | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('public.no59')}}:</span>
-					<span>{{againDetail.userName | dataIsTrue}}</span>
+					<span>{{AuditDetail.mustRefundTime | dataIsTrue}}</span>
 				</p>
 			</div>
 			<p class="title">{{$t('auditManage.no12')}}</p>
-			<el-table :data="PingZangTableData" size="small" stripe highlight-current-row
+			<el-table ref="singleTable" :data="PingZangTableData" size="small" stripe highlight-current-row
           @current-change="tableRowChange">
 				<el-table-column align="right" label="" width="60">
 					<template slot-scope="scope">
@@ -204,10 +239,18 @@
 					</template>
 				</el-table-column>
 				<el-table-column align="center" prop="repaymentId" :label="$t('public.backMoneyId')" >
+          <template slot-scope="scope">
+            <span>{{scope.row.repaymentId==0?'':scope.row.repaymentId}}</span>
+          </template>
 				</el-table-column>
 				<el-table-column align="center" prop="refundAmount" :label="$t('public.no57')" >
+          <template slot-scope="scope">
+            <span>{{$store.state.common.id_currency}}
+              {{$store.getters.moneySplit(scope.row.refundAmount)}}
+              {{$store.state.common.vi_currency}}</span>
+          </template>
 				</el-table-column>
-				<el-table-column align="center" prop="strRefundTime" :label="$t('public.backMoneyDate')" >
+				<el-table-column align="center" prop="refundTime" :label="$t('public.backMoneyDate')" >
 				</el-table-column>
 				<el-table-column align="center" prop="repaymentNo" :label="$t('public.no83')" >
 				</el-table-column>
@@ -215,9 +258,14 @@
 				</el-table-column>
 				<el-table-column align="center" prop="remark" :label="$t('public.no37')" >
 				</el-table-column>
-				<el-table-column align="center" prop="strCreateTime" :label="$t('public.submitDate')" >
+				<el-table-column align="center" prop="createTime" :label="$t('public.submitDate')" width="86">
 				</el-table-column>
 				<el-table-column align="center" prop="applicationResult" :label="$t('auditManage.no10')" >
+          <template slot-scope="scope">
+            <span>{{$t($store.getters.applicationResult_status(scope.row.applicationResult))}}</span>
+          </template>
+				</el-table-column>
+        <el-table-column align="center" prop="name" :label="$t('auditManage.no4')" width="86">
 				</el-table-column>
 			</el-table>
 			<el-row type="flex" justify="end">
@@ -226,7 +274,6 @@
 						@current-change="handleCurrentChange1"
 						:current-page="currentPage1"
 						layout="prev, pager, next, total,->"
-						:page-size="pageNumber1"
 						:total="pageTotal1?pageTotal1:0">
 					</el-pagination>
 				</div>
@@ -234,26 +281,26 @@
 			<p class="title">{{$t('auditManage.no11')}}</p>
 			<div class="oneLineHasThree">
 				<p><span>{{$t('public.no57')}}:</span>
-					<span>{{againDetail.userId | dataIsTrue}}</span>
+					<span>{{tableSelect.refundAmount | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('public.backMoneyDate')}}:</span>
-					<span>{{againDetail.userName | dataIsTrue}}</span>
+					<span>{{tableSelect.refundTime | dataIsTrue}}</span>
 				</p>
 			</div>
       <div class="oneLineHasThree">
 				<p><span>{{$t('public.no83')}}:</span>
-					<span>{{againDetail.userId | dataIsTrue}}</span>
+					<span>{{tableSelect.repaymentNo | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('auditManage.no8')}}:</span>
-					<span>{{againDetail.userName | dataIsTrue}}</span>
+					<span>{{tableSelect.thirdChannel | dataIsTrue}}</span>
 				</p>
 				<p><span>{{$t('auditManage.no10')}}:</span>
-					<span style="color:crimson">{{againDetail.userName | dataIsTrue}}</span>
+					<span style="color:crimson">{{$t($store.getters.applicationResult_status(tableSelect.applicationResult))}}</span>
 				</p>
 			</div>
-			<el-form :model="PingZhangform" ref="ruleForm" label-width="100px" size="small">
+			<el-form :model="PingZhangform" :rules="rules" ref="ruleForm" label-position="left" label-width="120px" size="small">
 				<el-form-item :label="$t('yn.no10')" prop="amount">
-          <el-select v-model="PingZhangform.result" :placeholder="$t('public.placeholder')">
+          <el-select v-model="PingZhangform.status" :placeholder="$t('public.placeholder')">
             <el-option :label="$t(item.label)" :value="item.value" v-for="(item, i) in options5 " :key="i"></el-option>
           </el-select>
         </el-form-item>
@@ -262,9 +309,8 @@
         </el-form-item>
 			</el-form>
       <div class="flex flex-center">
-        <el-button class="mg50" type="info" @click="againClose"> {{$t('public.no50')}} </el-button>
-        <el-button class="mg50" type="primary" @click="againSubmit">{{$t('add.no47')}}</el-button>
-        
+        <el-button class="mg50" type="primary" @click="AuditSubmit('ruleForm')">{{$t('public.no49')}}</el-button>
+        <el-button class="mg50" type="primary" @click="AuditClose"> {{$t('public.no50')}} </el-button>
       </div>
     </el-dialog>
 
@@ -288,11 +334,12 @@ export default {
       pageTotal2: 0, // 分页总数
       pageNumber: 10, // 每页条数
 			searchTime1: [], // 查询时间
-			condition: {},
+      condition: {},
+      searchData:[],
       formInline: { // 用户查询信息数据对应字段
         orderId: '',
         name: '',
-        phone: '',
+        transId: '',
         applyTimeBegin: '',
         applyTimeEnd: '',
         orderState: ''
@@ -310,16 +357,38 @@ export default {
       PingZangFlag: false, // 重新放款弹窗
       orderNo: '', // 点击当前行的订单ID
       PingZhangform: {
-        accountType: '',
-        bankId: '',
-			},
+        status: '',
+        remark: '',
+      },
+      AuditDetail:{},
 			tableSelect: {},
-			radioVal: ''
+      radioVal: '',
+      rules: {
+        status: [
+          { required: true, message: ' ', trigger: 'change' }
+        ],
+      }
     }
 	},
 	computed:{
 		options5(){
-
+      if(this.tableSelect.isDefault==1){
+        return [
+          {value: 1, label: 'auditManage.no14'}, // 还款成功
+          {value: -1, label: 'userDetail.reject_status.no6'} // 还款失败
+        ]
+      }else if(this.tableSelect.isDefault==0){
+        return [
+          {value: 50, label: 'userDetail.reject_status.no19'}, // 部分还款
+          {value: 51, label: 'userDetail.reject_status.no20'}, // 已还款
+          {value: -2, label: 'auditManage.no6'}// 未到账
+        ]
+      }else if(this.tableSelect.isDefault==-1){
+        return [
+          {value: -3, label: 'auditManage.no16'}// 系统默认
+        ]
+      }
+      
 		}
 	},
   methods: {
@@ -333,24 +402,24 @@ export default {
       }, {
         type: 'input',
         label: this.$t('public.name'),
-        attr: 'phone',
+        attr: 'name',
         value: '',
         maxLength: 10,
       },{
         type: 'input',
         label: this.$t('public.no83'),
-        attr: 'phone',
+        attr: 'transId',
         value: '',
         maxLength: 10,
       }, {
         type: 'select',
-        attr: 'channel',
+        attr: 'status',
         label: this.$t('auditManage.no3'),
         option: this.$store.state.options.pingZhang_auditStatus,
         value: '',
       }, {
         type: 'rangePicker',
-        label: this.$t('public.no82'),
+        label: this.$t('public.no60'),
         attr: 'refundTime',
         value: [],
       }];
@@ -371,153 +440,156 @@ export default {
       this.currentPage2 = val;
       this.getTableData();
     },
-    select () { // 点击查询按钮操作
-      if (this.clickFlag) {
-        this.currentPage = 1;
-        this.clickFlag = false;
-        this.getTableData();
-      }
-		},
 		search(condition) { // 搜索
       this.condition = {
         orderId: condition.orderId,
         name: condition.name,
         transId: condition.transId,
         status: condition.status,
-        refundTimeBegin: this.$store.getters.yyyy_m_d(condition.refundTime[0]),
-        refundTimeEnd: this.$store.getters.yyyy_m_d(condition.refundTime[1]),
+        refundTimeBegin: condition.refundTime&&condition.refundTime[0]?this.$store.getters.yyyy_m_d(condition.refundTime[0]):'',
+        refundTimeEnd: condition.refundTime&&condition.refundTime[1]?this.$store.getters.yyyy_m_d(condition.refundTime[1]):'',
       };
       this.currentPage = 1;
       this.getTableData();
     },
-    putExcel () {
+    putExcel (condition) {
       if (this.clickFlag) {
         this.clickFlag = false;
-        let option = this.$store.getters.getBaseHeader('FLAT0004',this.condition,{'index': this.currentPage, 'size': this.pageNumber})
+        let option = {
+          header: {
+            ...this.$base,
+            action: this.$store.state.actionMap.FLAT0004,
+            'page': {'index': this.currentPage, 'size': 10},
+            'sessionid': this.sessionid
+          },
+          orderId: condition.orderId,
+          name: condition.name,
+          transId: condition.transId,
+          status: condition.status,
+          refundTimeBegin: condition.refundTime&&condition.refundTime[0]?this.$store.getters.yyyy_m_d(condition.refundTime[0]):'',
+          refundTimeEnd: condition.refundTime&&condition.refundTime[1]?this.$store.getters.yyyy_m_d(condition.refundTime[1]):'',
+        };
         this.$axios.post('', option).then(res => {
           this.clickFlag = true;
-					let title = res.data.data.titles;
-					let fields = res.data.data.fields;
-					let data = res.data.data.data;
-					this.$export2Excel(title,fields,data);
+          if(res.data.header.code==0){
+            let title = res.data.data.titles;
+            let fields = res.data.data.fields;
+            let data = res.data.data.data;
+            this.$export2Excel(title,fields,data);
+          }
         })
       }
     },
-		getTableData () { // 放款列表数据
-			let option = this.$store.getters.getBaseHeader('FLAT0001',this.condition,{'index': this.currentPage, 'size': this.pageNumber})
+		getTableData () { // 列表数据
+			let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.FLAT0001,
+          'page': {'index': this.currentPage, 'size': 10},
+          'sessionid': this.sessionid
+        },
+        ...this.condition
+      };
       this.loadFlag = true;
       this.$axios.post('', option).then( res => {
         this.clickFlag = true;
-				this.tableData = res.data.data;
-				this.pageTotal = res.data.header.page.total;
-        this.loadFlag = false;
-      })
-    },
-    showDetail (orderId) { // 查看详情操作
-      this.getDetailData(orderId,2)
-    },
-    againSubmit(){
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.ORDER00012,
-          'sessionid': this.sessionid
-        },
-        orderId: this.againDetail.id,
-        email: this.againDetail.email,
-        payoutType: this.againDetail.accountType,
-        bankAccount: this.againDetail.bankAccount,
-        cardFullname: this.againDetail.cardFullname,
-        cardMonth: this.againDetail.cardMonth,
-        cardYear: this.againDetail.cardYear,
-        branchName: this.againDetail.branchName,
-        bankId: this.againDetail.bankId,
-      }
-      this.$axios.post('', option).then(res => {
-        if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'));
-          this.getTableData();
-          this.againClose();
-        } else {
-          this.$globalMsg.error(res.data.header.msg);
+        if(res.data.header.code==0){
+          this.tableData = res.data.data;
+          this.pageTotal = res.data.header.page.total;
+          this.loadFlag = false;
         }
       })
     },
-    againClose(){
-      this.againDetail = {
-        accountType: '',
-        bankId: '',
-        bankAccount: '',
-        cardFullname: '',
-        cardYear: '',
-        cardMonth: '',
-        branchName: '',
-        email: '',
+    getDetailData(orderId,status){
+			let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.FLAT0003,
+          'page': {'index': status==1?this.currentPage1:this.currentPage2, 'size': 10},
+          'sessionid': this.sessionid
+        },
+        orderId,
+        status
       };
-      // this.againDetail.accountType = '';
+			this.$axios.post('', option).then( res => {
+				if(res.data.header.code==0){
+					if(status==2){
+						this.detailTableData = res.data.data;
+						this.pageTotal2 = res.data.header.page.total;
+						this.detailFlag = true;
+					}
+					if(status==1){
+						this.PingZangTableData = res.data.data;
+            this.pageTotal1 = res.data.header.page.total;
+            this.PingZangFlag = true;
+            setTimeout(()=>{
+              this.$refs.singleTable.setCurrentRow(this.PingZangTableData[0]);
+              this.radioVal = this.PingZangTableData[0].id
+            },500)
+					}
+				} else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
+		},
+    showDetail (orderId) { // 查看详情操作
+      this.getDetailData(orderId,2)
+    },
+    AuditSubmit(formName){
+      this.$refs[formName].validate((valid) => {
+        if(valid){
+          let option = {
+            header: {
+              ...this.$base,
+              action: this.$store.state.actionMap.FLAT0002,
+              'sessionid': this.sessionid
+            },
+            id:this.tableSelect.id,
+            type:this.tableSelect.type,
+            ...this.PingZhangform
+          };
+          this.$axios.post('', option).then(res => {
+            if (res.data.header.code == 0) {
+              this.$globalMsg.success(this.$t('message.success'));
+              this.getTableData();
+              this.AuditClose();
+            } else {
+              this.$globalMsg.error(res.data.header.msg);
+            }
+          })
+        }
+      });
+    },
+    AuditClose(){
+      this.AuditDetail = {};
+      this.tableSelect = {};
+      this.PingZhangform.status = '';
+      this.PingZhangform.remark = '';
       this.PingZangFlag = false;
     },
-    showAgain(row){
-      this.againDetail.id = row.id
-      this.againDetail.orderNo = row.orderNo
-      this.againDetail.userPhone = row.userPhone
-      this.againDetail.userId = row.userId
-      this.againDetail.userName = row.userName
-      this.getBankList();
-      this.getDetailData();
+    showAudit(row){
+      this.AuditDetail = row
+      this.getDetailData(row.orderId,1);
 		},
 		tableRowChange (val) {
       this.tableSelect = val;
       this.radioVal = val.id;
 		},
-		getDetailData(orderId,type){
-			let option = this.$store.getters.getBaseHeader('FLAT0003',{orderId,type},{'index': this.currentPage, 'size': this.pageNumber})
-			this.$axios.post('', option).then( res => {
-				if(res.data.header.code==0){
-					if(type==2){
-						this.detailTableData = res.data.data;
-						this.pageTotal2 = res.data.header.page.total;
-						this.detailFlag = true;
-					}
-					if(type==2){
-						this.PingZangTableData = res.data.data;
-						this.pageTotal1 = res.data.header.page.total;
-						this.PingZangFlag = true;
-					}
-					
-				}
-      })
-		}
+		
 
   },
   watch: {
-    searchTime () {
-      if (this.searchTime) {
-        this.formInline.applyTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime[0]);
-        this.formInline.applyTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime[1]);
-      } else {
-        this.formInline.applyTimeBegin = '';
-        this.formInline.applyTimeEnd = '';
-      }
-    },
-    searchTime1 () {
-      if (this.searchTime1) {
-        this.formInline.loanTimeBegin = this.$store.getters.yyyy_m_d(this.searchTime1[0]);
-        this.formInline.loanTimeEnd = this.$store.getters.yyyy_m_d(this.searchTime1[1]);
-      } else {
-        this.formInline.loanTimeBegin = '';
-        this.formInline.loanTimeEnd = '';
-      }
-    },
     PingZangFlag(val){
       if(!val){
-        this.againClose();
+        this.AuditClose();
       }
     }
   },
   mounted () {
+    this.updateSearchData();
     this.sessionid = sessionStorage.getItem('sessionid');
-    // this.getTableData();
+    this.getTableData();
+    
     
   }
 }
@@ -595,6 +667,7 @@ export default {
 	}
 	.title{
 		font-size: 16px;
-		font-weight: 600;
+    font-weight: 600;
+    margin-bottom: 6px;
 	}
 </style>

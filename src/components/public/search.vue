@@ -4,20 +4,20 @@
 			<el-row type="flex" justify="start" :gutter="10">
 				<div v-for="(item, i) in searchDataReal" :key="i" >
 					<div class="search-input" v-if="item.type === 'input'">
-						<span :class="{highlight:item.value!==''}">{{item.label}}：</span>
+						<span >{{item.label}}：</span>
 						<el-input size="small" :style="{width:item.width}" v-model="item.value" :maxlength='item.maxLength'/>
 					</div>
 					<div class="search-input" v-if="item.type === 'select'">
-						<span :class="{highlight:item.value!==''}">{{item.label}}：</span>
+						<span >{{item.label}}：</span>
 						<el-select v-model="item.value" size="small" v-if="item.langFlag">
 							<el-option :value="op.value" v-for="(op, index) in item.option" :key="index">{{$t(op.label)}}</el-option>
 						</el-select>
-						<el-select v-model="item.value" size="small" v-else>
+						<el-select clearable v-model="item.value" size="small" v-else>
 							<el-option :value="op.value" v-for="(op, index) in item.option" :key="index">{{op.label}}</el-option>
 						</el-select>
 					</div>
 					<div class="search-input" v-if="item.type === 'rangePicker'">
-						<span :class="{highlight:item.value.length!==0}">{{item.label}}：</span>
+						<span >{{item.label}}：</span>
 						<el-date-picker  
 							size="small"
 							v-model="item.value" 

@@ -419,6 +419,12 @@
                   return index.index == '16'
                 })[0].subs.push({index: 'badMannersAudit', title: 'yn.no37'})
               }
+              // 平账审核列表
+              if (value.uniqueSign == 'MENU_ACCOUNTING_REVIEW') {
+                item.filter(index => {
+                  return index.index == '16'
+                })[0].subs.push({index: 'PingZhangAuditList', title: 'auditManage.no2'})
+              }
 
               // 催收管理
               if (value.uniqueSign == 'MENU_COLLECT') {
@@ -654,6 +660,12 @@
                 item.filter(index => {
                   return index.index == '19'
                 })[0].subs.push({index: 'EverydayMarketingTotal', title: 'teleMarketing.no5'})
+              }
+              // 每日渠道转化
+              if (value.uniqueSign == 'MENU_PHONE_CHANNEL_TRANSFER') {
+                item.filter(index => {
+                  return index.index == '19'
+                })[0].subs.push({index: 'EverydayChannelTotal', title: 'teleMarketing.no43'})
               }
 
               if(this.headerTitle!='vaytocdo'){

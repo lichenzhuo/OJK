@@ -49,6 +49,27 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('teleMarketing.no14')}}:</span>
+          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in loanOptions" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('teleMarketing.no44')}}:</span>
+          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in couponOptions" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('auditDetail.no43')}}:</span>
+          <el-select clearable size="small" v-model="formInline.adminId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in telresultOptions" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
           <span>{{$t('public.no21')}}:</span>
           <el-date-picker 
             size="small"
@@ -127,11 +148,20 @@
               <span>{{$t($store.getters.is_addressBook(scope.row.followUpStatus))}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="followUpStatus" :label="$t('teleMarketing.no14')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.is_addressBook(scope.row.followUpStatus))}}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="strFinalFollowupTime" :label="$t('teleMarketing.no10')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strApplyTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLoanTime" :label="$t('teleMarketing.no11')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="strLoanTime" :label="$t('teleMarketing.no44')" width="86">
+          </el-table-column>
+          <el-table-column align="center" prop="strLoanTime" :label="$t('auditDetail.no43')" width="86">
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
@@ -340,6 +370,9 @@ export default {
       pageTotal3: 0, // 分页总数
       options1: [], // 渠道来源
       options2: this.$store.state.options.isOverdue_option, // 是否更进
+      loanOptions: this.$store.state.options.loanIntention_status, // 借款意向
+      couponOptions: this.$store.state.options.ishang_option, // 是否发送优惠券
+      telresultOptions: this.$store.state.options.telResult_select, // 通话结果
       adminOptions: [], // 电销员
       tableData: [],// 借款信息数据模拟
       options4: [], // 在职客服员列表

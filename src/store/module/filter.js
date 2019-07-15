@@ -1465,7 +1465,7 @@ const filters = {
           return 'finance.backLog_options_status.no12' // -
       }
     },
-    applicationResult_status: () => (status) => { // 发送设备类型
+    applicationResult_status: () => (status) => { // 平账结果
       switch (status) {
         case 0:
           return 'auditManage.no5' // 待审核
@@ -1476,11 +1476,21 @@ const filters = {
         case 50:
           return 'userDetail.reject_status.no19' // 部分还款
         case 51:
-          return 'auditManage.no15' // 全额还款
+          return 'userDetail.reject_status.no20' // 已还款
         case -2:
           return 'auditManage.no6' // 未到账
         case -3:
           return 'auditManage.no16' // 系统默认
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
+    loanIntention_status: () => (status) => { // 借款意向
+      switch (status) {
+        case 0:
+          return 'teleMarketing.no19' // 有
+        case 1:
+          return 'teleMarketing.no20' // 无
         default:
           return 'finance.backLog_options_status.no12' // -
       }

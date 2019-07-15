@@ -642,8 +642,8 @@ const options = {
       {value: 'ATM_OFFLINE', label: 'finance.backMoneyType_options.no6'}, // ATM_OFFLINE
       {value: 'BIDV', label: 'finance.backMoneyType_options.no8'}, // BIDV
       {value: 'ACB', label: 'finance.backMoneyType_options.no9'}, // ACB
-      {value: 'funpay_online', label: 'finance.backMoneyType_options.no9'}, // ACB
-      {value: 'funpay_offline', label: 'finance.backMoneyType_options.no9'}, // ACB
+      {value: 'funpay_online', label: 'finance.backMoneyType_options.no10'}, // funpay_online
+      {value: 'funpay_offline', label: 'finance.backMoneyType_options.no11'}, // funpay_offline
     ],
     groupCalls_options: [// 群呼结果
       {value: '', label: 'public.placeholder'},
@@ -702,9 +702,14 @@ const options = {
       {value: 1, label: 'auditManage.no14'}, // 还款成功
       {value: -1, label: 'userDetail.reject_status.no6'}, // 还款失败
       {value: 50, label: 'userDetail.reject_status.no19'}, // 部分还款
-      {value: 51, label: 'auditManage.no15'}, // 全额还款
+      {value: 51, label: 'userDetail.reject_status.no20'}, // 已还款
       {value: -2, label: 'auditManage.no6'},// 未到账
       {value: -3, label: 'auditManage.no16'}// 系统默认
+    ],
+    loanIntention_status: [
+      {value: '', label: 'public.placeholder'},
+      {value: 0, label: 'teleMarketing.no19'}, // 有
+      {value: 1, label: 'teleMarketing.no20'}, // 无
     ],
   }
 }

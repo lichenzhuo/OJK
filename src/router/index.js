@@ -181,10 +181,14 @@ let marketing = resolve => require(['../views/telemarketing/marketing.vue'], res
 let MyMarketing = resolve => require(['../views/telemarketing/MyMarketing.vue'], resolve)
 let EverydayPerformanceTotal = resolve => require(['../views/telemarketing/EverydayPerformanceTotal.vue'], resolve)
 let EverydayMarketingTotal = resolve => require(['../views/telemarketing/EverydayMarketingTotal.vue'], resolve)
+let EverydayChannelTotal = resolve => require(['../views/telemarketing/EverydayChannelTotal.vue'], resolve)
 
 
 // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
 let ruleEngine = resolve => require(['../views/systemConfig/ruleEngine.vue'], resolve)
+
+// @@@@@@@@@@@@@@@@@@@@@@@   审核管理   @@@@@@@@@@@@@@@@@@@@@@@
+let PingZhangAuditList = resolve => require(['../views/auditManage/PingZhangAuditList.vue'], resolve)
 
 const router = new Router({
   scrollBehavior (to, from, savedPosition) {
@@ -269,6 +273,7 @@ const router = new Router({
                     // @@@@@@@@@@@@@@@@@@@@@@@  审核管理列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/badMannersAudit', name: 'badMannersAudit', component: badMannersAudit },
                     {path: '/otherBackAudit', name: 'otherBackAudit', component: otherBackAudit },
+                    {path: '/PingZhangAuditList', name: 'PingZhangAuditList', component: PingZhangAuditList },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  催收管理列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/myCollectionOrderList', name: 'myCollectionOrderList', component: myCollectionOrderList },
@@ -344,6 +349,7 @@ const router = new Router({
                     {path: '/MyMarketing', name: 'MyMarketing', component: MyMarketing },
                     {path: '/EverydayMarketingTotal', name: 'EverydayMarketingTotal', component: EverydayMarketingTotal },
                     {path: '/EverydayPerformanceTotal', name: 'EverydayPerformanceTotal', component: EverydayPerformanceTotal },
+                    {path: '/EverydayChannelTotal', name: 'EverydayChannelTotal', component: EverydayChannelTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/ruleEngine', name: 'ruleEngine', component: ruleEngine },
