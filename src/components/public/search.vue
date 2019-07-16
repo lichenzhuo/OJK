@@ -10,10 +10,10 @@
 					<div class="search-input" v-if="item.type === 'select'">
 						<span >{{item.label}}：</span>
 						<el-select v-model="item.value" size="small" v-if="item.langFlag">
-							<el-option :value="op.value" v-for="(op, index) in item.option" :key="index">{{$t(op.label)}}</el-option>
+							<el-option  v-for="(op, index) in item.option" :key="index" :label="$t(op.label)" :value="op.value"></el-option>
 						</el-select>
 						<el-select clearable v-model="item.value" size="small" v-else>
-							<el-option :value="op.value" v-for="(op, index) in item.option" :key="index">{{op.label}}</el-option>
+							<el-option  v-for="(op, index) in item.option" :key="index" :label="op.label" :value="op.value"></el-option>
 						</el-select>
 					</div>
 					<div class="search-input" v-if="item.type === 'rangePicker'">

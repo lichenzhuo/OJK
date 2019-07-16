@@ -60,7 +60,7 @@
       <template>
         <el-table :data="tableData" size="small" :summary-method="getSummaries"
           show-summary>
-          <el-table-column align="center" prop="createTime" :label="$t('teleMarketing.no27')" width="140">
+          <el-table-column align="center" prop="createTime" :label="$t('public.no33')" width="140">
             <template slot-scope="scope">
               <span v-if="scope.row.createTime!==undefined&&scope.row.createTime!==''">{{scope.row.createTime.slice(0,10)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -159,7 +159,7 @@ export default {
         value: '',
       }, {
         type: 'rangePicker',
-        label: this.$t('public.no60'),
+        label: this.$t('public.no33'),
         attr: 'addTime',
         value: [],
       }];

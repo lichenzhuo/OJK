@@ -160,6 +160,9 @@
 				<el-table-column align="center" prop="id" :label="$t('auditManage.no17')" >
 				</el-table-column>
 				<el-table-column align="center" prop="repaymentId" :label="$t('public.backMoneyId')" >
+          <template slot-scope="scope">
+            <span>{{scope.row.repaymentId==0?'-':scope.row.repaymentId}}</span>
+          </template>
 				</el-table-column>
 				<el-table-column align="center" prop="orderId" :label="$t('public.orderId')" >
         </el-table-column>
@@ -206,6 +209,7 @@
     <!-- 平账审核弹窗 -->
     <el-dialog :title="$t('public.no76')" :visible.sync="PingZangFlag" width="1100px">
       <p class="title" style="margin-top:-20px;">{{$t('operationDetail.tab1.no2')}}</p>
+      <p class="line"></p>
       <div class="oneLineHasThree">
 				<p><span>{{$t('public.orderId')}}:</span>
 					<span>{{AuditDetail.id | dataIsTrue}}</span>
@@ -226,6 +230,7 @@
 				</p>
 			</div>
 			<p class="title">{{$t('auditManage.no12')}}</p>
+      <p class="line"></p>
 			<el-table ref="singleTable" :data="PingZangTableData" size="small" stripe highlight-current-row
           @current-change="tableRowChange">
 				<el-table-column align="right" label="" width="60">
@@ -240,7 +245,7 @@
 				</el-table-column>
 				<el-table-column align="center" prop="repaymentId" :label="$t('public.backMoneyId')" >
           <template slot-scope="scope">
-            <span>{{scope.row.repaymentId==0?'':scope.row.repaymentId}}</span>
+            <span>{{scope.row.repaymentId==0?'-':scope.row.repaymentId}}</span>
           </template>
 				</el-table-column>
 				<el-table-column align="center" prop="refundAmount" :label="$t('public.no57')" >
@@ -279,6 +284,7 @@
 				</div>
 			</el-row>
 			<p class="title">{{$t('auditManage.no11')}}</p>
+      <p class="line"></p>
 			<div class="oneLineHasThree">
 				<p><span>{{$t('public.no57')}}:</span>
 					<span>{{tableSelect.refundAmount | dataIsTrue}}</span>
@@ -294,7 +300,7 @@
 				<p><span>{{$t('auditManage.no8')}}:</span>
 					<span>{{tableSelect.thirdChannel | dataIsTrue}}</span>
 				</p>
-				<p><span>{{$t('auditManage.no10')}}:</span>
+				<p><span style="color:crimson">{{$t('auditManage.no10')}}:</span>
 					<span style="color:crimson">{{$t($store.getters.applicationResult_status(tableSelect.applicationResult))}}</span>
 				</p>
 			</div>
@@ -417,6 +423,7 @@ export default {
         label: this.$t('auditManage.no3'),
         option: this.$store.state.options.pingZhang_auditStatus,
         value: '',
+        langFlag: true,
       }, {
         type: 'rangePicker',
         label: this.$t('public.no60'),
@@ -505,7 +512,7 @@ export default {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.FLAT0003,
-          'page': {'index': status==1?this.currentPage1:this.currentPage2, 'size': 10},
+          'page': {'index': status==1?this.currentPage1:this.currentPage2, 'size': status==1?5:10},
           'sessionid': this.sessionid
         },
         orderId,
@@ -669,5 +676,10 @@ export default {
 		font-size: 16px;
     font-weight: 600;
     margin-bottom: 6px;
-	}
+  }
+  .line{
+    width: 200px;
+    border-bottom: 1px dashed rgb(173, 173, 173);
+        margin-bottom: 8px;
+  }
 </style>
