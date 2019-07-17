@@ -116,12 +116,12 @@
           </el-table-column>
           <el-table-column align="center" prop="followUpStatus" :label="$t('teleMarketing.no9')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.followUpStatus))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.followUpStatus))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="isBorrow" :label="$t('teleMarketing.no14')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isBorrow))}}</span>
+              <span>{{$t($store.getters.loanIntention_status(scope.row.isBorrow))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="strFinalFollowupTime" :label="$t('teleMarketing.no10')" width="86">
@@ -132,7 +132,7 @@
           </el-table-column>
           <el-table-column align="center" prop="isSendCoupon" :label="$t('teleMarketing.no44')" >
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isSendCoupon))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.isSendCoupon))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="phoneResult" :label="$t('auditDetail.no43')" >
@@ -180,7 +180,7 @@
     <div class="foot"></div>
 
     <!-- ------------------ 查看详情弹窗开始 -------------------- -->
-    <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag" width="800px">
+    <el-dialog :title="$t('public.no29')" :visible.sync="detailFlag" width="1100px">
       <p class="form-p mt-10">
         <span class="form-span2">{{$t('public.name')}}:</span>
         <span class="mr20">{{detailData.name}}</span>
@@ -197,12 +197,12 @@
         </el-table-column>
         <el-table-column align="center" prop="isSendMessage" :label="$t('operationDetail.no25')" >
           <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isSendMessage))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.isSendMessage))}}</span>
             </template>
         </el-table-column>
         <el-table-column align="center" prop="isBorrow" :label="$t('teleMarketing.no14')" >
           <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isBorrow))}}</span>
+              <span>{{$t($store.getters.loanIntention_status(scope.row.isBorrow))}}</span>
             </template>
         </el-table-column>
         <el-table-column align="center" prop="remark" :label="$t('public.no37')" >
@@ -223,16 +223,9 @@
               <span v-if= "scope.row.couponType === 4">{{scope.row.couponInterest+''+scope.row.unit}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="effectiveDays" :label="$t('filter.expiryTypeOption.no2')">
-          </el-table-column>
           <el-table-column align="center" :label="$t('filter.validTime')" width="200px">
             <template slot-scope="scope">
                <p>{{scope.row.strEffectiveTimeBegin?(scope.row.strEffectiveTimeBegin+'~'+scope.row.strEffectiveTimeEnd): ''}}</p>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="activityDateRange" :label="$t('filter.activityDateRange')" width="200px">
-            <template slot-scope="scope">
-               <p>{{scope.row.strActivityBegin?(scope.row.strActivityBegin+'~'+scope.row.strActivityEnd): ''}}</p>
             </template>
           </el-table-column>
       </el-table>
@@ -273,31 +266,31 @@
         </el-form-item>
         <el-form-item :label="$t('operationDetail.no25')" prop="isSendMessage">
           <el-radio-group v-model="addRecord.isSendMessage">
-            <el-radio label="1">{{$t('auditDetail.isAdressBook.no1')}}</el-radio>
-            <el-radio label="2">{{$t('auditDetail.isAdressBook.no2')}}</el-radio>
+            <el-radio :label="1">{{$t('auditDetail.isAdressBook.no1')}}</el-radio>
+            <el-radio :label="2">{{$t('auditDetail.isAdressBook.no2')}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item :label="$t('teleMarketing.no14')" prop="isBorrow">
           <el-radio-group v-model="addRecord.isBorrow">
-            <el-radio label="1">{{$t('teleMarketing.no19')}}</el-radio>
-            <el-radio label="2">{{$t('teleMarketing.no20')}}</el-radio>
+            <el-radio :label="1">{{$t('teleMarketing.no19')}}</el-radio>
+            <el-radio :label="2">{{$t('teleMarketing.no20')}}</el-radio>
           </el-radio-group>
         </el-form-item>
         <!-- &&addRecord.isDisplayCoupon==1 -->
         <el-form-item :label="$t('teleMarketing.no44')" prop="iscoupon" 
           v-if="$store.state.common.permiss.includes('RIGHT_PHONE_MY_MARKET_SEND_COUPON')&&addRecord.isDisplayCoupon==1">
           <div>
-            <el-select style="width:224px" size="small" v-model="addRecord.isno" :placeholder="$t('public.placeholder')">
+            <el-select style="width:224px" size="small" v-model="addRecord.isNo" :placeholder="$t('public.placeholder')">
               <el-option v-for="item in options2" :key="item.value" :label="$t(item.label)" :value="item.value">
               </el-option>
             </el-select>
             <br>
-            <template v-if="addRecord.isno==1">
+            <template v-if="addRecord.isNo==1">
               <el-radio-group v-model="addRecord.couponId" @change="radioChange">
                 <el-radio v-for="(n,i) in couponData" :key="i" 
                   :label="n.id">
                   {{n.couponTypeName}}:
-                  {{n.couponType==1||n.couponType==3?n.couponAmount:n.couponType==2?n.couponDays:n.couponType==3?n.couponInterest:''}}
+                  {{n.couponType==1||n.couponType==3?n.couponAmount:n.couponType==2?n.couponDays:n.couponType==4?n.couponInterest:''}}
                   {{n.unit}}
                    <span class="mr20"></span>{{$t('filter.validTime')}}:
                    <el-date-picker 
@@ -376,7 +369,7 @@ export default {
         isSendMessage: '',
         isBorrow: '',
         remark: '',
-        isno: '',
+        isNo: '',
         couponId: '',
         isDisplayCoupon: '',
       },
@@ -516,7 +509,7 @@ export default {
       this.addFlag = true;
     },
     addRecordSubmit(formName){
-      if(this.addRecord.isno==1&&this.addRecord.couponId==''){
+      if(this.addRecord.isNo==1&&this.addRecord.couponId==''){
         return this.$globalMsg.error(this.$t('teleMarketing.no45'))
       }
       let option = {
@@ -552,7 +545,7 @@ export default {
       this.radioDate = {};
       this.addFlag = false;
       this.addRecord.couponId = '';
-      this.addRecord.isno = '';
+      this.addRecord.isNo = '';
       this.$refs['ruleForm'].resetFields();
     },
     openTelWindow(){

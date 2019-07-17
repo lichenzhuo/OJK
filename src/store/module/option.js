@@ -708,8 +708,8 @@ const options = {
     ],
     loanIntention_status: [
       {value: '', label: 'public.placeholder'},
-      {value: 0, label: 'teleMarketing.no19'}, // 有
-      {value: 1, label: 'teleMarketing.no20'}, // 无
+      {value: 1, label: 'teleMarketing.no19'}, // 有
+      {value: 2, label: 'teleMarketing.no20'}, // 无
     ],
   }
 }

@@ -145,12 +145,12 @@
           </el-table-column>
           <el-table-column align="center" prop="followUpStatus" :label="$t('teleMarketing.no9')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.followUpStatus))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.followUpStatus))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="isBorrow" :label="$t('teleMarketing.no14')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isBorrow))}}</span>
+              <span>{{$t($store.getters.loanIntention_status(scope.row.isBorrow))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="strFinalFollowupTime" :label="$t('teleMarketing.no10')" width="86">
@@ -161,7 +161,7 @@
           </el-table-column>
           <el-table-column align="center" prop="isSendCoupon" :label="$t('teleMarketing.no44')" >
             <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isSendCoupon))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.isSendCoupon))}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="phoneResult" :label="$t('auditDetail.no43')" >
@@ -303,12 +303,12 @@
         </el-table-column>
         <el-table-column align="center" prop="isSendMessage" :label="$t('operationDetail.no25')" >
           <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isSendMessage))}}</span>
+              <span>{{$t($store.getters.isNo_status(scope.row.isSendMessage))}}</span>
             </template>
         </el-table-column>
         <el-table-column align="center" prop="isBorrow" :label="$t('teleMarketing.no14')" >
           <template slot-scope="scope">
-              <span>{{$t($store.getters.is_addressBook(scope.row.isBorrow))}}</span>
+              <span>{{$t($store.getters.loanIntention_status(scope.row.isBorrow))}}</span>
             </template>
         </el-table-column>
         <el-table-column align="center" prop="remark" :label="$t('public.no37')" >
