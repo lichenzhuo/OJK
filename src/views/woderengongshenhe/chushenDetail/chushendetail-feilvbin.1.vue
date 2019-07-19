@@ -26,9 +26,9 @@
         <ul class="tabs_main pos_height">
           <li  v-show="active2==1">
             <div class="oneLineHasTwo">
-              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
-                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
-              </p>
+              <p><span>{{$t('fei.no28')}}{{$t('new.no48')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
+            </p>
               <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
                 <span>{{data.userBase.appPackage | dataIsTrue}}</span>
               </p>

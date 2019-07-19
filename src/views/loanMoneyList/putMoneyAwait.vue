@@ -97,10 +97,10 @@
           </form>
         </div>
         <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
         <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENDING_PROCESSED_EXP')">
-          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
         </div>
         
       </el-row>

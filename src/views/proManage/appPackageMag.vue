@@ -20,7 +20,7 @@
           <el-input size="small" label="name" v-model="formInline.appPackage"></el-input>
         </div>
         <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_APP_PACKAGE_MANAGE_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>

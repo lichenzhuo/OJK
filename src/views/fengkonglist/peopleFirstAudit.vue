@@ -102,7 +102,7 @@
         </template>
         
         <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_FIRST_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
         
       </el-row>

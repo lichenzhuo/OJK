@@ -684,6 +684,12 @@
                     return index.index == '18'
                   })[0].subs.push({index: 'ruleEngine', title: 'add.no45'})
                 }
+                // 配置规则集
+                // if (value.uniqueSign == 'MENU_RULE_ENGINE') {
+                //   item.filter(index => {
+                //     return index.index == '18'
+                //   })[0].subs.push({index: 'setRuleGather', title: 'add.no89'})
+                // }
               }
               
             }

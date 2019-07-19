@@ -10,18 +10,13 @@
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col >
-          <div class="search-input">
-            <span>规则ID:</span>
-            <el-input size="small" label="phone" v-model="formInline.id"></el-input>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>规则ID:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.id"></el-input>
+        </div>
         <div class="search-input">
           <span>规则名称:</span>
-          <el-select size="small" clearable v-model="formInline.name" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
+          <el-input size="small" style="width:130px;" v-model="formInline.ruleName"></el-input>
         </div>
         <div class="search-input">
           <span>结果:</span>
@@ -91,12 +86,19 @@
 
     
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="600" >
-      <h3>清选择使用规则集</h3>
-      <el-checkbox-group v-model="ruleNameList">
-        <el-checkbox label="规则集1"></el-checkbox>
-        <el-checkbox label="规则集2"></el-checkbox>
-        <el-checkbox label="规则集3"></el-checkbox>
+      <h3 style="margin-top:-20px;margin-bottom:20px;">请选择使用规则集</h3>
+      <el-checkbox-group v-model="ruleSelect" >
+        <div class="types">
+          <ul>
+            <li v-for="(item,i) in ruleSetList" :key="i">
+              <el-checkbox :label="item.value">
+                <span>{{item.label}}</span>
+              </el-checkbox>
+            </li>
+          </ul>
+        </div>
       </el-checkbox-group>
+      <div style="height:40px;"></div>
       <div class="button">
         <el-button type="primary" @click="submit">确认</el-button>
         <el-button type="primary" @click="detailClose">取消</el-button>
@@ -129,12 +131,16 @@ export default {
         {id:3,label:'Transfer',value:1},
       ],
       tableSelection: {},
-      ruleNameList: []
+      ruleNameList: [],
+      ruleSetList: [],
+      ruleSelect: [],
     }
   },
   methods: {
     handleSelectionChange (val) { // 表格选中项数据
-      this.tableSelection = val;
+      this.tableSelection = val.map(value=>{
+        return value = value.id
+      })
     },
     getTableData () { // 获取列表数据
       let option = {
@@ -154,55 +160,55 @@ export default {
       })
     },
     submit(){
-      this.detailFlag = false;
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.SYSCONFIG0002,
+          action: this.$store.state.actionMap.SYSCONFIG0008,
           'sessionid': this.sessionid
         },
-        id: this.detailData.id,
-        status: this.isUsing?'1':'-1',
-        executeResult: this.result,
-        exceuteLimit: this.notTalking,
-        executeSort: this.sequence,
-        conditionOne: this.conditionOne,
-        conditionTwo: this.conditionTwo,
-        conditionThree: this.conditionThree,
-        thresholdOne: this.thresholdOne,
-        thresholdTwo: this.thresholdTwo,
-        thresholdThree: this.thresholdThree,
-        cityList: [],
+        ruleIds: this.tableSelection,
+        ruleSetIds: this.ruleSelect,
       }
-      // this.$axios.post('',option).then(res=>{
-      //   if (res.data.header.code == 0) {
-      //     this.$globalMsg.success(this.$t('message.success'));
-      //     this.getTableData();
-      //     this.detailClose();
-      //   } else {
-      //     this.$globalMsg.error(res.data.header.msg);
-      //   }
-      // })
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('message.success'));
+          this.getTableData();
+          this.detailClose();
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
     },
     detailClose(){
       this.detailFlag = false;
-      this.sequence = '';
-      this.isUsing = false;
-      this.result = '';
-      this.notTalking = '';
-      this.conditionOne = '';
-      this.conditionTwo = '';
-      this.conditionThree = '';
-      this.thresholdOne = '';
-      this.thresholdTwo = '';
-      this.thresholdThree = '';
-      this.modifyHitory = {};
+      this.tableSelection = [];
+      this.ruleSelect = [];
     },
     showDetail(){
       this.detailFlag = true;
     },
     select(){
       this.getTableData()
+    },
+    getRuleNameList(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0004,
+          'sessionid': this.sessionid
+        },
+        id: this.detailData.id,
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.ruleSetName;
+            value.value = value.id;
+          })
+          this.ruleSetList = arr;
+        }
+      })
     }
   },
   watch: {
@@ -215,8 +221,7 @@ export default {
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.getTableData();
-    this.getsexStatus();
-    this.getcollectionType();
+    this.getRuleNameList();
     
   }
 }
@@ -278,6 +283,17 @@ export default {
     justify-content: center;
     button: {
       margin: 0 20px;
+    }
+  }
+  .types{
+    width: 100%;
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+      li{
+        // width: 56px;
+        margin-right: 20px;
+      }
     }
   }
 </style>

@@ -47,11 +47,11 @@
         </div>
         <div class="search-input"
         v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_REVIEW_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
         <div class="search-input"
         v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_REVIEW_EXP')">
-          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
         </div>
       </el-row>
       

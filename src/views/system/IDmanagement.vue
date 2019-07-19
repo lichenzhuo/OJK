@@ -16,48 +16,42 @@
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('idManage.userName')}}:</span>
-            <el-input size="small" label="ID" v-model="formInline.loginName"></el-input>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('public.no1')}}:</span>
-            <el-input size="small" label="name" v-model="formInline.name"></el-input>
-          </div>
-        </el-col>
-        <el-col :md="8" :lg="5" :xl="4">
-          <div class="search-input">
-            <span>{{$t('public.no18')}}:</span>
-            <el-input size="small" label="phone" v-model="formInline.phone"></el-input>
-          </div>
-        </el-col>
-          <div class="search-input">
-            <span>{{$t('idManage.roleName')}}:</span>
-            <el-select size="small" clearable v-model="formInline.roleId" :placeholder="$t('public.placeholder')">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </div>
-          <div class="search-input">
-            <span>{{$t('public.no21')}}:</span>
-            <el-date-picker 
-              id="dateSuccess"
-              size="small"
-              v-model="searchTime" 
-              value-format="yyyy-MM-dd" 
-              type="daterange" 
-              range-separator="~" 
-              :default-value="$store.state.common.preMonth" 
-              :start-placeholder="$t('public.beginTime')" 
-              :end-placeholder="$t('public.endTime')">
-            </el-date-picker>
-          </div>
+        <div class="search-input">
+          <span>{{$t('idManage.userName')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.loginName"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no1')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no18')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.phone"></el-input>
+        </div>
+        <div class="search-input">
+          <span>{{$t('idManage.roleName')}}:</span>
+          <el-select size="small" clearable v-model="formInline.roleId" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
+          <span>{{$t('public.no21')}}:</span>
+          <el-date-picker 
+            id="dateSuccess"
+            size="small"
+            v-model="searchTime" 
+            value-format="yyyy-MM-dd" 
+            type="daterange" 
+            range-separator="~" 
+            :default-value="$store.state.common.preMonth" 
+            :start-placeholder="$t('public.beginTime')" 
+            :end-placeholder="$t('public.endTime')">
+          </el-date-picker>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_SYSTEIM_USER_QUERY')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
           </div>
         </template>
       </el-row>
@@ -466,7 +460,7 @@ export default {
           ...this.$base,
           action: this.$store.state.actionMap.role_list,
           sessionid: this.sessionid,
-          page: {index: 1, size: 1000}
+          page: {index: 1, size: 100}
         }
       }
       let options = [];

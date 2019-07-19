@@ -281,6 +281,12 @@ const actionmap = {
     
     SYSCONFIG0001:'SYSCONFIG0001',// 系统配置
     SYSCONFIG0002:'SYSCONFIG0002',// 系统配置
+    SYSCONFIG0003:'SYSCONFIG0003',// 系统配置
+    SYSCONFIG0004:'SYSCONFIG0004',// 系统配置
+    SYSCONFIG0005:'SYSCONFIG0005',// 系统配置
+    SYSCONFIG0006:'SYSCONFIG0006',// 系统配置
+    SYSCONFIG0007:'SYSCONFIG0007',// 系统配置
+    SYSCONFIG0008:'SYSCONFIG0008',// 系统配置
 
     ME0017:'ME0017',// 缓存审核状态
     ME0018:'ME0018',// 添加电审记录
@@ -292,7 +298,7 @@ const actionmap = {
     ME0024:'ME0024',// 获取电话审核记录
     ME0025:'ME0025',// 获取电话审核记录
     ME0026:'ME0026',// 获取电话审核记录
-    SYSCONFIG0003:'SYSCONFIG0003',// 获取电话审核记录
+    
     
     ORDER00013:'ORDER00013',// 获取电话审核记录
     ORDER00012:'ORDER00012',// 获取电话审核记录

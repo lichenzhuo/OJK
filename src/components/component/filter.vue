@@ -190,12 +190,12 @@
       </div>
       <template>
         <div class="search-input" v-if="searchRight">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </template>
       <template>
         <div class="search-input" v-if="outputRight">
-          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
         </div>
       </template>
     </el-row>

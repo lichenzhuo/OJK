@@ -28,7 +28,7 @@
           <el-input size="small" style="width:200px;" label="orderId" v-model="formInline.appPackage"></el-input>
         </div>
         <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_PROBLEM_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>

@@ -15,10 +15,10 @@
     <!-- -------------搜索查询栏------------------------ -->
     <div class="search">
       <el-row type="flex" :gutter="10" justify="start">
-          <div class="search-input">
-            <span>{{$t('public.no32')}}:</span>
-            <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
-          </div>
+        <div class="search-input">
+          <span>{{$t('public.no32')}}:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.name"></el-input>
+        </div>
         <div class="search-input">
           <span>{{$t('new.no20')}}:</span>
           <el-select clearable size="small" v-model="formInline.groupId" :placeholder="$t('public.placeholder')">
@@ -47,13 +47,13 @@
         </div>
         
         <div class="search-input"
-        v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_QUERY')">
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
         
         <div class="search-input"
             v-if="$store.state.common.permiss.includes('RIGHT_RISKCONTROL_RPT_EXP')">
-          <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+          <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
         </div>
       </el-row>
     </div>

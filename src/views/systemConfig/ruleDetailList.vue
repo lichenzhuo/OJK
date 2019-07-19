@@ -10,12 +10,14 @@
     <!-- ------------搜索查询栏开始-------------- -->
     <div class="search">
       <el-row type="flex" justify="start" :gutter="10">
-        <el-col >
-          <div class="search-input">
-            <span>规则ID:</span>
-            <el-input size="small" label="phone" v-model="formInline.id"></el-input>
-          </div>
-        </el-col>
+        <div class="search-input">
+          <span>规则ID:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.ruleId"></el-input>
+        </div>
+        <div class="search-input">
+          <span>规则名称:</span>
+          <el-input size="small" style="width:130px;" v-model="formInline.ruleName"></el-input>
+        </div>
         <div class="search-input">
           <span>是否启用:</span>
           <el-select size="small" clearable v-model="formInline.status" :placeholder="$t('public.placeholder')">
@@ -23,19 +25,41 @@
             </el-option>
           </el-select>
         </div>
+        <div class="search-input">
+          <span>结果:</span>
+          <el-select size="small" clearable v-model="formInline.executeResult" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <div class="search-input ml15">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>
 
+    <div class="list_operation" >
+      <el-button 
+        type="primary" 
+        >
+        确定修改顺序
+      </el-button>
+      <el-button 
+        type="primary" 
+        @click="gogogo"
+        >
+        立即执行
+      </el-button>
+    </div>
+    <p class="time">上次调整时间：yy-mm-dd ss：mm（未执行）</p>
+
     <!-- -------------表单显示栏------------------------ -->
-    <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
+    <!-- <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
       <template>
         <el-table :data="tableData" size="small" >
           <el-table-column align="center" prop="id" label="ID">
           </el-table-column>
-          <el-table-column align="center" prop="ruleType" label="规则集">
+          <el-table-column align="center" prop="ruleType" label="规则名称">
           </el-table-column>
           <el-table-column align="center" prop="executeSort" label="执行顺序">
           </el-table-column>
@@ -79,19 +103,53 @@
           </el-table-column>
         </el-table>
       </template>
+    </div> -->
+    <div class="box">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">规则名称</th>
+            <th scope="col">执行顺序</th>
+            <th scope="col">是否启用</th>
+            <th scope="col">执行结果</th>
+            <th scope="col">条件1</th>
+            <th scope="col">阈值1</th>
+            <th scope="col">逻辑关系</th>
+            <th scope="col">条件2</th>
+            <th scope="col">阈值2</th>
+            <th scope="col">逻辑关系</th>
+            <th scope="col">条件3</th>
+            <th scope="col">禁言天数</th>
+            <th scope="col">执行顺序</th>
+            <th scope="col">操作</th>
+          </tr>
+        </thead>
+        <draggable type="transition" v-model="tableData" tag="tbody">
+          <!-- <transition-group type="transition" > -->
+            <tr v-for="item in tableData" :key="item.id">
+              <td>{{ item.id }}</td>
+              <td style="width:200px;word-break:break-all;">{{ item.ruleType }}</td>
+              <td>{{ item.id }}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td style="width:100px"><span class="table_opr">修改</span><span class="table_opr">删除</span></td>
+            </tr>
+          <!-- </transition-group> -->
+          
+        </draggable>
+      </table>
     </div>
-
-    <!-- ------------  分页显示栏  ------------------------ -->
-    <!-- <el-row type="flex" justify="end">
-      <div class="pages">
-        <el-pagination
-          @current-change="handleCurrentChange"
-          :current-page="currentPage"
-          layout="total, prev, pager, next, ->"
-          :total="pageTotal?pageTotal:0">
-        </el-pagination>
-      </div>
-    </el-row> -->
+    
     
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="20vh">
       <div class="box">
@@ -270,7 +328,12 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+
 export default {
+  components: {
+      draggable,
+  },
   name: 'ruleEngine',
   data () {
     return {
@@ -278,12 +341,19 @@ export default {
       sessionid: '',
       pageTotal: 0,
       currentPage: 1,// 当前页下标
+      ruleSetName: '',
       formInline: {// 查询信息数据对应字段
+        ruleSetId: '',
         id: '',
         status: '',
       },
       // 用户信息数据模拟
-      tableData: [],
+      tableData: [
+        {id:1,configStatus:0,ruleType:'13123213123'},
+        {id:2,configStatus:1,ruleType:'33333333333333333'},
+        {id:3,configStatus:1,ruleType:'44444444444443'},
+        {id:4,configStatus:1,ruleType:'44444444444443'},
+      ],
       type1Array: [1,23,25,37,48,49,50,51,54,56,57,58],
       detailFlag: false,
       sequence: '',// 顺序
@@ -321,8 +391,14 @@ export default {
         {id: 9401, label: 'KABUPATEN MERAUKE', value: '9401'},
       ],
       options5: [
-        {id:1,label:'启用',value:'1'},
-        {id:2,label:'不启用',value:'-1'},
+        {id:1,label:'启用',value:1},
+        {id:2,label:'不启用',value:-1},
+      ],
+      options6: [
+        {label:'请选择',value:''},
+        {id:1,label:'Reject',value:-1},
+        {id:2,label:'Pass',value:2},
+        {id:3,label:'Transfer',value:1},
       ],
       collectionType: [],
       conditionOne: '',
@@ -332,8 +408,10 @@ export default {
       thresholdTwo: '',
       thresholdThree: '',
       cityIds: [],
-      modifyHitory: {}
+      modifyHitory: {},
     }
+  },
+  computed: {
   },
   methods: {
     handleCurrentChange (val) { // 分页按钮点击操作
@@ -561,6 +639,16 @@ export default {
     },
     select(){
       this.getTableData()
+    },
+    gogogo(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0007,
+          'sessionid': this.sessionid
+        },
+        ruleSetId: this.formInline.ruleSetId,
+      }
     }
   },
   watch: {
@@ -571,10 +659,12 @@ export default {
     }
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid')
-    this.getTableData();
-    this.getsexStatus();
-    this.getcollectionType();
+    this.sessionid = sessionStorage.getItem('sessionid');
+    this.formInline.ruleSetId = this.$route.query.ruleSetId;
+    this.ruleSetName = this.$route.query.ruleSetName;
+    // this.getTableData();
+    // this.getsexStatus();
+    // this.getcollectionType();
     
   }
 }
@@ -608,7 +698,7 @@ export default {
     th {
         padding: 5px 10px;
         border-bottom: 1px solid #ccc;
-        vertical-align: bottom;
+        // vertical-align: bottom;
         line-height: 1.6;
         text-align: left;
         font-weight: bold;
@@ -624,7 +714,7 @@ export default {
     td{
         display: table-cell;
         padding: 10px;
-        vertical-align: top;
+        vertical-align: middle;
         line-height: 1.6;
     }
   }
@@ -637,5 +727,11 @@ export default {
     button: {
       margin: 0 20px;
     }
+  }
+  .time{
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
   }
 </style>

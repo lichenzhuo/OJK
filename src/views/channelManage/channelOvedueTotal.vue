@@ -41,7 +41,7 @@
             </el-date-picker>
           </div>
         <div class="search-input">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>
