@@ -41,6 +41,7 @@
     <div class="list_operation" >
       <el-button 
         type="primary" 
+        @click="sortList"
         >
         确定修改顺序
       </el-button>
@@ -54,57 +55,26 @@
     <p class="time">上次调整时间：yy-mm-dd ss：mm（未执行）</p>
 
     <!-- -------------表单显示栏------------------------ -->
-    <!-- <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
-      <template>
-        <el-table :data="tableData" size="small" >
-          <el-table-column align="center" prop="id" label="ID">
-          </el-table-column>
-          <el-table-column align="center" prop="ruleType" label="规则名称">
-          </el-table-column>
-          <el-table-column align="center" prop="executeSort" label="执行顺序">
-          </el-table-column>
-          <el-table-column align="center" prop="status" label="是否启用">
-            <template slot-scope="scope">
-              <span >{{scope.row.status==1?'是':'否'}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="executeResult" label="执行结果">
-            <template slot-scope="scope">
-              <span >{{scope.row.executeResult==1?'Transfer':scope.row.executeResult==2?'pass':scope.row.executeResult==-1?'reject':''}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="conditionOne" label="条件1">
-          </el-table-column>
-          <el-table-column align="center" prop="thresholdOne" label="阈值1">
-          </el-table-column>
-          <el-table-column align="center" prop="logicRelationOne" label="逻辑关系">
-          </el-table-column>
-          <el-table-column align="center" prop="conditionTwo" label="条件2">
-          </el-table-column>
-          <el-table-column align="center" prop="thresholdTwo" label="阈值2">
-          </el-table-column>
-          <el-table-column align="center" prop="logicRelationTwo" label="逻辑关系">
-          </el-table-column>
-          <el-table-column align="center" prop="conditionThree" label="条件3">
-          </el-table-column>
-          <el-table-column align="center" prop="thresholdThree" label="阈值3">
-          </el-table-column>
-          <el-table-column align="center" prop="exceuteLimit" label="禁言天数">
-          </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" label="操作">
-            <template slot-scope="scope">
-              <span 
-                v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_EDIT')"
-                class="table_opr"
-                @click="modifyRule(scope.row)">
-                修改
-              </span>
-            </template>
-          </el-table-column>
-        </el-table>
-      </template>
-    </div> -->
-    <div class="box">
+    <el-table :data="tableData"
+      row-key="id"
+      align="left">
+     <el-table-column v-for="(item, index) in col"
+        :key="`col_${index}`"
+        :prop="item.prop"
+        :label="item.label"> 
+      </el-table-column>
+      <el-table-column fixed="right" align="center" prop="operation" label="操作">
+        <template slot-scope="scope">
+          <span 
+            class="table_opr"
+            @click="modifyRule(scope.row)">
+            修改
+          </span>
+          <span class="table_opr" @click="showDel(scope.row.id)">删除</span>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!-- <div class="box">
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -126,7 +96,6 @@
           </tr>
         </thead>
         <draggable type="transition" v-model="tableData" tag="tbody">
-          <!-- <transition-group type="transition" > -->
             <tr v-for="item in tableData" :key="item.id">
               <td>{{ item.id }}</td>
               <td style="width:200px;word-break:break-all;">{{ item.ruleType }}</td>
@@ -142,13 +111,17 @@
               <td>-</td>
               <td>-</td>
               <td>-</td>
-              <td style="width:100px"><span class="table_opr">修改</span><span class="table_opr">删除</span></td>
+              <td style="width:100px">
+                <span class="table_opr" @click="modifyRule(item)">修改</span>
+                <span class="table_opr" @click="showDel(item.id)">删除</span>
+              </td>
             </tr>
-          <!-- </transition-group> -->
-          
         </draggable>
       </table>
-    </div>
+    </div> -->
+
+
+
     
     
     <el-dialog title="查看并修改" :visible.sync="detailFlag" width="95%" top="20vh">
@@ -322,6 +295,14 @@
       </div>
     </el-dialog>
 
+    <el-dialog title="提示" :visible.sync="deleteFlag" width="560">
+      <h4 class="mb20">删除之后，该规则将被释放到规则库中，则需重新添加</h4>
+      <div class="button">
+        <el-button type="primary" @click="delSure">确认</el-button>
+        <el-button type="primary" @click="deleteFlag = false">取消</el-button>
+      </div>
+    </el-dialog>
+
     <div class="foot"></div>
 
   </div>
@@ -329,6 +310,7 @@
 
 <script>
 import draggable from 'vuedraggable'
+import Sortable from 'sortablejs'
 
 export default {
   components: {
@@ -347,13 +329,75 @@ export default {
         id: '',
         status: '',
       },
-      // 用户信息数据模拟
-      tableData: [
-        {id:1,configStatus:0,ruleType:'13123213123'},
-        {id:2,configStatus:1,ruleType:'33333333333333333'},
-        {id:3,configStatus:1,ruleType:'44444444444443'},
-        {id:4,configStatus:1,ruleType:'44444444444443'},
-      ],
+      tableData: [{
+        "conditionOne": "手机号命中",
+        "conditionTwo": "身份证命中",
+        "configStatus": 0,
+        "exceuteLimit": 360,
+        "excludeOs": 1,
+        "executePartner": 0,
+        "executeResult": -1,
+        "executeSort": 1,
+        "executeSql": "select   count(1) from   tb_order a where    a.overdue_days >= 31    and (a.user_phone = '[phone]' or a.id_card = '[idNO]')",
+        "id": 1,
+        "logicRelationOne": "or",
+        "ruleDesc": "手机号或身份证",
+        "ruleType": "命中自有黑名单",
+        "status": 1
+      }, {
+        "conditionOne": "自有黑名单用户",
+        "configStatus": 0,
+        "exceuteLimit": 360,
+        "excludeOs": 1,
+        "executePartner": 0,
+        "executeResult": -1,
+        "executeSort": 1,
+        "executeSql": "select    count(1) from   tb_black_user a where   a.status = 1 and remark='自有黑名单用户' and (a.phone = '[phone]' or a.id_card = '[idNO]')",
+        "id": 48,
+        "ruleDesc": "自有黑名单用户",
+        "ruleType": "自有黑名单用户",
+        "ruleValue": "",
+        "status": 1
+      }, {
+        "conditionOne": "代还或态度恶劣",
+        "configStatus": 0,
+        "exceuteLimit": 360,
+        "excludeOs": 1,
+        "executePartner": 0,
+        "executeResult": -1,
+        "executeSort": 1,
+        "executeSql": "select count(1) from tb_user_collection_attitude where review_result=1 and user_id='[userId]'",
+        "id": 55,
+        "remark": "",
+        "ruleDesc": "代还或态度恶劣",
+        "ruleType": "代还或态度恶劣",
+        "status": 1
+      }, {
+        "conditionOne": "非本地借款",
+        "configStatus": 0,
+        "exceuteLimit": 15,
+        "excludeOs": 1,
+        "executePartner": 0,
+        "executeResult": -1,
+        "executeSort": 1,
+        "executeSql": "select count(1) from tb_order a where id='[orderId]' and lower(trim(substring_index(substring_index(a.order_address, ',', -2),',',-1 )))!='indonesia' and lower(a.order_address)!= 'gagal mendapatkan posisi'",
+        "id": 59,
+        "ruleDesc": "借款地址在印尼国家之外，则拒绝",
+        "ruleType": "非本地借款",
+        "status": 1
+      }, {
+        "configStatus": 0,
+        "exceuteLimit": 30,
+        "excludeOs": 1,
+        "executePartner": 0,
+        "executeResult": -1,
+        "executeSort": 2,
+        "executeSql": "SELECT count(1) from tb_old_user_all_sys_check where order_id = '[orderId]' and current_idcard != last_idcard and last_idcard is not null",
+        "id": 61,
+        "ruleDesc": "OCR检测到的身份证号码与人工自填身份证号码不一致",
+        "ruleType": "身份证号码不一致",
+        "status": 1
+      }],
       type1Array: [1,23,25,37,48,49,50,51,54,56,57,58],
       detailFlag: false,
       sequence: '',// 顺序
@@ -409,6 +453,66 @@ export default {
       thresholdThree: '',
       cityIds: [],
       modifyHitory: {},
+      deleteFlag: false,
+      delId: '',
+      col: [
+        {
+          label: 'ID',
+          prop: 'id'
+        },
+        {
+          label: '规则名称',
+          prop: 'ruleType'
+        },
+        {
+          label: '执行顺序',
+          prop: 'executeSort'
+        },
+        {
+          label: '是否启用',
+          prop: 'status'
+        },
+        {
+          label: '执行结果',
+          prop: 'executeResult'
+        },
+        {
+          label: '条件1',
+          prop: 'conditionOne'
+        },
+        {
+          label: '阈值1',
+          prop: 'thresholdOne'
+        },
+        {
+          label: '逻辑关系',
+          prop: 'logicRelationOne'
+        },
+        {
+          label: '条件2',
+          prop: 'conditionTwo'
+        },
+        {
+          label: '阈值2',
+          prop: 'thresholdTwo'
+        },
+        {
+          label: '逻辑关系',
+          prop: 'logicRelationTwo'
+        },
+        {
+          label: '条件3',
+          prop: 'conditionThree'
+        },
+        {
+          label: '阈值3',
+          prop: 'thresholdThree'
+        },
+        {
+          label: '禁言天数',
+          prop: 'exceuteLimit'
+        },
+      ],
     }
   },
   computed: {
@@ -649,7 +753,71 @@ export default {
         },
         ruleSetId: this.formInline.ruleSetId,
       }
-    }
+      // this.$axios.post('',option).then(res=>{
+      //   if (res.data.header.code == 0) {
+      //     this.$globalMsg.success(this.$t('message.success'));
+      //   } else {
+      //     this.$globalMsg.error(res.data.header.msg);
+      //   }
+      // })
+    },
+    delSure(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0002,
+          'sessionid': this.sessionid
+        },
+        id: this.delId,
+        deleteStatus: -1
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code == 0) {
+          this.$globalMsg.success(this.$t('message.success'));
+          this.getTableData();
+          this.deleteFlag = false;
+        } else {
+          this.$globalMsg.error(res.data.header.msg);
+        }
+      })
+    },
+    showDel(id){
+      this.deleteFlag = true;
+      this.delId = id;
+    },
+    sortList(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0005,
+          'sessionid': this.sessionid
+        },
+        id: this.formInline.ruleSetId,
+        ids: this.tableData.map(value=>value = value.id)
+      }
+      // this.$axios.post('',option).then(res=>{
+      //   if (res.data.header.code == 0) {
+      //     this.$globalMsg.success(this.$t('message.success'));
+      //     this.getTableData();
+      //   } else {
+      //     this.$globalMsg.error(res.data.header.msg);
+      //   }
+      // })
+    },
+    //行拖拽
+    rowDrop() {
+      if(this.flag){
+        const tbody = document.querySelector('.el-table__body-wrapper tbody')
+        const _this = this
+        Sortable.create(tbody, {
+          onEnd({ newIndex, oldIndex }) {
+            const currRow = _this.tableData.splice(oldIndex, 1)[0]
+            _this.tableData.splice(newIndex, 0, currRow)
+          }
+        })
+      }
+      
+    },
   },
   watch: {
     detailFlag(){
@@ -662,6 +830,7 @@ export default {
     this.sessionid = sessionStorage.getItem('sessionid');
     this.formInline.ruleSetId = this.$route.query.ruleSetId;
     this.ruleSetName = this.$route.query.ruleSetName;
+    this.rowDrop();
     // this.getTableData();
     // this.getsexStatus();
     // this.getcollectionType();

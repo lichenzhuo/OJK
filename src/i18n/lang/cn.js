@@ -1516,7 +1516,7 @@ const cn = {
     }
   },
   fei: {
-    id: '证件ID号',
+    id: '证件ID',
     idType: '证件类型',
     inComeDate: '工资发放日',
     loanId: '借款编号',
