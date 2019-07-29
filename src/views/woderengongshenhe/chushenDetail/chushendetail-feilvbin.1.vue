@@ -1269,7 +1269,7 @@ export default {
               {id: 35, title: 'verify information',  oneInput: '', radioInput: '', value: '', 
                 radioGroup: [ 
                   { label: 'True' }, 
-                  { label: 'false' },
+                  { label: 'False' },
                   { label: 'non-c' }
                 ] 
               }
@@ -1333,7 +1333,9 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          if(this.telFlag1){
+            this.$globalMsg.success(this.$t('message.success'))
+          }
           if(this.telFlag3){
             if(this.telRadioId==31){
               this.phoneViewSelect.call_a = this.telStatus;
@@ -1378,7 +1380,8 @@ export default {
         parentType: type,
         childType: id,
         result: value,
-        status: -1
+        status: -1,
+        resultNumber: ''
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -1405,7 +1408,8 @@ export default {
         parentType: 2,
         childType: id,
         result: value,
-        status: -1
+        status: -1,
+        resultNumber: ''
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
