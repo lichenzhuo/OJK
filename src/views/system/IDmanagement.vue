@@ -167,7 +167,7 @@
 
     <!-- ----------------------确认是否添加账号开始------------------ -->
     <el-dialog :title="$t('public.no51')" :visible.sync="change" width="600px">
-      <el-form :model="ruleForm2" size="small" status-icon :rules="rules" ref="ruleForm2" label-width="80px" class="demo-ruleForm">
+      <el-form :model="ruleForm2" size="small" status-icon :rules="rules" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
         <el-form-item :label="$t('idManage.no7')" prop="loginName">
             <el-input type="user" v-model="ruleForm2.loginName" auto-complete="off"></el-input>
         </el-form-item>
@@ -477,7 +477,7 @@ export default {
           })
         }
       })
-      this.options = options;
+      this.options = options.filter(value=>value.value!=31);
     },
     changePre (id) {
       this.change = true;

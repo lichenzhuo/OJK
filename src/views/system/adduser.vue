@@ -1,6 +1,6 @@
 <template>
   <div class="adduser">
-    <el-form :model="ruleForm2" size="small" status-icon :rules="rules" ref="ruleForm2" autoComplete="off" label-width="80px" class="demo-ruleForm">
+    <el-form :model="ruleForm2" size="small" status-icon :rules="rules" ref="ruleForm2" autoComplete="off" label-width="100px" class="demo-ruleForm">
         <el-form-item :label="$t('idManage.no7')" prop="loginName">
             <el-input type="user" v-model="ruleForm2.loginName" ></el-input>
         </el-form-item>
