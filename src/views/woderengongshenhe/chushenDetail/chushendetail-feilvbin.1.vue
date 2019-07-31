@@ -936,7 +936,7 @@
           <div class="left2right">
             <span class="left" style="width:120px">Payroll:</span>
             <div class="right">
-              <el-input type="tel" maxlength="15" v-model="changeuser.income"></el-input>
+              <el-input type="text" maxlength="15" :change="check_num()" v-model="changeuser.income"></el-input>
             </div>
           </div>
           <div class="left2right">
@@ -1124,7 +1124,8 @@ export default {
 
       ],
       changeuser: {
-        phone: ''
+        phone: '',
+        income: ''
       },
       bankInfo: {},
       userFlag: false,
@@ -1478,6 +1479,7 @@ export default {
           }
           if(type==4){
             this.$globalMsg.success(this.$t('message.success'))
+            this.changeuser.income = '';
             this.payrollFlag = false;
           }
         } else {
@@ -1752,6 +1754,18 @@ export default {
       if(type==2){
         this.radioChange(this.twoRemark,998,2)
       }
+    },
+    check_num: function(){
+      if(this.changeuser.income){
+        var income = this.changeuser.income;
+        income = String(income).replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (income.indexOf('.') < 0 && income != '') {
+            // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+            income = parseInt(income);
+        }
+        this.changeuser.income = income;
+      }
+        
     }
   },
   watch: {
