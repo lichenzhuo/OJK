@@ -1516,7 +1516,7 @@ const cn = {
     }
   },
   fei: {
-    id: '证件ID号',
+    id: '证件ID',
     idType: '证件类型',
     inComeDate: '工资发放日',
     loanId: '借款编号',
@@ -1983,6 +1983,7 @@ const cn = {
     no86: '用户类型',
     no87: '到期单量',
     no88: '最近一笔已还款订单的身份信息',
+    no89: '配置规则集',
   },
   ...zhLocale
 }

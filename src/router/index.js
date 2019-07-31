@@ -186,6 +186,10 @@ let EverydayChannelTotal = resolve => require(['../views/telemarketing/EverydayC
 
 // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
 let ruleEngine = resolve => require(['../views/systemConfig/ruleEngine.vue'], resolve)
+let ruleList = resolve => require(['../views/systemConfig/ruleList.vue'], resolve)
+let AddRuleEngine = resolve => require(['../views/systemConfig/AddRuleEngine.vue'], resolve)
+let setRuleGather = resolve => require(['../views/systemConfig/setRuleGather.vue'], resolve)
+let ruleDetailList = resolve => require(['../views/systemConfig/ruleDetailList.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@   审核管理   @@@@@@@@@@@@@@@@@@@@@@@
 let PingZhangAuditList = resolve => require(['../views/auditManage/PingZhangAuditList.vue'], resolve)
@@ -353,6 +357,10 @@ const router = new Router({
 
                     // @@@@@@@@@@@@@@@@@@@@@@@   系统配置   @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/ruleEngine', name: 'ruleEngine', component: ruleEngine },
+                    {path: '/ruleList', name: 'ruleList', component: ruleList },
+                    {path: '/AddRuleEngine', name: 'AddRuleEngine', component: AddRuleEngine },
+                    {path: '/setRuleGather', name: 'setRuleGather', component: setRuleGather },
+                    {path: '/ruleDetailList', name: 'ruleDetailList', component: ruleDetailList },
           ]
         },
 

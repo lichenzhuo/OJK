@@ -25,13 +25,15 @@
         </ul>
         <ul class="tabs_main pos_height">
           <li  v-show="active2==1">
-            <div class="oneLineHasTwo">
-              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
-                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
-              </p>
-              <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
-                <span>{{data.userBase.appPackage | dataIsTrue}}</span>
-              </p>
+            <div class="oneLineHasFour">
+              <p><span>{{$t('fei.no28')}}{{$t('new.no48')}}:</span>
+              <span>{{data.userBase.appName | dataIsTrue}}</span>
+            </p>
+            <p><span>{{$t('fei.no28')}}{{$t('new.no49')}}:</span>
+              <span>{{data.userBase.appPackage | dataIsTrue}}</span>
+            </p>
+            <p><span>facebook:</span><span>{{data.userSelf.facebook | dataIsTrue}}</span></p>
+            <p><span>email:</span><span>{{data.userSelf.email | dataIsTrue}}</span></p>
             </div>
             <div class="oneLineHasFour">
               <p><span>{{$t('public.userId')}}:</span><span>{{data.userBase.id | dataIsTrue}}</span></p>
@@ -133,6 +135,9 @@
                 <p><span>ID type:</span><span>{{data.userIdcard.strIdType | dataIsTrue}}</span></p>
               </div>
               <div class="oneLineHasOne">
+                <p><span>{{$t('fei.id')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
+              </div>
+              <div class="oneLineHasOne">
                 <p>
                   <span>bio pic similarity:</span>
                   <span v-if="data.similarity">{{String(data.similarity).slice(0,5)}}%</span>
@@ -150,16 +155,8 @@
                 </div>
               </div>
               <hr class="mg10">
+
               <!-- 工作信息 -->
-              <div class="oneLineHasOne">
-                <p><span>facebook:</span><span>{{data.userSelf.facebook | dataIsTrue}}</span></p>
-              </div>
-              <div class="oneLineHasOne">
-                <p><span>email:</span><span>{{data.userSelf.email | dataIsTrue}}</span></p>
-              </div>
-              <div class="oneLineHasOne">
-                <p><span>{{$t('public.no7')}}:</span><span>{{data.userSelf.liveAddress | dataIsTrue}}</span></p>
-              </div>
               <div class="imgbox">
                 <div v-if="data.userBank.bankPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userBank.bankPicUrl})">
                   <span>{{$t('pic.no7')}}</span>
@@ -179,32 +176,9 @@
                 </template>
               </div>
               <hr class="mg10">
+
               <!-- 工作信息 -->
               <template v-if="data.userWork.industry!='7'">
-                <div class="oneLineHasOne">
-                  <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
-                </div>
-                <!-- <div class="oneLineHasOne">
-                  <p><span>entry time:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>pay day 1:</span><span>{{data.userWork.payday | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>pay day 2:</span><span>{{data.userWork.paydayTwo | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>daily work from:</span><span>{{data.userWork.startWorkTime | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>daily work to:</span><span>{{data.userWork.endWorkTime | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>company full address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
-                </div> -->
                 <div class="imgbox">
                   <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
                     <span>{{$t('pic.no16')}}</span>
@@ -215,9 +189,8 @@
                     <img :src="data.userWork.workCardPicUrl" alt="工牌" >
                   </div>
                 </div> 
-                <hr class="mg10">
+                <!-- <hr class="mg10"> -->
               </template>
-              
               <!-- 主体信息 -->
               <template v-else>
                 <div class="oneLineHasOne">
@@ -259,16 +232,19 @@
               </template>
 
               <!-- 埋点信息 -->
-              <hr class="mg10">
-              <table class="write-table" >
+              <!-- <hr class="mg10"> -->
+              <table class="write-table" border>
                 <tr>
                   <th width="40%">{{$t('fei.no49')}}</th>
-                  <th width="60%">GPS</th>
+                  <th width="60%"> </th>
                 </tr>
                 <template v-if="data.deviceInfo!=''">
                   <tr v-for="(value,index) in data.deviceInfo" :key="index">
                     <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                    <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
+                    <td>
+                      Time:{{value.strCreateTime}} <br>
+                      GPS:{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}
+                    </td>
                   </tr>
                 </template>
                 <template v-else>
@@ -359,88 +335,90 @@
               </template> -->
   
             </ul>
-
-            <template v-if="data.userWork.industry!='7'">
-              <h4 class="mg10">company contact :</h4>
-              <ul class="right-ul">
-                <li class="right-list">
-                  <span class="mr20 text-right w200">company landline:</span>
-                  <div class="group">
-                    <!-- <el-input 
-                      v-if="radioArray.filter(value=>value.id==17)[0].value=='No'"
-                      size="small" 
-                      v-model="changeuser.phone" 
-                      style="width:224px;margin-right:20px"
-                      @change="modifyUserInfo(3)"></el-input> -->
-                    <span  class="mr20">{{data.userWork.companyPhone}}</span>
-                    <i class="el-icon-phone phone " @click="showTelAudit(2)"></i>
-                  </div>
-                </li>
-                <li class="right-list">
-                  <span class="mr20 text-right w200">call out:</span>
-                  <div class="group ">
-                    <div class="span_flex">
-                      <template >
-                      <span v-for="(item,index) in callOutList" :key="index" class="no">
-                        {{item.result?item.result:' '}}
-                      </span>
-                      <br >
-                      </template>
+            <template v-if="showPhoneViewTwo">
+              <template v-if="data.userWork.industry!='7'">
+                <h4 class="mg10">company contact :</h4>
+                <ul class="right-ul">
+                  <li class="right-list">
+                    <span class="mr20 text-right w200">company landline:</span>
+                    <div class="group">
+                      <!-- <el-input 
+                        v-if="radioArray.filter(value=>value.id==17)[0].value=='No'"
+                        size="small" 
+                        v-model="changeuser.phone" 
+                        style="width:224px;margin-right:20px"
+                        @change="modifyUserInfo(3)"></el-input> -->
+                      <span  class="mr20">{{data.userWork.companyPhone}}</span>
+                      <i class="el-icon-phone phone " @click="showTelAudit(2)"></i>
+                    </div>
+                  </li>
+                  <li class="right-list">
+                    <span class="mr20 text-right w200">call out:</span>
+                    <div class="group ">
+                      <div class="span_flex">
+                        <template >
+                        <span v-for="(item,index) in callOutList" :key="index" class="no">
+                          {{item.result?item.result:' '}}
+                        </span>
+                        <br >
+                        </template>
+                        
+                      </div>
                       
                     </div>
-                    
+                  </li>
+                  <li  class="right-list mt15" v-for="item in phoneradioArray.filter(value=>value.id==35)" :key="item.id">
+                    <span class="mr20 text-right w200">{{item.title}}</span>
+                    <div class="group">
+                      <el-radio-group v-model="item.value" @change="radioChange(item.value, item.id, 2)">
+                        <el-radio v-for="(value,index) in item.radioGroup" :key="index" :label="value.label"></el-radio>
+                      </el-radio-group>
+                    </div>
+                  </li>
+                </ul>
+              </template>
+              
+              <h4 class="mg10">emergency contact :</h4>
+              <ul class="right-ul">
+                <li class="right-list" v-if="data.userUrgentContact.contactOnePhone!=''">
+                  <span class="mr20 text-right w200">call--A:</span>
+                  <div class="group">
+                    <span title="结果" class="mr25">{{phoneViewSelect.call_a}}</span>
+                    <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactOneName | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span>
+                    <i class="el-icon-phone phone" @click="showTelAudit(3,31)"></i>
                   </div>
                 </li>
-                <li  class="right-list mt15" v-for="item in phoneradioArray.filter(value=>value.id==35)" :key="item.id">
-                  <span class="mr20 text-right w200">{{item.title}}</span>
+                <li class="right-list" v-if="data.userUrgentContact.contactTwoPhone!=''">
+                  <span class="mr20 text-right w200">call--B:</span>
                   <div class="group">
-                    <el-radio-group v-model="item.value" @change="radioChange(item.value, item.id, 2)">
-                      <el-radio v-for="(value,index) in item.radioGroup" :key="index" :label="value.label"></el-radio>
-                    </el-radio-group>
+                    <span title="结果" class="mr25">{{phoneViewSelect.call_b}}</span>
+                    <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactTwoPhone | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span>
+                    <i class="el-icon-phone phone" @click="showTelAudit(3,32)"></i>
+                  </div>
+                </li>
+                <li class="right-list" v-if="data.userUrgentContact.contactThreePhone!=''">
+                  <span class="mr20 text-right w200">call--C:</span>
+                  <div class="group">
+                    <span title="结果" class="mr25">{{phoneViewSelect.call_c}}</span>
+                    <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span>
+                    <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span>
+                    <i class="el-icon-phone phone" @click="showTelAudit(3,33)"></i>
                   </div>
                 </li>
               </ul>
+
+
+              <h4 class="mg10">personal suggestion:</h4>
+              <div class="suggest mg10">
+                <el-input type="textarea" :rows="6" v-model="twoRemark" @change="areachange(2)" maxlength="400"></el-input>
+              </div>
             </template>
             
-            <h4 class="mg10">emergency contact :</h4>
-            <ul class="right-ul">
-              <li class="right-list" v-if="data.userUrgentContact.contactOnePhone!=''">
-                <span class="mr20 text-right w200">call--A:</span>
-                <div class="group">
-                  <span title="结果" class="mr25">{{phoneViewSelect.call_a}}</span>
-                  <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactOneName | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span>
-                  <i class="el-icon-phone phone" @click="showTelAudit(3,31)"></i>
-                </div>
-              </li>
-              <li class="right-list" v-if="data.userUrgentContact.contactTwoPhone!=''">
-                <span class="mr20 text-right w200">call--B:</span>
-                <div class="group">
-                  <span title="结果" class="mr25">{{phoneViewSelect.call_b}}</span>
-                  <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactTwoPhone | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span>
-                  <i class="el-icon-phone phone" @click="showTelAudit(3,32)"></i>
-                </div>
-              </li>
-              <li class="right-list" v-if="data.userUrgentContact.contactThreePhone!=''">
-                <span class="mr20 text-right w200">call--C:</span>
-                <div class="group">
-                  <span title="结果" class="mr25">{{phoneViewSelect.call_c}}</span>
-                  <span class="mr25">{{$t('public.name')}}:{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.userTel')}}:{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span>
-                  <span class="mr25">{{$t('public.no17')}}:{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span>
-                  <i class="el-icon-phone phone" @click="showTelAudit(3,33)"></i>
-                </div>
-              </li>
-            </ul>
-
-
-            <h4 class="mg10">personal suggestion:</h4>
-            <div class="suggest mg10">
-              <el-input type="textarea" :rows="6" v-model="twoRemark" @change="areachange(2)" maxlength="400"></el-input>
-            </div>
             <div class="button mt20 flex flex-center">
               <el-button type="primary" @click="submit(2)">{{$t('public.no49')}}</el-button>
             </div>
@@ -452,6 +430,9 @@
                 <!-- 用户信息 -->
                 <div class="oneLineHasOne">
                   <p><span>ID type:</span><span>{{data.userIdcard.strIdType | dataIsTrue}}</span></p>
+                </div>
+                <div class="oneLineHasOne">
+                  <p><span>{{$t('fei.id')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
                 </div>
                 <div class="oneLineHasOne">
                   <p>
@@ -472,15 +453,6 @@
                 </div>
                 <hr class="mg10">
                 <!-- 工作信息 -->
-                <div class="oneLineHasOne">
-                  <p><span>facebook:</span><span>{{data.userSelf.facebook | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>email:</span><span>{{data.userSelf.email | dataIsTrue}}</span></p>
-                </div>
-                <div class="oneLineHasOne">
-                  <p><span>{{$t('public.no7')}}:</span><span>{{data.userSelf.liveAddress | dataIsTrue}}</span></p>
-                </div>
                 <div class="imgbox">
                   <div v-if="data.userBank.bankPicUrl" class="imglist pic" @click="openBox({imgUrl:data.userBank.bankPicUrl})">
                     <span>{{$t('pic.no7')}}</span>
@@ -503,30 +475,6 @@
                 <hr class="mg10">
                 <!-- 工作信息 -->
                 <template v-if="data.userWork.industry!='7'">
-                  <div class="oneLineHasOne">
-                    <p><span>company name:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>company landline:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
-                  </div>
-                  <!-- <div class="oneLineHasOne">
-                    <p><span>entry time:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>pay day 1:</span><span>{{data.userWork.payday | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>pay day 2:</span><span>{{data.userWork.paydayTwo | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>daily work from:</span><span>{{data.userWork.startWorkTime | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>daily work to:</span><span>{{data.userWork.endWorkTime | dataIsTrue}}</span></p>
-                  </div>
-                  <div class="oneLineHasOne">
-                    <p><span>company full address:</span><span>{{data.userWork.companyAddress | dataIsTrue}}</span></p>
-                  </div> -->
                   <div class="imgbox">
                     <div v-if="data.userWork.incomePicUrl" class="imglist pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
                       <span>{{$t('pic.no16')}}</span>
@@ -537,7 +485,7 @@
                       <img :src="data.userWork.workCardPicUrl" alt="工牌" >
                     </div>
                   </div> 
-                  <hr class="mg10">
+                  
                 </template>
                 
                 <!-- 主体信息 -->
@@ -580,17 +528,20 @@
                   </div> 
                 </template>
                 
-                <hr class="mg10">
+                <!-- <hr class="mg10"> -->
                 <!-- 埋点信息 -->
-                <table class="write-table" >
+                <table class="write-table" border>
                   <tr>
                     <th width="40%">{{$t('fei.no49')}}</th>
-                    <th width="60%">GPS</th>
+                    <th width="60%"> </th>
                   </tr>
                   <template v-if="data.deviceInfo!=''">
                     <tr v-for="(value,index) in data.deviceInfo" :key="index">
                       <td>{{value.eventTypeStr | dataIsTrue}}</td>
-                      <td>{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}</td>
+                      <td>
+                        Time:{{value.strCreateTime}} <br>
+                        GPS:{{$store.getters.longitudeAndLatitude(value.latitude)+'N'+$store.getters.longitudeAndLatitude(value.longitude)+'E'}}
+                      </td>
                     </tr>
                   </template>
                   <template v-else>
@@ -616,7 +567,7 @@
                     <el-input type="textarea" :rows="6" v-model="oneRemark" disabled></el-input>
                   </div>
 
-                  <li class="right-list" v-for="item in phoneradioArray" :key="item.id">
+                  <li class="right-list" v-for="item in phoneradioArray.filter(value=>value.id!=35)" :key="item.id">
                     <span class="mr20 ">{{item.title}}:</span>
                     <div class="group">
                       <template v-if="item.hasOneInput">
@@ -916,12 +867,12 @@
     </transition>
 
     <!-- ------------------ ID信息修改 -------------------- -->
-    <div v-if="radioArray[2].value === 'Different'" class="reply">
+    <div v-if="radioArray.filter(item => item.id == 3)[0]&&radioArray.filter(item => item.id == 3)[0].value === 'Different'" class="reply">
       <div class="reply-main">
         <div class="reply-main-head">
           <span></span>
           <p>ID信息</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="radioArray[2].value = ''"></i>
+          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="radioArray.filter(item => item.id == 3)[0].value = ''"></i>
         </div>
         <div class="reply-main-con">
           <div class="left2right">
@@ -940,7 +891,7 @@
             <span class="left"></span>
             <div class="right">
               <el-button type="primary" @click="modifyUserInfo(1)">{{$t('public.no49')}}</el-button>
-              <el-button type="primary" @click="radioArray[2].value = ''">{{$t('public.no50')}}</el-button>
+              <el-button type="primary" @click="radioArray.filter(item => item.id == 3)[0].value = ''">{{$t('public.no50')}}</el-button>
             </div>
           </div>
         </div>
@@ -948,12 +899,12 @@
     </div>
 
     <!-- ------------------ 银行卡ID修改 -------------------- -->
-    <div v-if="radioArray[4].value === 'Different'" class="reply">
+    <div v-if="radioArray.filter(item => item.id == 5)[0]&&radioArray.filter(item => item.id == 5)[0].value === 'Different'" class="reply">
       <div class="reply-main">
         <div class="reply-main-head">
           <span></span>
           <p>银行卡ID</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="radioArray[4].value = ''"></i>
+          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="radioArray.filter(item => item.id == 5)[0].value = ''"></i>
         </div>
         <div class="reply-main-con">
           <div class="left2right">
@@ -966,7 +917,33 @@
             <span class="left"></span>
             <div class="right">
               <el-button type="primary" @click="modifyUserInfo(2)">{{$t('public.no49')}}</el-button>
-              <el-button type="primary" @click="radioArray[4].value = ''">{{$t('public.no50')}}</el-button>
+              <el-button type="primary" @click="radioArray.filter(item => item.id == 5)[0].value = ''">{{$t('public.no50')}}</el-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------ 月薪修改 -------------------- -->
+    <div v-if="payrollFlag" class="reply">
+      <div class="reply-main">
+        <div class="reply-main-head">
+          <span></span>
+          <p>Payroll/COE</p>
+          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="payrollFlag = false"></i>
+        </div>
+        <div class="reply-main-con">
+          <div class="left2right">
+            <span class="left" style="width:120px">Payroll:</span>
+            <div class="right">
+              <el-input type="text" maxlength="15" :change="check_num()" v-model="changeuser.income"></el-input>
+            </div>
+          </div>
+          <div class="left2right">
+            <span class="left"></span>
+            <div class="right">
+              <el-button type="primary" @click="modifyUserInfo(4)">{{$t('public.no49')}}</el-button>
+              <el-button type="primary" @click="payrollFlag = false">{{$t('public.no50')}}</el-button>
             </div>
           </div>
         </div>
@@ -1087,10 +1064,11 @@ export default {
         {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
         {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
 
-        {id: 4, title: 'Bank name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
+        {id: 38, title: 'Bank name', value: '', radioGroup: [ { label: 'BDO' }, { label: 'eastwest' }, { label: 'metro bank' }, { label: 'BPI bank' }, { label: 'other' } ] },
+        {id: 4, title: 'BankCard name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
         {id: 5, title: 'Bank ID', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
         
-        {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+        {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' }, { label: 'non-compliant'} ] },
         {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
         
         // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
@@ -1128,16 +1106,16 @@ export default {
         {id: 24, title: 'monthly debt repayment', hasOneInput: true, oneInput: '', radioInput: '', value: '', radioGroup: [ { label: 'hesitate' }, { label: 'non-c' } ] },
         {id: 25, title: 'number of debt from other company', hasOneInput: true, oneInput: '', radioInput: '', value: '', radioGroup: [ { label: 'hesitate' }, { label: 'non-c' } ] },
         {id: 26, title: 'loan amount from  other company', hasOneInput: true, oneInput: '', radioInput: '', value: '', radioGroup: [ { label: 'hesitate' }, { label: 'non-c' } ] },
-        {id: 27, title: 'comany business',  oneInput: '', radioInput: '', value: '', 
+        {id: 27, title: 'company business',  oneInput: '', radioInput: '', value: '', 
           radioGroup: [
             { label: 'normal' }, 
-            { label: 'hesitate' }, { label: 'non-c' }
+            { label: 'supicious' }, { label: 'non-c' }
           ] 
         },
         {id: 28, title: 'position and daily work',  oneInput: '', radioInput: '', value: '', 
           radioGroup: [ 
             { label: 'normal' }, 
-            { label: 'hesitate' }, { label: 'non-c' }
+            { label: 'supicious' }, { label: 'non-c' }
           ] 
         },
         
@@ -1146,7 +1124,8 @@ export default {
 
       ],
       changeuser: {
-        phone: ''
+        phone: '',
+        income: ''
       },
       bankInfo: {},
       userFlag: false,
@@ -1174,6 +1153,8 @@ export default {
       callOutList: [],
       allSelectFlag1: false,
       allSelectFlag2: false,
+      payrollFlag: false,
+      showPhoneViewTwo: false,
     }
   },
   computed: {// 选项卡国际化
@@ -1191,6 +1172,12 @@ export default {
       arr.push({id: 1, title: this.$t('operationDetail.tab1.no1')})
       arr.push({id: 2, title: this.$t('operationDetail.tab1.no2')})
       return arr
+    },
+    showPayroll(){
+      if(this.radioArray.filter(item => item.id == 12)[0].value === 'normal'&&this.viewNumbe==1&&this.payrollFlag){
+        return true
+      }
+      return false
     },
   },
   methods: {
@@ -1250,10 +1237,11 @@ export default {
               {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
               {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
 
-              {id: 4, title: 'Bank name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
+              {id: 38, title: 'Bank name', value: '', radioGroup: [ { label: 'BDO' }, { label: 'eastwest' }, { label: 'metro bank' }, { label: 'BPI bank' }, { label: 'other' } ] },
+              {id: 4, title: 'BankCard name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
               {id: 5, title: 'Bank ID', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
               
-              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' }, { label: 'non-compliant'} ] },
               // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
 
               // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
@@ -1266,7 +1254,7 @@ export default {
               {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
               {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
               {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
-              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
+              {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' }, { label: 'non-compliant'} ] },
               // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
               // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
               // {id: 15, title: 'Apply during work time?', value: '', radioGroup: [ { label: 'Yes' }, { label: 'No' } ] },
@@ -1282,7 +1270,7 @@ export default {
               {id: 35, title: 'verify information',  oneInput: '', radioInput: '', value: '', 
                 radioGroup: [ 
                   { label: 'True' }, 
-                  { label: 'false' },
+                  { label: 'False' },
                   { label: 'non-c' }
                 ] 
               }
@@ -1346,7 +1334,9 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          if(this.telFlag1){
+            this.$globalMsg.success(this.$t('message.success'))
+          }
           if(this.telFlag3){
             if(this.telRadioId==31){
               this.phoneViewSelect.call_a = this.telStatus;
@@ -1376,6 +1366,9 @@ export default {
       window.history.go(-1)
     },
     radioChange(value,id,type){
+      if(id==12&&value=='normal'){
+        this.payrollFlag = true
+      }
       let option = {
         header: {
           ...this.$base,
@@ -1388,7 +1381,8 @@ export default {
         parentType: type,
         childType: id,
         result: value,
-        status: -1
+        status: -1,
+        resultNumber: ''
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -1415,7 +1409,8 @@ export default {
         parentType: 2,
         childType: id,
         result: value,
-        status: -1
+        status: -1,
+        resultNumber: ''
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
@@ -1473,14 +1468,19 @@ export default {
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          // this.$globalMsg.success(this.$t('message.success'))
           if(type==1){
-            this.radioArray[2].value = 'Same'
+            this.radioArray.filter(item => item.id == 3)[0].value = 'Same'
             this.radioChange('Same',3,1)
           }
           if(type==2){
-            this.radioArray[4].value = 'Same'
+            this.radioArray.filter(item => item.id == 5)[0].value = 'Same'
             this.radioChange('Same',5,1)
+          }
+          if(type==4){
+            this.$globalMsg.success(this.$t('message.success'))
+            this.changeuser.income = '';
+            this.payrollFlag = false;
           }
         } else {
           this.$globalMsg.error(res.data.header.msg)
@@ -1599,67 +1599,93 @@ export default {
       })
     },
     submit(type){
-      let option = {
-        header: {
-          ...this.$base,
-          action: this.$store.state.actionMap.ME0022,
-          'sessionid': this.sessionid
-        },
-        orderNo: this.orderNo,
-        orderId: this.orderId,
-        userId: this.userId,
-        parentType: type,
-        remark: ''
-      }
-      if(type==1){
-        option.remark = this.oneRemark
-        if(this.radioArray.every(value=>value.value!='')){
-          this.allSelectFlag1 = true
+      if(type==2&&!this.showPhoneViewTwo){
+        let option = {
+          header: {
+            ...this.$base,
+            action: this.$store.state.actionMap.ME0027,
+            'sessionid': this.sessionid
+          },
+          orderNo: this.orderNo,
+          orderId: this.orderId,
+          userId: this.userId,
+          parentType: 2,
         }
-        
-      }
-      if(type==2){
-        option.remark = this.twoRemark
-        if(this.radioArray.every(value=>{
-          return value.value!=''||value.radioInput!=''||value.oneInput!=''||value.twoInput!=''
-        })){
-          this.allSelectFlag2 = true
-        }
-      }
-      if((type==1&&this.allSelectFlag1)||(type==2&&this.allSelectFlag2)||type==3){
         this.$axios.post('', option).then(res => {
           if (res.data.header.code == 0) {
-            if(res.data.data == 2 ){
-              if(type==1){
-                this.viewNumbe = 2
-              }
-              if(type==2){
-                this.viewNumbe = 3
-              }
-              if(type==3){
-                this.supplementFlag = true
-              }
-            }else if (res.data.data == -1) {
+            if (res.data.data == 2){
+              this.showPhoneViewTwo = true
+            }else{
               this.viewNumbe = 3
-              if(type==3){
-                this.supplementFlag = true
-              }
-            }else if (res.data.data == 1){
-              this.viewNumbe = 3
-              if(type==3){
-                this.supplementFlag = true
-              }
             }
           } else {
             this.$globalMsg.error(res.data.header.msg)
           }
         })
-      }else {
-        return this.$globalMsg.error(this.$t('add.no66'))
+      }else{
+        let option = {
+          header: {
+            ...this.$base,
+            action: this.$store.state.actionMap.ME0022,
+            'sessionid': this.sessionid
+          },
+          orderNo: this.orderNo,
+          orderId: this.orderId,
+          userId: this.userId,
+          parentType: type,
+          remark: ''
+        }
+        if(type==1){
+          option.remark = this.oneRemark
+          if(this.radioArray.every(value=>value.value!='')){
+            this.allSelectFlag1 = true
+          }
+          
+        }
+        if(type==2){
+          option.remark = this.twoRemark
+          if(this.radioArray.every(value=>{
+            return value.value!=''||value.radioInput!=''||value.oneInput!=''||value.twoInput!=''
+          })){
+            this.allSelectFlag2 = true
+          }
+        }
+        if((type==1&&this.allSelectFlag1)||(type==2&&this.allSelectFlag2)||type==3){
+          this.$axios.post('', option).then(res => {
+            if (res.data.header.code == 0) {
+              if(res.data.data == 2 ){
+                if(type==1){
+                  this.viewNumbe = 2
+                }
+                if(type==2){
+                  this.viewNumbe = 3
+                }
+                if(type==3){
+                  this.supplementFlag = true
+                }
+              }else if (res.data.data == -1) {
+                this.viewNumbe = 3
+                if(type==3){
+                  this.supplementFlag = true
+                }
+              }else if (res.data.data == 1){
+                this.viewNumbe = 3
+                if(type==3){
+                  this.supplementFlag = true
+                }
+              }
+            } else {
+              this.$globalMsg.error(res.data.header.msg)
+            }
+          })
+        }else {
+          return this.$globalMsg.error(this.$t('add.no66'))
+        }
       }
       
+      
     },
-    getSupplementInfo(){
+    getSupplementInfo(){// 获取补充信息内容
       let option = {
         header: {
           ...this.$base,
@@ -1678,7 +1704,7 @@ export default {
             this.supplementArray.push({id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] })
           }
           if(res.data.data.userBank&&res.data.data.userBank.newBankPicUrl){
-            this.supplementArray.push({id: 4, title: 'Bank name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] })
+            this.supplementArray.push({id: 4, title: 'BankCard name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] })
           }
           if(res.data.data.userSelf&&res.data.data.userSelf.newWorkPicUrl){
             this.supplementArray.push(
@@ -1695,7 +1721,7 @@ export default {
             )
           }
           if(res.data.data.userWork&&res.data.data.userWork.newIncomePicUrl){
-            this.supplementArray.push({id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] })
+            this.supplementArray.push({id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' }, { label: 'non-compliant'} ] })
           }
           if(res.data.data.userWork&&res.data.data.userWork.newWorkCardPicUrl){
             this.supplementArray.push({id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] })
@@ -1728,10 +1754,27 @@ export default {
       if(type==2){
         this.radioChange(this.twoRemark,998,2)
       }
+    },
+    check_num: function(){
+      if(this.changeuser.income){
+        var income = this.changeuser.income;
+        income = String(income).replace(/[^\d]/g, ''); // 清除“数字”和“.”以外的字符
+        if (income.indexOf('.') < 0 && income != '') {
+            // 以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额
+            income = parseInt(income);
+        }
+        this.changeuser.income = income;
+      }
+        
     }
   },
   watch: {
-    
+    // showPayroll(){
+    //   if(this.radioArray.filter(item => item.id == 12)[0].value === 'normal'&&this.viewNumbe==1){
+    //     console.log(1)
+    //     this.showPayroll = true
+    //   }
+    // }
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid')
@@ -1834,19 +1877,20 @@ export default {
         border-color: inherit;
     }
     th {
-        padding: 5px 10px;
-        border-bottom: 1px solid #ccc;
+        padding: 5px 0;
+        // border-bottom: 1px solid #ccc;
         vertical-align: bottom;
         line-height: 1.6;
-        text-align: center;
+        text-align: left;
         font-weight: bold;
         display: table-cell;
     }
     td{
         display: table-cell;
-        padding: 10px;
+        padding: 10px 0;
         vertical-align: top;
         line-height: 1.6;
+        text-align: left;
     }
   }
   .right-list{
@@ -1943,7 +1987,7 @@ export default {
       .reply-main-con{
         width: 100%;
         height: auto;
-        padding: 10px 30px;
+        padding: 16px 30px;
         .reply-but{
           width: 220px;
           height: 38px;

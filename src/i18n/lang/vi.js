@@ -1801,6 +1801,7 @@ const vi = {
     no88: '最近一笔已还款订单的身份信息',
   },
   yn:{
+    no10:'Loại chế biến',
     no51:'điểm số',
     no52:'không',
   },

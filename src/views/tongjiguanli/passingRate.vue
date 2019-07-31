@@ -46,12 +46,12 @@
         </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_PASS_QUERY')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
           </div>
         </template>
         <template v-if="$store.state.common.permiss.includes('RIGHT_REPORT_PASS_QUERY')">
           <div class="search-input ml15">
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+            <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
           </div>
         </template>
       </el-row>

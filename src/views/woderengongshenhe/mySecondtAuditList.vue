@@ -53,15 +53,6 @@
             </el-option>
           </el-select>
         </div>
-        <!-- <template v-if="$store.state.common.lang==='vi'">
-            <div class="search-input">
-              <span>{{$t('websiteLoans.no5')}}:</span>
-              <el-select size="small" v-model="formInline.orderLoanType" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options4" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
-              </el-select>
-            </div>
-        </template> -->
           <div class="search-input">
             <span>{{$t('public.CreateDate')}}:</span>
             <el-date-picker 
@@ -99,8 +90,8 @@
             </el-date-picker>
           </div>
         <div class="search-input"
-        v-if="$store.state.common.permiss.includes('RIGHT_ME_REVIEW_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          v-if="$store.state.common.permiss.includes('RIGHT_ME_REVIEW_QUERY')">
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
       </el-row>
     </div>

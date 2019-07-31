@@ -62,14 +62,14 @@
         <!-- 优惠券查询 -->
         <template v-if="$store.state.common.permiss.includes('RIGHT_OVERDUE_COUPON_QUERY')">
           <div class="search-input">
-            <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
           </div>
         </template>
         
         <!-- execl导出 -->
         <template v-if="$store.state.common.permiss.includes('RIGHT_OVERDUE_COUPON_EXP')">
           <div class="search-input">
-            <el-button type="primary" class="button-color" @click="putExcel">{{$t('public.excel')}}</el-button>
+            <el-button type="primary"  @click="putExcel">{{$t('public.excel')}}</el-button>
           </div>
         </template>
         

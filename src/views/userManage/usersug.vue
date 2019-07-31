@@ -54,7 +54,7 @@
           </el-select>
         </div>
         <div class="search-input ml15" v-if="$store.state.common.permiss.includes('RIGHT_USER_FEEDBACK_QUERY')">
-          <el-button type="primary" class="button-color" @click="select">{{$t('public.select')}}</el-button>
+          <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
         
       </el-row>
