@@ -3,6 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>{{$t('add.no44')}}</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{path:'/ruleList'}">规则引擎</el-breadcrumb-item>
         <el-breadcrumb-item>添加到规则集</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -12,7 +13,7 @@
       <el-row type="flex" justify="start" :gutter="10">
         <div class="search-input">
           <span>规则ID:</span>
-          <el-input size="small" style="width:130px;" v-model="formInline.ruleId"></el-input>
+          <el-input size="small" style="width:130px;" v-model="formInline.id"></el-input>
         </div>
         <div class="search-input">
           <span>规则名称:</span>
@@ -20,7 +21,7 @@
         </div>
         <div class="search-input">
           <span>状态:</span>
-          <el-select size="small" clearable v-model="formInline.status" :placeholder="$t('public.placeholder')">
+          <el-select size="small" clearable v-model="formInline.configStatus" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -86,7 +87,7 @@
           </el-table-column>
           <el-table-column align="center" prop="exceuteLimit" label="禁言天数">
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" label="操作">
+          <!-- <el-table-column fixed="right" align="center" prop="operation" label="操作">
             <template slot-scope="scope">
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_EDIT')"
@@ -95,7 +96,7 @@
                 修改
               </span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </template>
     </div>
@@ -123,21 +124,17 @@ export default {
       sessionid: '',
       ruleSetName: '',
       formInline: {// 查询信息数据对应字段
-        ruleSetId: '',
-        ruleId: '',
+        id: '',
         ruleName: '',
         executeResult: '',
-        status: '',
+        ruleSetId: '',
+        configStatus: '',
       },
-      tableData: [
-        {id:1,configStatus:0,ruleType:'13123213123'},
-        {id:2,configStatus:1,ruleType:'33333333333333333'},
-        {id:3,configStatus:1,ruleType:'44444444444443'},
-      ],
+      tableData: [],
       options1: [
         {label:'请选择',value:''},
         {id:1,label:'已配置',value:1},
-        {id:2,label:'未配置',value:-1},
+        {id:0,label:'未配置',value:0},
       ],
       options2: [
         {label:'请选择',value:''},
@@ -160,7 +157,7 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.SYSCONFIG0006,
+          action: this.$store.state.actionMap.SYSCONFIG0001,
           'page': {'index': this.currentPage, 'size': 10},
           'sessionid': this.sessionid
         },
@@ -217,7 +214,7 @@ export default {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.formInline.ruleSetId = this.$route.query.ruleSetId;
     this.ruleSetName = this.$route.query.ruleSetName;
-    // this.getTableData();
+    this.getTableData();
     
   }
 }

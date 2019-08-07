@@ -30,6 +30,7 @@ const dongvtm = 'dongvtm.com'; // 国内访问国外正式系统
 const vaytocdo = 'vaytocdo'; // 国内访问国外正式系统
 
 const qlinkhy = 'qlinkhy'; // 三方
+const vinacashone = 'vinacashone'; // 三方
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -92,6 +93,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(vaytocdo) > -1) {
   domain = `http://api.vaytocdo.com`;
   headerTotal = 'vaytocdo';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(vinacashone) > -1) {
+  domain = `http://api.vinacashone.com`;
+  headerTotal = 'vinacash';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
@@ -202,12 +209,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   moneySplit = '$1,';
 } else {
   // domain = 'http://api.sanjinxia.com'; //  id测试接口
-  // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
+  domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
   // domain = `http://10.0.53.139:10025`; // vn 本地接口
-  domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
+  // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
   headerTotal = 'Go Dana';
-  lang = 'PHL';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
+  lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';
 }

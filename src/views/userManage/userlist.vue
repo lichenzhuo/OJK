@@ -219,7 +219,7 @@
           @current-change="handleCurrentChange"
           :current-page="currentPage"
           layout="sizes, prev, pager, next, total,->"
-          :page-sizes="[10, 15, 20, 30]"
+          :page-sizes="[10, 15, 20, 30, 100]"
           :page-size="pageNumber"
           @size-change="handleSizeChange"
           :total="pageTotal?pageTotal:0">

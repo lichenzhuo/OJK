@@ -816,7 +816,7 @@
               </ul>
             </div>
           </div>
-          <p v-else>暂无信息</p>
+          <p v-else>none</p>
         </li>
         <!------------------------ 历史借款记录信息 ---------------------------->
         <li  v-if="active==5">
@@ -871,7 +871,7 @@
       <div class="reply-main">
         <div class="reply-main-head">
           <span></span>
-          <p>ID信息</p>
+          <p>ID info</p>
           <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="radioArray.filter(item => item.id == 3)[0].value = ''"></i>
         </div>
         <div class="reply-main-con">
@@ -1062,7 +1062,7 @@ export default {
       radioArray: [
         {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
         {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
-        {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+        {id: 3, title: 'ID info', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
 
         {id: 38, title: 'Bank name', value: '', radioGroup: [ { label: 'BDO' }, { label: 'eastwest' }, { label: 'metro bank' }, { label: 'BPI bank' }, { label: 'other' } ] },
         {id: 4, title: 'BankCard name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
@@ -1235,7 +1235,7 @@ export default {
             this.radioArray = [
               {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
               {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
-              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 3, title: 'ID info', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
 
               {id: 38, title: 'Bank name', value: '', radioGroup: [ { label: 'BDO' }, { label: 'eastwest' }, { label: 'metro bank' }, { label: 'BPI bank' }, { label: 'other' } ] },
               {id: 4, title: 'BankCard name', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' }, { label: 'unclear' } ] },
@@ -1253,7 +1253,7 @@ export default {
             this.radioArray = [
               {id: 1, title: 'ID Pic', value: '', radioGroup: [ { label: 'True' }, { label: 'False' }, { label: 'unclear' } ] },
               {id: 2, title: 'FACE', value: '', radioGroup: [ { label: 'True' }, { label: 'False' } ] },
-              {id: 3, title: 'ID信息', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
+              {id: 3, title: 'ID info', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
               {id: 12, title: 'Payroll/COE', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' }, { label: 'non-compliant'} ] },
               // {id: 13, title: 'Working ID', value: '', radioGroup: [ { label: 'normal' }, { label: 'suspicious' }, { label: 'unclear' } ] },
               // {id: 14, title: 'Pay day', value: '', radioGroup: [ { label: 'Same' }, { label: 'Different' } ] },
@@ -1877,7 +1877,7 @@ export default {
         border-color: inherit;
     }
     th {
-        padding: 5px 0;
+        padding: 5px;
         // border-bottom: 1px solid #ccc;
         vertical-align: bottom;
         line-height: 1.6;
@@ -1887,7 +1887,7 @@ export default {
     }
     td{
         display: table-cell;
-        padding: 10px 0;
+        padding: 10px 5px;
         vertical-align: top;
         line-height: 1.6;
         text-align: left;

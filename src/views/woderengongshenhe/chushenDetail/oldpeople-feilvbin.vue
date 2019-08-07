@@ -282,14 +282,14 @@
             
             <div class="right">
               <h4 class="fs14">{{$t('add.no61')}}</h4>
-              <h4 class="mg10">本人 :</h4>
+              <h4 class="mg10">the client :</h4>
               <ul class="right-ul">
                 <li class="right-list" v-if="data.userUrgentContact.contactOnePhone!=''">
                   <div class="group">
                     <span title="结果" >{{phoneViewSelect.call_a}}</span>
                     <span class="mr25">{{$t('public.name')}}:{{data.userBase.name | dataIsTrue}}</span>
                     <span class="mr25">{{$t('public.userTel')}}:{{data.userBase.phone | dataIsTrue}}</span>
-                    <span class="mr25">{{$t('public.no17')}}:本人</span>
+                    <span class="mr25">{{$t('public.no17')}}:the client</span>
                     <i class="el-icon-phone phone" @click="showTelAudit(1)"></i>
                   </div>
                 </li>

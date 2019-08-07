@@ -68,7 +68,7 @@
           </el-table-column>
           <el-table-column align="center" prop="status" label="状态">
             <template slot-scope="scope">
-              <span>{{scope.row.status==1?'启用':scope.row.userType==-1?'关闭':''}}</span>
+              <span>{{scope.row.status==1?'启用':scope.row.status==-1?'关闭':''}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="onStatusCount" label="启用规则条数">
@@ -87,7 +87,7 @@
                 添加规则
               </span>
               <span class="table_opr"
-                @click="jumpDetailRule(scope.row.id,scope.row.ruleSetName,scope.row.updateTime,scope.row.isExcute)">
+                @click="jumpDetailRule(scope.row.id,scope.row.ruleSetName)">
                 查看规则
               </span>
             </template>
@@ -108,11 +108,11 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="用户等级" v-if="ruleForm.userType==2">
-          <el-checkbox-group v-model="ruleForm.userLoanGrades" v-if="isAddFlag">
+          <el-checkbox-group v-model="ruleForm.userLoanGrades" v-if="isAddFlag" >
             <div class="types">
               <ul>
                 <li v-for="(item,i) in userGradeOptions" :key="i">
-                  <el-checkbox :label="item.value" disabled></el-checkbox>
+                  <el-checkbox :label="item.value" disabled @change="getCheckboxChange(item.value)"></el-checkbox>
                 </li>
               </ul>
             </div>
@@ -121,12 +121,15 @@
             <div class="types">
               <ul>
                 <li v-for="(item,i) in userGradeOptions" :key="i">
-                  <el-checkbox :label="item.value" :disabled="item.disabled"></el-checkbox>
+                  <el-checkbox :label="item.value" :disabled="item.disabled" @change="getCheckboxChange(item.value)"></el-checkbox>
                 </li>
               </ul>
             </div>
           </el-checkbox-group>
         </el-form-item>
+        <p class="pl120 red" v-for="(item,i) in userTypeLabel" :key="i">
+          {{item.userLoanGrade}} 原执行规则集 {{item.ruleSetName}};
+        </p>
       </el-form>
       <div class="button">
         <el-button type="primary" @click="submit">确认</el-button>
@@ -162,7 +165,7 @@ export default {
       options2: [
         {label:'请选择',value:''},
         {id:1,label:'新客',value:1},
-        {id:2,label:'老客',value:-1},
+        {id:2,label:'老客',value:2},
       ],
       options3: [],
       userGradeOptions: [],
@@ -171,11 +174,12 @@ export default {
         id: '',
         ruleSetName: '',
         userType: '',
-        userLoanGrades: '',
+        userLoanGrades: [],
       },
       isAddFlag: false,
       isModifyFlag: false,
       isDisabled: false,
+      userTypeLabel: []
     }
   },
   methods: {
@@ -222,7 +226,8 @@ export default {
       this.ruleForm.id = '';
       this.ruleForm.ruleSetName = '';
       this.ruleForm.userType = '';
-      this.ruleForm.userLoanGrades = '';
+      this.ruleForm.userLoanGradeSet = '';
+      this.userTypeLabel = [];
       this.userGradeOptions.forEach(item=>{
           item.disabled = false;
       })
@@ -231,11 +236,12 @@ export default {
       this.isAddFlag = true;
       this.dialogFlag = true;
     },
-    showModify(id,userLoanGrades,ruleSetName,userType){
+    showModify(id,userLoanGradeSet,ruleSetName,userType){
       this.ruleForm.id = id;
       this.ruleForm.ruleSetName = ruleSetName;
       this.ruleForm.userType = userType;
-      let haveGrade = userLoanGrades?userLoanGrades.split(','):[]
+      this.ruleForm.userLoanGrades = userLoanGradeSet?userLoanGradeSet.split(','):[];
+      let haveGrade = userLoanGradeSet?userLoanGradeSet.split(','):[]
       this.userGradeOptions.forEach(item=>{
         if(haveGrade.includes(item.value)){
           item.disabled = true;
@@ -288,23 +294,47 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.back_reason,
+          action: this.$store.state.actionMap.SYSCONFIG0009,
           'sessionid': this.sessionid
         },
-        optionGroup:'user.loan.grade'
+        userType: 2
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
           let arr = res.data.data;
           arr.forEach(value=>{
-            value.label = value.optionValue;
-            value.value = value.optionValue;
+            value.label = value.userLoanGrade;
+            value.value = value.userLoanGrade;
             value.disabled = false;
           })
           this.userGradeOptions = arr;
         }
       })
     },
+    getCheckboxChange(){
+      // console.log(value)
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0010,
+          'sessionid': this.sessionid
+        },
+        ruleSetId: this.ruleForm.id,
+        userLoanGrades: this.ruleForm.userLoanGrades
+      }
+      this.$axios.post('',option).then(res=>{
+        this.flag = true;
+        if(res.data.header.code==0){
+          if(res.data.data){
+            // res.data.data.map(value=>{
+
+            // })
+            this.userTypeLabel = res.data.data
+            // this.userTypeLabel+=`${value} 原执行规则集 "${res.data.data[0].ruleSetName}";<br>`
+          }
+        }
+      })
+    }
   },
   watch: {
     dialogFlag(){
@@ -390,5 +420,9 @@ export default {
         margin-right: 20px;
       }
     }
+  }
+  .pl120{
+    padding-left: 120px;
+    margin-bottom: 16px;
   }
 </style>
