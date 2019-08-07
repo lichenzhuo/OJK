@@ -166,14 +166,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(vnPRO1) > -1) {
-  domain = `https://api.mydong.vn`;
-  headerTotal = 'My Dong';
-  headerImg = 'My Dong';
-  lang = 'vi';
-  first_unit = '';
-  last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(qlinkhy) > -1) {
+}else if (fullCurrentDomain.indexOf(qlinkhy) > -1) {
   domain = `http://api.qlinkhy.com`;
   headerTotal = 'Qlink';
   lang = 'vi';
@@ -213,7 +206,7 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   // domain = `http://10.0.53.139:10025`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 本地接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
-  headerTotal = 'Go Dana';
+  headerTotal = 'My Dong';
   lang = 'vi';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾
   first_unit = 'Rp';
   last_unit = '';

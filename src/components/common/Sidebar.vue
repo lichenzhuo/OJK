@@ -36,7 +36,9 @@
         sidebar () {
           let list = JSON.parse(sessionStorage.getItem('list'))
           let item = []
+          let _this = this
           list.forEach(value => {
+            
             if(value){
               // 工作台
               if (value.uniqueSign == 'MENU_WORKS') {
@@ -668,7 +670,8 @@
                 })[0].subs.push({index: 'EverydayChannelTotal', title: 'teleMarketing.no43'})
               }
 
-              if(this.headerTitle!='vaytocdo'){
+              if(_this.headerTitle=='My Dong'){
+                
                 // 系统配置
                 if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {
                   item.push({
@@ -698,8 +701,9 @@
         }
       },
       mounted () {
+        this.headerTitle = global.config.headerTotal;
         this.sidebar()
-        this.headerTitle = global.config.headerTotal
+        
       }
     
     }
