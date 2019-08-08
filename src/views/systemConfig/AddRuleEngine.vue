@@ -50,7 +50,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="$store.state.common.permiss.includes('RIGHT_RULE_ENGINE_LIST')">
       <template>
-        <el-table :data="tableData" size="small" @selection-change="handleSelectionChange">
+        <el-table :data="tableData" size="small" @selection-change="handleSelectionChange" v-loading="loadFlag">
           <el-table-column type="selection" :selectable="unSelect" width="55">
           </el-table-column>
           <el-table-column align="center" prop="id" label="ID">
@@ -121,6 +121,7 @@ export default {
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       ruleSetName: '',
       formInline: {// 查询信息数据对应字段
@@ -168,6 +169,7 @@ export default {
         if(res.data.header.code==0){
           this.tableData = res.data.data;
         }
+        this.loadFlag = false;
       })
     },
     select(){

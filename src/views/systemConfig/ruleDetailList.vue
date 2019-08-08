@@ -73,7 +73,7 @@
     <!-- -------------表单显示栏------------------------ -->
     <div class="table" v-if="showSort">
       <template>
-        <el-table :data="tableData" size="small" >
+        <el-table :data="tableData" size="small" v-loading="loadFlag">
           <el-table-column align="center" prop="ruleId" label="规则ID">
           </el-table-column>
           <el-table-column align="center" prop="ruleType" label="规则名称">
@@ -395,6 +395,7 @@ export default {
   data () {
     return {
       flag: true,
+      loadFlag: true,
       sessionid: '',
       pageTotal: 0,
       currentPage: 1,// 当前页下标
@@ -409,22 +410,7 @@ export default {
         status: '',
         executeResult: '',
       },
-      tableData: [{
-        "conditionOne": "手机号命中",
-        "conditionTwo": "身份证命中",
-        "configStatus": 0,
-        "exceuteLimit": 360,
-        "excludeOs": 1,
-        "executePartner": 0,
-        "executeResult": -1,
-        "executeSort": 1,
-        "executeSql": "select   count(1) from   tb_order a where    a.overdue_days >= 31    and (a.user_phone = '[phone]' or a.id_card = '[idNO]')",
-        "id": 1,
-        "logicRelationOne": "or",
-        "ruleDesc": "手机号或身份证",
-        "ruleType": "命中自有黑名单",
-        "status": 1
-      }],
+      tableData: [],
       type1Array: [1,23,25,37,48,49,50,51,54,56,57,58],
       detailFlag: false,
       sequence: '',// 顺序
@@ -567,6 +553,7 @@ export default {
         if(res.data.header.code==0){
           this.tableData = res.data.data;
         }
+        this.loadFlag = false;
       })
     },
     modifyRule(row){

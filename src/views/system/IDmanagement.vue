@@ -469,9 +469,9 @@ export default {
           res.data.data.forEach(value => {
             options.push({value: value.id, label: value.roleName});
           })
+          this.options = options.filter(value=>value.value!=31);
         }
       })
-      this.options = options.filter(value=>value.value!=31);
     },
     changePre (id) {
       this.change = true;
