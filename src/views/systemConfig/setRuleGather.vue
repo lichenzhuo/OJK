@@ -20,7 +20,7 @@
         </div>
         <div class="search-input">
           <span>结果:</span>
-          <el-select size="small" clearable v-model="formInline.status" :placeholder="$t('public.placeholder')">
+          <el-select size="small" clearable v-model="formInline.executeResult" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options6" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -119,7 +119,8 @@ export default {
       sessionid: '',
       formInline: {// 查询信息数据对应字段
         id: '',
-        status: '',
+        ruleName: '',
+        executeResult: '',
       },
       tableData: [],
       detailFlag: false,

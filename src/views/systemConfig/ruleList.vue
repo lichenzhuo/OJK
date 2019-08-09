@@ -33,7 +33,7 @@
         <div class="search-input">
           <span>用户等级:</span>
           <el-select size="small" clearable v-model="formInline.userLoanGrade" :placeholder="$t('public.placeholder')">
-            <el-option v-for="item in userGradeOptions" :key="item.value" :label="item.label" :value="item.value">
+            <el-option v-for="item in userGradeAllOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
@@ -169,6 +169,8 @@ export default {
       ],
       options3: [],
       userGradeOptions: [],
+      userGradeNewOptions: [],
+      userGradeAllOptions: [],
       dialogFlag: false,// 添加修改弹窗
       ruleForm: {
         id: '',
@@ -311,6 +313,49 @@ export default {
         }
       })
     },
+    getsuerGradeAll () { // 获取用户等级
+      this.userGradeOptions = [];
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0009,
+          'sessionid': this.sessionid
+        }
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.userLoanGrade;
+            value.value = value.userLoanGrade;
+            value.disabled = false;
+          })
+          this.userGradeAllOptions = arr;
+        }
+      })
+    },
+    getsuerGradeNew () { // 获取用户等级
+      this.userGradeOptions = [];
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.SYSCONFIG0009,
+          'sessionid': this.sessionid
+        },
+        userType: 1
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let arr = res.data.data;
+          arr.forEach(value=>{
+            value.label = value.userLoanGrade;
+            value.value = value.userLoanGrade;
+            value.disabled = false;
+          })
+          this.userGradeNewOptions = arr;
+        }
+      })
+    },
     getCheckboxChange(){
       // console.log(value)
       let option = {
@@ -347,6 +392,8 @@ export default {
     this.sessionid = sessionStorage.getItem('sessionid')
     this.getTableData();
     this.getsuerGrade();
+    this.getsuerGradeAll();
+    // this.getsuerGradeNew();
     
   }
 }

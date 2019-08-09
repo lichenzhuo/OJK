@@ -702,34 +702,34 @@ export default {
             this.modifyHitory.strCreateTime = history.strCreateTime
             let str = ''
             if(history.exceuteLimit){
-              str+=` 禁言天数: ${history.exceuteLimit}; `
+              str+=` <b>禁言天数</b>: ${history.exceuteLimit}; `
             }
             if(history.executeResult){
-              str+=` 执行结果: ${history.executeResult==-1?'拒绝':history.executeResult==1?'转人工':'直接放款'}; `
+              str+=` <b>执行结果</b>: ${history.executeResult==-1?'拒绝':history.executeResult==1?'转人工':'直接放款'}; `
             }
             if(history.executeSort){
-              str+=` 执行顺序: ${history.executeSort}; `
+              str+=` <b>执行顺序</b>: ${history.executeSort}; `
             }
             if(history.status){
-              str+=` 是否启用: ${history.status==1?'启用':'不启用'}; `
+              str+=` <b>是否启用</b>: ${history.status==1?'启用':'不启用'}; `
             }
             if(history.conditionOne){
-              str+=` 条件1: ${history.conditionOne}; `
+              str+=` <b>条件1</b>: ${history.conditionOne}; `
             }
             if(history.thresholdOne){
-              str+=` 阈值1: ${history.thresholdOne}; `
+              str+=` <b>阈值1</b>: ${history.thresholdOne}; `
             }
             if(history.conditionTwo){
-              str+=`条件2: ${history.conditionTwo}; `
+              str+=` <b>条件2</b>: ${history.conditionTwo}; `
             }
             if(history.thresholdTwo){
-              str+=` 阈值2: ${history.thresholdTwo}; `
+              str+=` <b>阈值2</b>: ${history.thresholdTwo}; `
             }
             if(history.conditionThree){
-              str+=` 条件3: ${history.conditionThree}; `
+              str+=` <b>条件3</b>: ${history.conditionThree}; `
             }
             if(history.thresholdThree){
-              str+=` 阈值3: ${history.thresholdThree}; `
+              str+=` <b>阈值3</b>: ${history.thresholdThree}; `
             }
             this.modifyHitory.all = str
             // this.modifyHitory.all = `禁言天数:${history.exceuteLimit}, 执行结果:${history.executeResult}, 执行顺序:${history.executeSort}, 是否启用:${history.status}, 条件1:${history.conditionOne}, 阈值1:${history.thresholdOne}, 条件2:${history.conditionTwo}, 阈值2:${history.thresholdTwo},  阈值3:${history.conditionThree},  阈值3:${history.thresholdThree},`
