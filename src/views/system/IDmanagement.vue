@@ -469,7 +469,12 @@ export default {
           res.data.data.forEach(value => {
             options.push({value: value.id, label: value.roleName});
           })
-          this.options = options.filter(value=>value.value!=31);
+          if(this.$store.state.common.lang==='id'){
+            this.options = options.filter(value=>value.value!=4);
+          }else{
+            this.options = options.filter(value=>value.value!=31);
+          }
+          
         }
       })
     },

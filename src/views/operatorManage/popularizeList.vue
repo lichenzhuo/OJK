@@ -273,7 +273,8 @@ export default {
       let image = new ImageFile();
       image.compress({file: e.target.files[0]}).then(res => {
         const imgRes = res;
-        if(imgRes.blob.size>(400*1024)){
+        
+        if(imgRes.blob.size>(4000*1024)){
           self.$message.error(this.$t('public.imgLimit'));
         }else{
           self.form.imgType = imgRes.blob.type;

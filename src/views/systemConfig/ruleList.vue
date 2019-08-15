@@ -127,6 +127,26 @@
             </div>
           </el-checkbox-group>
         </el-form-item>
+        <el-form-item label="用户等级" v-if="ruleForm.userType==1">
+          <el-checkbox-group v-model="ruleForm.userLoanGrades" v-if="isAddFlag" >
+            <div class="types">
+              <ul>
+                <li v-for="(item,i) in userGradeNewOptions" :key="i">
+                  <el-checkbox :label="item.value" disabled @change="getCheckboxChange(item.value)"></el-checkbox>
+                </li>
+              </ul>
+            </div>
+          </el-checkbox-group>
+          <el-checkbox-group v-model="ruleForm.userLoanGrades" v-if="isModifyFlag">
+            <div class="types">
+              <ul>
+                <li v-for="(item,i) in userGradeNewOptions" :key="i">
+                  <el-checkbox :label="item.value" :disabled="item.disabled" @change="getCheckboxChange(item.value)"></el-checkbox>
+                </li>
+              </ul>
+            </div>
+          </el-checkbox-group>
+        </el-form-item>
         <p class="pl120 red" v-for="(item,i) in userTypeLabel" :key="i">
           {{item.userLoanGrade}} 原执行规则集 {{item.ruleSetName}};
         </p>
@@ -233,6 +253,9 @@ export default {
       this.userGradeOptions.forEach(item=>{
           item.disabled = false;
       })
+      this.userGradeNewOptions.forEach(item=>{
+          item.disabled = false;
+      })
     },
     showAdd(){
       this.isAddFlag = true;
@@ -244,11 +267,22 @@ export default {
       this.ruleForm.userType = userType;
       this.ruleForm.userLoanGrades = userLoanGradeSet?userLoanGradeSet.split(','):[];
       let haveGrade = userLoanGradeSet?userLoanGradeSet.split(','):[]
-      this.userGradeOptions.forEach(item=>{
-        if(haveGrade.includes(item.value)){
-          item.disabled = true;
-        }
-      })
+      if(userType==2){
+        this.userGradeOptions.forEach(item=>{
+          if(haveGrade.includes(item.value)){
+            item.disabled = true;
+          }
+        })
+      }
+      if(userType==1){
+        this.userGradeNewOptions.forEach(item=>{
+          if(haveGrade.includes(item.value)){
+            item.disabled = true;
+          }
+        })
+      }
+      
+      
       this.isModifyFlag = true;
       this.dialogFlag = true;
     },
@@ -393,7 +427,7 @@ export default {
     this.getTableData();
     this.getsuerGrade();
     this.getsuerGradeAll();
-    // this.getsuerGradeNew();
+    this.getsuerGradeNew();
     
   }
 }
