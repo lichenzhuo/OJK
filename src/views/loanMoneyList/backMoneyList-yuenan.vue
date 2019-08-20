@@ -58,6 +58,13 @@
           </el-select>
         </div>
         <div class="search-input">
+          <span>{{$t('add.no86')}}:</span>
+          <el-select size="small" v-model="formInline.isNew" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options10" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
+        <div class="search-input">
           <span>{{$t('public.no59')}}:</span>
           <form autocomplete="off">
             <el-date-picker 
@@ -203,6 +210,11 @@
             <template slot-scope="scope">
               <span v-if="scope.row.status!==null&&scope.row.status!==undefined&&scope.row.status!==''">{{$t($store.getters.backList_rejectStatus(scope.row.status))}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="isNew" :label="$t('add.no86')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.userTypeNewOldOther_status(scope.row.isNew))}}</span>
             </template>
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="240">
@@ -398,6 +410,7 @@ export default {
         orderLoanType: '',
         orderState: '',
         isOverdue: '',
+        isNew: '',
         refundTimeBegin: '',
         refundTimeEnd: '',
         repayTimeBegin: '',
@@ -414,6 +427,7 @@ export default {
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
       options7: this.$store.state.options.backSuccessOrfailed_option, // 借款客户端
+      options10: this.$store.state.options.userType_option, // 用户类型
       tableData: [],// 用户信息数据模拟
       flag1: false,// 确认还款弹窗开关
       orderNo_dialog: '',// 弹窗选中orderNo

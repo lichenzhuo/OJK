@@ -149,6 +149,16 @@ const filters = {
           return 'finance.backLog_options_status.no12' // 否
       }
     },
+    is_addressBook2: () => (status) => { // 是否在通讯录订单状态
+      switch (status) {
+        case 1:
+          return 'auditDetail.isAdressBook.no1' // 是
+        case -1:
+          return 'auditDetail.isAdressBook.no2' // 否
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
     isNo_status: () => (status) => { // 判断是否
       switch (status) {
         case 1:
@@ -1505,6 +1515,18 @@ const filters = {
           return 'teleMarketing.no20' // 无
         case 2:
           return 'teleMarketing.no20' // 无
+        default:
+          return 'finance.backLog_options_status.no12' // -
+      }
+    },
+    userTypeNewOldOther_status: () => (status) => { // 借款意向
+      switch (status) {
+        case 1:
+          return 'add.no83' // 新客
+        case 2:
+          return 'add.no84' // 老客
+        case -1:
+          return 'add.no85' // other
         default:
           return 'finance.backLog_options_status.no12' // -
       }

@@ -62,6 +62,13 @@
             </el-option>
           </el-select>
         </div>
+        <div class="search-input">
+          <span>{{$t('add.no90')}}:</span>
+          <el-select size="small" v-model="formInline.isReLend" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options8" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <!-- <template v-if="$store.state.common.lang==='vi'">
           <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
@@ -167,6 +174,11 @@
               </template>
             </el-table-column>
           </template>
+          <el-table-column align="center" prop="isReLend" :label="$t('add.no90')" >
+              <template slot-scope="scope">
+                <span>{{$t($store.getters.is_addressBook2(scope.row.isReLend))}}</span>
+              </template>
+            </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="220">
             <template slot-scope="scope" >
               <span 
@@ -388,6 +400,7 @@ export default {
         applyTimeBegin: '',
         applyTimeEnd: '',
         isHang: '',
+        isReLend: '',
         orderState: ''
       },
       currentPage: 1, // 当前页下标
@@ -401,6 +414,7 @@ export default {
       ], // 账户类型
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
       options7: this.$store.state.options.ishang_option, // 是否挂起
+      options8: this.$store.state.options.isOverdue_option, // 是否挂起
       tableData: [], // 借款信息数据模拟
       surePutFlag: false, // 详情弹窗
       againFlag: false, // 重新放款弹窗

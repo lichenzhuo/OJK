@@ -59,7 +59,7 @@
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="newCustomerPassRate" :label="$t('add.no21')">
             <template slot-scope="scope">
-              <span>{{$store.getters.twoPoint(scope.row.newCustomerPassRate)}}</span>
+              <span class="red">{{$store.getters.twoPoint(scope.row.newCustomerPassRate)}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label-class-name="red" prop="newCustomerOverRate" :label="$t('add.no22')">

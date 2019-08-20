@@ -1799,6 +1799,8 @@ const vi = {
     no86: 'phân loại khách hàng',
     no87: 'lượng đơn đến hạn',
     no88: '最近一笔已还款订单的身份信息',
+    no89: '配置规则集',
+    no90: '重新申请',
   },
   yn:{
     no10:'Loại chế biến',

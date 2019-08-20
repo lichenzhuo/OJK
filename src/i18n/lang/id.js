@@ -1776,6 +1776,8 @@ const id = {
     no86: 'Tipe user',
     no87: 'Case jatuh tempo',
     no88: 'pesanan terakhir Identitas ini telah lunas',
+    no89: '配置规则集',
+    no90: '重新申请',
   },
   ...idLocale
 }
