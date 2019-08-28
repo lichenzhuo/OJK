@@ -1777,7 +1777,9 @@ const id = {
     no87: 'Case jatuh tempo',
     no88: 'pesanan terakhir Identitas ini telah lunas',
     no89: '配置规则集',
-    no90: '重新申请',
+    no90: 'Ajukan ulang',
+    no91: '二级注册渠道',
+    no92: '实话本金',
   },
   ...idLocale
 }

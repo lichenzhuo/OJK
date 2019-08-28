@@ -79,7 +79,7 @@
             </div>
             <div class="table">
               <template>
-                <el-table :data="list" size="small" border style="width: 100%">
+                <el-table :data="list" size="small" border  v-loading="loadFlag">
                   <el-table-column align="center" prop="appTypeName" :label="$t('new.no49')" >
                   </el-table-column>
                   <el-table-column align="center" :label="$t('channelData.no1')" width="180px">
@@ -88,7 +88,10 @@
                       <span v-else>{{scope.row.strTime}}</span>
                     </template>
                   </el-table-column>
-                  <el-table-column align="center" prop="mediaSourceName" :label="$t('channelData.no2')">
+                  <el-table-column  prop="mediaSourceName" :label="$t('channelData.no2')">
+                    <template slot-scope="scope">
+                      <span class="cp text" @click="channelData(scope.row.mediaSource,scope.row.firstMediasource)">{{scope.row.mediaSourceName}}</span>
+                    </template>
                   </el-table-column>
                   <el-table-column align="center" prop="installCount" :label="$t('channelData.no3')">
                   </el-table-column>
@@ -164,6 +167,7 @@ export default {
         channelData: '',
         appType:''
       },
+      loadFlag: true,
       activeTab: '1',
       list: [],
       selectDay: '',
@@ -220,14 +224,20 @@ export default {
   },
   methods: {
     fetchData () {
+      this.loadFlag = true;
       const self = this;
-      self.condition = {
-        mediaSource: this.filter.channelData?this.filter.channelData:'',
-        appType: this.filter.appType?this.filter.appType:'',
-        timeType: this.activeTab?this.activeTab:1,
-        timeBegin: parseInt(this.activeTab)===1?(this.selectDay[0]?this.selectDay[0]:''):parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:'',
-        timeEnd: parseInt(this.activeTab)===1?(this.selectDay[1]?this.selectDay[1]:''):''
-      }
+      self.condition.mediaSource = this.filter.channelData?this.filter.channelData:''
+      self.condition.appType = this.filter.appType?this.filter.appType:''
+      self.condition.timeType = this.activeTab?this.activeTab:1
+      self.condition.timeBegin = parseInt(this.activeTab)===1?(this.selectDay[0]?this.selectDay[0]:''):parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:''
+      self.condition.timeEnd = parseInt(this.activeTab)===1?(this.selectDay[1]?this.selectDay[1]:''):''
+      // self.condition = {
+      //   mediaSource: this.filter.channelData?this.filter.channelData:'',
+      //   appType: this.filter.appType?this.filter.appType:'',
+      //   timeType: this.activeTab?this.activeTab:1,
+      //   timeBegin: parseInt(this.activeTab)===1?(this.selectDay[0]?this.selectDay[0]:''):parseInt(this.activeTab)===2?this.selectWeek:parseInt(this.activeTab)===3?this.selectMonth:'',
+      //   timeEnd: parseInt(this.activeTab)===1?(this.selectDay[1]?this.selectDay[1]:''):''
+      // }
       let option = {
         header: {
           ...this.$base,
@@ -241,6 +251,7 @@ export default {
         ...self.condition
       }
       this.$axios.post('', option).then(res => {
+        this.loadFlag = false;
         if (res.data.header.code == 0) {
           self.list = res.data.data;
           self.page.total = res.data.header.page.total;
@@ -249,11 +260,41 @@ export default {
         }
       })
     },
+    channelData (mediaSource,firstMediasource) {
+      if(mediaSource){
+        this.loadFlag = true;
+        const self = this;
+        self.condition.firstMediasource = firstMediasource?0:mediaSource
+        let option = {
+          header: {
+            ...this.$base,
+            action: this.$store.state.actionMap.channelDataList,
+            sessionid: sessionStorage.getItem('sessionid'),
+            page: {
+              index: this.page.current,
+              size: this.page.size
+            }
+          },
+          ...self.condition
+        }
+        this.$axios.post('', option).then(res => {
+          this.loadFlag = false;
+          if (res.data.header.code == 0) {
+            self.list = res.data.data;
+            self.page.total = res.data.header.page.total;
+          } else {
+            self.$message.error(res.data.header.msg);
+          }
+        })
+      }
+      
+    },
     handleCurrentChange (val) { // 分页按钮点击操作
       this.page.current = val;
       this.fetchData();
     },
     search () {
+      this.page.current = 1
       this.fetchData();
     },
     putExcel () {
@@ -304,6 +345,10 @@ export default {
     .checkbox-wrap  {
       padding:10px;
     }
+  }
+  .text{
+    color:#1D7BFF;
+    text-decoration: underline;
   }
 </style>
 

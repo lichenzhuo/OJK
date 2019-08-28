@@ -1800,7 +1800,9 @@ const vi = {
     no87: 'lượng đơn đến hạn',
     no88: '最近一笔已还款订单的身份信息',
     no89: '配置规则集',
-    no90: '重新申请',
+    no90: 'yêu cầu lại từ đầu',
+    no91: '二级注册渠道',
+    no92: 'Tiền Giải Ngân Thực Tế',
   },
   yn:{
     no10:'Loại chế biến',

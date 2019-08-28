@@ -161,6 +161,14 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="lendingAmount" :label="$t('add.no92')"  width="100">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}
+                {{$store.getters.moneySplit(scope.row.lendingAmount)}}
+                {{$store.state.common.vi_currency}}
+              </span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')" >
           </el-table-column>
           <el-table-column align="center" prop="currentInterest" :label="$t('public.no55')" width="100">

@@ -325,67 +325,28 @@
         </template>
       </div>
     </template>
-
-    <!-- ------------ 呼叫结果开始 ------------------------ -->
-    <div v-if="$store.state.common.lang!=='PHL'">
-      <div class="paixu mt15">
-        <span></span>
-        <p>{{$t('new.no93')}}</p>
-      </div>
-      <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
-        <tr>
-          <th width="25%">{{$t('public.name')}}</th>
-          <th width="10%">{{$t('public.no17')}}</th>
-          <th width="10%">{{$t('public.no18')}}</th>
-          <th width="25%">{{$t('new.no94')}}</th>
-          <th width="10%">{{$t('new.no95')}}</th>
-          <th width="10%">{{$t('new.no91')}}</th>
-          <th width="10%">{{$t('new.no92')}}</th>
-        </tr>
-        <template v-if="tableData!=''">
-          <tr v-for="(value,index) in tableData" :key="index">
-            <td>{{value.name | dataIsTrue}}</td>
-            <td>{{value.relationName | dataIsTrue}}</td>
-            <td>{{value.phone | dataIsTrue}}</td>
-            <td>{{value.strCallTime | dataIsTrue}}</td>
-            <td >{{$t($store.getters.callStatus_status(value.status))}}</td>
-            <td>{{value.duration | dataIsTrue}}s</td>
-            <td >{{$t($store.getters.is_addressBook(value.isUrgentContact))}}</td>
-          </tr>
-        </template>
-        <template v-else>
-          <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-            {{$t('public.no23')}}
-          </div>
-        </template>
-      </table>
-    </div>
     
-    
-    <!-- ------------ 电话提醒历史记录 ------------------------ -->
-    <div class="paixu mt15">
-      <span></span>
-      <p>{{$t('serviceManage.telNoticeHis')}}</p>
+    <!-- ------------ 信审记录 ------------------------ -->
+    <div class="paixu mt30">
+      <span></span><p>{{$t('new.no58')}}</p>
     </div>
-    <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
+    <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
       <tr>
-        <th width="10%">{{$t('serviceManage.index')}}</th>
-        <th width="16%">{{$t('loanMoneyDetail.opePeople')}}</th>
-        <th width="16%">{{$t('serviceManage.noticeTime')}}</th>
-        <th width="10%">{{$t('serviceManage.telResult')}}</th>
-        <th width="26%">{{$t('serviceManage.isno')}}</th>
-        <th width="22%">{{$t('public.no37')}}</th>
+        <th width="10%">{{$t('new.no59')}}</th>
+        <th width="10%">{{$t('public.no39')}}</th>
+        <th width="10%">{{$t('public.userPhone')}}</th>
+        <th width="10%">{{$t('public.no40')}}</th>
+        <th width="35%">{{$t('public.no37')}}</th>
+        <th width="25%">{{$t('loanMoneyDetail.opeTime')}}</th>
       </tr>
-      <template v-if="data.serviceRecordList!==null&&data.serviceRecordList!==undefined&&data.serviceRecordList!=''">
-        <tr v-for="(value,index) in data.serviceRecordList" :key="index">
-          <template>
-            <td >{{index+1}}</td>
-            <td>{{value.adminName | dataIsTrue}}</td>
-            <td>{{value.strCreateTime | dataIsTrue}}</td>
-            <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
-            <td>{{value.promise==1?$t('loanMoney.isOverdue_options.no1')+';'+value.strPromiseTime.slice(0,10):$t('loanMoney.isOverdue_options.no2')}}</td>
-            <td>{{value.remark | dataIsTrue}}</td>
-          </template>
+      <template v-if="auditTableData!=''">
+        <tr v-for="value in auditTableData" :key="value.id">
+          <td >{{value.approveStage==1?$t('myAuditList.no5'):value.approveStage==2?$t('myAuditList.no9'):''}}</td>
+          <td>{{value.userName | dataIsTrue}}</td>
+          <td>{{value.phone | dataIsTrue}}</td>
+          <td>{{$t($store.getters.tel_through(value.connectStatus))}}</td>
+          <td>{{value.remark | dataIsTrue}}</td>
+          <td>{{value.strFirstApproveTime | dataIsTrue}}</td>
         </tr>
       </template>
       <template v-else>
@@ -394,6 +355,80 @@
         </div>
       </template>
     </table>
+
+    <div class="tabs mt15" >
+      <ul class="tabs_title">
+        <li v-for="(value,index) in arr4" :key="index" :class="{active:active4==value.id}" @click="active4=value.id">
+          <span>{{value.title}}</span>
+        </li>
+      </ul>
+      <ul class="tabs_main">
+        <!-- ------------ 电话提醒历史记录 ------------------------ -->
+        <li  v-if="active4==1">
+          <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="10%">{{$t('serviceManage.index')}}</th>
+              <th width="16%">{{$t('loanMoneyDetail.opePeople')}}</th>
+              <th width="16%">{{$t('serviceManage.noticeTime')}}</th>
+              <th width="10%">{{$t('serviceManage.telResult')}}</th>
+              <th width="26%">{{$t('serviceManage.isno')}}</th>
+              <th width="22%">{{$t('public.no37')}}</th>
+            </tr>
+            <template v-if="data.serviceRecordList!==null&&data.serviceRecordList!==undefined&&data.serviceRecordList!=''">
+              <tr v-for="(value,index) in data.serviceRecordList" :key="index">
+                <template>
+                  <td >{{index+1}}</td>
+                  <td>{{value.adminName | dataIsTrue}}</td>
+                  <td>{{value.strCreateTime | dataIsTrue}}</td>
+                  <td>{{$t($store.getters.myoveNoticeStatus(value.status))}}</td>
+                  <td>{{value.promise==1?$t('loanMoney.isOverdue_options.no1')+';'+value.strPromiseTime.slice(0,10):$t('loanMoney.isOverdue_options.no2')}}</td>
+                  <td>{{value.remark | dataIsTrue}}</td>
+                </template>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:1000%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
+        
+        <li  v-if="active4==2">
+          
+        </li>
+        <!-- ------------ 呼叫结果开始 ------------------------ -->
+        <li  v-if="active4==3">
+          <table class="bank-table" style="table-layout:fixed;" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="25%">{{$t('public.name')}}</th>
+              <th width="10%">{{$t('public.no17')}}</th>
+              <th width="10%">{{$t('public.no18')}}</th>
+              <th width="25%">{{$t('new.no94')}}</th>
+              <th width="10%">{{$t('new.no95')}}</th>
+              <th width="10%">{{$t('new.no91')}}</th>
+              <th width="10%">{{$t('new.no92')}}</th>
+            </tr>
+            <template v-if="tableData!=''">
+              <tr v-for="(value,index) in tableData" :key="index">
+                <td>{{value.name | dataIsTrue}}</td>
+                <td>{{value.relationName | dataIsTrue}}</td>
+                <td>{{value.phone | dataIsTrue}}</td>
+                <td>{{value.strCallTime | dataIsTrue}}</td>
+                <td >{{$t($store.getters.callStatus_status(value.status))}}</td>
+                <td>{{value.duration | dataIsTrue}}s</td>
+                <td >{{$t($store.getters.is_addressBook(value.isUrgentContact))}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
+      </ul>
+    </div>
 
     <!-- ------------ 催收记录、紧急联系人、通话联系人开始------------------------ -->
     <div class="tabs mt15" v-if="$store.state.common.lang!=='PHL'">
@@ -599,6 +634,7 @@ export default {
       active2: 1, // 第二个选项卡当前选中项
       // arr3:['电话催收','短信催收'],// 第三个选项卡
       active3: 1, // 第三个选项卡当前选中项
+      active4: 1, // 第三个选项卡当前选中项
       data: {// 页面信息汇总
         userBase: '',
         orderExtra: '',
@@ -640,7 +676,8 @@ export default {
         ]
       },
       noteSel: '',// 短信催收列表选中项
-      tableData: []// 列表数据模拟
+      tableData: [],// 列表数据模拟
+      auditTableData: []// 信审记录
     }
   },
   computed: {
@@ -671,7 +708,17 @@ export default {
       return [
         {id: 1, title: this.$t('serviceManage.telNoticeOperation')}
       ]
-    }
+    },
+    arr4 () {
+      let arr = [
+        {id: 1, title: this.$t('serviceManage.telNoticeHis')},
+      ]
+      if(this.$store.state.common.lang!=='PHL'){
+        arr.push({id: 3, title: this.$t('new.no93')},)
+      }
+      return arr
+    },
+
   },
   methods: {
     openBox: function (obj) { // 图片放大显示
@@ -833,6 +880,23 @@ export default {
         window.open(href);
       }
     },
+    telAuditLogTwo(type){// 信审电话审核记录
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.telRecord_one,
+          'sessionid': this.sessionid
+        },
+        approveType: type,
+        orderNo: this.orderNo,
+        adminId: this.userId
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          this.auditTableData = res.data.data
+        }
+      })
+    },
   },
   watch: {
     'ruleForm.promise' () {
@@ -872,14 +936,15 @@ export default {
     },
   },
   mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid');
-    this.orderNo = this.$route.query.orderNo;
-    this.userId = this.$route.query.userId;
-    this.orderId = this.$route.query.orderId;
+    this.sessionid = sessionStorage.getItem('sessionid')
+    this.orderNo = this.$route.query.orderNo
+    this.userId = this.$route.query.userId
+    this.orderId = this.$route.query.orderId
     // this.overdueDays = this.$route.query.overdueDays;
-    this.type = this.$route.query.type;
-    this.detail();
-    this.getTableList();
+    this.type = this.$route.query.type
+    this.detail()
+    this.getTableList()
+    this.telAuditLogTwo(0)
   }
 }
 </script>

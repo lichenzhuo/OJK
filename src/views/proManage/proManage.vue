@@ -517,19 +517,33 @@ export default{
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'package'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.package;
-          let brr = res.data.data['user.loan.grade'];
+          let arr = res.data.data;
           arr.forEach(value => {
-            this.appNameOption.push({value: value.optionValue, label: value.optionValue});
-            // this.options4.push({value: value.optionValue, label: value.optionValue});
-            this.options3.push({value: value.optionName, label: value.optionName});
+            this.appNameOption.push({value: value.optionValue, label: value.optionValue});// app包名
+            this.options3.push({value: value.optionName, label: value.optionName});// APP名
           })
+        }
+      })
+    },
+    getUserType () { // 获取用户等级
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.back_reason,
+          'sessionid': this.sessionid
+        },
+        'optionGroup': 'user.loan.grade'
+      }
+      this.$axios.post('', option).then(res => {
+        if (res.data.header.code == 0) {
+          let brr = res.data.data;
           brr.forEach(value => {
             this.options.push({value: value.optionValue, label: value.optionValue});
           })
@@ -621,6 +635,7 @@ export default{
     this.sessionid = sessionid;
     this.proList();
     this.getAppName();
+    this.getUserType();
     this.getAppBao(1);
     this.getAppBao(2);
   }

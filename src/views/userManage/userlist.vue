@@ -36,6 +36,10 @@
           <el-input size="small" style="width:130px;" label="regChannel" v-model="formInline.regChannel"></el-input>
         </div>
         <div class="search-input">
+          <span>{{$t('add.no91')}}:</span>
+          <el-input size="small" style="width:130px;" label="regChannelSecond" v-model="formInline.regChannelSecond"></el-input>
+        </div>
+        <div class="search-input">
           <span>{{$t('public.approveStatus')}}:</span>
           <el-select size="small" v-model="formInline.isAuth" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
@@ -138,6 +142,8 @@
           </el-table-column>
           <el-table-column align="center" prop="regChannel" :label="$t('public.registerChannel')" >
           </el-table-column>
+          <el-table-column align="center" prop="regChannelSecond" :label="$t('add.no91')" >
+          </el-table-column>
           <el-table-column align="center" prop="isAuth" :label="$t('public.approveStatus')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.new_userSelfStatus(scope.row.isAuth))}}</span>
@@ -184,6 +190,8 @@
           <el-table-column align="center" prop="name" :label="$t('public.name')" >
           </el-table-column>
           <el-table-column align="center" prop="regChannel" :label="$t('public.registerChannel')" >
+          </el-table-column>
+          <el-table-column align="center" prop="regChannelSecond" :label="$t('add.no91')" >
           </el-table-column>
           <el-table-column align="center" prop="isAuth" :label="$t('public.approveStatus')" >
             <template slot-scope="scope">
@@ -289,6 +297,7 @@ export default {
         orderCount: '',
         idCard: '',
         regChannel: '',
+        regChannelSecond: '',
         regDateBegin: '',
         regDateEnd: '',
         status: '',
@@ -394,13 +403,14 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'package'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.package
+          let arr = res.data.data;
           arr.forEach(value => {
             this.options3.push({value: value.optionName, label: value.optionName});
             this.options4.push({value: value.optionValue, label: value.optionValue});

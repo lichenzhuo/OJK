@@ -388,15 +388,16 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'package'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.package;
+          let arr = res.data.data;
           arr.forEach(value => {
-            this.option1.push({value: value.optionValue, label: value.optionValue});
+            this.options1.push({value: value.optionValue, label: value.optionValue});
           })
           this.addContent = true;
         }

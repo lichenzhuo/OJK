@@ -1362,13 +1362,14 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'relation'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.relation
+          let arr = res.data.data
           arr.forEach(value => {
             this.options5.push({value: value.optionValue, label: value.optionName})
           })

@@ -178,8 +178,8 @@
         </el-date-picker>
       </div>
       <div class="search-input" v-if="filter.hasOwnProperty('channelData')">
-        <span>{{$t('filter.channelData')}}:</span>
-        <el-select v-model="filter.channelData" placeholder="请选择">
+        <span>{{$t('channelData.no2')}}:</span>
+        <el-select clearable v-model="filter.channelData" placeholder="请选择" size="small">
           <el-option
             v-for="item in channelDataOptions"
             :key="item.value"
@@ -247,13 +247,14 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           sessionid: sessionStorage.getItem('sessionid')
-        }
+        },
+        optionGroup:'appsflyer.media.source'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          this.channelDataOptions = res.data.data['appsflyer.media.source']
+          this.channelDataOptions = res.data.data
           this.channelDataOptions.forEach(value => { // 用户选择第一个驳回原因的时候检测status2的值动态生成第二个驳回原因的值
             value.value = value.optionValue// 取optionValue值作为选择框的value值
             value.label = value.optionName// 取optionName值作为选择框的labe
@@ -271,20 +272,21 @@ export default {
       let option = {
         header: {
           ...this.$base,
-          action: this.$store.state.actionMap.select_allData,
+          action: this.$store.state.actionMap.back_reason,
           'sessionid': this.sessionid
-        }
+        },
+        'optionGroup': 'package'
       }
       this.$axios.post('', option).then(res => {
         if (res.data.header.code == 0) {
-          let arr = res.data.data.package;
+          let arr = res.data.data;
           arr.forEach(value => {
             this.appNameOptions.push({value: value.remark, label: value.optionValue})
             this.appPackageOptions.push({value: value.optionValue, label: value.optionValue})
           })
         }
       })
-    }
+    },
   }
 }
 </script>
