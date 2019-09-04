@@ -644,6 +644,7 @@ const options = {
       {value: 'ACB', label: 'finance.backMoneyType_options.no9'}, // ACB
       {value: 'funpay_online', label: 'finance.backMoneyType_options.no10'}, // funpay_online
       {value: 'funpay_offline', label: 'finance.backMoneyType_options.no11'}, // funpay_offline
+      {value: 'funpay_bank_account', label: 'finance.backMoneyType_options.no12'}, // funpay_offline
     ],
     groupCalls_options: [// 群呼结果
       {value: '', label: 'public.placeholder'},

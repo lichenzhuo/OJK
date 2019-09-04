@@ -628,6 +628,7 @@ const id = {
       no9: 'ACB',
       no10: 'funpay_online',
       no11: 'funpay_offline',
+      no11: 'funpay_bank_account',
     },
     thirdChannel_options: {
       no1: 'BluePay',

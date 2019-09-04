@@ -2,7 +2,7 @@
   <div class="public_main">
     <div class="crumbs">
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item>{{$t('teleMarketing.no1')}}</el-breadcrumb-item>
+        <el-breadcrumb-item>{{$t('serviceManage.crumbsOne')}}</el-breadcrumb-item>
         <el-breadcrumb-item>{{$t('serviceManage.crumbsTwo')}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>

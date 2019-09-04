@@ -6,6 +6,7 @@ const phDEV = 'back-ph'; // 测试环境
 const ynPRO = 'admin.myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'admin.kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'admin.kilatloan'; // 印尼包生产环境
+const ynPRO3 = 'demoyn.dongcash'; // 印尼包生产环境
 
 const vnPRO1 = 'admin.mydong'; // 越南生产环境
 const vnPRO = 'dongabc'; // 越南生产环境
@@ -16,7 +17,7 @@ const ynBACK = 'back.myrupiah123'; // 印尼包生产环境
 const vnBACK = 'back.mydong'; // 越南生产环境
 const phBACK = 'back.getpeso'; // 菲律宾生产环境
 
-const vnCASH = 'dongcash'; // 菲律宾生产环境
+const vnCASH = 'admin.dongcash'; // 菲律宾生产环境
 const instantcsh = 'instantcsh'; // 越南没有LOGO的I Cash
 
 const oladmin_yn = 'oladmin_yn'; // 国内访问国外正式系统
@@ -149,6 +150,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   domain = `http://api.kilatloan.com`;
   headerTotal = 'kilatloan';
   headerImg = 'kilatloan';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
+} else if (fullCurrentDomain.indexOf(ynPRO3) > -1) {
+  domain = `http://apiyn.dongcash.com`;
+  headerTotal = 'Demo';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';

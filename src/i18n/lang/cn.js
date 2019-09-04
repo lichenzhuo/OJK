@@ -658,6 +658,7 @@ const cn = {
       no9: 'ACB',
       no10: 'funpay_online',
       no11: 'funpay_offline',
+      no11: 'funpay_bank_account',
     },
     thirdChannel_options: {
       no1: 'BluePay',
@@ -1986,7 +1987,7 @@ const cn = {
     no89: '配置规则集',
     no90: '重新申请',
     no91: '二级注册渠道',
-    no92: '实话本金',
+    no92: '实放本金',
   },
   ...zhLocale
 }
