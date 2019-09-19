@@ -53,6 +53,13 @@
             </el-option>
           </el-select>
         </div>
+        <div class="search-input">
+          <span>{{$t('add.no86')}}:</span>
+          <el-select size="small" v-model="formInline.isNew" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options10" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
           <div class="search-input">
             <span>{{$t('public.CreateDate')}}:</span>
             <el-date-picker 
@@ -152,6 +159,11 @@
               <span>{{userName}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="isNew" :label="$t('add.no86')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.userTypeNewOldOther_status(scope.row.isNew))}}</span>
+            </template>
+          </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span
@@ -227,6 +239,7 @@ export default {
       options2: '', // 审核员下拉选框信息
       options3: this.$store.state.options.follow_option2, // 跟踪状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options10: this.$store.state.options.userType_option, // 用户类型
       tableData: [], // 用户信息数据模拟
       orderNo: ''
     }

@@ -210,7 +210,8 @@ export default {
 					return time.getTime() > Date.now() - 8.64e7;
 				},
 				firstDayOfWeek: 1
-			},
+      },
+      firstMediasource: ''
     }
   },
   mounted () {
@@ -265,6 +266,7 @@ export default {
         this.loadFlag = true;
         const self = this;
         self.condition.firstMediasource = firstMediasource?0:mediaSource
+        this.firstMediasource = mediaSource
         let option = {
           header: {
             ...this.$base,
@@ -286,6 +288,8 @@ export default {
             self.$message.error(res.data.header.msg);
           }
         })
+      } else {
+        this.firstMediasource = ''
       }
       
     },
@@ -318,7 +322,8 @@ export default {
               size: this.page.size
             }
           },
-          ...self.condition
+          ...self.condition,
+          firstMediasource: this.firstMediasource
         }
         this.$axios.post('', option).then(res => {
           this.flag = true;

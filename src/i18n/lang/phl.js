@@ -1811,6 +1811,7 @@ const phl = {
     no90: 're-apply',
     no91: '二级注册渠道',
     no92: '实话本金',
+    no93: '状态更新',
   },
   yn:{
     loanUse:{

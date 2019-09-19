@@ -7,6 +7,7 @@ const ynPRO = 'admin.myrupiah123'; // 印尼生产环境
 const ynPRO1 = 'admin.kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'admin.kilatloan'; // 印尼包生产环境
 const ynPRO3 = 'demoyn.dongcash'; // 印尼包生产环境
+const ynPRO4 = 'admin.danahidup'; // 印尼包生产环境
 
 const vnPRO1 = 'admin.mydong'; // 越南生产环境
 const vnPRO = 'dongabc'; // 越南生产环境
@@ -156,6 +157,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(ynPRO3) > -1) {
   domain = `http://apiyn.dongcash.com`;
   headerTotal = 'Demo';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
+} else if (fullCurrentDomain.indexOf(ynPRO4) > -1) {
+  domain = `http://api.danahidup.com`;
+  headerTotal = 'danahidup';
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';

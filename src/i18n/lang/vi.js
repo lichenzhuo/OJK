@@ -1804,6 +1804,7 @@ const vi = {
     no90: 'yêu cầu lại từ đầu',
     no91: '二级注册渠道',
     no92: 'Tiền Giải Ngân Thực Tế',
+    no93: 'Trạng thái update',
   },
   yn:{
     no10:'Loại chế biến',

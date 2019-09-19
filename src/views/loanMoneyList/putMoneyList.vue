@@ -185,7 +185,7 @@
                 v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_CONFIRM')&&scope.row.status!=43&&$store.state.common.lang!=='PHL'&&scope.row.isHang!==-1"
                 class="table_opr" 
                 @click="sure(scope.row.orderNo)">
-                {{$t('public.no67')}}
+                {{$t('add.no93')}}
               </span>
               <span 
                 v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LENGING_RE_LENDING')&&$store.state.common.lang==='vi'&&scope.row.isHang==-1"

@@ -1781,6 +1781,7 @@ const id = {
     no90: 'Ajukan ulang',
     no91: '二级注册渠道',
     no92: '实话本金',
+    no93: '状态更新',
   },
   ...idLocale
 }

@@ -49,6 +49,13 @@
             </el-option>
           </el-select>
         </div>
+        <div class="search-input">
+          <span>{{$t('add.no86')}}:</span>
+          <el-select size="small" v-model="formInline.isNew" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options10" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <!-- <template v-if="$store.state.common.lang==='vi'">
           <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
@@ -157,6 +164,11 @@
               <span>{{userName}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="isNew" :label="$t('add.no86')" >
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.userTypeNewOldOther_status(scope.row.isNew))}}</span>
+            </template>
+          </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_ME_FIRST')">
               <span
@@ -231,6 +243,7 @@ export default {
       options1: this.$store.state.options.peopleAuditOneStatus_options, // 订单状态下拉选框信息
       // options2: this.$store.state.options.follow_option, // 跟踪状态下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
+      options10: this.$store.state.options.userType_option, // 用户类型
       tableData: []// 用户信息数据模拟
 
     }
