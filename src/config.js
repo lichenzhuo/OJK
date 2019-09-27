@@ -35,6 +35,7 @@ const vaytocdo = 'vaytocdo'; // 国内访问国外正式系统
 
 const qlinkhy = 'qlinkhy'; // 三方
 const vinacashone = 'vinacashone'; // 三方
+const vaygapvip = 'vaygap'; // 三方
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -97,6 +98,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(vaytocdo) > -1) {
   domain = `http://api.vaytocdo.com`;
   headerTotal = 'vaytocdo';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(vaygapvip) > -1) {
+  domain = `http://api.vaygap.vip`;
+  headerTotal = 'vaygap';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';

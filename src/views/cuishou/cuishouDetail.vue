@@ -870,6 +870,7 @@ export default {
         partialShow:'',
         overCouponShow:'',
         webInfo:'',
+        loginCount: '',
         serviceRecordList:[]
       },
       emeContact: '', // 紧急联系人选中项
@@ -1006,6 +1007,7 @@ export default {
           this.data.webInfo = res.data.data.webInfo;
           this.data.orderFacebook = res.data.data.orderFacebook;
           this.data.serviceRecordList = res.data.data.serviceRecordList;
+          this.data.loginCount = res.data.data.loginCount
           this.telAuditLogTwo('2');
         } else {
           this.data = []
