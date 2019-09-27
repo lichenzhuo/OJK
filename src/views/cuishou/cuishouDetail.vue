@@ -496,6 +496,162 @@
         <li v-if="active2==8&&$store.state.common.lang==='id'">
           <audit-record type="3" :orderId="orderId"></audit-record>
         </li>
+        <!------------------------ 用户信息 ---------------------------->
+        <li class="xuan-2-1" v-if="active2==9">
+          <!-- 第一行 -->
+          <div class="paixu">
+            <span></span>
+            <p>{{$t('auditDetail.no2')}}</p>
+          </div>
+          <div class="xuan-2-1-1">
+            <div class="xuan-2-1-1-2">
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%">
+                    <span>{{$t('public.no1')}}:</span> <span>{{data.userBase.name | dataIsTrue}}</span> 
+                  </p>
+                  <p style="width:50%"><span>{{$t('public.no2')}}:</span> <span>{{data.orderInfo.idCard | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%">
+                    <span>{{$t('yuenan.no1')}}:</span> <span>{{data.orderUserSelf.strIdCardAwardTime | dataIsTrue}}</span> 
+                  </p>
+                  <p style="width:50%"><span>{{$t('public.birthday')}}:</span> <span>{{data.userBase.birthday | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:50%"><span>{{$t('yuenan.no2')}}:</span> 
+                    <span>{{data.orderUserSelf.liveProvinceName | dataIsTrue}}</span>
+                  </p>
+                  <p style="width:50%"><span>{{$t('yuenan.no3')}}:</span> 
+                    <span>{{data.orderUserSelf.liveCityName | dataIsTrue}}</span> 
+                  </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:100%" ><span>{{$t('yuenan.no4')}}:</span> 
+                    <span>{{data.orderUserSelf.liveRegionName | dataIsTrue}}</span> 
+                  </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:100%" ><span>{{$t('public.no7')}}:</span> <span>{{data.orderUserSelf.liveAddress | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p ><span style="color:red">{{$t('new.no51')}}:</span> <span style="color:red">{{data.loginCount | dataIsTrue}}</span> </p>
+              </div>
+              <div>
+                <span>{{$t('add.no54')}}:</span>
+                <span >{{$t($store.getters.idCardType_status(data.orderUserIdcard.idcardType))}}</span>
+              </div>
+            </div>
+            <div class="xuan-2-1-1-3">
+              <div class="idimgbox">
+                <template >
+                  <div v-if="data.orderUserIdcard.idcardPhotoUrl" class="idimg pic" @click="openBox({imgUrl:data.orderUserIdcard.idcardPhotoUrl})">
+                    <img :src="data.orderUserIdcard.idcardPhotoUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')">
+                  </div>
+                  
+                  <div v-else class="idimg pic" >
+                    <img src="../../assets/img/null.png" :title="$t('pic.no1')">
+                  </div>
+                </template>
+              </div>
+              <div class="idimgbox">
+                <template >
+                  <div v-if="data.orderUserIdcard.idcardPhotoReverseUrl" class="idimg pic" @click="openBox({imgUrl:data.orderUserIdcard.idcardPhotoReverseUrl})">
+                    <img :src="data.orderUserIdcard.idcardPhotoReverseUrl" :alt="$t('pic.no4')" :title="$t('pic.no4')">
+                  </div>
+                  <div v-else class="idimg pic" >
+                    <img src="../../assets/img/null.png" :title="$t('pic.no4')">
+                  </div>
+                </template>
+              </div>
+              <div class="idimgbox">
+                <template >
+                  <div v-if="data.orderUserIdcard.facetimePhotoUrl" class="idimg pic" @click="openBox({imgUrl:data.orderUserIdcard.facetimePhotoUrl})">
+                    <img :src="data.orderUserIdcard.facetimePhotoUrl" :alt="$t('pic.no2')" :title="$t('pic.no2')">
+                  </div>
+                  <div v-else class="idimg pic" >
+                    <img src="../../assets/img/null.png" :title="$t('pic.no2')">
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+          <!-- 第二行 -->
+          <div class="paixu">
+            <span></span><p>{{$t('auditDetail.no5')}}</p>
+          </div>
+          <div class="xuan-2-1-1">
+            <div class="xuan-2-1-1-2">
+              <div class="xuan-2-1-1-22">
+                  <p><span>{{$t('public.no9')}}:</span> <span>{{data.orderUserWork.company | dataIsTrue}}</span> </p>
+                  <p><span>{{$t('public.no10')}}:</span> <span>{{data.orderUserWork.strEntryTime | dataIsTrue}}</span> </p>
+                  <p><span>{{$t('public.no13')}}:</span> <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderUserWork.monthIncome)}}{{$store.state.common.vi_currency}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p><span>{{$t('yuenan.no5')}}:</span> <span>{{data.orderUserWork.industry | dataIsTrue}}</span> </p>
+                  <p><span>{{$t('public.no12')}}:</span> <span>{{data.orderUserWork.companyPhone | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p><span>{{$t('yuenan.no6')}}:</span> <span>{{data.orderUserWork.companyProvinceName | dataIsTrue}}</span> </p>
+                  <p><span>{{$t('yuenan.no15')}}:</span> <span>{{data.orderUserWork.companyCityName | dataIsTrue}}</span> </p>
+                  <p><span>{{$t('yuenan.no7')}}:</span> <span>{{data.orderUserWork.companyRegionName | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                  <p style="width:100%"><span>{{$t('public.no15')}}:</span> <span>{{data.orderUserWork.companyAddress | dataIsTrue}}</span> </p>
+              </div>
+              <div class="xuan-2-1-1-22">
+                <p style="width:100%"><span>{{$t('yuenan.no9')}}:</span> <span>{{data.orderInfo.orderAddress | dataIsTrue}}</span> </p>
+              </div>
+            </div>
+            <div class="xuan-2-1-1-3">
+              <div class="idimgbox">
+                <template >
+                  <div v-if="data.orderUserWork.incomePicUrl" class="idimg pic" @click="openBox({imgUrl:data.orderUserWork.incomePicUrl})">
+                    <img :src="data.orderUserWork.incomePicUrl" :alt="$t('pic.no3')" :title="$t('pic.no3')">
+                  </div>
+                  <div v-else class="idimg pic" >
+                    <img src="../../assets/img/null.png">
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </li>
+        <!------------------------ 账户记录信息 ---------------------------->
+        <li class="xuan-2-1" v-if="active2==10">
+          <!-- 第四行 -->
+          <div class="paixu">
+            <span></span><p>{{$t('yuenan.no10')}}</p>
+          </div>
+          <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
+            <tr>
+              <th width="13%">{{$t('yuenan.no18')}}</th>
+              <th width="13%">{{$t('public.no19')}}</th>
+              <th width="13%">{{$t('public.no20')}}</th>
+              <th width="13%">{{$t('yuenan.no20')}}</th>
+              <th width="13%">{{$t('yuenan.no19')}}</th>
+              <th width="13%">{{$t('public.no21')}}</th>
+              <th width="13%">{{$t('yuenan.no21')}}</th>
+              <th width="9%">{{$t('public.no22')}}</th>
+            </tr>
+            <template v-if="data.orderUserBankInfo!==null&&data.orderUserBankInfo!==undefined&&data.orderUserBankInfo!=''">
+              <tr >
+                  <td >{{data.orderUserBankInfo.bankType | dataIsTrue}}</td>
+                  <td>{{data.orderUserBankInfo.bankType==='NganLuong'?'-':data.orderUserBankInfo.bankName}}</td>
+                  <td>{{data.orderUserBankInfo.bankType==='NganLuong'?'-':data.orderUserBankInfo.bankAccount}}</td>
+                  <td >{{data.orderUserBankInfo.cardFullname}}</td>
+                  <td>{{data.orderUserBankInfo.email}}</td>
+                  <td>{{data.orderUserBankInfo.strCreateTime}}</td>
+                  <td>{{data.orderUserBankInfo.cardYear+'-'+data.orderUserBankInfo.cardMonth}}</td>
+                  <td >{{data.orderUserBankInfo.status==1?$t('userDetail.bankId_status.no1'):$t('userDetail.bankId_status.no2')}}</td>
+              </tr>
+            </template>
+            <template v-else>
+              <div style="textAlign:center;width:500%;height:40px;lineHeight:40px">
+                {{$t('public.no23')}}
+              </div>
+            </template>
+          </table>
+        </li>
       </ul>
     </div>
     <div class="foot"></div>
@@ -792,6 +948,10 @@ export default {
         if(this.$store.state.common.permiss.includes('RIGHT_COLLECT_ME_CUSTOMER_SERVICE_REPAYMENT')){
           arr.push({id: 8, title: this.$t('yn.no50')})
         }
+      }
+      if(this.$store.state.common.lang==='vi'){
+        arr.push({id: 9, title: this.$t('tab2.no1')})
+        arr.push({id: 10, title: this.$t('tab2.no5')})
       }
       return  arr;
     },
@@ -1172,5 +1332,102 @@ export default {
   user-select: text;
 }
 
+.xuan-2-1{
+  padding: 10px 20px !important;
+  .xuan-2-1-1{
+    width: 100%;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    .xuan-2-1-1-1{
+      width: 45%;
+      @include p-span;
+      p{
+        margin: 20px;
+      }
+    }
+    .xuan-2-1-2-2{
+      width: 10%;
+      display: flex;
+      align-items: center;
+      p{
+        line-height: 20px;
+      }
+    }
+    .xuan-2-1-1-2{
+      width: 60%;
+      padding-left: 20px;
+      .xuan-2-1-1-22{
+        display: flex;
+        margin: 0 0 10px;
+        @include p-span;
+        p{
+          width: 33%;
+        }
+      }
+      .xuan-2-1-1-50{
+        p{
+          width: 50%;
+        }
+      }
+    }
+    .xuan-2-1-1-3{
+      width: 40%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+    
+  }
+  .xuan-2-1-2{
+    width: 100%;
+    .xuan-2-1-2-1{
+      margin: 20px 20px;
+      display: flex;
+      align-items: center;
+      @include p-span;
+      p{
+        font-size: 14px;
+        padding-right: 20px;
+      }
+      .tooltip{
+        width: 15px;
+        height: 15px;
+        img{
+          display: block;
+        }
+      }
+    }
+    .xuan-2-1-2-2{
+      margin: 20px 20px;
+      display: flex;
+      align-items: center;
+      span{
+        margin: 0 10px;
+      }
+      @include p-span;
+      
+      .tooltip{
+        width: 15px;
+        height: 15px;
+        img{
+          display: block;
+        }
+      }
+    }
+  }
+  .idimgbox{
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    // align-content: flex-start;
+    .idimg{
+      width: 200px;
+      height: 150px;
+    }
+  }
+}
 
 </style>

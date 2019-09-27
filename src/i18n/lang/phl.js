@@ -813,6 +813,7 @@ const phl = {
       no5: 'dandan',
       no6: 'lawson',
       no7: 'Permate(ITpay)',
+      no8: 'viettel_post_new',
     },
     collection_option: {
       no1: 'Hang up',

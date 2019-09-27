@@ -8,9 +8,11 @@ const ynPRO1 = 'admin.kilatrupiah'; // 印尼包生产环境
 const ynPRO2 = 'admin.kilatloan'; // 印尼包生产环境
 const ynPRO3 = 'demoyn.dongcash'; // 印尼包生产环境
 const ynPRO4 = 'admin.danahidup'; // 印尼包生产环境
+const ynPRO5 = 'admin.flashloan2019'; // 印尼包生产环境
 
 const vnPRO1 = 'admin.mydong'; // 越南生产环境
 const vnPRO = 'dongabc'; // 越南生产环境
+const vnPRO2 = 'sharkdong'; // 越南生产环境
 
 const phPRO = 'admin.getpeso'; // 菲律宾生产环境
 
@@ -166,10 +168,22 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'id';
   first_unit = 'Rp';
   last_unit = '';
+} else if (fullCurrentDomain.indexOf(ynPRO5) > -1) {
+  domain = `http://api.flashloan2019.com`;
+  headerTotal = 'Flashloan';
+  lang = 'id';
+  first_unit = 'Rp';
+  last_unit = '';
 } else if (fullCurrentDomain.indexOf(vnPRO) > -1) {
   domain = `http://api.dongabc.com`;
   headerTotal = 'My Dong';
   headerImg = 'My Dong';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(vnPRO2) > -1) {
+  domain = `http://api.sharkdong.top`;
+  headerTotal = 'Sharkdong';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';

@@ -670,7 +670,7 @@
                 })[0].subs.push({index: 'EverydayChannelTotal', title: 'teleMarketing.no43'})
               }
 
-              if(_this.headerTitle=='My Dong'||_this.headerTitle=='Get Peso'||_this.headerTitle=='Go Dana'||_this.headerTitle=='EasyCash'||_this.headerTitle=='kilatloan'||_this.headerTitle=='danahidup'){
+              if(_this.headerTitle=='My Dong'||_this.headerTitle=='Get Peso'||_this.headerTitle=='Go Dana'||_this.headerTitle=='EasyCash'||_this.headerTitle=='kilatloan'||_this.headerTitle=='danahidup'||_this.headerTitle=='Flashloan'){
                 
                 // 系统配置
                 if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {

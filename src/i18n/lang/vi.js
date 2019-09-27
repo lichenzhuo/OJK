@@ -641,7 +641,8 @@ const vi = {
       no9: 'ACB',
       no10: 'funpay_online',
       no11: 'funpay_offline',
-      no11: 'funpay_bank_account',
+      no12: 'funpay_bank_account',
+      no13: 'viettel_post_new',
     },
     thirdChannel_options: {
       no1: 'NganLuon',
@@ -849,6 +850,7 @@ const vi = {
       no5: 'dandan',
       no6: 'lawson',
       no7: 'Permate(ITpay)',
+      no8: 'viettel_post_new',
     },
     collection_option: {
       no1: 'Kết thúc',

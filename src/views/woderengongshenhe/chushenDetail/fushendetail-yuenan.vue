@@ -315,6 +315,7 @@
             </template>
             <p v-if="data.order.status==30&&block==2" @click="telFlag1=true" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
             <!-- <p @click="backFlag2=true" style="cursor:pointer">{{$t('new.no10')}}</p> -->
+            <p class="cp" v-if="data.order.status==30&&block==2" @click="showChangeWorkInfoFlag()">{{$t('public.no51')}}</p>
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-2">
@@ -853,6 +854,54 @@
     </div> -->
     <!-- ----------------------添加紧急联系人结束------------------- -->
 
+    <!-- ---------------------- 修改工作信息开始 ------------------ -->
+    <el-dialog :title="$t('public.no51')" :visible.sync="changeWorkInfoFlag" width="600px">
+      <div class="left2right">
+        <span class="left">{{$t('public.no9')}}:  </span>
+        <span class="right">
+          <el-input size="small"  maxlength="50" v-model="changeWorkInfo.company"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.no10')}}:  </span>
+        <span class="right">
+          <el-date-picker
+            size="small"
+            v-model="changeWorkInfo.entryTime"
+            value-format="yyyy-MM-dd" 
+            type="date"
+            :placeholder="$t('public.placeholder')">
+          </el-date-picker>
+          <!-- <el-input size="small"   maxlength="50" v-model="changeWorkInfo.entryTime"></el-input> -->
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.no13')}}:  </span>
+        <span class="right">
+          <el-input size="small"  maxlength="30" v-model="changeWorkInfo.monthIncome"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('yuenan.no5')}}:  </span>
+        <span class="right">
+          <el-input size="small"  maxlength="30" v-model="changeWorkInfo.industry"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left">{{$t('public.no12')}}:  </span>
+        <span class="right">
+          <el-input size="small" type="tel" maxlength="30" v-model="changeWorkInfo.companyPhone"></el-input>
+        </span>
+      </div>
+      <div class="left2right">
+        <span class="left"></span>
+        <span class="right">
+          <el-button type="primary" size="small" @click="changeWorkInfoSure">{{$t('proManage.sure')}}</el-button>
+        </span>
+      </div>
+    </el-dialog>
+    <!-- ---------------------- 修改工作信息结束 ------------------- -->
+
   </div>
   <div v-else class="back">
     <p>{{$t('public.no23')}}，<span @click="back">{{$t('back.no1')}}</span> {{$t('back.no2')}}</p>
@@ -953,7 +1002,15 @@ export default {
         relation: '',
         name: '',
         phone: ''
-      }
+      },
+      changeWorkInfoFlag: false,
+      changeWorkInfo: {
+        company: '',
+        entryTime: '',
+        monthIncome: '',
+        industry: '',
+        companyPhone: '',
+      },
     }
   },
   computed: {// 做国际化的选项卡
@@ -1417,6 +1474,42 @@ export default {
       this.instancyContent.name = ''
       this.instancyContent.phone = ''
     },
+    changeWorkInfoSure(){
+      let option = {
+        header: {
+          ...this.$base,
+          action: this.$store.state.actionMap.RISKCONTROL0021,
+          'sessionid': this.sessionid
+        },
+        orderNo: this.orderNo,
+        ...this.changeWorkInfo
+      }
+        this.$axios.post('', option).then(res => {
+          if (res.data.header.code == 0) {
+            this.$globalMsg.success(this.$t('message.success'))
+            this.detail()
+          } else {
+            this.$globalMsg.error(res.data.header.msg)
+          }
+          this.changeWorkInfoClose()
+        })
+    },
+    changeWorkInfoClose(){
+      this.changeWorkInfoFlag = false;
+      this.changeWorkInfo.company = '';
+      this.changeWorkInfo.companyPhone = '';
+      this.changeWorkInfo.monthIncome = '';
+      this.changeWorkInfo.entryTime = '';
+      this.changeWorkInfo.company = '';
+    },
+    showChangeWorkInfoFlag(){
+      this.changeWorkInfo.company = this.data.userWork.company?this.data.userWork.company:'';
+      this.changeWorkInfo.companyPhone = this.data.userWork.companyPhone?this.data.userWork.companyPhone:'';
+      this.changeWorkInfo.monthIncome = this.data.userWork.monthIncome?this.data.userWork.monthIncome:'';
+      this.changeWorkInfo.entryTime = this.data.userWork.strEntryTime?this.data.userWork.strEntryTime:'';
+      this.changeWorkInfo.industry = this.data.userWork.industry?this.data.userWork.industry:'';
+      this.changeWorkInfoFlag = true;
+    }
   },
   watch: {
     status2 () { // 检测驳回结果1，推出相应的驳回原因2
