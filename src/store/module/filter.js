@@ -72,7 +72,7 @@ const filters = {
           return 'userDetail.reject_status.no20' // 已还款
 
         default:
-          return 'userDetail.reject_status.no21' // 其他
+          return 'finance.backLog_options_status.no12' // 其他
       }
     },
     backList_rejectStatus: () => (status) => { // 订单审核状态

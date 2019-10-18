@@ -643,6 +643,8 @@ const vi = {
       no11: 'funpay_offline',
       no12: 'funpay_bank_account',
       no13: 'viettel_post_new',
+      no14: 'Ngoại tuyến-SCB',
+      no15: 'Ngoại tuyến-techcombank',
     },
     thirdChannel_options: {
       no1: 'NganLuon',
@@ -1807,6 +1809,12 @@ const vi = {
     no91: '二级注册渠道',
     no92: 'Tiền Giải Ngân Thực Tế',
     no93: 'Trạng thái update',
+    no94: '财务统计报表',
+    no95: '实际打款金额',
+    no96: '到期应还时间',
+    no97: '在贷金额',
+    no98: '优惠金额',
+    no99: '减免罚息',
   },
   yn:{
     no10:'Loại chế biến',

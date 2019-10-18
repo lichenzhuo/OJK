@@ -646,6 +646,8 @@ const options = {
       {value: 'funpay_offline', label: 'finance.backMoneyType_options.no11'}, // funpay_offline
       {value: 'funpay_bank_account', label: 'finance.backMoneyType_options.no12'}, // funpay_bank_account
       {value: 'viettel_post_new', label: 'finance.backMoneyType_options.no13'}, // viettel_post_new
+      {value: 'Ngoại tuyến-SCB', label: 'finance.backMoneyType_options.no14'}, // SCB
+      {value: 'Ngoại tuyến-techcombank', label: 'finance.backMoneyType_options.no15'}, // techcombank
     ],
     groupCalls_options: [// 群呼结果
       {value: '', label: 'public.placeholder'},

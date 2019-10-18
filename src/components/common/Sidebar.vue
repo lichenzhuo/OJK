@@ -200,6 +200,12 @@
                   return index.index == '1'
                 })[0].subs.push({index: 'financetable', title: 'finance.crumbsFour'})
               }
+              //    财务统计报表
+              if (value.uniqueSign == 'MENU_FINANCIALSTATISTICS_REPORT') {
+                item.filter(index => {
+                  return index.index == '1'
+                })[0].subs.push({index: 'financeTableTotal', title: 'add.no94'})
+              }
 
               // 产品管理
               if (value.uniqueSign == 'MENU_PRODUCT') {

@@ -64,6 +64,7 @@ let mySecondtAuditList = resolve => require(['../views/woderengongshenhe/mySecon
 
 // @@@@@@@@@@@@@@@@@@@@@@@  财务数据  @@@@@@@@@@@@@@@@@@@@@@@
 let financeTable = resolve => require(['../views/finance/financeTable.vue'], resolve)
+let financeTableTotal = resolve => require(['../views/finance/financeTableTotal.vue'], resolve)
 
 // @@@@@@@@@@@@@@@@@@@@@@@  产品管理  @@@@@@@@@@@@@@@@@@@@@@@
 let appPackageMag = resolve => require(['../views/proManage/appPackageMag.vue'], resolve)
@@ -156,6 +157,7 @@ let cash = resolve => require(['../views/operatorData/cash.vue'], resolve)
 let channelData = resolve => require(['../views/operatorData/channelData.vue'], resolve)
 let BlackUserListRate = resolve => require(['../views/operatorData/BlackUserListRate.vue'], resolve)
 // BlackUserListRate
+
 // @@@@@@@@@@@@@@@@@@@@@@@   运营管理   @@@@@@@@@@@@@@@@@@@@@@@
 let couponSetting = resolve => require(['../views/operatorManage/couponSetting.vue'], resolve)
 let activity = resolve => require(['../views/operatorManage/activity.vue'], resolve)
@@ -259,6 +261,7 @@ const router = new Router({
                     {path: '/backloglist', name: 'backloglist', component: backloglist },
                     {path: '/putloglist', name: 'putloglist', component: putloglist },
                     {path: '/financetable', name: 'financeTable', component: financeTable },
+                    {path: '/financeTableTotal', name: 'financeTableTotal', component: financeTableTotal },
 
                     // @@@@@@@@@@@@@@@@@@@@@@@  贷后管理列表  @@@@@@@@@@@@@@@@@@@@@@@
                     {path: '/overdueCouponApply', name: 'overdueCouponApply', component: overdueCouponApply },

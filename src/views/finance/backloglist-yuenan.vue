@@ -267,7 +267,7 @@ export default {
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.backMoneyType_option_vi, // 还款方式
-      options2: this.$store.state.options.thirdChannel_vi, // 通道
+      options2: this.$store.state.options.backMoney_backType_vi, // 通道
       options3: this.$store.state.options.backMoneyLog_select, // 状态下拉选框信息
       options4: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
       options5: this.$store.state.options.couponType_option,// 优惠券类型下拉选框信息

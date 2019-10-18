@@ -630,6 +630,8 @@ const id = {
       no11: 'funpay_offline',
       no12: 'funpay_bank_account',
       no13: 'viettel_post_new',
+      no14: 'SCB',
+      no15: 'techcombank',
     },
     thirdChannel_options: {
       no1: 'BluePay',
@@ -1784,6 +1786,12 @@ const id = {
     no91: '二级注册渠道',
     no92: '实话本金',
     no93: '状态更新',
+    no94: '财务统计报表',
+    no95: '实际打款金额',
+    no96: '到期应还时间',
+    no97: '在贷金额',
+    no98: '优惠金额',
+    no99: '减免罚息',
   },
   ...idLocale
 }

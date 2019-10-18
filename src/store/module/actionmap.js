@@ -75,6 +75,8 @@ const actionmap = {
     ME0016: 'ME0016',
     CM0018: 'CM0018',
     CM0019: 'CM0019',
+    AR0003: 'AR0003',
+    AR0004: 'AR0004',
     
     // 我的审核订单
     myAuditOne_list: 'ME0001', // 我的人工初审
