@@ -36,6 +36,7 @@ const vaytocdo = 'vaytocdo'; // 国内访问国外正式系统
 const qlinkhy = 'qlinkhy'; // 三方
 const vinacashone = 'vinacashone'; // 三方
 const vaygapvip = '761616.vip'; // 三方
+const tencentsu = 'tencentsu'; // 三方
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -104,6 +105,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(vaygapvip) > -1) {
   domain = `http://api.761616.vip`;
   headerTotal = 'vaygap';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(tencentsu) > -1) {
+  domain = `http://api.tencentsu.com`;
+  headerTotal = 'tencentsu';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
