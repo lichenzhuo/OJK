@@ -676,31 +676,31 @@
                 })[0].subs.push({index: 'EverydayChannelTotal', title: 'teleMarketing.no43'})
               }
 
-              if(_this.headerTitle=='My Dong'||_this.headerTitle=='Get Peso'||_this.headerTitle=='Go Dana'||_this.headerTitle=='EasyCash'||_this.headerTitle=='kilatloan'||_this.headerTitle=='danahidup'||_this.headerTitle=='Flashloan'){
+              // if(_this.headerTitle=='My Dong'||_this.headerTitle=='Get Peso'||_this.headerTitle=='Go Dana'||_this.headerTitle=='EasyCash'||_this.headerTitle=='kilatloan'||_this.headerTitle=='danahidup'||_this.headerTitle=='Flashloan'){
                 
-                // 系统配置
-                if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {
-                  item.push({
-                    icon: 'el-icon-menu',
-                    index: '18',
-                    title: 'add.no44',
-                    subs: []
-                  })
-                }
-                // 规则引擎
-                if (value.uniqueSign == 'MENU_RULE_ENGINE') {
-                  item.filter(index => {
-                    return index.index == '18'
-                  })[0].subs.push({index: 'ruleList', title: 'add.no45'})
-                }
-                // 配置规则集
-                if (value.uniqueSign == 'MENU_RULE_ENGINE') {
-                  item.filter(index => {
-                    return index.index == '18'
-                  })[0].subs.push({index: 'setRuleGather', title: 'add.no89'})
-                }
+                
+              // }
+              // 系统配置
+              if (value.uniqueSign == 'MENU_SYSTEM_CONFIG') {
+                item.push({
+                  icon: 'el-icon-menu',
+                  index: '18',
+                  title: 'add.no44',
+                  subs: []
+                })
               }
-              
+              // 规则引擎
+              if (value.uniqueSign == 'MENU_RULE_ENGINE') {
+                item.filter(index => {
+                  return index.index == '18'
+                })[0].subs.push({index: 'ruleList', title: 'add.no45'})
+              }
+              // 配置规则集
+              if (value.uniqueSign == 'MENU_RULE_ENGINE') {
+                item.filter(index => {
+                  return index.index == '18'
+                })[0].subs.push({index: 'setRuleGather', title: 'add.no89'})
+              }
             }
           })
           this.items = item
