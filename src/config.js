@@ -37,6 +37,7 @@ const qlinkhy = 'qlinkhy'; // 三方
 const vinacashone = 'vinacashone'; // 三方
 const vaygapvip = '761616.vip'; // 三方
 const tencentsu = 'tencentsu'; // 三方
+const cash_daday = 'cash-daday'; // 三方
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -111,6 +112,12 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
 } else if (fullCurrentDomain.indexOf(tencentsu) > -1) {
   domain = `http://api.tencentsu.com`;
   headerTotal = 'tencentsu';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+} else if (fullCurrentDomain.indexOf(cash_daday) > -1) {
+  domain = `http://api.cash-daday.com`;
+  headerTotal = 'Cash Mama';
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
