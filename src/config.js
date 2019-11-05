@@ -37,7 +37,7 @@ const qlinkhy = 'qlinkhy'; // 三方
 const vinacashone = 'vinacashone'; // 三方
 const vaygapvip = '761616.vip'; // 三方
 const tencentsu = 'tencentsu'; // 三方
-const cash_daday = 'cash-daday'; // 三方
+const cash_daday = 'cash-mama'; // 三方
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
