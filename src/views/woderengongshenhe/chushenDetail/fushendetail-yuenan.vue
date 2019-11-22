@@ -30,6 +30,9 @@
             <p><span>{{$t('add.no70')}}:</span>
               <span>{{data.userBase.regChannel | dataIsTrue}}</span>
             </p>
+            <p><span>{{$t('public.registerDate')}}:</span>
+              <span>{{data.userBase.strRegTime | dataIsTrue}}</span>
+            </p>
           </div>
           <div class="oneLineHasFour">
             <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
