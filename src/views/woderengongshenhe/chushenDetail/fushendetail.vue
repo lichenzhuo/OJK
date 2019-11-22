@@ -724,7 +724,7 @@
             <span class="classMessage">{{qizhamessage}}</span>
             <span
               class="threetips"
-            >({{$t('auditDetail.no76')}}：{{qizhaupdateTime}}； {{$t('auditDetail.no53')}}：{{qizhatime}}{{$t('public.no23')}})</span>
+            >({{$t('auditDetail.no76')}}：{{qizhaupdateTime}}； {{$t('auditDetail.no53')}}：{{qizhatime}}{{$t('public.no26')}})</span>
           </span>
           <el-button
             v-if="!showqizhascore"
@@ -739,7 +739,7 @@
           <span
             v-if="showjiancecore"
             class="threetips"
-          >({{$t('auditDetail.no76')}}：{{jianceupdateTime}}； {{$t('auditDetail.no53')}}：{{jiancetime}}{{$t('public.no23')}})</span>
+          >({{$t('auditDetail.no76')}}：{{jianceupdateTime}}； {{$t('auditDetail.no53')}}：{{jiancetime}}{{$t('public.no26')}})</span>
           <el-button
             v-if="!showjiancecore"
             size="small"
