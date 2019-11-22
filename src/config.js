@@ -250,8 +250,8 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'PHP';
   moneySplit = '$1,';
 } else {
-  // domain = 'http://api.sanjinxia.com'; //  id测试接口
-  domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
+   domain = 'http://api.sanjinxia.com'; //  id测试接口
+  // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
   // domain = `http://10.0.53.139:10025`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 测试接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
