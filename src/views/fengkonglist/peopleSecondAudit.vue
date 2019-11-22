@@ -49,6 +49,14 @@
             </el-option>
           </el-select>
         </div>
+        <!-------------- 首贷、复贷下拉框 ----------------->
+         <div class="search-input">
+         <span>{{$t('public.no91')}}:</span>
+          <el-select clearable  size="small" v-model="formInline.isRepeat" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options3" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.lang==='vi'">
           <!-- <div class="search-input">
             <span>{{$t('websiteLoans.no5')}}:</span>
@@ -121,8 +129,23 @@
           </el-table-column>
           <el-table-column align="center" prop="userId" :label="$t('public.userId')">
           </el-table-column>
-          <el-table-column align="center" prop="userName" :label="$t('public.name')">
-          </el-table-column>
+          <!---------- 名称tag标签 ----------->
+          <template v-if="$store.state.common.lang==='id'">
+             <el-table-column align="center" prop="userName" :label="$t('public.name')" width="220">
+              <template slot-scope="scope">
+                <span>{{scope.row.userName}}</span>
+                <el-tag size="mini" :type="scope.row.isRepeat==1?'success':'warning'">{{scope.row.isRepeat==1?'R':'F'}}</el-tag>
+                <!-- <el-tag type="warning" v-if="scope.row.isFirst==1" size="small">First loan</el-tag>
+                <el-tag type="success" v-else size="small">reloan</el-tag> -->
+               </template>
+            </el-table-column>
+          </template>
+          <template v-if="$store.state.common.lang!=='id'">
+             <el-table-column align="center" prop="userName" :label="$t('public.name')" width="220">
+            </el-table-column>
+          </template>
+          <!-- <el-table-column align="center" prop="userName" :label="$t('public.name')">
+          </el-table-column> -->
           <el-table-column align="center" prop="userPhone" :label="$t('public.registerPhone')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
@@ -263,11 +286,13 @@ export default {
         approveTimeEnd: '',
         trackTimeBegin: '',
         trackTimeEnd: '',
-        adminId: ''
+        adminId: '',
+        isRepeat:''
       },
       currentPage: 1, // 当前页下标
       options1: [], // 审核员下拉选框信息
       options2: this.$store.state.options.recheckOrder_option1, // 复审列表订单状态下拉选框信息
+      options3: this.$store.state.options.isRepeat_option, // 首贷、复贷下拉选框信息
       options4: this.$store.state.options.loansType_options, // 贷款类型下拉选框信息
       tableData: [], // 用户信息数据模拟
       

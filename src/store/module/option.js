@@ -234,6 +234,11 @@ const options = {
       {value: '20', label: 'userDetail.reject_status.no11'}, // 待人工初审
       {value: '21', label: 'userDetail.reject_status.no12'}// 人工初审通过
     ],
+    isRepeat_option:[//首贷、复贷下拉框
+      {value: '', label: 'public.placeholder'},
+      {value: '-1', label: 'public.no92'}, // 首贷
+      {value: '1', label: 'public.no93'}, // 复贷
+    ],
     recheckOrder_option: [// 我的复审列表订单状态下拉选框信息
       {value: '', label: 'public.placeholder'},
       {value: '-30', label: 'riskManage.recheckOrder_options.no1'}, // 人工复审不通过

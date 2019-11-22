@@ -15,12 +15,17 @@
       </el-breadcrumb>
     </div>
 
-    <audit-detail :data="data"  :audit-type="2"></audit-detail>
+    <audit-detail :data="data" :audit-type="2"></audit-detail>
 
     <!-------------------------- 选项卡 -------------------->
     <div class="xuanxiangka">
       <ul class="xuan-1">
-        <li v-for="(value,index) in arr1" :key="index" :class="{active:active==value.id}" @click="active=value.id">
+        <li
+          v-for="(value,index) in arr1"
+          :key="index"
+          :class="{active:active==value.id}"
+          @click="active=value.id"
+        >
           <el-badge v-if="value.black==-1" value="black" class="item">
             <span>{{value.title}}</span>
           </el-badge>
@@ -29,8 +34,13 @@
       </ul>
       <ul class="xuan-2">
         <!------------------------ 历史借款记录信息 ---------------------------->
-        <li  v-if="active==4">
-          <loan-list :order-no="orderNo" :tag-list="data.userOrderCount" :user-id="userId" :table-data="data.orderList"></loan-list>
+        <li v-if="active==4">
+          <loan-list
+            :order-no="orderNo"
+            :tag-list="data.userOrderCount"
+            :user-id="userId"
+            :table-data="data.orderList"
+          ></loan-list>
         </li>
         <!------------------------ 用户信息 ---------------------------->
         <li class="xuan-2-1" v-if="active==1">
@@ -39,163 +49,288 @@
             <span></span>
             <p>{{$t('auditDetail.no2')}}</p>
             <template v-if="data.userIdcard.score!==''">
-              <el-tooltip class="item" effect="dark" :content="data.userIdcard.score>=0.95?$t('auditDetail.no3'):$t('auditDetail.no4')" placement="right">
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="data.userIdcard.score>=0.95?$t('auditDetail.no3'):$t('auditDetail.no4')"
+                placement="right"
+              >
                 <div class="tooltip pic">
-                  <img v-if="data.userIdcard.score>=0.95" src="../../../assets/img/lv.png" alt="">
-                  <img v-else src="../../../assets/img/hong.png" alt="">
+                  <img v-if="data.userIdcard.score>=0.95" src="../../../assets/img/lv.png" alt />
+                  <img v-else src="../../../assets/img/hong.png" alt />
                 </div>
               </el-tooltip>
             </template>
 
-
-            <p v-if="data.order.status==30&&block==2" @click="openTelWindow(data.userBase.phone,'1')" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
+            <p
+              v-if="data.order.status==30&&block==2"
+              @click="openTelWindow(data.userBase.phone,'1')"
+              style="cursor:pointer"
+            >{{$t('auditDetail.no42')}}</p>
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-1">
-              <p><span>{{$t('public.no1')}}:</span><span>{{data.userBase.name | dataIsTrue}}</span></p>
-              <p><span>{{$t('public.userTel')}}:</span><span>{{data.userBase.phone | dataIsTrue}}</span></p>
-              <p><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
-              <p><span>{{$t('auditDetail.no10')}}:</span><span>{{String(data.userIdcard.similarity).slice(0,5)}}%</span></p>
+              <p>
+                <span>{{$t('public.no1')}}:</span>
+                <span>{{data.userBase.name | dataIsTrue}}</span>
+              </p>
+              <p>
+                <span>{{$t('public.userTel')}}:</span>
+                <span>{{data.userBase.phone | dataIsTrue}}</span>
+              </p>
+              <p>
+                <span>{{$t('public.no2')}}:</span>
+                <span>{{data.userIdcard.idCard | dataIsTrue}}</span>
+              </p>
+              <p>
+                <span>{{$t('auditDetail.no10')}}:</span>
+                <span>{{String(data.userIdcard.similarity).slice(0,5)}}%</span>
+              </p>
             </div>
             <div class="xuan-2-1-1-1">
               <div class="idimgbox">
-                <template >
-                  <div v-if="data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})">
-                    <img :src="data.userIdcard.idcardPhotoUrl"  :alt="$t('pic.no1')" :title="$t('pic.no1')">
+                <template>
+                  <div
+                    v-if="data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''"
+                    class="idimg pic"
+                    @click="openBox({imgUrl:data.userIdcard.idcardPhotoUrl})"
+                  >
+                    <img
+                      :src="data.userIdcard.idcardPhotoUrl"
+                      :alt="$t('pic.no1')"
+                      :title="$t('pic.no1')"
+                    />
                   </div>
-                  <div v-else class="idimg pic" >
-                    <img src="../../../assets/img/null.png">
+                  <div v-else class="idimg pic">
+                    <img src="../../../assets/img/null.png" />
                   </div>
-                  <div v-if="data.userIdcard.facetimePhotoUrl!==undefined&&data.userIdcard.facetimePhotoUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})">
-                    <img :src="data.userIdcard.facetimePhotoUrl" :alt="$t('pic.no2')" :title="$t('pic.no2')">
+                  <div
+                    v-if="data.userIdcard.facetimePhotoUrl!==undefined&&data.userIdcard.facetimePhotoUrl!==''"
+                    class="idimg pic"
+                    @click="openBox({imgUrl:data.userIdcard.facetimePhotoUrl})"
+                  >
+                    <img
+                      :src="data.userIdcard.facetimePhotoUrl"
+                      :alt="$t('pic.no2')"
+                      :title="$t('pic.no2')"
+                    />
                   </div>
-                  <div v-else class="idimg pic" >
-                    <img src="../../../assets/img/null.png">
+                  <div v-else class="idimg pic">
+                    <img src="../../../assets/img/null.png" />
                   </div>
                 </template>
               </div>
             </div>
-            
           </div>
           <!-- 第二行 -->
           <div class="paixu">
-            <span></span><p>{{$t('auditDetail.no5')}}</p>
-            
-            <p v-if="data.order.status==30&&block==2" @click="openTelWindow(data.userWork.companyPhone,'2')" style="cursor:pointer">{{$t('auditDetail.no42')}}</p>
+            <span></span>
+            <p>{{$t('auditDetail.no5')}}</p>
+
+            <p
+              v-if="data.order.status==30&&block==2"
+              @click="openTelWindow(data.userWork.companyPhone,'2')"
+              style="cursor:pointer"
+            >{{$t('auditDetail.no42')}}</p>
           </div>
           <div class="xuan-2-1-1">
             <div class="xuan-2-1-1-2">
               <div class="xuan-2-1-1-22">
-                <p><span>{{$t('public.no9')}}:</span><span>{{data.userWork.company | dataIsTrue}}</span></p>
-                <p><span>{{$t('public.no10')}}:</span><span>{{data.userWork.strEntryTime | dataIsTrue}}</span></p>
-                <p><span>{{$t('public.no13')}}:</span><span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.userWork.monthIncome)}}{{$store.state.common.vi_currency}}</span></p>
+                <p>
+                  <span>{{$t('public.no9')}}:</span>
+                  <span>{{data.userWork.company | dataIsTrue}}</span>
+                </p>
+                <p>
+                  <span>{{$t('public.no10')}}:</span>
+                  <span>{{data.userWork.strEntryTime | dataIsTrue}}</span>
+                </p>
+                <p>
+                  <span>{{$t('public.no13')}}:</span>
+                  <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.userWork.monthIncome)}}{{$store.state.common.vi_currency}}</span>
+                </p>
               </div>
               <div class="xuan-2-1-1-22">
-                <p><span>{{$t('public.no11')}}:</span><span>{{data.userWork.title | dataIsTrue}}</span></p>
-                <p><span>{{$t('public.no12')}}:</span><span>{{data.userWork.companyPhone | dataIsTrue}}</span></p>
-                <p><span>{{$t('public.no2')}}:</span><span>{{data.userIdcard.idCard | dataIsTrue}}</span></p>
+                <p>
+                  <span>{{$t('public.no11')}}:</span>
+                  <span>{{data.userWork.title | dataIsTrue}}</span>
+                </p>
+                <p>
+                  <span>{{$t('public.no12')}}:</span>
+                  <span>{{data.userWork.companyPhone | dataIsTrue}}</span>
+                </p>
+                <p>
+                  <span>{{$t('public.no2')}}:</span>
+                  <span>{{data.userIdcard.idCard | dataIsTrue}}</span>
+                </p>
               </div>
               <div class="xuan-2-1-1-22">
-                <p style="width:100%"><span>{{$t('public.no14')}}:</span> 
+                <p style="width:100%">
+                  <span>{{$t('public.no14')}}:</span>
                   <span>{{data.userWork.companyProvinceName | dataIsTrue}}-{{data.userWork.companyCityName | dataIsTrue}}</span>
                 </p>
               </div>
               <div class="xuan-2-1-1-22">
-                <p style="width:100%"><span>{{$t('public.no15')}}:</span>
+                <p style="width:100%">
+                  <span>{{$t('public.no15')}}:</span>
                   <span>{{data.userWork.companyAddress | dataIsTrue}}</span>
                 </p>
               </div>
             </div>
           </div>
           <div class="xuan-2-1-1" style="padding: 0 20px">
-            <div class="imgbox" v-if="data.userWork.incomePicUrl!==''&&!data.userWork.incomePicUrl.includes('CashCash')">
+            <div
+              class="imgbox"
+              v-if="data.userWork.incomePicUrl!==''&&!data.userWork.incomePicUrl.includes('CashCash')"
+            >
               <div class="imgDes">{{$t('pic.no11')}}:</div>
               <div class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.incomePicUrl})">
-                <img :src="data.userWork.incomePicUrl" :title="$t('pic.no11')">
+                <img :src="data.userWork.incomePicUrl" :title="$t('pic.no11')" />
               </div>
             </div>
-            <div class="imgbox" v-if="data.userWork.workCardUrl!==undefined&&data.userWork.workCardUrl!==''">
+            <div
+              class="imgbox"
+              v-if="data.userWork.workCardUrl!==undefined&&data.userWork.workCardUrl!==''"
+            >
               <div class="imgDes">{{$t('pic.no8')}}:</div>
-              <div  class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.workCardUrl})">
-                <img :src="data.userWork.workCardUrl" :title="$t('pic.no8')">
+              <div class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.workCardUrl})">
+                <img :src="data.userWork.workCardUrl" :title="$t('pic.no8')" />
               </div>
             </div>
-            <div class="imgbox" v-if="data.userWork.staffCardUrl!==undefined&&data.userWork.staffCardUrl!==''">
+            <div
+              class="imgbox"
+              v-if="data.userWork.staffCardUrl!==undefined&&data.userWork.staffCardUrl!==''"
+            >
               <div class="imgDes">{{$t('pic.no10')}}:</div>
-              <div  class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.staffCardUrl})">
-                <img :src="data.userWork.staffCardUrl" :title="$t('pic.no10')">
+              <div class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.staffCardUrl})">
+                <img :src="data.userWork.staffCardUrl" :title="$t('pic.no10')" />
               </div>
             </div>
-            <div class="imgbox" v-if="data.userWork.payCardUrl!==undefined&&data.userWork.payCardUrl!==''">
+            <div
+              class="imgbox"
+              v-if="data.userWork.payCardUrl!==undefined&&data.userWork.payCardUrl!==''"
+            >
               <div class="imgDes">{{$t('pic.no9')}}:</div>
-              <div  class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.payCardUrl})">
-                <img :src="data.userWork.payCardUrl" :title="$t('pic.no9')">
+              <div class="imgbox1 pic" @click="openBox({imgUrl:data.userWork.payCardUrl})">
+                <img :src="data.userWork.payCardUrl" :title="$t('pic.no9')" />
               </div>
             </div>
           </div>
           <!-- 第三行 -->
           <div class="paixu">
-            <span></span><p>{{$t('public.no16')}}</p>
+            <span></span>
+            <p>{{$t('public.no16')}}</p>
           </div>
           <div class="xuan-2-1-2">
             <div class="xuan-2-1-2-1">
               <p>1</p>
-              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span></p>
-              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span></p>
-              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span></p>
-              
-              <p v-if="data.order.status==30&&block==2" style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
-              @click="openTelWindow(data.userUrgentContact.contactOnePhone,'3')">{{$t('auditDetail.no42')}}</p>
-              
+              <p>
+                {{$t('public.no17')}}:
+                <span>{{data.userUrgentContact.contactOneRelationName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.name')}}:
+                <span>{{data.userUrgentContact.contactOneName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.no18')}}:
+                <span>{{data.userUrgentContact.contactOnePhone | dataIsTrue}}</span>
+              </p>
+
+              <p
+                v-if="data.order.status==30&&block==2"
+                style="margin-left:16px;cursor:pointer;color:#1D7BFF"
+                @click="openTelWindow(data.userUrgentContact.contactOnePhone,'3')"
+              >{{$t('auditDetail.no42')}}</p>
             </div>
             <div class="xuan-2-1-2-1">
               <p>2</p>
-              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span></p>
-              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span></p>
-              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactTwoPhone}}</span></p>
-              
-              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
-              v-if="data.order.status==30&&block==2"
-              @click="openTelWindow(data.userUrgentContact.contactTwoPhone,'4')">{{$t('auditDetail.no42')}}</p>
-              
+              <p>
+                {{$t('public.no17')}}:
+                <span>{{data.userUrgentContact.contactTwoRelationName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.name')}}:
+                <span>{{data.userUrgentContact.contactTwoName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.no18')}}:
+                <span>{{data.userUrgentContact.contactTwoPhone}}</span>
+              </p>
+
+              <p
+                style="margin-left:16px;cursor:pointer;color:#1D7BFF"
+                v-if="data.order.status==30&&block==2"
+                @click="openTelWindow(data.userUrgentContact.contactTwoPhone,'4')"
+              >{{$t('auditDetail.no42')}}</p>
             </div>
             <div class="xuan-2-1-2-1">
               <p>3</p>
-              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span></p>
-              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span></p>
-              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span></p>
-              
-              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
-              v-if="data.order.status==30&&block==2" 
-              @click="openTelWindow(data.userUrgentContact.contactThreePhone,'5')">{{$t('auditDetail.no42')}}</p>
-              
+              <p>
+                {{$t('public.no17')}}:
+                <span>{{data.userUrgentContact.contactThreeRelationName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.name')}}:
+                <span>{{data.userUrgentContact.contactThreeName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.no18')}}:
+                <span>{{data.userUrgentContact.contactThreePhone | dataIsTrue}}</span>
+              </p>
+
+              <p
+                style="margin-left:16px;cursor:pointer;color:#1D7BFF"
+                v-if="data.order.status==30&&block==2"
+                @click="openTelWindow(data.userUrgentContact.contactThreePhone,'5')"
+              >{{$t('auditDetail.no42')}}</p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFourName">
               <p>4</p>
-              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFourRelationName | dataIsTrue}}</span></p>
-              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFourName | dataIsTrue}}</span></p>
-              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFourPhone | dataIsTrue}}</span></p>
-              
-              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
-              v-if="data.order.status==30&&block==2" 
-              @click="openTelWindow(data.userUrgentContact.contactFourPhone,'8')">{{$t('auditDetail.no42')}}</p>
-              
+              <p>
+                {{$t('public.no17')}}:
+                <span>{{data.userUrgentContact.contactFourRelationName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.name')}}:
+                <span>{{data.userUrgentContact.contactFourName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.no18')}}:
+                <span>{{data.userUrgentContact.contactFourPhone | dataIsTrue}}</span>
+              </p>
+
+              <p
+                style="margin-left:16px;cursor:pointer;color:#1D7BFF"
+                v-if="data.order.status==30&&block==2"
+                @click="openTelWindow(data.userUrgentContact.contactFourPhone,'8')"
+              >{{$t('auditDetail.no42')}}</p>
             </div>
             <div class="xuan-2-1-2-1" v-if="data.userUrgentContact.contactFiveName">
               <p>5</p>
-              <p>{{$t('public.no17')}}:<span>{{data.userUrgentContact.contactFiveRelationName | dataIsTrue}}</span></p>
-              <p>{{$t('public.name')}}:<span>{{data.userUrgentContact.contactFiveName | dataIsTrue}}</span></p>
-              <p>{{$t('public.no18')}}:<span>{{data.userUrgentContact.contactFivePhone | dataIsTrue}}</span></p>
-              
-              <p style="margin-left:16px;cursor:pointer;color:#1D7BFF" 
-              v-if="data.order.status==30&&block==2" 
-              @click="openTelWindow(data.userUrgentContact.contactFivePhone,'9')">{{$t('auditDetail.no42')}}</p>
-              
+              <p>
+                {{$t('public.no17')}}:
+                <span>{{data.userUrgentContact.contactFiveRelationName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.name')}}:
+                <span>{{data.userUrgentContact.contactFiveName | dataIsTrue}}</span>
+              </p>
+              <p>
+                {{$t('public.no18')}}:
+                <span>{{data.userUrgentContact.contactFivePhone | dataIsTrue}}</span>
+              </p>
+
+              <p
+                style="margin-left:16px;cursor:pointer;color:#1D7BFF"
+                v-if="data.order.status==30&&block==2"
+                @click="openTelWindow(data.userUrgentContact.contactFivePhone,'9')"
+              >{{$t('auditDetail.no42')}}</p>
             </div>
           </div>
           <!-- 第四行 -->
           <div class="paixu">
-            <span></span><p>{{$t('auditDetail.no63')}}</p>
+            <span></span>
+            <p>{{$t('auditDetail.no63')}}</p>
           </div>
           <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
             <tr>
@@ -213,150 +348,227 @@
               </tr>
             </template>
             <template v-else>
-            <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-              {{$t('public.no23')}}
-            </div>
-          </template>
+              <div
+                style="textAlign:center;width:400%;height:40px;lineHeight:40px"
+              >{{$t('public.no23')}}</div>
+            </template>
           </table>
           <div class="idimgbox">
-            <template >
-              <div v-if="data.userBank.bankPicUrl!==undefined&&data.userBank.bankPicUrl!==''" class="idimg pic" @click="openBox({imgUrl:data.userBank.bankPicUrl})">
-                <img :src="data.userBank.bankPicUrl"  :alt="$t('pic.no1')" :title="$t('pic.no1')">
+            <template>
+              <div
+                v-if="data.userBank.bankPicUrl!==undefined&&data.userBank.bankPicUrl!==''"
+                class="idimg pic"
+                @click="openBox({imgUrl:data.userBank.bankPicUrl})"
+              >
+                <img :src="data.userBank.bankPicUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')" />
               </div>
-              <div v-else class="idimg pic" >
-                <img src="../../../assets/img/null.png">
+              <div v-else class="idimg pic">
+                <img src="../../../assets/img/null.png" />
               </div>
             </template>
           </div>
         </li>
         <!------------------------ 通话记录信息 ---------------------------->
-        <li  v-if="active==2">
-          <tel-record-list :detail="telDetail" :order-no="orderNo" :user-id="userId" :order-id="orderId" :type="2"></tel-record-list>
+        <li v-if="active==2">
+          <tel-record-list
+            :detail="telDetail"
+            :order-no="orderNo"
+            :user-id="userId"
+            :order-id="orderId"
+            :type="2"
+          ></tel-record-list>
         </li>
         <!------------------------ 短信记录信息 ---------------------------->
-        <li  v-if="active==3">
+        <li v-if="active==3">
           <note-record-list :order-no="orderNo" :user-id="userId"></note-record-list>
         </li>
         <!------------------------ OCR身份检测 ---------------------------->
         <li class="xuan-2-5" v-if="active==5">
-          <div v-if="data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''" class="xuan-2-5-1 pic" >
-            <img :src="data.userIdcard.idcardPhotoUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')">
+          <div
+            v-if="data.userIdcard.idcardPhotoUrl!==undefined&&data.userIdcard.idcardPhotoUrl!==''"
+            class="xuan-2-5-1 pic"
+          >
+            <img :src="data.userIdcard.idcardPhotoUrl" :alt="$t('pic.no1')" :title="$t('pic.no1')" />
           </div>
-          <div v-else class="xuan-2-5-1 pic" >
-            <img src="../../../assets/img/null.png">
+          <div v-else class="xuan-2-5-1 pic">
+            <img src="../../../assets/img/null.png" />
           </div>
           <div class="xuan-2-5-2">
             <ul>
               <li>
-                <p class="p-1"><span>NIK</span> <span>{{$t('public.no2')}}</span> </p>
-                <p v-if="data.userIdcard.ocrIdCard!==null&&data.userIdcard.ocrIdCard!==undefined&&data.userIdcard.ocrIdCard!==''" class="p-2">
-                  {{data.userIdcard.ocrIdCard}}
+                <p class="p-1">
+                  <span>NIK</span>
+                  <span>{{$t('public.no2')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrIdCard!==null&&data.userIdcard.ocrIdCard!==undefined&&data.userIdcard.ocrIdCard!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrIdCard}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Name</span> <span>{{$t('public.name')}}</span> </p>
-                <p v-if="data.userIdcard.ocrName!==null&&data.userIdcard.ocrName!==undefined&&data.userIdcard.ocrName!==''" class="p-2">
-                  {{data.userIdcard.ocrName}}
+                <p class="p-1">
+                  <span>Name</span>
+                  <span>{{$t('public.name')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrName!==null&&data.userIdcard.ocrName!==undefined&&data.userIdcard.ocrName!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrName}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Blood Type</span> <span>{{$t('auditDetail.no44')}}</span> </p>
-                <p v-if="data.userIdcard.ocrBloodType!==null&&data.userIdcard.ocrBloodType!==undefined&&data.userIdcard.ocrBloodType!==''" class="p-2">
-                  {{data.userIdcard.ocrBloodType}}
+                <p class="p-1">
+                  <span>Blood Type</span>
+                  <span>{{$t('auditDetail.no44')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrBloodType!==null&&data.userIdcard.ocrBloodType!==undefined&&data.userIdcard.ocrBloodType!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrBloodType}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Religion</span> <span>{{$t('auditDetail.no45')}}</span> </p>
-                <p v-if="data.userIdcard.ocrReligion!==null&&data.userIdcard.ocrReligion!==undefined&&data.userIdcard.ocrReligion!==''" class="p-2">
-                  {{data.userIdcard.ocrReligion}}
+                <p class="p-1">
+                  <span>Religion</span>
+                  <span>{{$t('auditDetail.no45')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrReligion!==null&&data.userIdcard.ocrReligion!==undefined&&data.userIdcard.ocrReligion!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrReligion}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Gender</span> <span>{{$t('public.sex')}}</span> </p>
-                <p v-if="data.userIdcard.ocrGender!==null&&data.userIdcard.ocrGender!==undefined&&data.userIdcard.ocrGender!==''" class="p-2">
-                  {{data.userIdcard.ocrGender}}
+                <p class="p-1">
+                  <span>Gender</span>
+                  <span>{{$t('public.sex')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrGender!==null&&data.userIdcard.ocrGender!==undefined&&data.userIdcard.ocrGender!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrGender}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Place & Date of Birth</span> <span>{{$t('auditDetail.no46')}}</span> </p>
-                <p v-if="data.userIdcard.ocrBirthPlaceBirthday!==null&&data.userIdcard.ocrBirthPlaceBirthday!==undefined&&data.userIdcard.ocrBirthPlaceBirthday!==''" class="p-2">
-                  {{data.userIdcard.ocrBirthPlaceBirthday}}
+                <p class="p-1">
+                  <span>Place & Date of Birth</span>
+                  <span>{{$t('auditDetail.no46')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrBirthPlaceBirthday!==null&&data.userIdcard.ocrBirthPlaceBirthday!==undefined&&data.userIdcard.ocrBirthPlaceBirthday!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrBirthPlaceBirthday}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>RT / RW</span> <span>{{$t('public.no2')}}</span> </p>
-                <p v-if="data.userIdcard.ocrRtrw!==null&&data.userIdcard.ocrRtrw!==undefined&&data.userIdcard.ocrRtrw!==''" class="p-2">
-                  {{data.userIdcard.ocrRtrw}}
+                <p class="p-1">
+                  <span>RT / RW</span>
+                  <span>{{$t('public.no2')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrRtrw!==null&&data.userIdcard.ocrRtrw!==undefined&&data.userIdcard.ocrRtrw!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrRtrw}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Occupation</span> <span>{{$t('auditDetail.no47')}}</span> </p>
-                <p v-if="data.userIdcard.ocrOccupation!==null&&data.userIdcard.ocrOccupation!==undefined&&data.userIdcard.ocrOccupation!==''" class="p-2">
-                  {{data.userIdcard.ocrOccupation}}
+                <p class="p-1">
+                  <span>Occupation</span>
+                  <span>{{$t('auditDetail.no47')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrOccupation!==null&&data.userIdcard.ocrOccupation!==undefined&&data.userIdcard.ocrOccupation!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrOccupation}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Province</span> <span>{{$t('auditDetail.no48')}}</span> </p>
-                <p v-if="data.userIdcard.ocrProvince!==null&&data.userIdcard.ocrProvince!==undefined&&data.userIdcard.ocrProvince!==''" class="p-2">
-                  {{data.userIdcard.ocrProvince}}
+                <p class="p-1">
+                  <span>Province</span>
+                  <span>{{$t('auditDetail.no48')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrProvince!==null&&data.userIdcard.ocrProvince!==undefined&&data.userIdcard.ocrProvince!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrProvince}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>City</span> <span>{{$t('auditDetail.no49')}}</span> </p>
-                <p v-if="data.userIdcard.ocrCity!==null&&data.userIdcard.ocrCity!==undefined&&data.userIdcard.ocrCity!==''" class="p-2">
-                  {{data.userIdcard.ocrCity}}
+                <p class="p-1">
+                  <span>City</span>
+                  <span>{{$t('auditDetail.no49')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrCity!==null&&data.userIdcard.ocrCity!==undefined&&data.userIdcard.ocrCity!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrCity}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Region</span> <span>{{$t('auditDetail.no50')}}</span> </p>
-                <p v-if="data.userIdcard.ocrDistrict!==null&&data.userIdcard.ocrDistrict!==undefined&&data.userIdcard.ocrDistrict!==''" class="p-2">
-                  {{data.userIdcard.ocrDistrict}}
+                <p class="p-1">
+                  <span>Region</span>
+                  <span>{{$t('auditDetail.no50')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrDistrict!==null&&data.userIdcard.ocrDistrict!==undefined&&data.userIdcard.ocrDistrict!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrDistrict}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Village</span> <span>{{$t('auditDetail.no51')}}</span> </p>
-                <p v-if="data.userIdcard.ocrVillage!==null&&data.userIdcard.ocrVillage!==undefined&&data.userIdcard.ocrVillage!==''" class="p-2">
-                  {{data.userIdcard.ocrVillage}}
+                <p class="p-1">
+                  <span>Village</span>
+                  <span>{{$t('auditDetail.no51')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrVillage!==null&&data.userIdcard.ocrVillage!==undefined&&data.userIdcard.ocrVillage!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrVillage}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Nationality</span> <span>{{$t('auditDetail.no52')}}</span> </p>
-                <p v-if="data.userIdcard.ocrNationality!==null&&data.userIdcard.ocrNationality!==undefined&&data.userIdcard.ocrNationality!==''" class="p-2">
-                  {{data.userIdcard.ocrNationality}}
+                <p class="p-1">
+                  <span>Nationality</span>
+                  <span>{{$t('auditDetail.no52')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrNationality!==null&&data.userIdcard.ocrNationality!==undefined&&data.userIdcard.ocrNationality!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrNationality}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Expiry Date</span> <span>{{$t('auditDetail.no53')}}</span> </p>
-                <p v-if="data.userIdcard.ocrExpiryDate!==null&&data.userIdcard.ocrExpiryDate!==undefined&&data.userIdcard.ocrExpiryDate!==''" class="p-2">
-                  {{data.userIdcard.ocrExpiryDate}}
+                <p class="p-1">
+                  <span>Expiry Date</span>
+                  <span>{{$t('auditDetail.no53')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrExpiryDate!==null&&data.userIdcard.ocrExpiryDate!==undefined&&data.userIdcard.ocrExpiryDate!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrExpiryDate}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Marital Status</span> <span>{{$t('auditDetail.no54')}}</span> </p>
-                <p v-if="data.userIdcard.ocrMaritalStatus!==null&&data.userIdcard.ocrMaritalStatus!==undefined&&data.userIdcard.ocrMaritalStatus!==''" class="p-2">
-                  {{data.userIdcard.ocrMaritalStatus}}
+                <p class="p-1">
+                  <span>Marital Status</span>
+                  <span>{{$t('auditDetail.no54')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrMaritalStatus!==null&&data.userIdcard.ocrMaritalStatus!==undefined&&data.userIdcard.ocrMaritalStatus!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrMaritalStatus}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
               <li>
-                <p class="p-1"><span>Address</span> <span>{{$t('auditDetail.no55')}}</span> </p>
-                <p v-if="data.userIdcard.ocrAddress!==null&&data.userIdcard.ocrAddress!==undefined&&data.userIdcard.ocrAddress!==''" class="p-2">
-                  {{data.userIdcard.ocrAddress}}
+                <p class="p-1">
+                  <span>Address</span>
+                  <span>{{$t('auditDetail.no55')}}</span>
                 </p>
+                <p
+                  v-if="data.userIdcard.ocrAddress!==null&&data.userIdcard.ocrAddress!==undefined&&data.userIdcard.ocrAddress!==''"
+                  class="p-2"
+                >{{data.userIdcard.ocrAddress}}</p>
                 <p v-else class="p-2">{{$store.state.common.nullData}}</p>
               </li>
             </ul>
@@ -368,27 +580,36 @@
             <h4>{{$t('auditDetail.no56')}}:&nbsp;&nbsp;{{data.userWork.company}}</h4>
           </div>
           <template>
-            <div class="xuan-2-6-2" >
+            <div class="xuan-2-6-2">
               <ul>
                 <li>
                   <h3>Guardion Verification</h3>
                 </li>
-                  <template v-if="companyCheckStr.message!==null&&companyCheckStr.message!==undefined&&companyCheckStr.code.toLocaleLowerCase()=='success'">
-                    <template v-if="companyCheckStr.data!==null&&companyCheckStr.data!==undefined&&companyCheckStr.data!==''">
-                      <template v-if="companyCheckStr.data.legalCompanyInfoList!==null&&companyCheckStr.data.legalCompanyInfoList!==undefined&&companyCheckStr.data.legalCompanyInfoList!=''">
-                        <li v-for="(value,index) in companyCheckStr.data.legalCompanyInfoList" :key="index">
-                          <div class="p11">
-                            <p class="p-1">Company Name</p>
-                            <p class="p-2">{{value.companyName}}</p>
-                          </div>
-                          <div class="p11">
-                            <p class="p-1">Company Address</p>
-                            <p class="p-2">{{value.address}}</p>
-                          </div>
-                        </li>
-                      </template>
+                <template
+                  v-if="companyCheckStr.message!==null&&companyCheckStr.message!==undefined&&companyCheckStr.code.toLocaleLowerCase()=='success'"
+                >
+                  <template
+                    v-if="companyCheckStr.data!==null&&companyCheckStr.data!==undefined&&companyCheckStr.data!==''"
+                  >
+                    <template
+                      v-if="companyCheckStr.data.legalCompanyInfoList!==null&&companyCheckStr.data.legalCompanyInfoList!==undefined&&companyCheckStr.data.legalCompanyInfoList!=''"
+                    >
+                      <li
+                        v-for="(value,index) in companyCheckStr.data.legalCompanyInfoList"
+                        :key="index"
+                      >
+                        <div class="p11">
+                          <p class="p-1">Company Name</p>
+                          <p class="p-2">{{value.companyName}}</p>
+                        </div>
+                        <div class="p11">
+                          <p class="p-1">Company Address</p>
+                          <p class="p-2">{{value.address}}</p>
+                        </div>
+                      </li>
                     </template>
                   </template>
+                </template>
                 <li v-else style="padding:5px">
                   <h4>{{$t('public.no23')}}</h4>
                 </li>
@@ -397,35 +618,42 @@
                 <li>
                   <h3>Google Verification</h3>
                 </li>
-                  <template v-if="companyCheckStr.message!==null&&companyCheckStr.message!==undefined&&companyCheckStr.code.toLocaleLowerCase()=='success'">
-                    <template v-if="companyCheckStr.data!==null&&companyCheckStr.data!==undefined&&companyCheckStr.data!==''">
-                      <template v-if="companyCheckStr.data.googleCompanyInfoList!==null&&companyCheckStr.data.googleCompanyInfoList!==undefined&&companyCheckStr.data.googleCompanyInfoList!=''">
-                        <li v-for="(value,index) in companyCheckStr.data.googleCompanyInfoList.slice(0,1)" :key="index">
-                          <div class="p11">
-                            <p class="p-1">Company Name</p>
-                            <p class="p-2">{{value.companyName}}</p>
-                          </div>
-                          <div class="p11">
-                            <p class="p-1">Company Address</p>
-                            <p class="p-2">{{value.address}}</p>
-                          </div>
-                        </li>
-                        <li 
-                          v-if="companyCheckStr.data.googleCompanyInfoList.length>1"
-                          style="cursor:pointer;padding:5px;" 
-                          @click="moreCompanyFlag=true">
-                          {{$t('auditDetail.no64')}}
-                        </li>
-                      </template>
+                <template
+                  v-if="companyCheckStr.message!==null&&companyCheckStr.message!==undefined&&companyCheckStr.code.toLocaleLowerCase()=='success'"
+                >
+                  <template
+                    v-if="companyCheckStr.data!==null&&companyCheckStr.data!==undefined&&companyCheckStr.data!==''"
+                  >
+                    <template
+                      v-if="companyCheckStr.data.googleCompanyInfoList!==null&&companyCheckStr.data.googleCompanyInfoList!==undefined&&companyCheckStr.data.googleCompanyInfoList!=''"
+                    >
+                      <li
+                        v-for="(value,index) in companyCheckStr.data.googleCompanyInfoList.slice(0,1)"
+                        :key="index"
+                      >
+                        <div class="p11">
+                          <p class="p-1">Company Name</p>
+                          <p class="p-2">{{value.companyName}}</p>
+                        </div>
+                        <div class="p11">
+                          <p class="p-1">Company Address</p>
+                          <p class="p-2">{{value.address}}</p>
+                        </div>
+                      </li>
+                      <li
+                        v-if="companyCheckStr.data.googleCompanyInfoList.length>1"
+                        style="cursor:pointer;padding:5px;"
+                        @click="moreCompanyFlag=true"
+                      >{{$t('auditDetail.no64')}}</li>
                     </template>
                   </template>
+                </template>
                 <li v-else style="padding:5px">
                   <h4>{{$t('public.no23')}}</h4>
                 </li>
               </ul>
             </div>
           </template>
-          
         </li>
         <!------------------------ 多平台检测 ---------------------------->
         <li class="xuan-2-7" v-if="active==7">
@@ -441,46 +669,153 @@
               </tr>
             </table>
             <div class="foot"></div>
-            <template  v-if="data.orderMultiCheck.checkResult!==undefined&&data.orderMultiCheck.checkResult=='1'">
+            <template
+              v-if="data.orderMultiCheck.checkResult!==undefined&&data.orderMultiCheck.checkResult=='1'"
+            >
               <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
                 <tr>
                   <th width="33.3%">{{$t('auditDetail.no57')}}</th>
                   <th width="33.3%">{{$t('auditDetail.no58')}}</th>
                   <th width="33.3%">{{$t('auditDetail.no59')}}</th>
                 </tr>
-                <template v-if="orderMultiCheckStr.data!==null&&orderMultiCheckStr.data!==undefined&&orderMultiCheckStr.data!=''">
+                <template
+                  v-if="orderMultiCheckStr.data!==null&&orderMultiCheckStr.data!==undefined&&orderMultiCheckStr.data!=''"
+                >
                   <tr v-for="(value,index) in orderMultiCheckStr.data" :key="index">
-                    <td >{{value.type}}</td>
-                    <td >{{value.queryCount}}</td>
-                    <td >{{value.queryDates.join(',')}}</td>
+                    <td>{{value.type}}</td>
+                    <td>{{value.queryCount}}</td>
+                    <td>{{value.queryDates.join(',')}}</td>
                   </tr>
                 </template>
-                <div v-else style="textAlign:center;width:300%;height:40px;lineHeight:40px">
-                  {{$t('public.no23')}}
-                </div>
+                <div
+                  v-else
+                  style="textAlign:center;width:300%;height:40px;lineHeight:40px"
+                >{{$t('public.no23')}}</div>
               </table>
             </template>
           </template>
-          <div v-else style="textAlign:center;width:100%;height:40px;lineHeight:40px">
-            {{$t('public.no23')}}
-          </div>
+          <div
+            v-else
+            style="textAlign:center;width:100%;height:40px;lineHeight:40px"
+          >{{$t('public.no23')}}</div>
         </li>
         <!------------------------ 反欺诈分 ---------------------------->
         <li class="xuan-2-8" v-if="active==8">
           <Gauge></Gauge>
         </li>
         <!------------------------ 电审录音 ---------------------------->
-        <li  v-if="active==9">
+        <li v-if="active==9">
           <audit-record type="1" :orderId="orderId"></audit-record>
         </li>
       </ul>
     </div>
-    
+    <div class="foot" style="height:16px"></div>
+    <!----------------------------- 三方评分 ---------------------------------->
+    <template v-if="$store.state.common.lang==='id'">
+      <div class="paixu">
+        <span></span>
+        <p>{{$t('auditDetail.no71')}}</p>
+      </div>
+      <div class="thirdRate" v-if="showqizha||showjiance">
+        <div class="row" v-if="showqizha" style="height:40px">
+          <span class="thirdLeft" style="margin-right:150px">{{$t('auditDetail.no72')}}</span>
+          <span v-if="showqizhascore">
+            <span class="classScore">{{qizhascore}}</span>
+            <span class="classMessage">{{qizhamessage}}</span>
+            <span
+              class="threetips"
+            >({{$t('auditDetail.no76')}}：{{qizhaupdateTime}}； {{$t('auditDetail.no53')}}：{{qizhatime}}{{$t('public.no23')}})</span>
+          </span>
+          <el-button
+            v-if="!showqizhascore"
+            size="small"
+            type="primary"
+            @click="showRate"
+          >{{$t('auditDetail.no73')}}</el-button>
+        </div>
+        <div class="row" v-if="showjiance">
+          <span class="thirdLeft" style="margin-right:118px">{{$t('auditDetail.no74')}}</span>
+          <span v-if="showjiancecore" class="classMessage">{{jiancemessage}}</span>
+          <span
+            v-if="showjiancecore"
+            class="threetips"
+          >({{$t('auditDetail.no76')}}：{{jianceupdateTime}}； {{$t('auditDetail.no53')}}：{{jiancetime}}{{$t('public.no23')}})</span>
+          <el-button
+            v-if="!showjiancecore"
+            size="small"
+            type="primary"
+            @click="showduo"
+          >{{$t('auditDetail.no73')}}</el-button>
+          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no75')}}：</div>
+          <table
+            class="threeTable"
+            border="1"
+            cellpadding="0"
+            cellspacing="0"
+            style="border-color:#F2F6FC"
+            v-if="showjiancecore"
+          >
+            <tr class="tablrtr">
+              <th class="tableth">{{$t('auditDetail.no79')}}</th>
+              <th
+                class="tableth"
+                v-for="item in CustomerInfoData"
+                :key="item.index"
+              >{{item.timePeriod}}</th>
+            </tr>
+            <tr class="tablrtr">
+              <td class="tabletd">{{$t('auditDetail.no58')}}</td>
+              <td
+                class="tabletd"
+                v-for="item in CustomerInfoData"
+                :key="item.index"
+              >{{item.queryCount}}</td>
+            </tr>
+          </table>
+          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no81')}}</div>
+          <table
+            class="threeTable"
+            border="1"
+            cellpadding="0"
+            cellspacing="0"
+            style="border-color:#F2F6FC"
+            v-if="showjiancecore"
+          >
+            <tr class="tablrtr">
+              <th class="tableth">{{$t('auditDetail.no82')}}</th>
+              <th
+                class="tableth"
+                v-for="item in TwoWeeksQueryInfoData"
+                :key="item.index"
+              >{{item.timeSlice}}</th>
+            </tr>
+            <tr class="tablrtr">
+              <td class="tabletd">{{$t('auditDetail.no83')}}</td>
+              <td
+                class="tabletd"
+                v-for="item in TwoWeeksQueryInfoData"
+                :key="item.index"
+              >{{item.maxQueryCount}}</td>
+            </tr>
+            <tr class="tablrtr">
+              <td class="tabletd">{{$t('auditDetail.no84')}}</td>
+              <td
+                class="tabletd"
+                v-for="item in TwoWeeksQueryInfoData"
+                :key="item.index"
+              >{{item.times}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </template>
+    <div class="foot" style="height:16px"></div>
     <!------------------------ 初审结果展示开始 ---------------------------->
     <el-row>
       <el-col :span="24">
         <div class="paixu pai-active">
-          <span></span><p>{{$t('auditDetail.no12')}}</p>
+          <span></span>
+          <p>{{$t('auditDetail.no12')}}</p>
         </div>
       </el-col>
     </el-row>
@@ -488,45 +823,42 @@
       <template v-if="peopleOne_audit!==null&&peopleOne_audit!==undefined&&peopleOne_audit!==''">
         <div class="chu-select">
           <div class="chu-select-left">{{$t('auditDetail.no21')}}</div>
-          <div v-if="peopleOne_audit.approveResult!==null&&peopleOne_audit.approveResult!==undefined" class="chu-select-right">
-            {{peopleOne_audit.approveResult==1?$t('auditDetail.no16'):$t('auditDetail.no17')}}
-          </div>
-          <div v-else class="chu-select-right">
-            {{$store.state.common.nullData}}
-          </div>
+          <div
+            v-if="peopleOne_audit.approveResult!==null&&peopleOne_audit.approveResult!==undefined"
+            class="chu-select-right"
+          >{{peopleOne_audit.approveResult==1?$t('auditDetail.no16'):$t('auditDetail.no17')}}</div>
+          <div v-else class="chu-select-right">{{$store.state.common.nullData}}</div>
         </div>
         <div class="chu-select">
           <div class="chu-select-left">{{$t('public.no37')}}</div>
-          <div class="chu-select-right">
-            {{peopleOne_audit.remark!==null&&peopleOne_audit.remark!==undefined&&peopleOne_audit.remark!==''?peopleOne_audit.remark:$store.state.common.nullData}}
-          </div>
+          <div
+            class="chu-select-right"
+          >{{peopleOne_audit.remark!==null&&peopleOne_audit.remark!==undefined&&peopleOne_audit.remark!==''?peopleOne_audit.remark:$store.state.common.nullData}}</div>
         </div>
         <template v-if="peopleOne_audit.approveResult&&peopleOne_audit.approveResult == -1">
           <div class="chu-select">
             <div class="chu-select-left">{{$t('auditDetail.no18')}}:</div>
-            <div class="chu-select-right">
-              {{peopleOne_audit.notApproveReason?peopleOne_audit.notApproveReason:$store.state.common.nullData}}
-            </div>
+            <div
+              class="chu-select-right"
+            >{{peopleOne_audit.notApproveReason?peopleOne_audit.notApproveReason:$store.state.common.nullData}}</div>
           </div>
           <div class="chu-select">
             <div class="chu-select-left">{{$t('auditDetail.no19')}}:</div>
-            <div class="chu-select-right">
-              {{peopleOne_audit.notApproveSubReason?peopleOne_audit.notApproveSubReason:$store.state.common.nullData}}
-            </div>
+            <div
+              class="chu-select-right"
+            >{{peopleOne_audit.notApproveSubReason?peopleOne_audit.notApproveSubReason:$store.state.common.nullData}}</div>
           </div>
         </template>
       </template>
-      
     </div>
     <!------------------------ 初审结果展示结束 ---------------------------->
 
-
     <div class="foot" style="height:16px"></div>
-
 
     <!------------------------ 跟踪记录结果展示开始 ---------------------------->
     <div class="paixu">
-      <span></span><p>{{$t('auditDetail.no66')}}</p>
+      <span></span>
+      <p>{{$t('auditDetail.no66')}}</p>
     </div>
     <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
       <tr>
@@ -546,9 +878,7 @@
         </tr>
       </template>
       <template v-if="followReason==''&&followReason1==''">
-        <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">
-          {{$t('public.no23')}}
-        </div>
+        <div style="textAlign:center;width:400%;height:40px;lineHeight:40px">{{$t('public.no23')}}</div>
       </template>
     </table>
     <!------------------------ 跟踪记录结果展示结束 ---------------------------->
@@ -557,11 +887,15 @@
 
     <!------------------------ 复审提交操作开始 ---------------------------->
     <template>
-      <div v-if="peopleTwo_audit!==null&&peopleTwo_audit!==undefined&&peopleTwo_audit!=''" class="chushenjilu">
+      <div
+        v-if="peopleTwo_audit!==null&&peopleTwo_audit!==undefined&&peopleTwo_audit!=''"
+        class="chushenjilu"
+      >
         <el-row>
           <el-col :span="24">
             <div class="paixu pai-active">
-              <span></span><p>{{$t('auditDetail.no62')}}</p>
+              <span></span>
+              <p>{{$t('auditDetail.no62')}}</p>
             </div>
           </el-col>
         </el-row>
@@ -584,48 +918,53 @@
             </tr>
           </template>
           <template v-else>
-            <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
-              {{$t('public.no23')}}
-            </div>
+            <div
+              style="textAlign:center;width:660%;height:40px;lineHeight:40px"
+            >{{$t('public.no23')}}</div>
           </template>
         </table>
         <div class="chu-select">
           <div class="chu-select-left">{{$t('auditDetail.no27')}}:</div>
-          <div class="chu-select-right">
-            {{peopleTwo_audit.strApproveTime?peopleTwo_audit.strApproveTime:$store.state.common.nullData}}
-          </div>
+          <div
+            class="chu-select-right"
+          >{{peopleTwo_audit.strApproveTime?peopleTwo_audit.strApproveTime:$store.state.common.nullData}}</div>
         </div>
         <div class="chu-select">
           <div class="chu-select-left">{{$t('auditDetail.no28')}}:</div>
-          <div class="chu-select-right">
-            {{peopleTwo_audit.approveResult==1?$t('auditDetail.no16'):$t('auditDetail.no17')}}
-          </div>
+          <div
+            class="chu-select-right"
+          >{{peopleTwo_audit.approveResult==1?$t('auditDetail.no16'):$t('auditDetail.no17')}}</div>
         </div>
         <div class="chu-select">
           <div class="chu-select-left">{{$t('public.no37')}}:</div>
-          <div class="chu-select-right">
-            {{peopleTwo_audit.remark?peopleTwo_audit.remark:$store.state.common.nullData}}
-          </div>
+          <div
+            class="chu-select-right"
+          >{{peopleTwo_audit.remark?peopleTwo_audit.remark:$store.state.common.nullData}}</div>
         </div>
         <template v-if="peopleTwo_audit.approveResult == -1">
           <div class="chu-select">
             <div class="chu-select-left">{{$t('auditDetail.no18')}}:</div>
-            <div class="chu-select-right">
-              {{peopleTwo_audit.notApproveReason?peopleTwo_audit.notApproveReason:$store.state.common.nullData}}
-            </div>
+            <div
+              class="chu-select-right"
+            >{{peopleTwo_audit.notApproveReason?peopleTwo_audit.notApproveReason:$store.state.common.nullData}}</div>
           </div>
           <div class="chu-select">
             <div class="chu-select-left">{{$t('auditDetail.no19')}}:</div>
-            <div class="chu-select-right">
-              {{peopleTwo_audit.notApproveSubReason?peopleTwo_audit.notApproveSubReason:$store.state.common.nullData}}
-            </div>
+            <div
+              class="chu-select-right"
+            >{{peopleTwo_audit.notApproveSubReason?peopleTwo_audit.notApproveSubReason:$store.state.common.nullData}}</div>
           </div>
         </template>
       </div>
       <div v-else class="chushenjilu">
         <div class="xuanxiangka" v-if="block==2">
           <ul class="xuan-1">
-            <li v-for="(value,index) in arr2" :key="index" :class="{active:active1==value.id}" @click="active1=value.id">
+            <li
+              v-for="(value,index) in arr2"
+              :key="index"
+              :class="{active:active1==value.id}"
+              @click="active1=value.id"
+            >
               <span>{{value.title}}</span>
             </li>
           </ul>
@@ -650,31 +989,51 @@
                   </tr>
                 </template>
                 <template v-else>
-                  <div style="textAlign:center;width:660%;height:40px;lineHeight:40px">
-                    {{$t('public.no23')}}
-                  </div>
+                  <div
+                    style="textAlign:center;width:660%;height:40px;lineHeight:40px"
+                  >{{$t('public.no23')}}</div>
                 </template>
               </table>
               <div class="chu-select1">
                 <div class="chu-select-left">{{$t('auditDetail.no28')}}</div>
                 <div class="chu-select-right">
                   <el-select size="small" v-model="status1" :placeholder="$t('public.placeholder')">
-                    <el-option v-for="item in options1" :key="item.value" :label="$t(item.label)" :value="item.value">
-                    </el-option>
+                    <el-option
+                      v-for="item in options1"
+                      :key="item.value"
+                      :label="$t(item.label)"
+                      :value="item.value"
+                    ></el-option>
                   </el-select>
                 </div>
                 <template v-if="status1==-1">
                   <div class="chu-select-left">{{$t('auditDetail.no23')}}</div>
                   <div class="chu-select-right">
-                    <el-select size="small" v-model="status2" :placeholder="$t('public.placeholder')">
-                      <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
-                      </el-option>
+                    <el-select
+                      size="small"
+                      v-model="status2"
+                      :placeholder="$t('public.placeholder')"
+                    >
+                      <el-option
+                        v-for="item in options2"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
                     </el-select>
                   </div>
                   <div class="chu-select-right">
-                    <el-select size="small" v-model="status3" :placeholder="$t('public.placeholder')">
-                      <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-                      </el-option>
+                    <el-select
+                      size="small"
+                      v-model="status3"
+                      :placeholder="$t('public.placeholder')"
+                    >
+                      <el-option
+                        v-for="item in options3"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      ></el-option>
                     </el-select>
                   </div>
                 </template>
@@ -682,10 +1041,17 @@
               <div class="chu-select">
                 <div class="chu-select-left">{{$t('public.no37')}}</div>
                 <div class="chu-select-right">
-                  <textarea class="search_inpu" v-model="remark" :placeholder="$t('public.no42')+'~'"></textarea>
+                  <textarea
+                    class="search_inpu"
+                    v-model="remark"
+                    :placeholder="$t('public.no42')+'~'"
+                  ></textarea>
                 </div>
               </div>
-              <div class="input-but" v-if="$store.state.common.permiss.includes('RIGHT_REVIEW_SUBMIT')">
+              <div
+                class="input-but"
+                v-if="$store.state.common.permiss.includes('RIGHT_REVIEW_SUBMIT')"
+              >
                 <el-button type="primary" class="button-color" @click="submit">{{$t('public.no41')}}</el-button>
               </div>
             </li>
@@ -693,25 +1059,37 @@
               <div class="chu-select1">
                 <div class="chu-select-left">{{$t('public.no37')}}</div>
                 <div class="chu-select-right">
-                  <textarea class="search_inpu" v-model="remark1" :placeholder="$t('public.no42')+'~'"></textarea>
+                  <textarea
+                    class="search_inpu"
+                    v-model="remark1"
+                    :placeholder="$t('public.no42')+'~'"
+                  ></textarea>
                 </div>
               </div>
-              <div class="input-but" >
-                <el-button type="primary" class="button-color" @click="submit1">{{$t('public.no41')}}</el-button>
+              <div class="input-but">
+                <el-button
+                  type="primary"
+                  class="button-color"
+                  @click="submit1"
+                >{{$t('public.no41')}}</el-button>
               </div>
             </li>
           </ul>
         </div>
       </div>
     </template>
-    
+
     <!-- ------------------ 点击公司检测更多弹窗开始 -------------------- -->
     <div v-if="moreCompanyFlag" class="more">
       <div class="more-main">
         <div class="more-main-head">
           <span></span>
           <p>{{$t('auditDetail.no64')}}</p>
-          <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="moreCompanyFlag=false"></i>
+          <i
+            class="el-icon-shop-guanbi icon-color"
+            style="cursor:pointer"
+            @click="moreCompanyFlag=false"
+          ></i>
         </div>
         <div class="more-main-con">
           <table class="bank-table" width="100%" border="1" cellspacing="0" cellpadding="20">
@@ -745,22 +1123,28 @@
           <i class="el-icon-shop-guanbi icon-color" style="cursor:pointer" @click="telClose"></i>
         </div>
         <div class="reply-main-con">
-          <el-button @click="callPhone" v-if="telTip">
-            {{$t('yn.no46')}}
-          </el-button>
+          <el-button @click="callPhone" v-if="telTip">{{$t('yn.no46')}}</el-button>
           <div class="chu-select">
             <div class="chu-select-left">{{$t('auditDetail.no43')}}</div>
             <div class="chu-select-right">
               <el-select size="small" v-model="telStatus" :placeholder="$t('public.placeholder')">
-                <el-option v-for="item in options" :key="item.value" :label="$t(item.label)" :value="item.value">
-                </el-option>
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="$t(item.label)"
+                  :value="item.value"
+                ></el-option>
               </el-select>
             </div>
           </div>
           <div class="chu-select">
             <div class="chu-select-left">{{$t('public.no37')}}</div>
             <div class="chu-select-right">
-              <textarea class="search_inpu" v-model="telRemark" :placeholder="$t('public.no42')+'~'"></textarea>
+              <textarea
+                class="search_inpu"
+                v-model="telRemark"
+                :placeholder="$t('public.no42')+'~'"
+              ></textarea>
             </div>
           </div>
           <div class="reply-but" @click="telSubmit">{{$t('public.no41')}}</div>
@@ -768,10 +1152,13 @@
       </div>
     </div>
     <!-- ------------------ 点击电话审核弹窗结束 -------------------- -->
-
   </div>
   <div v-else class="back">
-    <p>{{$t('public.no23')}}，<span @click="back">{{$t('back.no1')}}</span> {{$t('back.no2')}}</p>
+    <p>
+      {{$t('public.no23')}}，
+      <span @click="back">{{$t('back.no1')}}</span>
+      {{$t('back.no2')}}
+    </p>
   </div>
 </template>
 <script>
@@ -797,6 +1184,19 @@ export default {
   },
   data () {
     return {
+      showqizha: false, //欺诈分是否显示
+      showjiance: false, //多平台检测是否显示
+      showqizhascore: false, //欺诈分点击显示
+      showjiancecore: false, //检测点击显示
+      qizhascore: "", //欺诈分
+      qizhamessage: "", //欺诈分信息
+      qizhaupdateTime: "", //欺诈分更新时间
+      qizhatime: "", //欺诈分有效期
+      jiancetime: "", //检测有效期
+      jiancemessage: "", //检测信息
+      jianceupdateTime: "", //检测更新时间
+      CustomerInfoData: [], //统计客户信息数据
+      TwoWeeksQueryInfoData: [], //最近两周查询信息数据
       flag: true,
       block: '', // 控制审核提交操作是否显示
       telFlag: false,
@@ -923,6 +1323,53 @@ export default {
     }
   },
   methods: {
+    showRate: function(e) {
+      //点击获取欺诈分
+      let option = {
+        header: {
+          ...this.$base,
+          action: "FRAUDSCORE001",
+          sessionid: this.sessionid
+        },
+        orderId: this.orderId
+      };
+      this.$axios.post("", option).then(res => {
+        if (res.data.header.code == 0) {
+          // console.log(res, "2222");
+          this.showqizhascore = true;
+          this.qizhascore = res.data.data.score;
+          this.qizhamessage = res.data.data.message;
+          this.qizhaupdateTime = res.data.data.updateTime;
+        }else{
+          this.$message.error(this.$t("auditDetail.no85"))
+        }
+      });
+    },
+    showduo: function(e) {
+      //点击获取多平台检测
+      let option = {
+        header: {
+          ...this.$base,
+          action: "MULTIDATA001",
+          sessionid: this.sessionid
+        },
+        orderId: this.orderId
+      };
+      this.$axios.post("", option).then(res => {
+        if (res.data.header.code == 0&&res.data.data.message=='SUCCESS') {
+          // console.log(res, "00000");
+          this.showjiancecore = true;
+          this.jiancemessage = res.data.data.message;
+          this.jianceupdateTime = res.data.data.updateTime;
+          this.CustomerInfoData = res.data.data.statisticCustomerInfo;
+          this.TwoWeeksQueryInfoData = res.data.data.lastTwoWeeksQueryInfo;
+        }
+        else{ 
+             this.$message.error(this.$t("auditDetail.no85"))
+        }
+        // console.log(this.CustomerInfoData, "666");
+      });
+    },
     openBox: function (obj) { // 图片点击放大
       this.currentObj = obj
       this.lightBoxToggle = !this.lightBoxToggle
@@ -1360,6 +1807,38 @@ export default {
     this.followHistory()// 获取跟踪记录结果
     this.followHistory1()// 获取初审跟踪记录结果
     this.getDefaultActive()// 获取默认展示的选项卡1
+    let option = {
+      header: {
+        ...this.$base,
+        action: "DICT0002",
+        sessionid: this.sessionid
+      },
+      optionGroup: "fraud.score.day"
+    };
+    this.$axios.post("", option).then(res => {
+      if (res.data.header.code == 0 && res !== false) {
+        // console.log(res, "33333");
+        this.showqizha = true;
+        // console.log(res.data.data[0].optionValue);
+        this.qizhatime = res.data.data[0].optionValue;
+      }
+    });
+    let option1 = {
+      header: {
+        ...this.$base,
+        action: "DICT0002",
+        sessionid: this.sessionid
+      },
+      optionGroup: "multi.date.day"
+    };
+    this.$axios.post("", option1).then(res => {
+      if (res.data.header.code == 0 && res !== false) {
+        // console.log(res, "44444");
+        this.showjiance = true;
+        // console.log(res.data.data[0].optionValue);
+        this.jiancetime = res.data.data[0].optionValue;
+      }
+    });
   }
 }
 </script>
@@ -1370,26 +1849,27 @@ export default {
   align-items: center;
 }
 @mixin p-span {
-  p{
+  p {
     line-height: 24px;
-    span:nth-child(1){
+    span:nth-child(1) {
       white-space: nowrap;
       color: $color1;
       font-size: 16px;
     }
-    span:nth-child(2),span:nth-child(3),span:nth-child(4){
+    span:nth-child(2),
+    span:nth-child(3),
+    span:nth-child(4) {
       color: $color2;
       font-size: 16px;
       margin: 0 10px;
       word-break: break-all;
-    } 
+    }
   }
 }
-$color1:#959fb9;
-$color2:#000;
+$color1: #959fb9;
+$color2: #000;
 
-
-.more{
+.more {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -1400,18 +1880,18 @@ $color2:#000;
   justify-content: center;
   align-items: flex-start;
   background-color: rgba(182, 189, 205, 0.6);
-  .more-main{
+  .more-main {
     width: 694px;
     height: auto;
     margin-top: 200px;
     background-color: #ffffff;
     border-radius: 5px;
     overflow: hidden;
-    padding-bottom:5px; 
-    .more-main-head{
+    padding-bottom: 5px;
+    .more-main-head {
       width: 100%;
       height: 48px;
-      background-color: #333A4D;
+      background-color: #333a4d;
       line-height: 48px;
       position: relative;
       span {
@@ -1429,7 +1909,7 @@ $color2:#000;
         font-size: 18px;
         margin-left: 30px;
       }
-      .icon-color{
+      .icon-color {
         display: block;
         color: #fff;
         font-size: 22px;
@@ -1438,37 +1918,37 @@ $color2:#000;
         top: 14px;
       }
     }
-    .more-main-con{
+    .more-main-con {
       width: 100%;
       height: auto;
       padding: 10px 30px;
-      .more-con-one{
+      .more-con-one {
         width: 100%;
         display: flex;
-        .more-con-one-1{
+        .more-con-one-1 {
           width: 100px;
           height: 40px;
           text-align: center;
           line-height: 40px;
           color: #999;
         }
-        .more-con-one-2{
+        .more-con-one-2 {
           width: 560px;
           height: 40px;
           line-height: 40px;
         }
-        .more-con-one-3{
+        .more-con-one-3 {
           width: 560px;
           height: 100%;
           margin-bottom: 10px;
-          textarea{
+          textarea {
             width: 100%;
             height: 100px;
             font-size: 16px;
             padding: 5px;
           }
         }
-        .more-con-one-4{
+        .more-con-one-4 {
           width: 100px;
           height: 40px;
           text-align: center;
@@ -1479,19 +1959,19 @@ $color2:#000;
   }
 }
 
-.pai-active{
+.pai-active {
   margin: 16px 0 0;
 }
 
-.xuanxiangka{
+.xuanxiangka {
   width: 100%;
   height: auto;
   background-color: #fff;
-  .xuan-1{
+  .xuan-1 {
     width: 100%;
     // height: 60px;
     display: flex;
-    li{
+    li {
       height: 100%;
       margin: 10px 12px;
       text-align: center;
@@ -1499,207 +1979,206 @@ $color2:#000;
       display: flex;
       align-items: center;
       cursor: pointer;
-      span{
+      span {
         display: block;
         padding-bottom: 10px;
       }
     }
-    .active{
-      span{
+    .active {
+      span {
         border-bottom: 2px solid #547afe;
       }
     }
   }
-  .xuan-2{
+  .xuan-2 {
     width: 100%;
     height: auto;
-    &>li{
+    & > li {
       width: 100%;
       padding: 10px 20px;
     }
-    
   }
 }
-.xuan-2-1{
-  .xuan-2-1-1{
+.xuan-2-1 {
+  .xuan-2-1-1 {
     width: 100%;
     display: flex;
-    .xuan-2-1-1-1{
+    .xuan-2-1-1-1 {
       width: 45%;
       @include p-span;
-      p{
+      p {
         margin: 20px;
       }
     }
-    .xuan-2-1-2-2{
+    .xuan-2-1-2-2 {
       width: 10%;
       display: flex;
       align-items: center;
-      p{
+      p {
         line-height: 20px;
       }
     }
-    .xuan-2-1-1-2{
+    .xuan-2-1-1-2 {
       width: 100%;
       padding-left: 20px;
-      .xuan-2-1-1-22{
+      .xuan-2-1-1-22 {
         display: flex;
         margin: 15px 0;
         @include p-span;
-        p{
+        p {
           width: 33%;
         }
       }
     }
-    .xuan-2-1-1-3{
+    .xuan-2-1-1-3 {
       width: 30%;
     }
-    .imgbox{
+    .imgbox {
       width: 200px;
       height: 190px;
       margin: 0 10px 10px 0;
-      .imgDes{
+      .imgDes {
         width: 100%;
         font-size: 18px;
         height: 30px;
         // font-weight: 600;
       }
-      .imgbox1{
+      .imgbox1 {
         width: 200px;
         height: 150px;
       }
     }
   }
-  .xuan-2-1-2{
+  .xuan-2-1-2 {
     width: 100%;
-    .xuan-2-1-2-1{
+    .xuan-2-1-2-1 {
       margin: 10px;
       display: flex;
       align-items: center;
       @include p-span;
-      p{
+      p {
         padding-right: 10px;
       }
-      
     }
   }
-  .idimgbox{
+  .idimgbox {
     width: 410px;
     height: auto;
     display: flex;
     margin: 20px 10px;
     justify-content: space-between;
-    .idimg{
+    .idimg {
       width: 200px;
       height: 150px;
     }
   }
 }
-.xuan-2-5{
-  .xuan-2-5-1{
+.xuan-2-5 {
+  .xuan-2-5-1 {
     width: 400px;
     height: 250px;
     margin: 0 auto;
     margin-bottom: 40px;
   }
-  .xuan-2-5-2{
+  .xuan-2-5-2 {
     width: 100%;
     height: auto;
-    ul{
+    ul {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      li{
+      li {
         width: 25%;
         height: 80px;
         padding-left: 20px;
         border-bottom: 1px solid #ddd;
-        .p-1{
+        .p-1 {
           color: $color1;
           line-height: 34px;
-          span{
+          span {
             display: inline;
             vertical-align: bottom;
           }
-          span:nth-child(1){
+          span:nth-child(1) {
             color: $color2;
             font-size: 14px;
           }
-          span:nth-child(2),span:nth-child(3),span:nth-child(4){
+          span:nth-child(2),
+          span:nth-child(3),
+          span:nth-child(4) {
             font-size: 16px;
             padding: 0 10px;
           }
         }
-        .p-2{
+        .p-2 {
           line-height: 40px;
         }
       }
     }
   }
 }
-.xuan-2-6{
+.xuan-2-6 {
   padding-bottom: 10px;
-  .xuan-2-6-1{
+  .xuan-2-6-1 {
     width: 100%;
     height: 100px;
     line-height: 100px;
     padding: 0 20px;
   }
-  .xuan-2-6-2{
+  .xuan-2-6-2 {
     width: 100%;
     display: flex;
     padding: 0 20px;
-    ul{
+    ul {
       width: 50%;
-      li{
+      li {
         width: 100%;
         height: auto;
         padding-right: 40px;
-        .p11{
-          .p-1{
+        .p11 {
+          .p-1 {
             color: $color1;
             line-height: 40px;
           }
-          .p-2{
+          .p-2 {
             color: $color2;
             word-wrap: break-word;
           }
         }
-        &:nth-child(1){
+        &:nth-child(1) {
           border-bottom: 1px solid #ddd;
         }
-        h3{
+        h3 {
           line-height: 40px;
         }
-        
       }
     }
   }
 }
 
-.xuan-2-8{
+.xuan-2-8 {
   height: 450px;
 }
-.chushenjilu{
+.chushenjilu {
   width: 100%;
   height: auto;
   background-color: #fff;
   padding: 20px 20px;
-  .chu-title{
+  .chu-title {
     margin: 0px 0 20px;
     font-size: 16px;
   }
-  .chu-select1{
+  .chu-select1 {
     margin: 20px 20px;
     padding: 5px 0;
     display: flex;
-    .chu-select-left{
+    .chu-select-left {
       width: 8%;
       padding: 7px 5px;
     }
-    .chu-select-right{
+    .chu-select-right {
       width: 38%;
-      .search_inpu{
+      .search_inpu {
         width: 100%;
         height: 150px;
         padding: 5px;
@@ -1707,18 +2186,17 @@ $color2:#000;
       }
     }
   }
-  .chu-select{
+  .chu-select {
     margin: 20px 20px;
     padding: 5px 0;
     display: flex;
-    .chu-select-left{
+    .chu-select-left {
       width: 8%;
-      
     }
-    .chu-select-right{
+    .chu-select-right {
       width: 90%;
       word-break: break-all;
-      .search_inpu{
+      .search_inpu {
         width: 100%;
         height: 150px;
         padding: 5px;
@@ -1726,16 +2204,16 @@ $color2:#000;
       }
     }
   }
-  .input-but{
+  .input-but {
     width: 100px;
     margin: 0 auto;
-    .el-button{
+    .el-button {
       width: 100%;
     }
   }
 }
 
-.reply{
+.reply {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -1743,17 +2221,17 @@ $color2:#000;
   top: 0;
   @include flex-cen;
   background-color: rgba(182, 189, 205, 0.6);
-  .reply-main{
+  .reply-main {
     width: 694px;
     height: auto;
     // margin-top: -450px;
     background-color: #ffffff;
     border-radius: 5px;
     overflow: hidden;
-    .reply-main-head{
+    .reply-main-head {
       width: 100%;
       height: 48px;
-      background-color: #333A4D;
+      background-color: #333a4d;
       line-height: 48px;
       position: relative;
       span {
@@ -1771,7 +2249,7 @@ $color2:#000;
         font-size: 18px;
         margin-left: 30px;
       }
-      .icon-color{
+      .icon-color {
         display: block;
         color: #fff;
         font-size: 22px;
@@ -1780,21 +2258,20 @@ $color2:#000;
         top: 14px;
       }
     }
-    .reply-main-con{
+    .reply-main-con {
       width: 100%;
       height: auto;
       padding: 10px 30px;
-      .chu-select{
+      .chu-select {
         margin: 20px 20px;
         padding: 5px 0;
         display: flex;
-        .chu-select-left{
+        .chu-select-left {
           width: 15%;
-          
         }
-        .chu-select-right{
+        .chu-select-right {
           width: 85%;
-          .search_inpu{
+          .search_inpu {
             width: 100%;
             height: 150px;
             padding: 5px;
@@ -1802,7 +2279,7 @@ $color2:#000;
           }
         }
       }
-      .reply-but{
+      .reply-but {
         width: 220px;
         height: 38px;
         background-color: #547ef5;
@@ -1818,15 +2295,15 @@ $color2:#000;
   }
 }
 
-.back{
+.back {
   width: 100%;
   height: 100%;
   padding: 20px 30px;
   background-color: rgba(246, 249, 252, 1);
   position: relative;
   @include flex-cen;
-  p{
-    span{
+  p {
+    span {
       font-size: 18px;
       padding: 0 5px;
       font-weight: bold;
@@ -1835,18 +2312,53 @@ $color2:#000;
   }
 }
 
-.tooltip{
+.tooltip {
   width: 15px;
   height: 15px;
-  img{
+  img {
     display: block;
   }
 }
 
-.old_img{
+.old_img {
   width: 160px;
   height: 100px;
   margin-right: 20px;
 }
-
+.thirdRate {
+  background-color: #ffffff;
+  padding: 20px 34px;
+  .row {
+    margin-bottom: 10px;
+  }
+}
+.classScore {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 40px;
+}
+.classMessage {
+  margin-right: 20px;
+}
+.threetips {
+  color: #909399;
+}
+.thirdLeft {
+  color: #409eff;
+}
+.threeTable {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 40px;
+  .tablrtr {
+    height: 40px;
+  }
+  .tableth {
+    width: 100px;
+    background-color: #f2f6fc;
+  }
+  .tabletd {
+    width: 100px;
+  }
+}
 </style>
