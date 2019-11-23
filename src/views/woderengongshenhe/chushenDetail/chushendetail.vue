@@ -615,14 +615,14 @@
             type="primary"
             @click="showduo"
           >{{$t('auditDetail.no73')}}</el-button>
-          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no75')}}：</div>
+          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore&&showReturnSuccess">{{$t('auditDetail.no75')}}：</div>
           <table
             class="threeTable"
             border="1"
             cellpadding="0"
             cellspacing="0"
             style="border-color:#F2F6FC"
-            v-if="showjiancecore"
+            v-if="showjiancecore&&showReturnSuccess"
           >
             <tr class="tablrtr">
               <th class="tableth">{{$t('auditDetail.no79')}}</th>
@@ -641,14 +641,14 @@
               >{{item.queryCount}}</td>
             </tr>
           </table>
-          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no81')}}</div>
+          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore&&showReturnSuccess">{{$t('auditDetail.no81')}}</div>
           <table
             class="threeTable"
             border="1"
             cellpadding="0"
             cellspacing="0"
             style="border-color:#F2F6FC"
-            v-if="showjiancecore"
+            v-if="showjiancecore&&showReturnSuccess"
           >
             <tr class="tablrtr">
               <th class="tableth">{{$t('auditDetail.no82')}}</th>
@@ -1080,6 +1080,7 @@ export default {
       showjiance: false, //多平台检测是否显示
       showqizhascore: false, //欺诈分点击显示
       showjiancecore: false, //检测点击显示
+      showReturnSuccess:false,//点击多头数据是否正确返回
       qizhascore: "", //欺诈分
       qizhamessage: "", //欺诈分信息
       qizhaupdateTime: "", //欺诈分更新时间
@@ -1264,14 +1265,21 @@ export default {
         orderId: this.orderId
       };
       this.$axios.post("", option).then(res => {
-        if (res.data.header.code == 0 && res.data.data.message == "SUCCESS") {
+        if (res.data.header.code == 0  ) {
+          if (res.data.data.message == "SUCCESS") {      //成功获取多头数据            
           // console.log(res, "00000");
           this.showjiancecore = true;
+          this.showReturnSuccess=true
           this.jiancemessage = res.data.data.message;
           this.jianceupdateTime = res.data.data.updateTime;
           this.CustomerInfoData = res.data.data.statisticCustomerInfo;
           this.TwoWeeksQueryInfoData = res.data.data.lastTwoWeeksQueryInfo;
-        } else {
+          }else{                                          //调用成功，但是没有获取数据
+            this.showjiancecore = true;
+          this.jiancemessage = res.data.data.message;
+          this.jianceupdateTime = res.data.data.updateTime;
+          }
+        } else {                                           //接口调用失败
           // console.log(this.$t('auditDetail.no85'))
           this.$message.error(this.$t("auditDetail.no85"));
         }

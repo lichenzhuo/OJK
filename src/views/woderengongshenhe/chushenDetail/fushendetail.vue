@@ -746,14 +746,18 @@
             type="primary"
             @click="showduo"
           >{{$t('auditDetail.no73')}}</el-button>
-          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no75')}}：</div>
+          <div
+            class="thirdLeft"
+            style="margin-top:15px"
+            v-if="showjiancecore&&showReturnSuccess"
+          >{{$t('auditDetail.no75')}}：</div>
           <table
             class="threeTable"
             border="1"
             cellpadding="0"
             cellspacing="0"
             style="border-color:#F2F6FC"
-            v-if="showjiancecore"
+            v-if="showjiancecore&&showReturnSuccess"
           >
             <tr class="tablrtr">
               <th class="tableth">{{$t('auditDetail.no79')}}</th>
@@ -772,14 +776,18 @@
               >{{item.queryCount}}</td>
             </tr>
           </table>
-          <div class="thirdLeft" style="margin-top:15px" v-if="showjiancecore">{{$t('auditDetail.no81')}}</div>
+          <div
+            class="thirdLeft"
+            style="margin-top:15px"
+            v-if="showjiancecore&&showReturnSuccess"
+          >{{$t('auditDetail.no81')}}</div>
           <table
             class="threeTable"
             border="1"
             cellpadding="0"
             cellspacing="0"
             style="border-color:#F2F6FC"
-            v-if="showjiancecore"
+            v-if="showjiancecore&&showReturnSuccess"
           >
             <tr class="tablrtr">
               <th class="tableth">{{$t('auditDetail.no82')}}</th>
@@ -1162,17 +1170,17 @@
   </div>
 </template>
 <script>
-import telRecordList from '../../../components/component/teltable'
-import noteRecordList from '../../../components/component/notetable'
-import loanList from '../../../components/component/loantable'
-import auditDetail from '../../../components/component/auditdetail'
-import auditRecord from '../../../components/component/auditRecord'
+import telRecordList from "../../../components/component/teltable";
+import noteRecordList from "../../../components/component/notetable";
+import loanList from "../../../components/component/loantable";
+import auditDetail from "../../../components/component/auditdetail";
+import auditRecord from "../../../components/component/auditRecord";
 
-import Gauge from '../../../components/component/gauge'// 欺诈分图表组件
-import appLightbox from '../../../components/component/lightbox'// 图片点击放大组件
+import Gauge from "../../../components/component/gauge"; // 欺诈分图表组件
+import appLightbox from "../../../components/component/lightbox"; // 图片点击放大组件
 
 export default {
-  name: 'detailsAudit',
+  name: "detailsAudit",
   components: {
     telRecordList,
     noteRecordList,
@@ -1182,23 +1190,24 @@ export default {
     appLightbox,
     Gauge
   },
-  data () {
+  data() {
     return {
-      showqizha: false, //欺诈分是否显示
-      showjiance: false, //多平台检测是否显示
+      showqizha: false, //欺诈分模块是否显示
+      showjiance: false, //多头数据模块是否显示
       showqizhascore: false, //欺诈分点击显示
-      showjiancecore: false, //检测点击显示
+      showjiancecore: false, //多头点击显示
+      showReturnSuccess: false, //点击多头数据是否正确返回
       qizhascore: "", //欺诈分
       qizhamessage: "", //欺诈分信息
       qizhaupdateTime: "", //欺诈分更新时间
       qizhatime: "", //欺诈分有效期
-      jiancetime: "", //检测有效期
-      jiancemessage: "", //检测信息
+      jiancetime: "", //多头数据有效期
+      jiancemessage: "", //多头数据信息
       jianceupdateTime: "", //检测更新时间
       CustomerInfoData: [], //统计客户信息数据
       TwoWeeksQueryInfoData: [], //最近两周查询信息数据
       flag: true,
-      block: '', // 控制审核提交操作是否显示
+      block: "", // 控制审核提交操作是否显示
       telFlag: false,
       telFlag1: false,
       telFlag2: false,
@@ -1206,120 +1215,134 @@ export default {
       telFlag4: false,
       telFlag7: false,
       telFlag8: false,
-      sessionid: '',
-      userId: '', // 上个页面传过来的用户ID
-      orderNo: '', // 上个页面传过来的订单ID
-      orderId: '', // 上个页面传过来的订单ID
-      data: {// 页面详情字段对象集合
-        userBase: '',
-        userBank: '',
-        userIdcard: '',
-        userSelf: '',
-        userWork: '',
-        order: '',
-        orderExtra: '',
-        orderList: '',
-        orderMultiCheck: '',
-        oldUserIdCard: '',
-        userUrgentContact: '',
+      sessionid: "",
+      userId: "", // 上个页面传过来的用户ID
+      orderNo: "", // 上个页面传过来的订单ID
+      orderId: "", // 上个页面传过来的订单ID
+      data: {
+        // 页面详情字段对象集合
+        userBase: "",
+        userBank: "",
+        userIdcard: "",
+        userSelf: "",
+        userWork: "",
+        order: "",
+        orderExtra: "",
+        orderList: "",
+        orderMultiCheck: "",
+        oldUserIdCard: "",
+        userUrgentContact: "",
         userOrderCount: {},
-        contactOne: '',
-        contactTwo: '',
-        contactThree: '',
-        contactFour: '',
-        contactFive: '',
+        contactOne: "",
+        contactTwo: "",
+        contactThree: "",
+        contactFour: "",
+        contactFive: ""
       },
       // arr1:['用户信息','通话记录信息','短信信息记录','历史借款记录','OCR身份检测','公司检测','多平台检测','反欺诈'],
       active: 4, // 第一个当前点中的选项卡
       active1: 1, // 第二个当前点中的选项卡
       active2: 1, // 用户详情借款详情当前点中的选项卡
-      status1: '', // 复审是否通过选择状态
+      status1: "", // 复审是否通过选择状态
       options: this.$store.state.options.telStatus_select, // 电话审核下拉选框内容
-      telStatus: '', // 电话审核下拉框选中项
-      telRemark: '', // 电话审核备注信息内容
+      telStatus: "", // 电话审核下拉框选中项
+      telRemark: "", // 电话审核备注信息内容
       options1: this.$store.state.options.peopleAuditTwo_option, // 复审是否通过下拉选框
-      status2: '', // 驳回原因1
+      status2: "", // 驳回原因1
       options2: [], // 复审驳回原因1下拉选框
-      status3: '', // 驳回原因2
+      status3: "", // 驳回原因2
       options3: [], // 复审驳回原因2下拉选框
-      remark: '', // 备注信息内容
-      remark1: '', // 跟踪备注信息内容
+      remark: "", // 备注信息内容
+      remark1: "", // 跟踪备注信息内容
       lightBoxToggle: false, // 图片放大显示层开关
-      currentObj: '', // 当前点击选中的图片信息
+      currentObj: "", // 当前点击选中的图片信息
       rejectData: [], // 驳回原因树状图
-      phoneAuditOne: '', // 初审电话审核记录表数据
-      phoneAuditTwo: '', // 复审电话审核记录表数据
-      machine_audit: '', // 机审结果数据
-      peopleOne_audit: '', // 人工初审结果数据
-      peopleTwo_audit: '', // 人工复审结果数据
+      phoneAuditOne: "", // 初审电话审核记录表数据
+      phoneAuditTwo: "", // 复审电话审核记录表数据
+      machine_audit: "", // 机审结果数据
+      peopleOne_audit: "", // 人工初审结果数据
+      peopleTwo_audit: "", // 人工复审结果数据
       moreCompanyFlag: false, // 公司检测点击更多弹窗
       telTip: false, // 电话呼叫按钮是否展示
-      companyCheckStr: '', // 公司检测信息
-      orderMultiCheckStr: '', // 多平台检测信息
-      followReason: '',
-      followReason1: '',
-      telHref: '', // 打电话路径
-      telNumber: '', // 电话号码
-    }
+      companyCheckStr: "", // 公司检测信息
+      orderMultiCheckStr: "", // 多平台检测信息
+      followReason: "",
+      followReason1: "",
+      telHref: "", // 打电话路径
+      telNumber: "" // 电话号码
+    };
   },
-  computed: {// 做国际化的选项卡
-    arr1 () {
-      let arr = []
+  computed: {
+    // 做国际化的选项卡
+    arr1() {
+      let arr = [];
       if (this.block == 1) {
-        arr.push({id: 4, title: this.$t('tab3.no4')})
-        arr.push({id: 1, title: this.$t('tab3.no1'), black:this.data.userBase.isBlack})
-        arr.push({id: 2, title: this.$t('tab3.no2')})
-        arr.push({id: 3, title: this.$t('tab3.no3')})
-        
-        arr.push({id: 5, title: this.$t('tab3.no5')})
-        arr.push({id: 6, title: this.$t('tab3.no6')})
-        arr.push({id: 7, title: this.$t('tab3.no7')})
-        arr.push({id: 9, title: this.$t('yn.no29')})
+        arr.push({ id: 4, title: this.$t("tab3.no4") });
+        arr.push({
+          id: 1,
+          title: this.$t("tab3.no1"),
+          black: this.data.userBase.isBlack
+        });
+        arr.push({ id: 2, title: this.$t("tab3.no2") });
+        arr.push({ id: 3, title: this.$t("tab3.no3") });
+
+        arr.push({ id: 5, title: this.$t("tab3.no5") });
+        arr.push({ id: 6, title: this.$t("tab3.no6") });
+        arr.push({ id: 7, title: this.$t("tab3.no7") });
+        arr.push({ id: 9, title: this.$t("yn.no29") });
       } else {
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_HIS')) {
-          arr.push({id: 4, title: this.$t('tab3.no4')})
+        if (this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_HIS")) {
+          arr.push({ id: 4, title: this.$t("tab3.no4") });
         }
-        
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_USER')) {
-          arr.push({id: 1, title: this.$t('tab3.no1')})
+
+        if (this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_USER")) {
+          arr.push({ id: 1, title: this.$t("tab3.no1") });
         }
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_CALL')) {
-          arr.push({id: 2, title: this.$t('tab3.no2')})
+        if (this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_CALL")) {
+          arr.push({ id: 2, title: this.$t("tab3.no2") });
         }
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_SMS')) {
-          arr.push({id: 3, title: this.$t('tab3.no3')})
+        if (this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_SMS")) {
+          arr.push({ id: 3, title: this.$t("tab3.no3") });
         }
-        
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REIVEW_OCR')) {
-          arr.push({id: 5, title: this.$t('tab3.no5')})
+
+        if (this.$store.state.common.permiss.includes("RIGHT_ME_REIVEW_OCR")) {
+          arr.push({ id: 5, title: this.$t("tab3.no5") });
         }
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_COMPANY')) {
-          arr.push({id: 6, title: this.$t('tab3.no6')})
+        if (
+          this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_COMPANY")
+        ) {
+          arr.push({ id: 6, title: this.$t("tab3.no6") });
         }
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_OTHER')) {
-          arr.push({id: 7, title: this.$t('tab3.no7')})
+        if (
+          this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_OTHER")
+        ) {
+          arr.push({ id: 7, title: this.$t("tab3.no7") });
         }
-        if (this.$store.state.common.permiss.includes('RIGHT_ME_ELECTRIC_RECORDING')) {
-          arr.push({id: 9, title: this.$t('yn.no29')})
+        if (
+          this.$store.state.common.permiss.includes(
+            "RIGHT_ME_ELECTRIC_RECORDING"
+          )
+        ) {
+          arr.push({ id: 9, title: this.$t("yn.no29") });
         }
         // if(this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_OTHER')){
         //   arr.push({id:8,title:this.$t('tab3.no8')})
         // }
       }
 
-      return arr
+      return arr;
     },
-    arr2 () {
-      let arr = []
-      arr.push({id: 1, title: this.$t('auditDetail.no62')})
-      arr.push({id: 2, title: this.$t('auditDetail.no65')})
-      return arr
+    arr2() {
+      let arr = [];
+      arr.push({ id: 1, title: this.$t("auditDetail.no62") });
+      arr.push({ id: 2, title: this.$t("auditDetail.no65") });
+      return arr;
     },
-    arr3 () {
-      let arr = []
-      arr.push({id: 1, title: this.$t('operationDetail.tab1.no1')})
-      arr.push({id: 2, title: this.$t('operationDetail.tab1.no2')})
-      return arr
+    arr3() {
+      let arr = [];
+      arr.push({ id: 1, title: this.$t("operationDetail.tab1.no1") });
+      arr.push({ id: 2, title: this.$t("operationDetail.tab1.no2") });
+      return arr;
     }
   },
   methods: {
@@ -1340,8 +1363,8 @@ export default {
           this.qizhascore = res.data.data.score;
           this.qizhamessage = res.data.data.message;
           this.qizhaupdateTime = res.data.data.updateTime;
-        }else{
-          this.$message.error(this.$t("auditDetail.no85"))
+        } else {
+          this.$message.error(this.$t("auditDetail.no85"));
         }
       });
     },
@@ -1356,41 +1379,51 @@ export default {
         orderId: this.orderId
       };
       this.$axios.post("", option).then(res => {
-        if (res.data.header.code == 0&&res.data.data.message=='SUCCESS') {
-          // console.log(res, "00000");
-          this.showjiancecore = true;
-          this.jiancemessage = res.data.data.message;
-          this.jianceupdateTime = res.data.data.updateTime;
-          this.CustomerInfoData = res.data.data.statisticCustomerInfo;
-          this.TwoWeeksQueryInfoData = res.data.data.lastTwoWeeksQueryInfo;
-        }
-        else{ 
-             this.$message.error(this.$t("auditDetail.no85"))
+        if (res.data.header.code == 0) {
+          if (res.data.data.message == "SUCCESS") {  //成功获取多头数据
+            // console.log(res, "00000");
+            this.showjiancecore = true;
+            this.showReturnSuccess = true;
+            this.jiancemessage = res.data.data.message;
+            this.jianceupdateTime = res.data.data.updateTime;
+            this.CustomerInfoData = res.data.data.statisticCustomerInfo;
+            this.TwoWeeksQueryInfoData = res.data.data.lastTwoWeeksQueryInfo;
+          } else {                           //调用成功，但是没有获取数据
+            this.showjiancecore = true;
+            this.jiancemessage = res.data.data.message;
+            this.jianceupdateTime = res.data.data.updateTime;
+          }
+        } else {                             //接口调用失败
+          this.$message.error(this.$t("auditDetail.no85"));
         }
         // console.log(this.CustomerInfoData, "666");
       });
     },
-    openBox: function (obj) { // 图片点击放大
-      this.currentObj = obj
-      this.lightBoxToggle = !this.lightBoxToggle
+    openBox: function(obj) {
+      // 图片点击放大
+      this.currentObj = obj;
+      this.lightBoxToggle = !this.lightBoxToggle;
     },
-    closeBox: function () { // 图片点击放小
-      this.lightBoxToggle = false
+    closeBox: function() {
+      // 图片点击放小
+      this.lightBoxToggle = false;
     },
-    telDetail () { // 传入通话子组件的方法
-      this.telRecord2()// 复审电话审核记录
+    telDetail() {
+      // 传入通话子组件的方法
+      this.telRecord2(); // 复审电话审核记录
     },
-    detail () { // 复审页面详细信息
+    detail() {
+      // 复审页面详细信息
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.myAuditDetail_list,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
         orderNo: this.orderNo,
         userId: this.userId
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
           this.data = res.data.data;
           this.data.userBase = res.data.data.userBase;
@@ -1410,256 +1443,312 @@ export default {
           this.data.contactFive = res.data.data.contactFive;
           this.data.userOrderCount = res.data.data.userOrderCount;
           this.data.oldUserIdCard = res.data.data.oldUserIdCard;
-          if (res.data.data.userWork.companyCheckStr !== null && res.data.data.userWork.companyCheckStr !== undefined && res.data.data.userWork.companyCheckStr !== '') {
-            this.companyCheckStr = JSON.parse(res.data.data.userWork.companyCheckStr)
+          if (
+            res.data.data.userWork.companyCheckStr !== null &&
+            res.data.data.userWork.companyCheckStr !== undefined &&
+            res.data.data.userWork.companyCheckStr !== ""
+          ) {
+            this.companyCheckStr = JSON.parse(
+              res.data.data.userWork.companyCheckStr
+            );
           }
-          if (res.data.data.orderMultiCheck !== null && res.data.data.orderMultiCheck !== undefined && res.data.data.orderMultiCheck !== '') {
-            this.orderMultiCheckStr = JSON.parse(res.data.data.orderMultiCheck.checkStr)
+          if (
+            res.data.data.orderMultiCheck !== null &&
+            res.data.data.orderMultiCheck !== undefined &&
+            res.data.data.orderMultiCheck !== ""
+          ) {
+            this.orderMultiCheckStr = JSON.parse(
+              res.data.data.orderMultiCheck.checkStr
+            );
           }
         }
-      })
+      });
     },
-    telRecord1 () { // 初审电话审核记录
+    telRecord1() {
+      // 初审电话审核记录
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.telRecord_one,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        approveType: '1',
+        approveType: "1",
         orderNo: this.orderNo,
         adminId: this.userId
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.phoneAuditOne = res.data.data
+          this.phoneAuditOne = res.data.data;
         }
-      })
+      });
     },
-    telRecord2 () { // 复审电话审核记录
+    telRecord2() {
+      // 复审电话审核记录
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.telRecord_one,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        approveType: '2',
+        approveType: "2",
         orderNo: this.orderNo,
         adminId: this.userId
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.phoneAuditTwo = res.data.data
+          this.phoneAuditTwo = res.data.data;
         }
-      })
+      });
     },
-    reject () { // 驳回原因内容
+    reject() {
+      // 驳回原因内容
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.reject,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
         orderNo: this.orderNo,
         userId: this.userId
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.rejectData = res.data.data
-          this.rejectData.forEach(value => { // 用户选择第一个驳回原因的时候检测status2的值动态生成第二个驳回原因的值
-            value.value = value.optionValue// 取optionValue值作为选择框的value值
-            value.label = value.optionName// 取optionName值作为选择框的label值
-            this.options2.push({value: value.optionValue, label: value.optionName})
-            if (value.children) { // 如果存在children，再次循环做原因子类别的赋值
+          this.rejectData = res.data.data;
+          this.rejectData.forEach(value => {
+            // 用户选择第一个驳回原因的时候检测status2的值动态生成第二个驳回原因的值
+            value.value = value.optionValue; // 取optionValue值作为选择框的value值
+            value.label = value.optionName; // 取optionName值作为选择框的label值
+            this.options2.push({
+              value: value.optionValue,
+              label: value.optionName
+            });
+            if (value.children) {
+              // 如果存在children，再次循环做原因子类别的赋值
               value.children.forEach(item => {
-                item.value = item.optionValue
-                item.label = item.optionName
-              })
+                item.value = item.optionValue;
+                item.label = item.optionName;
+              });
             }
-          })
+          });
         }
-      })
+      });
     },
-    auditResult1 () { // 机审结果展示
+    auditResult1() {
+      // 机审结果展示
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.audit_result,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        approveType: '1',
+        approveType: "1",
         orderNo: this.orderNo
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.machine_audit = res.data.data
+          this.machine_audit = res.data.data;
         }
-      })
+      });
     },
-    auditResult2 () { // 初审结果展示
+    auditResult2() {
+      // 初审结果展示
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.audit_result,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        approveType: '2',
+        approveType: "2",
         orderNo: this.orderNo
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.peopleOne_audit = res.data.data
+          this.peopleOne_audit = res.data.data;
         }
-      })
+      });
     },
-    auditResult3 () { // 复审结果展示
+    auditResult3() {
+      // 复审结果展示
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.audit_result,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        approveType: '3',
+        approveType: "3",
         orderNo: this.orderNo
-      }
-      this.$axios.post('', option).then(res => {
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.peopleTwo_audit = res.data.data
+          this.peopleTwo_audit = res.data.data;
         }
-      })
+      });
     },
-    submit () { // 复审结果提交操作
-      if (this.status1 == '') { // 验证结果是否选择
-        this.$globalMsg.error(this.$t('auditDetail.no29'))
-        return
+    submit() {
+      // 复审结果提交操作
+      if (this.status1 == "") {
+        // 验证结果是否选择
+        this.$globalMsg.error(this.$t("auditDetail.no29"));
+        return;
       }
-      if (this.status1 == -1) { // 验证驳回结果是否选择
-        if (this.status2 == '' || this.status3 == '') {
-          this.$globalMsg.error(this.$t('auditDetail.no25'))
-          return
+      if (this.status1 == -1) {
+        // 验证驳回结果是否选择
+        if (this.status2 == "" || this.status3 == "") {
+          this.$globalMsg.error(this.$t("auditDetail.no25"));
+          return;
         }
       }
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
             action: this.$store.state.actionMap.Result_twoSubmit,
-            'sessionid': this.sessionid
+            sessionid: this.sessionid
           },
           orderNo: this.orderNo,
           approveResult: this.status1,
           remark: this.remark
-        }
+        };
         if (this.status1 == -1) {
-          option.notApproveReason = this.status2
-          option.notApproveSubReason = this.status3
+          option.notApproveReason = this.status2;
+          option.notApproveSubReason = this.status3;
         }
-        this.$axios.post('', option).then(res => {
-          this.flag = true
+        this.$axios.post("", option).then(res => {
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('auditDetail.no26'))
+            this.$globalMsg.success(this.$t("auditDetail.no26"));
             setTimeout(() => {
-              this.$router.push('/mySecondtAuditList')
-            }, 1000)
+              this.$router.push("/mySecondtAuditList");
+            }, 1000);
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-        })
+        });
       }
     },
-    submit1 () { // 跟踪结果提交操作
+    submit1() {
+      // 跟踪结果提交操作
       if (this.flag) {
-        this.flag = false
+        this.flag = false;
         let option = {
           header: {
             ...this.$base,
             action: this.$store.state.actionMap.follow_submit,
-            'sessionid': this.sessionid
+            sessionid: this.sessionid
           },
-          approveType: '3',
+          approveType: "3",
           orderNo: this.orderNo,
           orderId: this.orderId,
           remark: this.remark1
-        }
-        this.$axios.post('', option).then(res => {
-          this.flag = true
+        };
+        this.$axios.post("", option).then(res => {
+          this.flag = true;
           if (res.data.header.code == 0) {
-            this.$globalMsg.success(this.$t('auditDetail.no26'))
-            this.followHistory()
+            this.$globalMsg.success(this.$t("auditDetail.no26"));
+            this.followHistory();
           } else {
-            this.$globalMsg.error(res.data.header.msg)
+            this.$globalMsg.error(res.data.header.msg);
           }
-          this.remark1 = ''
-        })
+          this.remark1 = "";
+        });
       }
     },
-    moreCompany () {
-
+    moreCompany() {},
+    back() {
+      // 页面无数据时，点击返回
+      window.history.go(-1);
     },
-    back () { // 页面无数据时，点击返回
-      window.history.go(-1)
-    },
-    telSubmit () {
+    telSubmit() {
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.telRecord_submit,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
         orderNo: this.orderNo,
         orderId: this.orderId,
-        approveType: '2',
-        phone: '',
-        userName: '',
+        approveType: "2",
+        phone: "",
+        userName: "",
         connectStatus: this.telStatus,
-        relation: '',
+        relation: "",
         remark: this.telRemark
-      }
+      };
       if (this.telFlag) {
-        option.phone = this.data.userBase.phone
-        option.userName = this.data.userBase.name
+        option.phone = this.data.userBase.phone;
+        option.userName = this.data.userBase.name;
       }
       if (this.telFlag1) {
-        option.phone = this.data.userWork.companyPhone
-        option.userName = this.data.userWork.company
+        option.phone = this.data.userWork.companyPhone;
+        option.userName = this.data.userWork.company;
       }
       if (this.telFlag2) {
-        option.phone = this.data.userUrgentContact.contactOnePhone ? this.data.userUrgentContact.contactOnePhone : ''
-        option.relation = this.data.userUrgentContact.contactOneRelation ? this.data.userUrgentContact.contactOneRelation : ''
-        option.userName = this.data.userUrgentContact.contactOneName ? this.data.userUrgentContact.contactOneName : ''
+        option.phone = this.data.userUrgentContact.contactOnePhone
+          ? this.data.userUrgentContact.contactOnePhone
+          : "";
+        option.relation = this.data.userUrgentContact.contactOneRelation
+          ? this.data.userUrgentContact.contactOneRelation
+          : "";
+        option.userName = this.data.userUrgentContact.contactOneName
+          ? this.data.userUrgentContact.contactOneName
+          : "";
       }
       if (this.telFlag3) {
-        option.phone = this.data.userUrgentContact.contactTwoPhone ? this.data.userUrgentContact.contactTwoPhone : ''
-        option.relation = this.data.userUrgentContact.contactTwoRelation ? this.data.userUrgentContact.contactTwoRelation : ''
-        option.userName = this.data.userUrgentContact.contactTwoName ? this.data.userUrgentContact.contactTwoName : ''
+        option.phone = this.data.userUrgentContact.contactTwoPhone
+          ? this.data.userUrgentContact.contactTwoPhone
+          : "";
+        option.relation = this.data.userUrgentContact.contactTwoRelation
+          ? this.data.userUrgentContact.contactTwoRelation
+          : "";
+        option.userName = this.data.userUrgentContact.contactTwoName
+          ? this.data.userUrgentContact.contactTwoName
+          : "";
       }
       if (this.telFlag4) {
-        option.phone = this.data.userUrgentContact.contactThreePhone ? this.data.userUrgentContact.contactThreePhone : ''
-        option.relation = this.data.userUrgentContact.contactThreeRelation ? this.data.userUrgentContact.contactThreeRelation : ''
-        option.userName = this.data.userUrgentContact.contactThreeName ? this.data.userUrgentContact.contactThreeName : ''
+        option.phone = this.data.userUrgentContact.contactThreePhone
+          ? this.data.userUrgentContact.contactThreePhone
+          : "";
+        option.relation = this.data.userUrgentContact.contactThreeRelation
+          ? this.data.userUrgentContact.contactThreeRelation
+          : "";
+        option.userName = this.data.userUrgentContact.contactThreeName
+          ? this.data.userUrgentContact.contactThreeName
+          : "";
       }
       if (this.telFlag7) {
-        option.phone = this.data.userUrgentContact.contactFourPhone ? this.data.userUrgentContact.contactFourPhone : '';
-        option.relation = this.data.userUrgentContact.contactFourRelation ? this.data.userUrgentContact.contactFourRelation : '';
-        option.userName = this.data.userUrgentContact.contactFourName ? this.data.userUrgentContact.contactFourName : '';
+        option.phone = this.data.userUrgentContact.contactFourPhone
+          ? this.data.userUrgentContact.contactFourPhone
+          : "";
+        option.relation = this.data.userUrgentContact.contactFourRelation
+          ? this.data.userUrgentContact.contactFourRelation
+          : "";
+        option.userName = this.data.userUrgentContact.contactFourName
+          ? this.data.userUrgentContact.contactFourName
+          : "";
       }
       if (this.telFlag8) {
-        option.phone = this.data.userUrgentContact.contactFivePhone ? this.data.userUrgentContact.contactFivePhone : '';
-        option.relation = this.data.userUrgentContact.contactFiveRelation ? this.data.userUrgentContact.contactFiveRelation : '';
-        option.userName = this.data.userUrgentContact.contactFiveName ? this.data.userUrgentContact.contactFiveName : '';
+        option.phone = this.data.userUrgentContact.contactFivePhone
+          ? this.data.userUrgentContact.contactFivePhone
+          : "";
+        option.relation = this.data.userUrgentContact.contactFiveRelation
+          ? this.data.userUrgentContact.contactFiveRelation
+          : "";
+        option.userName = this.data.userUrgentContact.contactFiveName
+          ? this.data.userUrgentContact.contactFiveName
+          : "";
       }
-      this.$axios.post('', option).then(res => {
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.$globalMsg.success(this.$t('message.success'))
+          this.$globalMsg.success(this.$t("message.success"));
         } else {
-          this.$globalMsg.error(res.data.header.msg)
+          this.$globalMsg.error(res.data.header.msg);
         }
-        this.telRecord2()
-        this.telClose()
-      })
+        this.telRecord2();
+        this.telClose();
+      });
     },
-    telClose () {
+    telClose() {
       this.telFlag = false;
       this.telFlag1 = false;
       this.telFlag2 = false;
@@ -1668,145 +1757,159 @@ export default {
       this.telFlag7 = false;
       this.telFlag8 = false;
       this.telTip = false;
-      this.telStatus = '';
-      this.telHref = '';
-      this.telRemark = '';
+      this.telStatus = "";
+      this.telHref = "";
+      this.telRemark = "";
     },
-    followHistory () { // 获取跟踪记录查询历史
+    followHistory() {
+      // 获取跟踪记录查询历史
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.follow_history,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
         orderNo: this.orderNo,
-        approveType: '3'
-      }
-      this.$axios.post('', option).then(res => {
+        approveType: "3"
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.followReason = res.data.data
+          this.followReason = res.data.data;
         }
-      })
+      });
     },
-    followHistory1 () { // 获取跟踪记录查询历史
+    followHistory1() {
+      // 获取跟踪记录查询历史
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.follow_history,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
         orderNo: this.orderNo,
-        approveType: '2'
-      }
-      this.$axios.post('', option).then(res => {
+        approveType: "2"
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.followReason1 = res.data.data
+          this.followReason1 = res.data.data;
         }
-      })
+      });
     },
-    getDefaultActive () {
-      if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_HIS')) {
-        this.active = 4
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_CALL')) {
-        this.active = 2
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_SMS')) {
-        this.active = 3
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_USER')) {
-        this.active = 1
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REIVEW_OCR')) {
-        this.active = 5
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_COMPANY')) {
-        this.active = 6
-      } else if (this.$store.state.common.permiss.includes('RIGHT_ME_REVIEW_OTHER')) {
-        this.active = 7
+    getDefaultActive() {
+      if (this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_HIS")) {
+        this.active = 4;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_CALL")
+      ) {
+        this.active = 2;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_SMS")
+      ) {
+        this.active = 3;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_USER")
+      ) {
+        this.active = 1;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REIVEW_OCR")
+      ) {
+        this.active = 5;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_COMPANY")
+      ) {
+        this.active = 6;
+      } else if (
+        this.$store.state.common.permiss.includes("RIGHT_ME_REVIEW_OTHER")
+      ) {
+        this.active = 7;
       }
     },
-    openTelWindow( tel, str ){
-      if(tel){
+    openTelWindow(tel, str) {
+      if (tel) {
         this.telTip = true;
         this.telNumber = tel;
       }
-      switch(str){
-        case '1':
+      switch (str) {
+        case "1":
           this.telFlag = true;
           break;
-        case '2':
+        case "2":
           this.telFlag1 = true;
           break;
-        case '3':
+        case "3":
           this.telFlag2 = true;
           break;
-        case '4':
+        case "4":
           this.telFlag3 = true;
           break;
-        case '5':
+        case "5":
           this.telFlag4 = true;
           break;
-        case '8':
+        case "8":
           this.telFlag7 = true;
           break;
-        case '9':
+        case "9":
           this.telFlag8 = true;
           break;
       }
-      
-      
     },
-    callPhone(){
+    callPhone() {
       let option = {
         header: {
           ...this.$base,
           action: this.$store.state.actionMap.TELEPHONE0001,
-          'sessionid': this.sessionid
+          sessionid: this.sessionid
         },
-        orderId:this.orderId,
-        phone:this.telNumber,
-        type:1
-      }
-      this.$axios.post('', option).then(res => {
+        orderId: this.orderId,
+        phone: this.telNumber,
+        type: 1
+      };
+      this.$axios.post("", option).then(res => {
         if (res.data.header.code == 0) {
-          this.telHref = 'sip:'+this.telNumber+','+res.data.data;
+          this.telHref = "sip:" + this.telNumber + "," + res.data.data;
           window.location.href = this.telHref;
-        }else{
+        } else {
           this.$globalMsg.error(res.data.header.msg);
         }
-      })
+      });
     }
   },
   watch: {
-    status2 () { // 检测驳回结果1，推出相应的驳回原因2
-      this.options3 = []
-      this.status3 = ''
+    status2() {
+      // 检测驳回结果1，推出相应的驳回原因2
+      this.options3 = [];
+      this.status3 = "";
       let arr = this.rejectData.filter(value => {
-        return value.optionValue == this.status2
-      })
-      this.options3 = arr[0].children
+        return value.optionValue == this.status2;
+      });
+      this.options3 = arr[0].children;
     },
-    status1 () { // 结果通过的时候清除驳回原因数据
+    status1() {
+      // 结果通过的时候清除驳回原因数据
       if (this.status1 == 1) {
-        this.status2 = ''
-        this.status3 = ''
+        this.status2 = "";
+        this.status3 = "";
       }
     }
   },
-  mounted () {
-    this.sessionid = sessionStorage.getItem('sessionid');
+  mounted() {
+    this.sessionid = sessionStorage.getItem("sessionid");
 
     this.userId = this.$route.query.userid;
     this.orderNo = this.$route.query.orderNo;
     this.orderId = this.$route.query.orderId;
     this.block = this.$route.query.block;
 
-    this.detail()// 页面详情数据
+    this.detail(); // 页面详情数据
     // this.telRecord1()// 初审电话记录列表
-    this.telRecord2()// 初审电话记录列表
-    this.reject()// 驳回原因树状图
+    this.telRecord2(); // 初审电话记录列表
+    this.reject(); // 驳回原因树状图
     // this.auditResult1()// 机审结果展示
-    this.auditResult2()// 初审结果展示
-    this.auditResult3()// 复审结果展示
-    this.followHistory()// 获取跟踪记录结果
-    this.followHistory1()// 获取初审跟踪记录结果
-    this.getDefaultActive()// 获取默认展示的选项卡1
+    this.auditResult2(); // 初审结果展示
+    this.auditResult3(); // 复审结果展示
+    this.followHistory(); // 获取跟踪记录结果
+    this.followHistory1(); // 获取初审跟踪记录结果
+    this.getDefaultActive(); // 获取默认展示的选项卡1
     let option = {
       header: {
         ...this.$base,
@@ -1840,7 +1943,7 @@ export default {
       }
     });
   }
-}
+};
 </script>
 <style scoped lang="scss">
 @mixin flex-cen {
