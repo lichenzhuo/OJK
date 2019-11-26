@@ -38,6 +38,7 @@ const vinacashone = 'vinacashone'; // 三方
 const vaygapvip = '761616.vip'; // 三方
 const tencentsu = 'tencentsu'; // 三方
 const cash_daday = 'cash-mama'; // 三方
+const vaydedangvinacash='vaydedangvinacash'   //越南三方域名
 
 const fullCurrentDomain = window.location.href.split('?')[0];
 
@@ -121,7 +122,13 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   lang = 'vi';
   first_unit = '';
   last_unit = 'VND';
-} else if (fullCurrentDomain.indexOf(vinacashone) > -1) {
+} else if (fullCurrentDomain.indexOf(vaydedangvinacash) > -1) {
+  domain = `http://api.vaydedangvinacash.com`;
+  headerTotal = 'Vina Cash';
+  lang = 'vi';
+  first_unit = '';
+  last_unit = 'VND';
+}else if (fullCurrentDomain.indexOf(vinacashone) > -1) {
   domain = `http://api.vinacashone.com`;
   headerTotal = 'vinacash';
   lang = 'vi';
