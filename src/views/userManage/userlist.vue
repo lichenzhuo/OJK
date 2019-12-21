@@ -156,6 +156,11 @@
               <span>{{$t($store.getters.blackStatus(scope.row.isBlack))}}</span>
             </template>
           </el-table-column>
+          <!-- <el-table-column align="center" prop="strRegTime" label="禁言时间" width="86">
+            <template slot-scope="scope">
+               <span>{{scope.row.strRegTime}}天</span>
+            </template>
+          </el-table-column> -->
           <el-table-column align="center" prop="strRegTime" :label="$t('public.registerDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="appName" :label="$t('new.no48')" >
@@ -164,9 +169,10 @@
           </el-table-column>
           <el-table-column align="center" prop="regDeviceName" :label="$t('public.registerClient')" >
           </el-table-column>
-          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" width="180" >
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_DETAIL')">
               <span class="table_opr" @click="socialDetali(scope.row.id)">{{$t('public.detail')}}</span>
+              <!-- <span v-if="scope.row.strRegTime=='2019-11-22 12:21:28'" class="table_opr" @click="socialDetali(scope.row.id)">解除禁言</span> -->
             </template>
           </el-table-column>
         </el-table>
@@ -205,15 +211,21 @@
               <span>{{$t($store.getters.blackStatus(scope.row.isBlack))}}</span>
             </template>
           </el-table-column>
+          <!-- <el-table-column align="center" prop="orderCount" label="禁言时间" width="86">
+            <template slot-scope="scope">
+               <span>{{scope.row.orderCount}}天</span>
+            </template>
+          </el-table-column> -->
           <el-table-column align="center" prop="strRegTime" :label="$t('public.registerDate')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="appName" :label="$t('new.no48')" >
           </el-table-column>
           <el-table-column align="center" prop="appPackage" :label="$t('new.no49')" >
           </el-table-column>
-          <el-table-column align="center" prop="operation" :label="$t('public.operation')" >
+          <el-table-column align="center" prop="operation" :label="$t('public.operation')" width="180" >
             <template slot-scope="scope" v-if="$store.state.common.permiss.includes('RIGHT_USER_LIST_DETAIL')">
               <span class="table_opr" @click="socialDetali(scope.row.id)">{{$t('public.detail')}}</span>
+              <!-- <span v-if="scope.row.orderCount!==0" class="table_opr" @click="removeMuted(scope.row.id)">解除禁言</span> -->
             </template>
           </el-table-column>
         </el-table>
@@ -345,6 +357,14 @@ export default {
     socialDetali (id) { // 查看详情操作
       this.$router.push({path: '/userdetail?userId=' + id});
     },
+    // removeMuted(id){   //取消禁言
+    //   console.log(id,'000')
+    //   this.$message({
+    //       message: '解除禁言',
+    //       type: 'success'
+    //     });
+    //     //成功之后根据接口反馈状态码判定是否成功，成功应该刷新列表，使解除禁言消失
+    // },
     select () { // 点击查询按钮操作
       this.tableSelect = '';
       this.radioVal = '';
@@ -372,6 +392,7 @@ export default {
         this.flag = true;
         if (res.data.header.code == 0) {
           this.tableData = res.data.data;
+          // console.log(res.data.data,'111')
           this.pageTotal = res.data.header.page.total;
         }else{
           this.$globalMsg.error(res.data.header.msg)

@@ -14,6 +14,24 @@ const cn = {
     float: '请输入整数或小数',
     zero: '请输入0-1之间的数字'
   },
+  check:{  //空号检测
+    no1:'空号检测',
+    no2:'无效号码',
+    no3:'正常号码',
+    no4:'占线',
+    no5:'号码欠费',
+    no6:'呼叫等待',
+    no7:'关机',
+    no8:'不在服务区',
+    no9:'未激活',
+    no10:'错误号码',
+    no11:'未知',
+    no12:'检测超限',
+    no13:'确定检测紧急联系人的号码状态吗？',
+    no14:'达到查询上限',
+    no15:'确定',
+    no16:'检测失败',
+  },
   message: {// 提示框提示消息相关
     error: '网络错误，稍后再试',
     success: '操作成功',
@@ -29,7 +47,8 @@ const cn = {
     cancel: '取消',
     oldPassWord: '旧密码',
     newPassWord: '新密码',
-    newPassWordTwo: '确认密码'
+    newPassWordTwo: '确认密码',
+    OperationManual: '操作手册',
   },
   sidebar: {// 侧边栏相关信息
     adminHome: '工作台',

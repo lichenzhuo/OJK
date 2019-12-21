@@ -16,6 +16,7 @@
             <img class="user-logo" src="../../assets/img/guanliyuan.png">
           </div>
             <span>{{username}}</span>
+            <a href="https://shimo.im/docs/RPvVYJWvWxYYVKgr/ " target="_blank" >{{$t('header.OperationManual')}}</a>
             <router-link :to="{path:'/adminhome'}">{{$t('header.main')}}</router-link>
             <el-dropdown trigger="click">
                 <span class="el-dropdown-link">

@@ -14,6 +14,24 @@ const id = {
     float: 'angka decimal atau bulat diperbolehkan',
     zero: '请输入0-1之间的数字'
   },
+  check:{  //空号检测
+    no1:'Deteksi nomor kosong',
+    no2:'Nomor tidak valid',
+    no3:'Angka normal',
+    no4:'Sibuk',
+    no5:'Tunggakan angka',
+    no6:'Panggilan tunggu',
+    no7:'Shutdown',
+    no8:'Keluar dari area layanan',
+    no9:'Tidak diaktifkan',
+    no10:'Nomor salah',
+    no11:'Tidak dikenal',
+    no12:'Deteksi terlampaui',
+    no13:'Yakin ingin mendeteksi status nomor kontak darurat?',
+    no14:'Batas kueri tercapai',
+    no15:'Oke',
+    no16:'Deteksi gagal',
+  },
   message: {// 提示框提示消息相关
     error: 'Kesalahan jaringan,coba lagi nanti',
     success: 'Berhasil',
@@ -28,7 +46,8 @@ const id = {
     cancel: 'Batal',
     oldPassWord: 'kata sandi lama',
     newPassWord: 'silahkan masukkan kata sandi baru',
-    newPassWordTwo: 'silahkan masukkan kata sandi baru'
+    newPassWordTwo: 'silahkan masukkan kata sandi baru',
+    OperationManual: 'Manual operasi',
   },
   sidebar: {// 侧边栏相关信息
     adminHome: 'Pengelolaan pemeriksaan pengendalian resiko',
