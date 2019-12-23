@@ -36,12 +36,13 @@ module.exports = {
       }
     }
   },
-  // configureWebpack: {
-  //   externals: {
-  //     'vue': 'Vue',
-  //     'vue-router': 'VueRouter',
-  //     'vuex': 'Vuex',
-  //     'element-ui': 'ELEMENT',
-  //   }
-  // }
+  configureWebpack: {
+    devtool: 'source-map',
+    // externals: {
+    //   'vue': 'Vue',
+    //   'vue-router': 'VueRouter',
+    //   'vuex': 'Vuex',
+    //   'element-ui': 'ELEMENT',
+    // }
+  }
 }
