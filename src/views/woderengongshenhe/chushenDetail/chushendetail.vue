@@ -2473,6 +2473,7 @@ $color2: #000;
 }
 .classMessage {
   margin-right: 20px;
+  font-weight: bold;
 }
 .threetips {
   color: #909399;
