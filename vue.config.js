@@ -10,7 +10,7 @@ module.exports = {
   lintOnSave: false, //是否开启eslint保存检测 ,它的有效值为 true || false || 'error'
   productionSourceMap: false,
   // productionGzip: true,
-  devServer: {
+  devServer:   {
     // open:true,//启动项目后自动开启浏览器
     host: 'localhost', //对应的主机名
     port: 8080, //端口号
