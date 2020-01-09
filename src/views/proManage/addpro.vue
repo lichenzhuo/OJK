@@ -1,6 +1,6 @@
 <template>
   <div class="adduser">
-    <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm2" label-width="110px" class="demo-ruleForm">
+    <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm2" label-width="160px" class="demo-ruleForm">
         <el-form-item :label="$t('new.no49')" prop="appPackage">
           <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名">
             <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
@@ -16,9 +16,53 @@
         <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
             <el-input type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('proManage.no6')" prop="firstFuwu">
+             <el-radio v-model="ruleForm2.firstFuwu" label="1">是</el-radio>
+             <el-radio v-model="ruleForm2.firstFuwu" label="2">否</el-radio>
+        </el-form-item>
         <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
             <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item :label="$t('proManage.no7')" prop="firstLixi">
+             <el-radio v-model="ruleForm2.firstLixi" label="1">是</el-radio>
+             <el-radio v-model="ruleForm2.firstLixi" label="2">否</el-radio>
+        </el-form-item>
+        <el-form-item :label="$t('public.no27')" prop="firstLixi">
+             <el-input type="text" v-model="ruleForm2.overdueMaxAmount" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="分期期数" prop="qishu">
+          <el-select v-model="ruleForm2.qishu" placeholder="请选择分期数" @change="qishuChange">
+            <el-option v-for="item in qishuArr" :key="item.index" v-model="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="每期天数" prop="perTime" >
+          <span>
+            <template v-if="inputArr.length==0">
+              <el-input type="text" size="mini" disabled="true" placeholder="请选择" style="width:70px;margin-right:10px;margin-bottom:5px" ></el-input>
+            </template>
+            <template v-else>
+              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.value" ></el-input>
+            </template>
+          </span>
+        </el-form-item>
+        <!-- <div style="margin-left:90px"> 
+          <span>每期天数</span> 
+          <div style="margin-left:70px">
+            <template v-if="inputArr.length==0">
+               <input class="inputClass" disabled placeholder="请选择" >
+           </template>
+           <template v-else>
+            <input class="inputClass" v-for="item in inputArr" :key="item.index" v-model="item.value" >
+           </template>
+          </div>
+        </div> -->
+        <!-- <el-form-item label="每期天数" prop="feeRate">
+            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
+            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
+            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
+            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
+        </el-form-item> -->
         <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
           <el-input type="text" v-model="ruleForm2.overdueInterest" auto-complete="off"></el-input>
         </el-form-item>
@@ -100,12 +144,26 @@ export default {
         }
       }
     }
+    var validateperTime = (rule, value, callback) => {
+      let reg = /^[0-9]+(.[0-9]{1,4})?$/
+      if (value === '') {
+        callback(new Error(this.$t('login.required')))
+      } else {
+        if (reg.test(value)) {
+          callback()
+        } else {
+          callback(new Error(this.$t('login.float')))
+        }
+      }
+    }
     return {
       sessionid: '',
       ruleForm2: {
         productAmount: '',
         productPeriod: '',
         feeRate: '',
+        firstFuwu:'',   //服务费是否先收
+        firstLixi:"",   //利息是否先收
         dayInterest: '',
         overdueInterest: '',
         overdueMaxDays: '',
@@ -115,7 +173,24 @@ export default {
         userGrade: [],
         minSuccessRepayments: '',
         userOverdueMaxDays: '',
+        qishu:'',       //分期数
       },
+      inputArr:[],     //分期数对应的input数组
+      // inputValue:'',
+      qishuArr:[      //分期数下拉框
+        {value:1,label:'1期'},
+        {value:2,label:'2期'},
+        {value:3,label:'3期'},
+        {value:4,label:'4期'},
+        {value:5,label:'5期'},
+        {value:6,label:'6期'},
+        {value:7,label:'7期'},
+        {value:8,label:'8期'},
+        {value:9,label:'9期'},
+        {value:10,label:'10期'},
+        {value:11,label:'11期'},
+        {value:12,label:'12期'},
+      ],
       rules: {// 验证规则
         productAmount: [
           { validator: validateFloat, trigger: 'blur', required: true }
@@ -147,43 +222,67 @@ export default {
         minSuccessRepayments: [
           { validator: validateNumber2, trigger: 'blur', required: true }
         ],
+        perTime: [       //每期天数校验
+          { validator: validateperTime, trigger: 'blur', required: true }
+        ],
         userGrade: [
           { required: true, trigger: 'change' }
         ],
         appPackage: [
-          { required: true, trigger: 'change' }
-        ]
+          { required: true,  message:'Required' ,trigger: 'change' }   
+        ],
+        qishu: [
+          { required: true,  message:'Required' ,trigger: 'change' }   
+        ],
+        firstFuwu: [
+          { required: true,  message:'Required' ,trigger: 'change' }
+        ],
+        firstLixi: [
+          { required: true,  message:'Required' ,trigger: 'change' }
+        ],
       }
 
     }
   },
   methods: {
-    submitForm (formName) {
-      let option = {
-        header: {
-          action: this.$store.state.actionMap.pro_add_modify,
-          ...this.$base,
-          sessionid: this.sessionid
-        },
-        method: 'add',
-        ...this.ruleForm2,
-        // userGrade:this.ruleForm2.userGrade.join(',')
+    qishuChange(e){
+      console.log(e)
+      let newArr=[]
+      // newArr.push({id:e,value:e})
+      for (let i = 0; i < e; i++) {
+        newArr.push({id:i,number:i,value:''})
       }
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$axios.post('', option).then(res => {
-            if (res.data.header.code == 0) {
-              this.$globalMsg.success(this.$t('message.success'))
-              this.addclose()
-              this.proList()
-            } else {
-              this.$globalMsg.error(this.$t('idManage.err'))
-            }
-          })
-        } else {
-          return false
-        }
-      })
+      console.log(newArr)
+      this.inputArr=newArr
+    },
+    submitForm (formName) {
+      // console.log(this.inputValue)
+      console.log(this.inputArr)
+      // let option = {
+      //   header: {
+      //     action: this.$store.state.actionMap.pro_add_modify,
+      //     ...this.$base,
+      //     sessionid: this.sessionid
+      //   },
+      //   method: 'add',
+      //   ...this.ruleForm2,
+      //   // userGrade:this.ruleForm2.userGrade.join(',')
+      // }
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     this.$axios.post('', option).then(res => {
+      //       if (res.data.header.code == 0) {
+      //         this.$globalMsg.success(this.$t('message.success'))
+      //         this.addclose()
+      //         this.proList()
+      //       } else {
+      //         this.$globalMsg.error(this.$t('idManage.err'))
+      //       }
+      //     })
+      //   } else {
+      //     return false
+      //   }
+      // })
     }
     // reset() {
     //   this.$router.push({path:'/promanage'})
@@ -215,4 +314,13 @@ export default {
     }
   }
 }
+// .inputClass{
+//     width: 70px;
+//     margin-right: 10px;
+//     margin-bottom: 10px;
+//     height: 25px;
+//     border-radius: 5px;
+//     border: 1px solid #DCDFE6;
+//     text-align: center;
+// }
 </style>

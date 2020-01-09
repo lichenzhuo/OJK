@@ -24,7 +24,7 @@ module.exports = {
 
     config.output.filename('[name].[hash].js').end();
 
-    
+
   },
   css: {
     loaderOptions: {

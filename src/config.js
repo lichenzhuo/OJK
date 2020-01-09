@@ -257,12 +257,14 @@ if (fullCurrentDomain.indexOf(ynDEV) > -1) {
   last_unit = 'PHP';
   moneySplit = '$1,';
 } else {
-   domain = 'http://api.sanjinxia.com'; 
+  //  domain = 'http://api.sanjinxia.com'; 
   // domain = `http://api-vn.sanjinxia.com`; // vn 本地接口
   // domain = `http://10.0.53.139:10025`; // vn 本地接口
   // domain = `http://api-ph.sanjinxia.com`; // ph 测试接口
   // domain = `http://api.myrupiah123.com`; // ph 本地接口
   // domain = 'http://277h01s698.qicp.vip:44831'; //  id测试接口
+  domain = 'http://api_refactor_sms.sanjinxia.com'; 
+  
   
   headerTotal = 'My Dong';
   lang = 'id';// 切换语言版本 vi 越南  id 印尼 PHL 菲律宾

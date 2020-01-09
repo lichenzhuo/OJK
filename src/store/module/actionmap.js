@@ -337,7 +337,8 @@ const actionmap = {
 
     
     SYS0003:'SYS0003',
-
+    OrderPlan:'O0014',     //查询订单的还款计划
+    ProPlan:'O0014',     //模拟查看产品的还款计划
   }
 
 }

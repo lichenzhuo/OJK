@@ -109,6 +109,7 @@
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
+            <el-button type="primary"  @click="select1">测试</el-button>
           </div>
         </template>
         
@@ -290,6 +291,19 @@ export default {
           this.$globalMsg.error(res.data.header.msg)
         }
         this.loadFlag = false;
+      })
+    },
+    select1(){          //测试接口
+      let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderId:'700333'
+      }
+      this.$axios.post('',option).then(res=>{
+        console.log(res,1111)
       })
     },
     select () { // 点击查询操作
