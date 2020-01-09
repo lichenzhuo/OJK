@@ -2,7 +2,7 @@
   <div class="adduser">
     <el-form :model="ruleForm2" size="mini" status-icon :rules="rules" ref="ruleForm2" label-width="160px" class="demo-ruleForm">
         <el-form-item :label="$t('new.no49')" prop="appPackage">
-          <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名">
+          <el-select v-model="ruleForm2.appPackage" placeholder="请选择APP包名" style="width:240px">
             <el-option v-for="item in appNameOption" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -27,11 +27,11 @@
              <el-radio v-model="ruleForm2.firstLixi" label="1">是</el-radio>
              <el-radio v-model="ruleForm2.firstLixi" label="2">否</el-radio>
         </el-form-item>
-        <el-form-item :label="$t('public.no27')" prop="firstLixi">
-             <el-input type="text" v-model="ruleForm2.overdueMaxAmount" :disabled="true"></el-input>
+        <el-form-item :label="$t('public.no27')">
+             <el-input type="text" v-model="ruleForm2.Amountdue" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="分期期数" prop="qishu">
-          <el-select v-model="ruleForm2.qishu" placeholder="请选择分期数" @change="qishuChange">
+          <el-select v-model="ruleForm2.qishu" placeholder="请选择分期数" @change="qishuChange" style="width:240px">
             <el-option v-for="item in qishuArr" :key="item.index" v-model="item.value">
             </el-option>
           </el-select>
@@ -42,27 +42,26 @@
               <el-input type="text" size="mini" disabled="true" placeholder="请选择" style="width:70px;margin-right:10px;margin-bottom:5px" ></el-input>
             </template>
             <template v-else>
-              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.value" ></el-input>
+              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.time" ></el-input>
             </template>
           </span>
         </el-form-item>
-        <!-- <div style="margin-left:90px"> 
-          <span>每期天数</span> 
-          <div style="margin-left:70px">
+         <el-form-item label="每期应还金额" prop="perMoney" >
+          <span>
             <template v-if="inputArr.length==0">
-               <input class="inputClass" disabled placeholder="请选择" >
-           </template>
-           <template v-else>
-            <input class="inputClass" v-for="item in inputArr" :key="item.index" v-model="item.value" >
-           </template>
-          </div>
-        </div> -->
-        <!-- <el-form-item label="每期天数" prop="feeRate">
-            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
-            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
-            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
-            <el-input style="width:60px;margin-right:20px" type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
-        </el-form-item> -->
+              <el-input type="text" size="mini" disabled="true" placeholder="请选择" style="width:70px;margin-right:10px;margin-bottom:5px" ></el-input>
+            </template>
+            <template v-else>
+              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.money" ></el-input>
+            </template>
+          </span>
+        </el-form-item>
+        <el-form-item label="还款宽限期">
+          <el-select v-model="ruleForm2.NoPayBackTime" placeholder="请选择宽限期" style="width:240px">
+            <el-option v-for="item in NoPayBackTimeArr" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item :label="$t('proManage.overdueInterest')" prop="overdueInterest">
           <el-input type="text" v-model="ruleForm2.overdueInterest" auto-complete="off"></el-input>
         </el-form-item>
@@ -72,7 +71,23 @@
         <el-form-item :label="$t('proManage.overdueMaxDays')" prop="overdueMaxDays">
           <el-input type="text" v-model="ruleForm2.overdueMaxDays" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
+        <!-- CanLoanArr -->
+        <el-form-item label="可贷用户类型" prop="CanLoan">
+          <el-select v-model="ruleForm2.CanLoan" placeholder="请选择宽限期" style="width:240px" >
+            <el-option v-for="item in CanLoanArr" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="投资端-年化利率">
+          <el-input type="text" v-model="ruleForm2.a" ></el-input>
+        </el-form-item>
+        <el-form-item label="借款产品slogan">
+          <el-input type="text" v-model="ruleForm2.b" ></el-input>
+        </el-form-item>
+        <el-form-item label="投资产品slogan">
+          <el-input type="text" v-model="ruleForm2.c" ></el-input>
+        </el-form-item>
+        <!-- <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
           <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="成功还款次数≥" prop="minSuccessRepayments">
@@ -80,7 +95,7 @@
         </el-form-item>
         <el-form-item label="最大逾期天数≤" prop="userOverdueMaxDays">
             <el-input type="text" v-model="ruleForm2.userOverdueMaxDays" auto-complete="off"></el-input>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item :label="$t('proManage.userGrade')" >
           <el-checkbox-group v-model="ruleForm2.userGrade">
             <div class="types">
@@ -145,19 +160,12 @@ export default {
       }
     }
     var validateperTime = (rule, value, callback) => {
-      let reg = /^[0-9]+(.[0-9]{1,4})?$/
-      if (value === '') {
-        callback(new Error(this.$t('login.required')))
-      } else {
-        if (reg.test(value)) {
-          callback()
-        } else {
-          callback(new Error(this.$t('login.float')))
-        }
-      }
+      
     }
     return {
       sessionid: '',
+      NoPayBackTimeArr:[{value:0,label:0},{value:1,label:1},{value:2,label:2},],
+      CanLoanArr:[{value:0,label:'新老用户均可'},{value:1,label:'新用户'},{value:2,label:'老用户'},],
       ruleForm2: {
         productAmount: '',
         productPeriod: '',
@@ -167,13 +175,19 @@ export default {
         dayInterest: '',
         overdueInterest: '',
         overdueMaxDays: '',
-        canAdvanceDay: '',
+        // canAdvanceDay: '',
         overdueMaxAmount: '',
         appPackage: '',
         userGrade: [],
-        minSuccessRepayments: '',
-        userOverdueMaxDays: '',
+        // minSuccessRepayments: '',
+        // userOverdueMaxDays: '',
         qishu:'',       //分期数
+        NoPayBackTime:'',      //还款宽限期
+        CanLoan:'',            //可贷用户类型
+        Amountdue:'',          //应还金额
+        a:'',
+        b:'',
+        c:'',
       },
       inputArr:[],     //分期数对应的input数组
       // inputValue:'',
@@ -216,15 +230,15 @@ export default {
         overdueMaxDays: [
           { validator: validateNumber, trigger: 'blur', required: true }
         ],
-        canAdvanceDay: [
-          { validator: validateNumber, trigger: 'blur', required: true }
-        ],
-        minSuccessRepayments: [
-          { validator: validateNumber2, trigger: 'blur', required: true }
-        ],
-        perTime: [       //每期天数校验
-          { validator: validateperTime, trigger: 'blur', required: true }
-        ],
+        // canAdvanceDay: [
+        //   { validator: validateNumber, trigger: 'blur', required: true }
+        // ],
+        // minSuccessRepayments: [
+        //   { validator: validateNumber2, trigger: 'blur', required: true }
+        // ],
+        // perTime: [       //每期天数校验
+        //   { validator: validateperTime, trigger: 'blur', required: true }
+        // ],
         userGrade: [
           { required: true, trigger: 'change' }
         ],
@@ -240,6 +254,9 @@ export default {
         firstLixi: [
           { required: true,  message:'Required' ,trigger: 'change' }
         ],
+        CanLoan: [
+          { required: true,  message:'Required' ,trigger: 'change' }   
+        ],
       }
 
     }
@@ -250,7 +267,7 @@ export default {
       let newArr=[]
       // newArr.push({id:e,value:e})
       for (let i = 0; i < e; i++) {
-        newArr.push({id:i,number:i,value:''})
+        newArr.push({id:i,time:'',money:''})
       }
       console.log(newArr)
       this.inputArr=newArr
