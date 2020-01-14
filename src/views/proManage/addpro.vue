@@ -16,22 +16,22 @@
         <el-form-item :label="$t('proManage.feeRate')" prop="feeRate">
             <el-input type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.no6')" prop="firstFuwu">
-             <el-radio v-model="ruleForm2.firstFuwu" label="1">是</el-radio>
-             <el-radio v-model="ruleForm2.firstFuwu" label="2">否</el-radio>
+        <el-form-item :label="$t('proManage.no6')" prop="serviceFeeCharge">
+             <el-radio v-model="ruleForm2.serviceFeeCharge" label="1">是</el-radio>
+             <el-radio v-model="ruleForm2.serviceFeeCharge" label="2">否</el-radio>
         </el-form-item>
         <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
             <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('proManage.no7')" prop="firstLixi">
-             <el-radio v-model="ruleForm2.firstLixi" label="1">是</el-radio>
-             <el-radio v-model="ruleForm2.firstLixi" label="2">否</el-radio>
+        <el-form-item :label="$t('proManage.no7')" prop="interestCharge">
+             <el-radio v-model="ruleForm2.interestCharge" label="1">是</el-radio>
+             <el-radio v-model="ruleForm2.interestCharge" label="2">否</el-radio>
         </el-form-item>
         <el-form-item :label="$t('public.no27')">
              <el-input type="text" v-model="ruleForm2.Amountdue" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="分期期数" prop="qishu">
-          <el-select v-model="ruleForm2.qishu" placeholder="请选择分期数" @change="qishuChange" style="width:240px">
+        <el-form-item label="分期期数" prop="totalPeriod">
+          <el-select v-model="ruleForm2.totalPeriod" placeholder="请选择分期数" @change="qishuChange" style="width:240px">
             <el-option v-for="item in qishuArr" :key="item.index" v-model="item.value">
             </el-option>
           </el-select>
@@ -42,7 +42,7 @@
               <el-input type="text" size="mini" disabled="true" placeholder="请选择" style="width:70px;margin-right:10px;margin-bottom:5px" ></el-input>
             </template>
             <template v-else>
-              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.time" ></el-input>
+              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.period" ></el-input>
             </template>
           </span>
         </el-form-item>
@@ -52,12 +52,12 @@
               <el-input type="text" size="mini" disabled="true" placeholder="请选择" style="width:70px;margin-right:10px;margin-bottom:5px" ></el-input>
             </template>
             <template v-else>
-              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.money" ></el-input>
+              <el-input type="text" size="mini" style="width:70px;margin-right:10px;margin-bottom:5px" v-for="item in inputArr" :key="item.index" v-model="item.amount" ></el-input>
             </template>
           </span>
         </el-form-item>
         <el-form-item label="还款宽限期">
-          <el-select v-model="ruleForm2.NoPayBackTime" placeholder="请选择宽限期" style="width:240px">
+          <el-select v-model="ruleForm2.gracePeriod" placeholder="请选择宽限期" style="width:240px">
             <el-option v-for="item in NoPayBackTimeArr" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -72,20 +72,23 @@
           <el-input type="text" v-model="ruleForm2.overdueMaxDays" auto-complete="off"></el-input>
         </el-form-item>
         <!-- CanLoanArr -->
-        <el-form-item label="可贷用户类型" prop="CanLoan">
+        <!-- <el-form-item label="可贷用户类型" prop="CanLoan">
           <el-select v-model="ruleForm2.CanLoan" placeholder="请选择宽限期" style="width:240px" >
             <el-option v-for="item in CanLoanArr" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
+        </el-form-item> -->
+        <el-form-item label="成功还款次数≥" prop="minSuccessRepayments">
+            <el-input type="text" v-model="ruleForm2.minSuccessRepayments" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="投资端-年化利率">
-          <el-input type="text" v-model="ruleForm2.a" ></el-input>
+          <el-input type="text" v-model="ruleForm2.investmentRate" ></el-input>
         </el-form-item>
         <el-form-item label="借款产品slogan">
-          <el-input type="text" v-model="ruleForm2.b" ></el-input>
+          <el-input type="text" v-model="ruleForm2.loanSlogan" ></el-input>
         </el-form-item>
         <el-form-item label="投资产品slogan">
-          <el-input type="text" v-model="ruleForm2.c" ></el-input>
+          <el-input type="text" v-model="ruleForm2.investmentSlogan" ></el-input>
         </el-form-item>
         <!-- <el-form-item :label="$t('proManage.canAdvanceDay')" prop="canAdvanceDay">
           <el-input type="text" v-model="ruleForm2.canAdvanceDay" auto-complete="off"></el-input>
@@ -165,29 +168,30 @@ export default {
     return {
       sessionid: '',
       NoPayBackTimeArr:[{value:0,label:0},{value:1,label:1},{value:2,label:2},],
-      CanLoanArr:[{value:0,label:'新老用户均可'},{value:1,label:'新用户'},{value:2,label:'老用户'},],
+      // CanLoanArr:[{value:0,label:'新老用户均可'},{value:1,label:'新用户'},{value:2,label:'老用户'},],
       ruleForm2: {
-        productAmount: '',
-        productPeriod: '',
-        feeRate: '',
-        firstFuwu:'',   //服务费是否先收
-        firstLixi:"",   //利息是否先收
-        dayInterest: '',
-        overdueInterest: '',
-        overdueMaxDays: '',
+        productAmount: '',    //可贷金额
+        productPeriod: '',    //借款周期
+        feeRate: '',          //服务费率
+        serviceFeeCharge:'',   //服务费是否先收
+        interestCharge:"",   //利息是否先收
+        dayInterest: '',     //日利率
+        overdueInterest: '',  //逾期费率
+        overdueMaxDays: '',   //最多逾期天数
         // canAdvanceDay: '',
-        overdueMaxAmount: '',
-        appPackage: '',
+        overdueMaxAmount: '',  //逾期封顶
+        appPackage: '',        //包名
         userGrade: [],
-        // minSuccessRepayments: '',
-        // userOverdueMaxDays: '',
-        qishu:'',       //分期数
-        NoPayBackTime:'',      //还款宽限期
-        CanLoan:'',            //可贷用户类型
-        Amountdue:'',          //应还金额
-        a:'',
-        b:'',
-        c:'',
+        minSuccessRepayments: '',
+        // userOverdueMaxDays: '',     
+        totalPeriod:'',       //分期数
+        gracePeriod:'',      //还款宽限期
+        // CanLoan:'',            //可贷用户类型
+        Amountdue:'1000',          //应还金额
+        investmentRate:'',    //投资端-年化利率
+        loanSlogan:'',                 //借款产品slogan
+        investmentSlogan:'',                 //投资产品slogan
+        productRepayPlanBOS:[]       //分期数组
       },
       inputArr:[],     //分期数对应的input数组
       // inputValue:'',
@@ -233,9 +237,9 @@ export default {
         // canAdvanceDay: [
         //   { validator: validateNumber, trigger: 'blur', required: true }
         // ],
-        // minSuccessRepayments: [
-        //   { validator: validateNumber2, trigger: 'blur', required: true }
-        // ],
+        minSuccessRepayments: [
+          { validator: validateNumber2, trigger: 'blur', required: true }
+        ],
         // perTime: [       //每期天数校验
         //   { validator: validateperTime, trigger: 'blur', required: true }
         // ],
@@ -245,13 +249,13 @@ export default {
         appPackage: [
           { required: true,  message:'Required' ,trigger: 'change' }   
         ],
-        qishu: [
+        totalPeriod: [
           { required: true,  message:'Required' ,trigger: 'change' }   
         ],
-        firstFuwu: [
+        serviceFeeCharge: [
           { required: true,  message:'Required' ,trigger: 'change' }
         ],
-        firstLixi: [
+        interestCharge: [
           { required: true,  message:'Required' ,trigger: 'change' }
         ],
         CanLoan: [
@@ -267,39 +271,40 @@ export default {
       let newArr=[]
       // newArr.push({id:e,value:e})
       for (let i = 0; i < e; i++) {
-        newArr.push({id:i,time:'',money:''})
+        newArr.push({stages:i+1,period:'',amount:''})
       }
       console.log(newArr)
       this.inputArr=newArr
     },
     submitForm (formName) {
       // console.log(this.inputValue)
-      console.log(this.inputArr)
-      // let option = {
-      //   header: {
-      //     action: this.$store.state.actionMap.pro_add_modify,
-      //     ...this.$base,
-      //     sessionid: this.sessionid
-      //   },
-      //   method: 'add',
-      //   ...this.ruleForm2,
-      //   // userGrade:this.ruleForm2.userGrade.join(',')
-      // }
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-      //     this.$axios.post('', option).then(res => {
-      //       if (res.data.header.code == 0) {
-      //         this.$globalMsg.success(this.$t('message.success'))
-      //         this.addclose()
-      //         this.proList()
-      //       } else {
-      //         this.$globalMsg.error(this.$t('idManage.err'))
-      //       }
-      //     })
-      //   } else {
-      //     return false
-      //   }
-      // })
+      this.ruleForm2.productRepayPlanBOS= this.inputArr
+      console.log(this.ruleForm2)
+      let option = {
+        header: {
+          action: this.$store.state.actionMap.pro_add_modify,
+          ...this.$base,
+          sessionid: this.sessionid
+        },
+        method: 'add',
+        ...this.ruleForm2,
+        // userGrade:this.ruleForm2.userGrade.join(',')
+      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$axios.post('', option).then(res => {
+            if (res.data.header.code == 0) {
+              this.$globalMsg.success(this.$t('message.success'))
+              this.addclose()
+              this.proList()
+            } else {
+              this.$globalMsg.error(this.$t('idManage.err'))
+            }
+          })
+        } else {
+          return false
+        }
+      })
     }
     // reset() {
     //   this.$router.push({path:'/promanage'})

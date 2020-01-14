@@ -132,6 +132,21 @@
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
         </p>
       </div>
+      <!--------- 分期期数、服务费是否先收、利息是否先收、应还金额 -------->
+      <div class="oneLineHasFour">
+        <p><span>分期期数:</span>
+          <span>{{$store.getters.twoPoint(data.order.feeRate)}}</span>
+        </p>
+        <p><span>服务费是否先收:</span>
+          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.feeAmount)}}{{$store.state.common.vi_currency}}</span>
+        </p>
+        <p><span>利息是否先收:</span>
+          <span>{{data.order.overdueDays | dataIsTrue}}</span>
+        </p>
+        <p><span>应还金额:</span>
+          <span>{{data.order.overdueDays | dataIsTrue}}</span>
+        </p>
+      </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.no86')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.overdueServiceFee)}}{{$store.state.common.vi_currency}}</span>
@@ -181,9 +196,10 @@
     <!-- ------------  审核记录栏  ------------------------ -->
     <el-row>
       <el-col :span="24">
-        <div class="paixu">
-          <span></span>
+        <div class="paixu" style="padding-right:20px;display:flex;justify-content:space-between">
+          <!-- <span></span> -->
           <p>{{$t('loanMoneyDetail.opeHistory')}}</p>
+          <p @click="showPlan">分期计划</p>
         </div>
       </el-col>
     </el-row>
@@ -253,6 +269,19 @@
       </template>
 
     </table>
+    <!------------------- 查看分期计划开始 --------------------->
+    <el-dialog title="分期计划" :visible.sync="dialogPlanVisible" width="600px">
+      <el-table :data="PlanData" show-summary>
+        <el-table-column label="期数" prop="stages" width="150">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="天数分期" prop="instalmentPeriod" width="200"></el-table-column>
+        <el-table-column label="金额分期" prop="amount"></el-table-column>
+      </el-table>
+    </el-dialog>
+    <!------------------- 查看分期计划结束 --------------------->
     <div class="foot"></div>
 
   </div>
@@ -278,8 +307,10 @@ export default {
         orderApproveList:'',
         orderLendingList:'',
         orderPhoneApprove:'',
-        orderRepaymentList:''
-      }
+        orderRepaymentList:'',
+      },
+      dialogPlanVisible:false,//查看分期计划
+      PlanData:[],//分期计划数据
     }
   },
   methods: {
@@ -312,7 +343,25 @@ export default {
     },
     back () { // 页面无数据时，点击返回
       window.history.go(-1);
-    }
+    },
+    showPlan(){//查看分期计划
+     
+        this.dialogPlanVisible=true
+      let option = {
+        header: {
+          ...this.$base,
+          action: 'O0014',
+          'sessionid': this.sessionid
+        },
+        orderNo: this.orderNo,
+      }
+      console.log(option,'111')
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          this.PlanData=res.data.data
+        }
+      })
+    },
   },
   mounted () {
     this.sessionid = sessionStorage.getItem('sessionid');

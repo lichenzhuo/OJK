@@ -106,6 +106,13 @@
             </el-date-picker>
           </form>
         </div>
+         <div class="search-input">
+          <span>当前应还期数:</span>
+          <el-select size="small" v-model="formInline.orderDeviceType" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in options11" :key="item.value" :label="$t(item.label)" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
@@ -133,7 +140,7 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no54')">
+          <el-table-column align="center" prop="loanAmount" label="借款金额">
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -141,13 +148,29 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="服务费">
+          </el-table-column>
           <el-table-column align="center" prop="currentInterest" :label="$t('public.no55')">
             <template slot-scope="scope">
               <span v-if="scope.row.currentInterest!==null&&scope.row.currentInterest!==undefined&&scope.row.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
+          <el-table-column align="center" prop="productPeriod" label="逾期日利率">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="到账金额">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="累计逾期罚息">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="应还总金额">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="已还总金额">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="已减免总金额">
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="剩余应还款总金额">
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
             <template slot-scope="scope">
               <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -164,25 +187,27 @@
               <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
+          <el-table-column align="center" prop="productPeriod" label="当期应还期数">
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
           </el-table-column>
           <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.no60')" width="86">
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="orderDeviceType" :label="$t('add.no7')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.clientStatus(scope.row.orderDeviceType))}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
+          <!-- <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')" >
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no43')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.overDue(scope.row.overdueDays!=0?1:-1))}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="status" :label="$t('public.orderStatus')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.backList_rejectStatus(scope.row.status))}}</span>
@@ -191,6 +216,26 @@
           <el-table-column align="center" prop="isNew" :label="$t('add.no86')" >
             <template slot-scope="scope">
               <span>{{$t($store.getters.userTypeNewOldOther_status(scope.row.isNew))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" :label="$t('public.operation')" >
+            <template slot-scope="scope">
+              <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_SHOW')"      
+                class="table_opr"
+                @click="loanDetali(scope.row.orderNo,scope.row.userId)">
+                {{$t('public.detail')}}
+              </span>
+              <!-- <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_DOWN')"
+                class="table_opr" 
+                @click="download(scope.row.contractPathUrl)">
+                {{$t('public.no52')}}
+              </span> -->
+              <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_DEAL')">
+                <span v-if="$store.state.common.lang==='id'&&(scope.row.status === 43||scope.row.status === 50)&&scope.row.dealStatus==0"
+                  class="mg5" style="color:#547ef6;cursor:pointer" @click="handle(scope.row.id)">
+                  {{$t('yn.no9')}}
+                </span>
+              </template>
             </template>
           </el-table-column>
         </el-table>
@@ -256,6 +301,7 @@ export default {
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
       options10: this.$store.state.options.userType_option, // 用户类型
+      options11:this.$store.state.options.nowPayPeriod,
       tableData: []// 用户信息数据模拟
 
     }

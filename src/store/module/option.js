@@ -682,6 +682,11 @@ const options = {
       {value: 5, label: 'add.no9'}, // ios
       {value: 4, label: 'add.no8'}, // android
     ],
+    nowPayPeriod: [// 当前应还期数
+      {value: '', label: 'public.placeholder'},
+      {value: 0, label: '第一期'}, // 第一期
+      {value: 1, label: '其他期'}, // 其他期
+    ],
     auditType_option: [// 审核统计查询栏下拉框
       {value: '1', label: 'riskManage.auditType_status.no1'}, // 机审
       {value: '2', label: 'riskManage.auditType_status.no2'}, // 人工初审

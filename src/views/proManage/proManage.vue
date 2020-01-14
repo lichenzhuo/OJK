@@ -66,13 +66,13 @@
         <el-table :data="tableData" size="small" stripe >
           <el-table-column align="center" prop="id" :label="$t('proManage.id')">
           </el-table-column>
-          <el-table-column align="center" prop="productAmount" :label="$t('proManage.amount')">
+          <el-table-column align="center" prop="productAmount" label="可贷金额">
             <template slot-scope="scope">
               <span v-if="scope.row.productAmount!==null&&scope.row.productAmount!==undefined&&scope.row.productAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.productAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('proManage.period')">
+          <el-table-column align="center" prop="productMaxPeriodDays" label="可贷天数">
           </el-table-column>
           <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')">
             <template slot-scope="scope">
@@ -107,9 +107,30 @@
           </el-table-column> -->
           <el-table-column align="center" prop="minSuccessRepayments" label="成功还款次数≥">
           </el-table-column>
-          <el-table-column align="center" prop="userOverdueMaxDays" label="最大逾期天数≤">
-          </el-table-column>
           <el-table-column align="center" prop="appPackage" :label="$t('new.no49')">
+          </el-table-column>
+          <el-table-column align="center" prop="appName" :label="$t('new.no48')">
+          </el-table-column>
+          <el-table-column align="center" prop="serviceFeeCharge" label="服务费是否先收">
+            <template slot-scope="scope">
+              <span v-if="scope.row.serviceFeeCharge==1">是</span>
+              <span v-else>否</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="interestCharge" label="利息是否先收">
+            <template slot-scope="scope">
+              <span v-if="scope.row.interestCharge==1">是</span>
+              <span v-else>否</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="appPackage" label="可贷用户类型">
+          </el-table-column> -->
+          <el-table-column align="center" prop="plans" label="分期计划">
+            <template slot-scope="scope">
+              <span class="table_opr" @click="showPlan(scope.row.plans)">
+              {{$t('public.no29')}}
+              </span>
+            </template>
           </el-table-column>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="140">
             <template slot-scope="scope">
@@ -117,7 +138,7 @@
                 v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_EDIT')"
                 class="table_opr"
                 @click="modifyPre(scope.row.id,scope.row.productAmount,scope.row.productPeriod,scope.row.feeRate,scope.row.dayInterest,scope.row.overdueInterest,scope.row.overdueMaxAmount,scope.row.overdueMaxDays,scope.row.canAdvanceDay,scope.row.userGrade,scope.row.appPackage,scope.row.minSuccessRepayments,scope.row.userOverdueMaxDays)">
-              {{$t('public.no29')}}/{{$t('public.no51')}}
+              {{$t('public.no51')}}
               </span>
               <span 
                 class="table_opr" 
@@ -272,6 +293,19 @@
     </el-dialog>
     <!-- ------------------添加包名结束-------------------- -->
 
+    <!------------------- 查看分期计划开始 --------------------->
+    <el-dialog title="分期计划" :visible.sync="dialogPlanVisible" width="600px">
+      <el-table :data="PlanData" show-summary>
+        <el-table-column label="期数" prop="stages" width="150">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="天数分期" prop="period" width="200"></el-table-column>
+        <el-table-column label="金额分期" prop="amount"></el-table-column>
+      </el-table>
+    </el-dialog>
+    <!------------------- 查看分期计划结束 --------------------->
     <div class="foot"></div>
 
   </div>
@@ -324,6 +358,7 @@ export default{
       flag: true,
       dialogCopyVisible: false,
       dialogAddVisible: false,
+      dialogPlanVisible:false,
       sessionid: '',
       pageTotal: 0, // 分页总数
       currentPage: 1, // 当前页下标
@@ -402,6 +437,7 @@ export default{
         appPackage:'',
         appName:''
       },
+      PlanData:[],//分期计划数据
     }
   },
   methods: {
@@ -434,6 +470,11 @@ export default{
       this.ruleForm2.appPackage = arr[9];
       this.ruleForm2.minSuccessRepayments = arr[10];
       this.ruleForm2.userOverdueMaxDays = arr[11];
+    },
+    showPlan(e){//查看分期计划   
+      console.log(e,'222')
+      this.PlanData=e
+      this.dialogPlanVisible=true
     },
     reset () {
       this.modify = false;
@@ -654,6 +695,21 @@ export default{
       flex: 1;
       margin-right: 20px;
     }
+  }
+}
+.threeTable {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 40px;
+  .tablrtr {
+    height: 40px;
+  }
+  .tableth {
+    width: 100px;
+    background-color: #f2f6fc;
+  }
+  .tabletd {
+    width: 100px;
   }
 }
 
