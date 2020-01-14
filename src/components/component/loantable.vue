@@ -36,6 +36,11 @@
               <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center"  label="还款计划" >
+            <template slot-scope="scope">
+              <span class="table_opr" @click="Plan(scope.row.orderNo)">{{$t('public.no29')}}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="willPayBackCount" :label="$t('new.no79')" >
           </el-table-column>
           <el-table-column align="center" prop="refuseRepaymentCount" :label="$t('new.no80')" >
@@ -52,7 +57,22 @@
         </el-table>
       </template>
     </div>
-
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible2" width="1000px">
+      <el-table :data="PlanData2" show-summary>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+      </el-table>
+    </el-dialog>
     <!-- ------------  分页显示栏  ------------------------ -->
     <!-- <el-row v-if="tableData.length>10" type="flex" justify="center">
       <el-col :lg="18" :xl="11">
@@ -80,6 +100,9 @@ export default {
   ],
   data () {
     return {
+      sessionid:'',
+      dialogPlanVisible2:false,  //还款计划弹框
+      PlanData2:[],//还款计划数据
       currentPage: 1, // 分页当前页下标
       // 下拉选框选中项
       status1: '',
@@ -93,13 +116,34 @@ export default {
     }
   },
   methods: {
+    Plan(e){
+      console.log(e)
+       let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:e
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          console.log(res,1111)
+          this.PlanData2=res.data.data
+          this.dialogPlanVisible2=true
+        }else{
+
+        }
+        
+      })
+    },
     socialDetali (orderNo) {
       this.$router.push({path: '/loanmoneydetail', query: {orderNo, userId: this.userId}})
     }
 
   },
   mounted () {
-    
+    this.sessionid = sessionStorage.getItem("sessionid");
   }
 }
 </script>

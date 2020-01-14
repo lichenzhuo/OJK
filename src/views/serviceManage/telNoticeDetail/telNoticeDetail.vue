@@ -219,6 +219,12 @@
               <p><span>{{$t('public.CreateTime')}}:</span>
                 <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
               </p>
+               <p><span>剩余金额:</span>
+                <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
+              </p>
+              <p><span>还款计划:</span>
+                <span @click="showPlan" style="font-size:18px;color:red;cursor:pointer;">{{$t('public.no29')}}</span>
+              </p>
             </div>
           </template>
           <template v-else>
@@ -753,6 +759,26 @@
       </ul>
     </div>
 
+
+    <!------------------- 还款计划 ------------------------------>
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+      <el-table :data="PlanData" show-summary>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+      </el-table>
+    </el-dialog>
+
+
     <div class="foot"></div>
     <transition name="fade">
       <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
@@ -775,6 +801,8 @@ export default {
   },
   data () {
     return {
+      dialogPlanVisible:false,
+      PlanData:[],
       sessionid: '',
       collectionId: '', // 传过来的催收ID
       orderNo: '', // 传过来的订单编号
@@ -881,6 +909,27 @@ export default {
 
   },
   methods: {
+    showPlan(e){
+      // console.log(this.$route.query.orderNo)
+      let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.$route.query.orderNo
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          // console.log(res,1111)
+          this.PlanData=res.data.data
+          this.dialogPlanVisible=true
+        }else{
+
+        }
+        
+      })
+    },
     openBox: function (obj) { // 图片放大显示
       this.currentObj = obj
       this.lightBoxToggle = !this.lightBoxToggle

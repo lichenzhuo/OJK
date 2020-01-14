@@ -75,9 +75,10 @@
     <!-- ------------ 借款订单详情栏 ------------------------ -->
     <el-row>
       <el-col :span="24">
-        <div class="paixu">
-          <span></span>
+        <div class="paixu" style="padding-right:20px;display:flex;justify-content:space-between">
+          <!-- <span></span> -->
           <p>{{$t('loanMoney.orderDetail')}}</p>
+          <p @click="showPlan" style="cursor:pointer;">分期计划</p>
         </div>
       </el-col>
     </el-row>
@@ -196,10 +197,9 @@
     <!-- ------------  审核记录栏  ------------------------ -->
     <el-row>
       <el-col :span="24">
-        <div class="paixu" style="padding-right:20px;display:flex;justify-content:space-between">
+        <div class="paixu">
           <!-- <span></span> -->
           <p>{{$t('loanMoneyDetail.opeHistory')}}</p>
-          <p @click="showPlan">分期计划</p>
         </div>
       </el-col>
     </el-row>

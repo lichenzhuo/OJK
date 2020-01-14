@@ -148,13 +148,28 @@
           <p><span>{{$t('yn.no28')}}:</span>
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
         </div>
+        <div class="oneLineHasFour">
+          <p><span>分期计划:</span>
+            <span style="font-size: 18px;color: red;cursor: pointer;" @click="ShowPlan">{{$t('loanAfterManage.sel')}}</span>
+          </p>
+        </div>
       </li>
     </ul>
 
     <transition name="fade">
       <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
     </transition>
-
+     <el-dialog title="分期计划" :visible.sync="dialogPlanVisible1" width="600px">
+      <el-table :data="PlanData1" show-summary>
+        <el-table-column label="期数" prop="stages" width="150">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="天数分期" prop="instalmentPeriod" width="200"></el-table-column>
+        <el-table-column label="金额分期" prop="amount"></el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -167,6 +182,10 @@ export default {
   },
   data () {
     return {
+      dialogPlanVisible1:false,
+      sessionid:'',
+      orderNo:'',
+      PlanData1:[],
       active2: 1,
       title: '',
       currentObj: '',
@@ -182,6 +201,29 @@ export default {
     }
   },
   methods: {
+    //分期计划
+    ShowPlan(e){
+      console.log(this.$route.query.orderNo,'666')
+      this.orderNo=this.$route.query.orderNo
+       let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.orderNo
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          console.log(res,1111)
+          this.PlanData1=res.data.data
+          this.dialogPlanVisible1=true
+        }else{
+
+        }
+        
+      })
+    },
     openBox: function (obj) { // 图片点击放大显示
       this.currentObj = obj;
       this.lightBoxToggle = !this.lightBoxToggle;
@@ -191,7 +233,8 @@ export default {
     },
   },
   mounted(){
-    this.title = global.config.headerTotal
+    this.title = global.config.headerTotal;
+    this.sessionid = sessionStorage.getItem("sessionid");
   }
 }
 </script>

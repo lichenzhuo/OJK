@@ -183,7 +183,11 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" label="当前期数">
+          </el-table-column>
+          <el-table-column align="center" label="订单状态">
+          </el-table-column>
+          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>

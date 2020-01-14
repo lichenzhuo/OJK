@@ -212,7 +212,9 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" label="当前期数">
+          </el-table-column>
+          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
           </el-table-column>
           <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">

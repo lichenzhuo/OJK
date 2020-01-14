@@ -146,10 +146,11 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" label="服务费">
           </el-table-column>
+          <!-- 利息 -->
           <el-table-column align="center" prop="currentInterest" :label="$t('public.no55')">
             <template slot-scope="scope">
               <span v-if="scope.row.currentInterest!==null&&scope.row.currentInterest!==undefined&&scope.row.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
@@ -160,9 +161,9 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" label="到账金额">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="累计逾期罚息">
+          <el-table-column align="center" prop="overdueInterest" label="累计逾期罚息">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="应还总金额">
+          <el-table-column align="center" prop="returnMoney" label="应还总金额">
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" label="已还总金额">
           </el-table-column>
@@ -190,7 +191,7 @@
           </el-table-column> -->
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="当期应还期数">
+          <el-table-column align="center" prop="instalment" label="当期应还期数">
           </el-table-column>
           <!-- <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
           </el-table-column>
@@ -222,7 +223,7 @@
             <template slot-scope="scope">
               <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_SHOW')"      
                 class="table_opr"
-                @click="loanDetali(scope.row.orderNo,scope.row.userId)">
+                @click="loanDetali(scope.row.orderNo)">
                 {{$t('public.detail')}}
               </span>
               <!-- <span v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_DOWN')"
@@ -230,12 +231,12 @@
                 @click="download(scope.row.contractPathUrl)">
                 {{$t('public.no52')}}
               </span> -->
-              <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_DEAL')">
+              <!-- <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_LIST_DEAL')">
                 <span v-if="$store.state.common.lang==='id'&&(scope.row.status === 43||scope.row.status === 50)&&scope.row.dealStatus==0"
                   class="mg5" style="color:#547ef6;cursor:pointer" @click="handle(scope.row.id)">
                   {{$t('yn.no9')}}
                 </span>
-              </template>
+              </template> -->
             </template>
           </el-table-column>
         </el-table>
@@ -258,6 +259,24 @@
     </el-row>
 
     
+    <!-- --------------还款计划----------------------------- -->
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+      <el-table :data="PlanData" show-summary>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+      </el-table>
+    </el-dialog>
+
 
     <!-- 底部多出空白 -->
     <div class="foot"></div>
@@ -269,6 +288,8 @@ export default {
   name: 'backMoneyList',
   data () {
     return {
+      dialogPlanVisible:false,  //还款计划弹框
+      PlanData:[],//还款计划数据
       flag: true,
       loadFlag: true,
       sessionid: '',
@@ -307,6 +328,28 @@ export default {
     }
   },
   methods: {
+    //查看还款计划
+    loanDetali(e){
+      console.log(e)
+       let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:e
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          console.log(res,1111)
+          this.PlanData=res.data.data
+          this.dialogPlanVisible=true
+        }else{
+
+        }
+        
+      })
+    },
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
       this.backList(val);

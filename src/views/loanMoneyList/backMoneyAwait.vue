@@ -107,10 +107,17 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="repaymentAmountPay" :label="$t('public.no57')">
+          <el-table-column align="center" prop="repaymentAmountPay" label="已还金额">
             <template slot-scope="scope">
               <span v-if="scope.row.repaymentAmountPay!==null&&scope.row.repaymentAmountPay!==undefined&&scope.row.repaymentAmountPay!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.repaymentAmountPay)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" label="还款计划">
+            <template slot-scope="scope">
+              <span class="table_opr" @click="loanDetali(scope.row.orderNo)">
+                {{$t('loanAfterManage.sel')}}
+              </span>
             </template>
           </el-table-column>
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
@@ -162,6 +169,23 @@
       </div>
     </el-row>
 
+    <!-- --------------还款计划----------------------------- -->
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+      <el-table :data="PlanData" show-summary>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+      </el-table>
+    </el-dialog>
     <!-- 处理弹窗 -->
     <el-dialog :title="$t('public.no61')" :visible.sync="handleFlag" width="760px" :show-message="false">
       <div class="left2right">
@@ -225,6 +249,8 @@ export default {
   },
   data () {
     return {
+      dialogPlanVisible:false,  //还款计划弹框
+      PlanData:[],//还款计划数据
       sessionid: '',
       flag: true,
       pageTotal: 0, // 分页总数
@@ -270,6 +296,29 @@ export default {
     }
   },
   methods: {
+    //查看还款计划
+    loanDetali(e){
+      console.log(e)
+       let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:e
+      }
+      this.$axios.post('',option).then(res=>{
+          this.dialogPlanVisible=true 
+        if (res.data.header.code==0) {
+          console.log(res,1111)
+          this.PlanData=res.data.data
+         
+        }else{
+
+        }
+        
+      })
+    },
     openBox: function (obj) { // 图片放大显示
       this.currentObj = obj;
       this.lightBoxToggle = !this.lightBoxToggle;

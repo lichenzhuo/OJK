@@ -141,6 +141,12 @@
              <el-table-column align="center" prop="userName" :label="$t('public.name')" width="220">
             </el-table-column>
           </template>
+          <el-table-column align="center" prop="loanAmount" label="借款金额">
+          </el-table-column>
+          <el-table-column align="center" prop="productMaxPeriodDays" label="借款周期">
+          </el-table-column>
+          <el-table-column align="center" prop="instalment" label="分期期数">
+          </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='vi'">
