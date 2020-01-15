@@ -286,11 +286,39 @@
                 @click="detail(scope.row.orderNo,scope.row.orderId)">
                 {{$t('loanAfterManage.sel')}}
               </span>
+              <span
+                class="table_opr" 
+                @click="showPlan(scope.row.orderNo)">
+                还款计划
+              </span>
             </template>
           </el-table-column>
         </el-table>
       </template>
     </div>
+
+
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+      <el-table :data="PlanData">
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
 
     <!-- ------------  分页显示栏  ------------------------ -->
     <el-row type="flex" justify="end">
@@ -403,6 +431,8 @@ export default {
   name: 'inTheRushOrders',
   data () {
     return {
+      dialogPlanVisible:false,
+      PlanData:[],
       sessionid: '',
       pageTotal: 0, // 分页总数
       pageNumber: 10, // 每页条数
@@ -475,6 +505,27 @@ export default {
     }
   },
   methods: {
+    showPlan(e){
+      console.log(e)
+       let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:e
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          console.log(res,1111)
+          this.PlanData=res.data.data
+          this.dialogPlanVisible=true
+        }else{
+
+        }
+        
+      })
+    },
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;
       this.operationList();

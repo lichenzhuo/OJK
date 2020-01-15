@@ -132,7 +132,7 @@
           </el-table-column>
           <!---------- tag标签 --------------->
           <template v-if="$store.state.common.lang==='id'">
-             <el-table-column align="center" prop="userName" :label="$t('public.name')" width="220">
+             <el-table-column align="center" prop="userName" :label="$t('public.name')">
               <template slot-scope="scope">
                 <span>{{scope.row.userName}}</span>
                 <el-tag size="mini" :type="scope.row.isRepeat==1?'success':'warning'">{{scope.row.isRepeat==1?'R':'F'}}</el-tag>
@@ -142,14 +142,14 @@
             </el-table-column>
           </template>
           <template v-if="$store.state.common.lang!=='id'">
-             <el-table-column align="center" prop="userName" :label="$t('public.name')" width="220">
+             <el-table-column align="center" prop="userName" :label="$t('public.name')">
             </el-table-column>
           </template>
           <el-table-column align="center" prop="loanAmount" label="借款金额">
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" label="借款周期">
+          <el-table-column align="center" prop="productPeriod" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="instalment" label="分期期数">
+          <el-table-column align="center" prop="totalPeriod" label="分期期数">
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>

@@ -529,7 +529,7 @@ const cn = {
     product: '产品',
     productAmount: '可贷金额',
     del: '确定要删除该卡片吗',
-    overdueMaxDays: '最大逾期天数',
+    overdueMaxDays: '最逾期天数',
     canAdvanceDay: '可提前还款天数',
     canAdvanceType: '可提前还款类型',
     userGrade: '用户层级',

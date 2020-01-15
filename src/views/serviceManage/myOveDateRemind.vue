@@ -184,10 +184,16 @@
             </template>
           </el-table-column>
           <el-table-column align="center" label="当前期数">
+            <template slot-scope="scope">
+              <span>{{scope.row.stages}}/{{scope.row.totalPeriod}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" label="订单状态">
+          <el-table-column align="center" prop="status" label="订单状态">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.rejectStatus(scope.row.status))}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
           <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
           </el-table-column>

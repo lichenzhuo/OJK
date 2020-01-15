@@ -93,7 +93,7 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" label="可贷天数"></el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="可贷天数"></el-table-column>
           <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')">
             <template slot-scope="scope">
               <span>{{$store.getters.twoPoint(scope.row.feeRate)}}</span>
@@ -255,20 +255,40 @@
           <el-input type="tel" v-model="ruleForm2.feeRate" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item :label="$t('proManage.no6')" prop="serviceFeeCharge">
+        <el-select v-model="ruleForm2.serviceFeeCharge" placeholder="请选择" style="width:240px">
+          <el-option
+            v-for="item in advanceArr"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+        <!-- <el-form-item :label="$t('proManage.no6')" prop="serviceFeeCharge">
           <el-radio v-model="ruleForm2.serviceFeeCharge" label="1">是</el-radio>
           <el-radio v-model="ruleForm2.serviceFeeCharge" label="2">否</el-radio>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item :label="$t('proManage.dayInterest')" prop="dayInterest">
           <el-input type="text" v-model="ruleForm2.dayInterest" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item :label="$t('proManage.no7')" prop="interestCharge">
+        <el-select v-model="ruleForm2.interestCharge" placeholder="请选择" style="width:240px">
+          <el-option
+            v-for="item in advanceArr"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+        <!-- <el-form-item :label="$t('proManage.no7')" prop="interestCharge">
           <el-radio v-model="ruleForm2.interestCharge" label="1">是</el-radio>
           <el-radio v-model="ruleForm2.interestCharge" label="2">否</el-radio>
-        </el-form-item>
+        </el-form-item> -->
         <!------------ 应还金额 ------------->
         <el-form-item :label="$t('public.no27')">
-          <el-input type="text" v-model="amount" :disabled="true" style="width:150px"></el-input>
-          <el-button type="primary" size="mini" @click="CalcMoney" style="margin-left: 10px;">计算金额</el-button>
+          <el-input type="text" v-model="amount" :disabled="true" style="width:240px"></el-input>
+          <!-- <el-button type="primary" size="mini" @click="CalcMoney" style="margin-left: 10px;">计算金额</el-button> -->
         </el-form-item>
         <el-form-item label="分期期数" prop="totalPeriod">
           <el-select
@@ -326,7 +346,7 @@
             </template>
           </span>
         </el-form-item>
-        <el-form-item label="还款宽限期">
+        <el-form-item label="还款宽限期" prop="gracePeriod">
           <el-select v-model="ruleForm2.gracePeriod" placeholder="请选择宽限期" style="width:240px">
             <el-option
               v-for="item in NoPayBackTimeArr"
@@ -348,10 +368,10 @@
         <el-form-item label="成功还款次数≥" prop="minSuccessRepayments">
           <el-input type="text" v-model="ruleForm2.minSuccessRepayments" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="投资端-年化利率">
+        <el-form-item label="投资端-年化利率" prop="investmentRate">
           <el-input type="text" v-model="ruleForm2.investmentRate"></el-input>
         </el-form-item>
-        <el-form-item label="借款产品slogan">
+        <el-form-item label="借款产品slogan" prop="loanSlogan">
           <el-input type="text" v-model="ruleForm2.loanSlogan"></el-input>
         </el-form-item>
         <el-form-item label="投资产品slogan">
@@ -528,9 +548,9 @@ export default {
         productAmount: [
           { validator: validateFloat, trigger: "blur", required: true }
         ],
-        // productPeriod: [
-        //   { validator: validateNumber, trigger: "blur", required: true }
-        // ],
+        productPeriod: [
+          { validator: validateNumber, trigger: "blur", required: true }
+        ],
         feeRate: [
           { validator: validateFloat, trigger: "blur", required: true }
         ],
@@ -540,20 +560,43 @@ export default {
         overdueInterest: [
           { validator: validateFloat, trigger: "blur", required: true }
         ],
+        validateZero: [
+          { validator: validateFloat, trigger: "blur", required: true }
+        ],
         overdueMaxAmount: [
           { validator: validateFloat, trigger: "blur", required: true }
         ],
         overdueMaxDays: [
           { validator: validateNumber, trigger: "blur", required: true }
         ],
-        canAdvanceDay: [
-          { validator: validateNumber, trigger: "blur", required: true }
+        // canAdvanceDay: [
+        //   { validator: validateNumber, trigger: 'blur', required: true }
+        // ],
+        gracePeriod: [
+          { required: true, message: "Required", trigger: "change" }
         ],
         minSuccessRepayments: [
           { validator: validateNumber2, trigger: "blur", required: true }
         ],
-
-        appPackage: [{ required: true, trigger: "change" }]
+        investmentRate: [{ required: true, trigger: "blur", required: true }],
+        loanSlogan: [{ required: true, trigger: "blur", required: true }],
+        // perTime: [       //每期天数校验
+        //   { validator: validateperTime, trigger: 'blur', required: true }
+        // ],
+        userGrade: [{ required: true, trigger: "change" }],
+        appPackage: [
+          { required: true, message: "Required", trigger: "change" }
+        ],
+        totalPeriod: [
+          { required: true, message: "Required", trigger: "change" }
+        ],
+        serviceFeeCharge: [
+          { required: true, message: "Required", trigger: "change" }
+        ],
+        interestCharge: [
+          { required: true, message: "Required", trigger: "change" }
+        ],
+        CanLoan: [{ required: true, message: "Required", trigger: "change" }]
       },
       options: [],
       options3: [], // APP名下拉选框信息
@@ -584,6 +627,7 @@ export default {
         { value: 11, label: "11期" },
         { value: 12, label: "12期" }
       ],
+      advanceArr:[{value:1,label:'是'},{value:2,label:'否'}],
       inputArr: [], //分期数对应的input数组
       NoPayBackTimeArr: [
         { value: 0, label: 0 },
@@ -613,7 +657,7 @@ export default {
           sessionid: this.sessionid
         },
         productAmount: this.ruleForm2.productAmount,
-        productPeriod: this.ruleForm2.productMaxPeriodDays,
+        productPeriod: this.ruleForm2.productPeriod,
         feeRate: this.ruleForm2.feeRate,
         dayInterest: this.ruleForm2.dayInterest,
         serviceFeeCharge: this.ruleForm2.serviceFeeCharge,
@@ -653,7 +697,7 @@ export default {
       this.amount = e.amount;
       this.ruleForm2.id = e.id;
       this.ruleForm2.productAmount = e.productAmount;
-      this.ruleForm2.productPeriod = e.productMaxPeriodDays;
+      this.ruleForm2.productPeriod = e.productPeriod;
       this.ruleForm2.feeRate = e.feeRate;
       this.ruleForm2.serviceFeeCharge = e.serviceFeeCharge;
       this.ruleForm2.interestCharge = e.interestCharge;
@@ -716,7 +760,7 @@ export default {
               },
               method: "edit",
               ...this.ruleForm2
-              // productPeriod:this.ruleForm2.productMaxPeriodDays,
+              // productPeriod:this.ruleForm2.productPeriod,
 
               // id: this.modifyId
             };
@@ -888,6 +932,46 @@ export default {
           }
         }
       });
+    },
+    watchChange(){
+      if (
+        this.ruleForm2.productAmount &&
+        this.ruleForm2.productPeriod &&
+        this.ruleForm2.feeRate &&
+        this.ruleForm2.serviceFeeCharge &&
+        this.ruleForm2.dayInterest &&
+        this.ruleForm2.interestCharge
+      ) {
+        this.CalcMoney()
+      } else {
+        // console.log("222");
+      }
+    },
+  },
+  watch: {
+    // 可贷金额监听
+    "ruleForm2.productAmount": function(e, olde) {
+      this.watchChange()
+    },
+    // 借款周期
+    "ruleForm2.productPeriod": function(e, olde) {
+      this.watchChange()
+    },
+    // 服务费率
+    "ruleForm2.feeRate": function(e, olde) {
+      this.watchChange()
+    },
+    // 服务费是否先收
+    "ruleForm2.serviceFeeCharge": function(e, olde) {
+      this.watchChange()
+    },
+    // 日利率
+    "ruleForm2.dayInterest": function(e, olde) {
+      this.watchChange()
+    },
+    // 利息是否先收
+    "ruleForm2.interestCharge": function(e, olde) {
+      this.watchChange()
     }
   },
   mounted() {

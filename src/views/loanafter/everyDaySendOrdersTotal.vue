@@ -90,6 +90,12 @@
           </el-table-column>
           <el-table-column align="center" prop="transferNumber" :label="$t('loanAfterManage.zhuanpailiang')">
           </el-table-column>
+          <el-table-column align="center" prop="money" label="当前待还金额">
+            <template slot-scope="scope">
+              <span v-if="scope.row.money!==null&&scope.row.money!==undefined&&scope.row.money!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.money)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
           <el-table-column align="center" prop="money" :label="$t('loanAfterManage.yinghuanbenxi')">
             <template slot-scope="scope">
               <span v-if="scope.row.money!==null&&scope.row.money!==undefined&&scope.row.money!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.money)}}{{$store.state.common.vi_currency}}</span>

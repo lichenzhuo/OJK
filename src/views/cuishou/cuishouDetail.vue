@@ -309,9 +309,25 @@
               <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span>
             </p>
           </div>
+          <div class="oneLineHasFour">
+            <p>
+              <span>还款计划:</span>
+              <span @click="showPlan" style="font-size:18px;color:red;cursor:pointer;">查看</span>
+            </p>
+            <p>
+              <span>剩余金额:</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.orderInfo.amountDue)}}{{$store.state.common.vi_currency}}</span>
+            </p>
+            <!-- <p v-if="$store.state.common.lang==='id'">
+              <span>{{$t('yn.no28')}}:</span>
+            </p> -->
+          </div>
         </li>
       </ul>
     </div>
+
+
+
 
     <template v-if="$store.state.common.lang==='vi'&&data.orderInfo.orderLoanType!==1">
       <div class="paixu pb10">
@@ -1175,7 +1191,7 @@
                 <el-form-item :label="$t('new.no63')" prop="money">
                   <el-input v-model="remission.money" size="medium" style="width:300px"></el-input>
                 </el-form-item>
-                <el-form-item :label="$t('filter.usedDate')" required>
+                <!-- <el-form-item :label="$t('filter.usedDate')" required>
                   <el-col :span="11">
                     <el-form-item prop="time">
                       <el-date-picker
@@ -1191,7 +1207,7 @@
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item :label="$t('public.no37')">
                   <el-input type="textarea" v-model="remission.remark" :rows="4"></el-input>
                 </el-form-item>
@@ -1208,6 +1224,24 @@
         </li>
       </ul>
     </div>
+
+<el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+      <el-table :data="PlanData">
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+      </el-table>
+    </el-dialog>
+
 
     <div class="foot"></div>
     <transition name="fade">
@@ -1240,6 +1274,9 @@ export default {
   },
   data() {
     return {
+      orderNo:'',
+      dialogPlanVisible:false,
+      PlanData:[],
       orderUrgentContact: "",
       clickNumber: 0,
       loading: true,
@@ -1327,14 +1364,14 @@ export default {
             trigger: "blur"
           }
         ],
-        time: [
-          {
-            type: "date",
-            required: true,
-            message: this.$t("public.placeholder"),
-            trigger: "change"
-          }
-        ]
+        // time: [
+        //   {
+        //     type: "date",
+        //     required: true,
+        //     message: this.$t("public.placeholder"),
+        //     trigger: "change"
+        //   }
+        // ]
       },
       noteSel: "", // 短信催收列表选中项
       radio: "1", // 特权申请选中项
@@ -1348,7 +1385,7 @@ export default {
       remission: {
         // 减免表单
         money: "",
-        time: [],
+        // time: [],
         remark: ""
       },
       phoneAuditLog: "",
@@ -1421,6 +1458,27 @@ export default {
     }
   },
   methods: {
+    showPlan(e){
+      console.log(e)
+      let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.orderNo
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          // console.log(res,1111)
+          this.PlanData=res.data.data
+          this.dialogPlanVisible=true
+        }else{
+
+        }
+        
+      })
+    },
     checkKong() {
       //全部检测
       // console.log('111')
@@ -1894,8 +1952,8 @@ export default {
           orderId: this.data.orderUserSelf.orderId,
           userId: this.data.orderUserSelf.userId,
           operating: "1",
-          effectiveTimeBegin: this.remission.time ? this.remission.time[0] : "",
-          effectiveTimeEnd: this.remission.time ? this.remission.time[1] : "",
+          // effectiveTimeBegin: this.remission.time ? this.remission.time[0] : "",
+          // effectiveTimeEnd: this.remission.time ? this.remission.time[1] : "",
           couponAmount: this.remission.money,
           remark: this.remission.remark
         };
@@ -1907,7 +1965,7 @@ export default {
             this.$globalMsg.error(res.data.header.msg);
           }
           this.remission.money = "";
-          this.remission.time = [];
+          // this.remission.time = [];
           this.remission.remark = "";
         });
       }
@@ -2032,6 +2090,7 @@ export default {
     }
   },
   mounted() {
+    this.orderNo=this.$route.query.orderNo
     this.sessionid = sessionStorage.getItem("sessionid");
     this.orderNo = this.$route.query.orderNo;
     this.orderId = this.$route.query.orderId;

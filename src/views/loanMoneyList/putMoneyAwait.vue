@@ -126,6 +126,7 @@
           </el-table-column>
           <el-table-column align="center" prop="bankAccount" :label="$t('finance.bluePayeeAccount')" min-width="100">
           </el-table-column>
+          <!-- 打款金额 -->
           <el-table-column align="center" prop="amount" :label="$t('finance.amount')" min-width="100">
             <template slot-scope="scope">
               <span v-if="scope.row.amount!==null&&scope.row.amount!==undefined&&scope.row.amount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.amount)}}{{$store.state.common.vi_currency}}</span>

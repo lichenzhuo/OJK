@@ -136,7 +136,42 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('add.no2')">
+          <el-table-column align="center" prop="loanAmount" label="本金">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="feeAmount" label="服务费">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.feeAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="currentInterest" label="利息">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="overdueInterest" label="累计逾期罚息">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="借款周期">
+          </el-table-column>
+          <el-table-column align="center" prop="amountDue" label="应还金额">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.amountDue)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center"  label="已还金额">
+            
+          </el-table-column>
+          <el-table-column align="center"  label="当期期数">
+             <template slot-scope="scope">
+              <span>{{scope.row.stages}}/{{scope.row.totalPeriod}}</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="loanAmount" :label="$t('add.no2')">
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
@@ -165,7 +200,7 @@
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
@@ -199,7 +234,7 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope">
               <span 
-                v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))"
+                v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))&&scope.row.overdueDays!==0"
                 class="table_opr"
                 @click="socialDetali(scope.row.orderNo,scope.row.orderId)">
                 {{$t('operationList.no1')}}

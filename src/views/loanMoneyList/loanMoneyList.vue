@@ -126,14 +126,14 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="instalment" :label="$t('fei.no17')" >
             </el-table-column>
           </template>
           <!-----------   期数 ---------------->
-          <el-table-column align="center" prop="instalment" label="期数" >
+          <el-table-column align="center" prop="totalPeriod" label="期数" >
           </el-table-column>
           <el-table-column align="center" prop="strCreateTime" :label="$t('public.CreateDate')" width="86">
           </el-table-column>

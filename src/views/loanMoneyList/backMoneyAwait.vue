@@ -101,15 +101,16 @@
           </el-table-column>
           <el-table-column align="center" prop="phone" :label="$t('public.userTel')">
           </el-table-column>
-          <el-table-column align="center" prop="repaymentAmount" :label="$t('public.no27')">
+          <!----------- 应还金额 ----------->
+          <el-table-column align="center" prop="amountDue" :label="$t('public.no27')">
             <template slot-scope="scope">
-              <span v-if="scope.row.repaymentAmount!==null&&scope.row.repaymentAmount!==undefined&&scope.row.repaymentAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.repaymentAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.amountDue!==null&&scope.row.amountDue!==undefined&&scope.row.amountDue!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.amountDue)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="repaymentAmountPay" label="已还金额">
+          <el-table-column align="center" prop="refundAmount" label="已还金额">
             <template slot-scope="scope">
-              <span v-if="scope.row.repaymentAmountPay!==null&&scope.row.repaymentAmountPay!==undefined&&scope.row.repaymentAmountPay!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.repaymentAmountPay)}}{{$store.state.common.vi_currency}}</span>
+              <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>

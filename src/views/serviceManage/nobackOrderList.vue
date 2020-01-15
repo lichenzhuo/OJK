@@ -213,8 +213,11 @@
             </template>
           </el-table-column>
           <el-table-column align="center" label="当前期数">
+            <template slot-scope="scope">
+              <span>{{scope.row.stages}}/{{scope.row.totalPeriod}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
           <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">

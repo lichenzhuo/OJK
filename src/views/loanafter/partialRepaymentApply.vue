@@ -91,16 +91,30 @@
           <!-- 借款周期 -->
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
           </el-table-column>
-          <!-- 逾期天数 -->
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+           <!-- 逾期期数 -->
+          <el-table-column align="center"  label="逾期期数">
           </el-table-column>
+          <!-- 当前逾期天数 -->
+          <el-table-column align="center"  label="当前逾期天数">
+          </el-table-column>
+          <!-- 当前逾期费 -->
+         <el-table-column align="center" label="当前逾期费">
+           
+          </el-table-column>
+          <!-- 当前未还金额 -->
+         <el-table-column align="center" label="当前未还金额">
+           
+          </el-table-column>
+          <!-- 逾期天数 -->
+          <!-- <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+          </el-table-column> -->
           <!-- 应还金额 -->
-          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
+          <!-- <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
             <template slot-scope="scope">
               <span v-if="scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- 部分还款 -->
           <el-table-column align="center" prop="couponAmount" :label="$t('filter.partialRepaymentApplyOption.no3')">
             <template slot-scope="scope">

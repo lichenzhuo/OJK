@@ -49,39 +49,39 @@
           :summary-method="getSummaries"
           show-summary
         >
-          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
+          <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')">
           </el-table-column>
-          <el-table-column align="center" prop="productAmount" :label="$t('public.no54')" >
+          <el-table-column align="center" prop="productAmount" label="借款金额" >
             <template slot-scope="scope">
               <span v-if="scope.row.productAmount!==null&&scope.row.productAmount!==undefined&&scope.row.productAmount!==''">{{$store.getters.moneySplit(scope.row.productAmount)}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" label="放款单量">
           </el-table-column>
-          <el-table-column align="center" prop="dayInterestRate" :label="$t('proManage.dayInterest')">
+          <el-table-column align="center" prop="dayInterestRate" label="还款单量">
           </el-table-column>
-          <el-table-column align="center" prop="feeRate" :label="$t('proManage.feeRate')">
+          <el-table-column align="center" prop="feeRate" label="应还本金">
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')">
+          <el-table-column align="center" prop="overdueInterestRate" label="应还利息">
           </el-table-column>
-          <el-table-column align="center" prop="loanCount" :label="$t('totalManage.lendingCount')" >
+          <el-table-column align="center" prop="loanCount" label="应还罚息" >
           </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('totalManage.amount')" min-width="130">
+          <el-table-column align="center" prop="loanAmount" label="应还总额" >
           </el-table-column>
-          <el-table-column align="center" prop="refundCount" :label="$t('totalManage.realReturnCount')" >
+          <el-table-column align="center" prop="refundCount" label="已还总金额" >
           </el-table-column>
-          <el-table-column align="center" prop="needRefundPrincipal" :label="$t('totalManage.no2')" min-width="130">
+          <el-table-column align="center" prop="needRefundPrincipal" label="减免金额">
           </el-table-column>
-          <el-table-column align="center" prop="needRefundInterest" :label="$t('totalManage.no3')" min-width="130">
+          <el-table-column align="center" prop="needRefundInterest" label="未还本金" >
           </el-table-column>
-          <el-table-column align="center" prop="needRefundOverdueInterest" :label="$t('totalManage.no4')" min-width="130">
+          <el-table-column align="center" prop="needRefundOverdueInterest" label="未还利息">
           </el-table-column>
-          <el-table-column align="center" prop="refundAmount" :label="$t('totalManage.no1')" min-width="130">
+          <el-table-column align="center" prop="refundAmount" label="未还罚息">
           </el-table-column>
-          <el-table-column align="center" prop="couponAmount" :label="$t('new.no63')" >
+          <el-table-column align="center" prop="couponAmount" label="未还总金额" >
           </el-table-column>
-          <el-table-column align="center" prop="noRefundCount" :label="$t('totalManage.noReturnCount')" >
+          <!-- <el-table-column align="center" prop="noRefundCount" :label="$t('totalManage.noReturnCount')" >
           </el-table-column>
           <el-table-column align="center" prop="noRefundPrincipal" :label="$t('totalManage.no5')" min-width="130">
           </el-table-column>
@@ -90,7 +90,7 @@
           <el-table-column align="center" prop="noRefundOverdueInterest" :label="$t('totalManage.no7')" min-width="130">
           </el-table-column>
           <el-table-column align="center" prop="noRefundAmount" :label="$t('totalManage.no8')" min-width="130">
-          </el-table-column>
+          </el-table-column> -->
         </el-table>
       </template>
     </div>

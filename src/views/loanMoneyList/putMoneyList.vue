@@ -147,9 +147,12 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="打款金额" >
+          <el-table-column align="center" prop="lendingAmount" label="打款金额" >
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.lendingAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="instalment" :label="$t('fei.no17')" >

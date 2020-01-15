@@ -101,28 +101,73 @@
           </el-table-column>
           <el-table-column align="center" prop="phone" :label="$t('public.no18')">
           </el-table-column>
-          <el-table-column align="center" prop="couponType" :label="$t('filter.couponItem')">
+          <!-- <el-table-column align="center" prop="loanAmount" :label="$t('public.no54')">
             <template slot-scope="scope">
-              <span>{{$t($store.getters.couponTypeState(scope.row.couponType))}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column align="center" prop="couponDays" :label="$t('filter.couponCon')">
-            <template slot-scope="scope">
-              <span v-if="scope.row.couponType==1||scope.row.couponType==3||scope.row.couponType==5">{{$store.getters.moneySplit(scope.row.couponAmount)}}</span>
-              <span v-else-if="scope.row.couponType==2">{{scope.row.couponDays+$t('public.no26')}}</span>
-              <span v-else-if="scope.row.couponType==4">{{scope.row.couponInterest}}</span>
+              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no54')">
+          </el-table-column> -->
+          <!-- ---------借款金额 ----------->
+          <el-table-column align="center" prop="loanAmount" label="借款金额">
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')">
+          <el-table-column align="center" prop="totalPeriod" label="期数">
+          </el-table-column>
+          <el-table-column align="center" prop="feeAmount" label="服务费">
+            <template slot-scope="scope">
+              <span v-if="scope.row.feeAmount!==null&&scope.row.feeAmount!==undefined&&scope.row.feeAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.feeAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="currentInterest" label="利息">
+            <template slot-scope="scope">
+              <span v-if="scope.row.currentInterest!==null&&scope.row.currentInterest!==undefined&&scope.row.currentInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="overdueInterestRate" label="逾期日利率">
+            <template slot-scope="scope">
+              <span>{{$store.getters.twoPoint(scope.row.overdueInterestRate)}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="overdueInterest" label="逾期累计罚息">
+            <template slot-scope="scope">
+              <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+           <el-table-column align="center" prop="amountDue" label="应还总金额">
+            <template slot-scope="scope">
+              <span v-if="scope.row.amountDue!==null&&scope.row.amountDue!==undefined&&scope.row.amountDue!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.amountDue)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+           <el-table-column align="center" prop="refundAmount" label="已还总金额">
+            <template slot-scope="scope">
+              <span v-if="scope.row.refundAmount!==null&&scope.row.refundAmount!==undefined&&scope.row.refundAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+           <el-table-column align="center" prop="loanAmount" label="本次还款金额">
+            <template slot-scope="scope">
+              <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+           <el-table-column align="center" prop="returnMoney" label="剩余应还总金额">
+            <template slot-scope="scope">
+              <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
+          </el-table-column> -->
+          <!-- <el-table-column align="center" prop="overdueInterestRate" :label="$t('proManage.overdueInterest')">
             <template slot-scope="scope">
               <span>{{$store.getters.twoPoint(scope.row.overdueInterestRate)}}</span>
             </template>
@@ -139,6 +184,20 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
+          <el-table-column align="center" prop="couponType" :label="$t('filter.couponItem')">
+            <template slot-scope="scope">
+              <span>{{$t($store.getters.couponTypeState(scope.row.couponType))}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="couponDays" :label="$t('filter.couponCon')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.couponType==1||scope.row.couponType==3||scope.row.couponType==5">{{$store.getters.moneySplit(scope.row.couponAmount)}}</span>
+              <span v-else-if="scope.row.couponType==2">{{scope.row.couponDays+$t('public.no26')}}</span>
+              <span v-else-if="scope.row.couponType==4">{{scope.row.couponInterest}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column> -->
+          
           <el-table-column align="center" prop="payType" :label="$t('finance.payType')">
           </el-table-column>
           <el-table-column align="center" prop="bankName" :label="$t('public.no19')">

@@ -136,16 +136,18 @@
       <!--------- 分期期数、服务费是否先收、利息是否先收、应还金额 -------->
       <div class="oneLineHasFour">
         <p><span>分期期数:</span>
-          <span>{{$store.getters.twoPoint(data.order.feeRate)}}</span>
+          <span>{{data.order.totalPeriod}}</span>
         </p>
         <p><span>服务费是否先收:</span>
-          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.feeAmount)}}{{$store.state.common.vi_currency}}</span>
+          <span v-if="data.order.serviceFeeCharge==1">是</span>
+          <span v-else>否</span>
         </p>
         <p><span>利息是否先收:</span>
-          <span>{{data.order.overdueDays | dataIsTrue}}</span>
+          <span v-if="data.order.interestCharge==1">是</span>
+          <span v-else>否</span>
         </p>
         <p><span>应还金额:</span>
-          <span>{{data.order.overdueDays | dataIsTrue}}</span>
+          <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.amountDue)}}{{$store.state.common.vi_currency}}</span>
         </p>
       </div>
       <div class="oneLineHasFour">

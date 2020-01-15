@@ -116,7 +116,7 @@
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
-            <el-button type="primary"  @click="select1">测试</el-button>
+            <!-- <el-button type="primary"  @click="select1">测试</el-button> -->
           </div>
         </template>
         
@@ -146,9 +146,9 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productMaxPeriodDays" :label="$t('public.no31')">
+          <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="服务费">
+          <el-table-column align="center" prop="feeAmount" label="服务费">
           </el-table-column>
           <!-- 利息 -->
           <el-table-column align="center" prop="currentInterest" :label="$t('public.no55')">
@@ -157,19 +157,17 @@
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="逾期日利率">
+          <el-table-column align="center" prop="overdueInterestRate" label="逾期日利率">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="到账金额">
+          <el-table-column align="center" prop="lendingAmount" label="到账金额">
           </el-table-column>
           <el-table-column align="center" prop="overdueInterest" label="累计逾期罚息">
           </el-table-column>
-          <el-table-column align="center" prop="returnMoney" label="应还总金额">
+          <el-table-column align="center" prop="amountDue" label="应还总金额">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="已还总金额">
+          <el-table-column align="center" prop="refundAmount" label="已还总金额">
           </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="已减免总金额">
-          </el-table-column>
-          <el-table-column align="center" prop="productPeriod" label="剩余应还款总金额">
+          <el-table-column align="center" prop="returnMoney" label="剩余应还款总金额">
           </el-table-column>
           <!-- <el-table-column align="center" prop="overdueInterest" :label="$t('public.no56')">
             <template slot-scope="scope">
@@ -191,7 +189,10 @@
           </el-table-column> -->
           <el-table-column align="center" prop="strLoanTime" :label="$t('public.no58')" width="86">
           </el-table-column>
-          <el-table-column align="center" prop="instalment" label="当期应还期数">
+          <el-table-column align="center" label="当期应还期数">
+            <template slot-scope="scope">
+              <span>{{scope.row.stages}}/{{scope.row.totalPeriod}}</span>
+            </template>
           </el-table-column>
           <!-- <el-table-column align="center" prop="strMustRefundTime" :label="$t('public.no59')" width="86">
           </el-table-column>
@@ -261,7 +262,7 @@
     
     <!-- --------------还款计划----------------------------- -->
     <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
-      <el-table :data="PlanData" show-summary>
+      <el-table :data="PlanData">
         <el-table-column label="期数" prop="stages" align="center">
           <template slot-scope="scope">
             <span>第{{scope.row.stages}}期</span>
@@ -273,7 +274,12 @@
         <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
         <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
         <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
-        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
       </el-table>
     </el-dialog>
 
