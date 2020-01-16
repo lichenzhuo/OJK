@@ -1238,7 +1238,12 @@
         <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
         <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
         <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
-        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
       </el-table>
     </el-dialog>
 

@@ -172,7 +172,7 @@
 
     <!-- --------------还款计划----------------------------- -->
     <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
-      <el-table :data="PlanData" show-summary>
+      <el-table :data="PlanData">
         <el-table-column label="期数" prop="stages" align="center">
           <template slot-scope="scope">
             <span>第{{scope.row.stages}}期</span>
@@ -184,7 +184,12 @@
         <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
         <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
         <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
-        <el-table-column label="还款状态" prop="status" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
       </el-table>
     </el-dialog>
     <!-- 处理弹窗 -->
