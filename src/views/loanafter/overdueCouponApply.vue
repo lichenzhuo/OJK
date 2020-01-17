@@ -99,23 +99,43 @@
           <!-- 借款周期 -->
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
           </el-table-column>
-          <!-- 逾期天数 -->
-          <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+          <!-- 逾期期数 -->
+          <el-table-column align="center" prop="stages" label="逾期期数">
           </el-table-column>
-          <!-- 逾期费 -->
-          <el-table-column align="center" prop="overdueInterest" :label="$t('operationDetail.no5')">
+          <!-- 当前逾期天数 -->
+          <el-table-column align="center" prop="overdueDays" label="当前逾期天数">
+          </el-table-column>
+           <!-- 当前逾期费 -->
+          <el-table-column align="center" prop="overdueInterest" label="当前逾期费">
             <template slot-scope="scope">
               <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
-          <!-- 应还金额 -->
-          <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
+          <!-- 当前未还金额 -->
+          <el-table-column align="center" prop="returnMoney" label="当前未还金额">
             <template slot-scope="scope">
               <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
           </el-table-column>
+          <!-- 逾期天数 -->
+          <!-- <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
+          </el-table-column> -->
+          <!-- 逾期费 -->
+          <!-- <el-table-column align="center" prop="overdueInterest" :label="$t('operationDetail.no5')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.overdueInterest!==null&&scope.row.overdueInterest!==undefined&&scope.row.overdueInterest!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column> -->
+          <!-- 应还金额 -->
+          <!-- <el-table-column align="center" prop="returnMoney" :label="$t('public.no27')">
+            <template slot-scope="scope">
+              <span v-if="scope.row.returnMoney!==null&&scope.row.returnMoney!==undefined&&scope.row.returnMoney!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}</span>
+              <span v-else>{{$store.state.common.nullData}}</span>
+            </template>
+          </el-table-column> -->
           <!-- 逾期减免 -->
           <el-table-column align="center" prop="couponAmount" :label="$t('public.no72')">
             <template slot-scope="scope">
@@ -124,27 +144,27 @@
             </template>
           </el-table-column>
           <!-- 优惠时间 -->
-          <el-table-column align="center" prop="strEffectiveTimeBegin" :label="$t('loanAfterManage.couponEffectiveDate')" width="100">
+          <!-- <el-table-column align="center" prop="strEffectiveTimeBegin" :label="$t('loanAfterManage.couponEffectiveDate')" width="100">
             <template slot-scope="scope">
               <span>{{scope.row.strEffectiveTimeBegin}} ~ {{scope.row.strEffectiveTimeEnd}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- 优惠券状态 -->
-          <el-table-column align="center" prop="status" :label="$t('loanAfterManage.couponStatus')">
+          <!-- <el-table-column align="center" prop="status" :label="$t('loanAfterManage.couponStatus')">
             <template slot-scope="scope">
               <span>{{$t($store.getters.couponUseState(scope.row.status))}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- 优惠还款码 -->
-          <el-table-column align="center" prop="paymentCode" :label="$t('new.no67')">
+          <!-- <el-table-column align="center" prop="paymentCode" :label="$t('new.no67')">
             <template slot-scope="scope">
               <span v-if="scope.row.paymentCode!=''">{{scope.row.paymentCode}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <!-- 还款码有效期 -->
-          <el-table-column align="center" prop="strPaymentOvertime" :label="$t('new.no68')">
-          </el-table-column>
+          <!-- <el-table-column align="center" prop="strPaymentOvertime" :label="$t('new.no68')">
+          </el-table-column> -->
           <!-- 还款方式 -->
           <el-table-column align="center" prop="payType" :label="$t('loanAfterManage.payType')">
             <template slot-scope="scope">
@@ -170,13 +190,13 @@
                 @click="handleOpen(scope.row)">
                 {{$t('loanAfterManage.sel')}}
               </span>
-              <span 
+              <!-- <span 
                 v-if="$store.state.common.lang==='id'"
                 style="color:#547ef6;cursor:pointer;" 
                 @click="addCodeOpen(scope.row)"
               >
               {{$t('loanAfterManage.addPaycode')}}
-              </span>
+              </span> -->
             </template>
           </el-table-column>
         </el-table>
@@ -211,7 +231,7 @@
             <i style="font-weight:normal;font-style:normal">{{modifyData.unit}}</i>
             <span class="error" v-if="modifyErrorTips[0] !== ''">! {{modifyErrorTips[0]}}</span>
           </div>
-          <div class="detail-line" style="margin-top:10px">
+          <!-- <div class="detail-line" style="margin-top:10px">
             <span class="special text-right">{{$t('loanAfterManage.couponEffectiveDate')}}： </span>
             <span class="special" v-if="modifyDataReviewFlag">
               <el-date-picker
@@ -230,7 +250,7 @@
             </span>
             <span v-else>{{modifySecondValue[0]}} ~ {{modifySecondValue[1]}}</span>
             <span class="error" v-if="modifyErrorTips[1] !== ''">! {{modifyErrorTips[1]}}</span>
-          </div>
+          </div> -->
           <div class="detail-line">
             <span class="special text-right">{{$t('public.no37')}}： </span><span class="special">{{modifyData.remark}}</span>
           </div>
@@ -243,7 +263,7 @@
     </div>
 
     <!-- -------- 点击生成还款码弹窗开始 -------- -->
-    <div v-if="addCodeFlag" class="detail">
+    <!-- <div v-if="addCodeFlag" class="detail">
       <div class="detail-main">
         <div class="detail-main-head">
           <span></span>
@@ -281,7 +301,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- -------- 分页显示栏 -------- -->
     <el-row type="flex" justify="end"  >
@@ -325,11 +345,11 @@ export default {
       tableData: [], // 列表表格数据汇总
       payTypeStatus: '',
       modifyFlag: false,
-      addCodeFlag: false,
+      // addCodeFlag: false,
       modifyData: {},
       addCodeData: {},
       modifyFirstValue: '',
-      modifySecondValue: null,
+      // modifySecondValue: null,
       modifyErrorTips: ['', '']
     }
   },
@@ -364,31 +384,31 @@ export default {
         this.$set(this.modifyErrorTips, 0, msg);
       })
     },
-    modifySecondValue (val) { // 修改时间验证
-      this.$set(this.modifyErrorTips, 1, val === null ? this.$t('public.no75') : '');
-    }
+    // modifySecondValue (val) { // 修改时间验证
+    //   this.$set(this.modifyErrorTips, 1, val === null ? this.$t('public.no75') : '');
+    // }
   },
   methods: {
     handleOpen (row) { // 点开修改
       this.modifyFlag = true;
       this.modifyData = row;
-
       this.modifyFirstValue = row.couponAmount;
-      this.modifySecondValue = [row.strEffectiveTimeBegin, row.strEffectiveTimeEnd];
+      // this.modifySecondValue = [row.strEffectiveTimeBegin, row.strEffectiveTimeEnd];
+      console.log(this.modifyData.id,'111')
     },
     addCodeOpen (row) { // 点开修改
-      this.addCodeFlag = true;
+      // this.addCodeFlag = true;
       this.addCodeData = row;
 
       this.modifyFirstValue = row.couponAmount;
-      this.modifySecondValue = [row.strEffectiveTimeBegin, row.strEffectiveTimeEnd];
+      // this.modifySecondValue = [row.strEffectiveTimeBegin, row.strEffectiveTimeEnd];
     },
     handleClose () { // 关闭修改
       this.modifyFlag = false;
       this.modifyData = {};
 
       this.modifyFirstValue = '';
-      this.modifySecondValue = null;
+      // this.modifySecondValue = null;
     },
 
     handleRejectOrResolve (statusCode) { // 通过申请或者驳回
@@ -405,8 +425,8 @@ export default {
           action: this.$store.state.actionMap.overdueCouponApply_change_status,
           'sessionid': this.sessionid
         },
-        'effectiveTimeBegin': this.modifySecondValue[0],
-        'effectiveTimeEnd': this.modifySecondValue[1],
+        // 'effectiveTimeBegin': this.modifySecondValue[0],
+        // 'effectiveTimeEnd': this.modifySecondValue[1],
         'status': statusCode,
         'couponAmount': this.modifyFirstValue,
         'orderId': this.modifyData.orderId,
@@ -512,7 +532,7 @@ export default {
       })
     },
     addCodeClose () {
-      this.addCodeFlag = false;
+      // this.addCodeFlag = false;
       this.payTypeStatus = '';
     },
   }

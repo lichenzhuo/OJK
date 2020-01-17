@@ -164,9 +164,18 @@
             </el-select>
           </div>
         </template>
+        <!-- 增加的 -->
+        <div class="search-input">
+          <span>当前期数:</span>
+          <el-select size="small" clearable v-model="formInline.stages" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in currentstages" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <div class="search-input" v-if="$store.state.common.permiss.includes('RIGHT_LOANLAST_INCOME_QUERY')">
           <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
+        
       </el-row>
     </div>
     
@@ -195,14 +204,52 @@
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')" >
           </el-table-column>
-          <template v-if="$store.state.common.lang==='vi'">
+          <!-- 新增加 -->
+
+          <el-table-column align="center" prop="loanAmount" label="本金">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="feeAmount" label="服务费">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.feeAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="currentInterest" label="利息">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.currentInterest)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="overdueInterest" label="累计逾期罚息">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="productPeriod" label="借款周期">
+          </el-table-column>
+          <el-table-column align="center" prop="returnAmount" label="应还金额">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
+          </el-table-column>
+          <el-table-column align="center"  label="已还金额">
+            
+          </el-table-column>
+          <el-table-column align="center"  label="当期期数">
+             <template slot-scope="scope">
+              <span>{{scope.row.stages}}/{{scope.row.totalPeriod}}</span>
+            </template>
+          </el-table-column>
+
+          <!-- <template v-if="$store.state.common.lang==='vi'">
             <el-table-column align="center" prop="userPhone" :label="$t('yuenan.no23')" >
               <template slot-scope="scope">
                 <span >{{$store.getters.vn_phone(scope.row.userPhone)}}</span>
               </template>
             </el-table-column>
-          </template>
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
+          </template> -->
+          <!-- <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')" >
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -226,7 +273,7 @@
             <template slot-scope="scope">
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang!=='PHL'">
@@ -261,15 +308,15 @@
               <span >{{$t($store.getters.collectionStatus(scope.row.type))}}</span>
             </template>
           </el-table-column>
-          <template v-if="$store.state.common.lang!=='vi'">
+          <!-- <template v-if="$store.state.common.lang!=='vi'">
             <el-table-column align="center" prop="overdueDays" :label="$t('new.no77')">
             </el-table-column>
-          </template>
+          </template> -->
           <template v-if="$store.state.common.lang==='id'">
             <el-table-column align="center" prop="repeatCount" :label="$t('new.no78')">
             </el-table-column>
           </template>
-          <template v-if="$store.state.common.lang!=='PHL'">
+          <!-- <template v-if="$store.state.common.lang!=='PHL'">
             <el-table-column align="center" prop="strCallTime" :label="$t('new.no83')" width="86">
             </el-table-column>
             <el-table-column align="center" prop="callStatus" :label="$t('new.no84')">
@@ -277,7 +324,7 @@
                 <span >{{$t($store.getters.callStatus_status(scope.row.callStatus))}}</span>
               </template>
             </el-table-column>
-          </template>
+          </template> -->
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="120">
             <template slot-scope="scope">
               <span 
@@ -472,8 +519,10 @@ export default {
         callStartTime:'',
         callEndTime:'',
         adminId: '',
-        instalmentType: 1
+        instalmentType: 1,
+        stages:''
       },
+      currentstages:[{value:1,label:'第一期'},{value:2,label:'其他期'},],
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.collection_option, // 催收状态下拉选框信息
       options2: [], // 全部催收员列表

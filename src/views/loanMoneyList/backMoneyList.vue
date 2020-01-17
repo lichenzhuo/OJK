@@ -108,7 +108,7 @@
         </div>
          <div class="search-input">
           <span>当前应还期数:</span>
-          <el-select size="small" v-model="formInline.orderDeviceType" :placeholder="$t('public.placeholder')">
+          <el-select size="small" v-model="formInline.stages" :placeholder="$t('public.placeholder')">
             <el-option v-for="item in options11" :key="item.value" :label="$t(item.label)" :value="item.value">
             </el-option>
           </el-select>
@@ -116,7 +116,6 @@
         <template v-if="$store.state.common.permiss.includes('RIGHT_LOAN_REPAY_QUERY')">
           <div class="search-input ml15">
             <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
-            <!-- <el-button type="primary"  @click="select1">测试</el-button> -->
           </div>
         </template>
         
@@ -321,14 +320,15 @@ export default {
         loanTimeBegin: '',
         loanTimeEnd: '',
         overdueBegin: '',
-        overdueEnd: ''
+        overdueEnd: '',
+        stages:'',
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.backMoney_options, // 订单状态下拉选框信息
       options2: this.$store.state.options.isOverdue_option, // 逾期状态下拉选框信息
       options6: this.$store.state.options.loanDevice_options, // 借款客户端
       options10: this.$store.state.options.userType_option, // 用户类型
-      options11:this.$store.state.options.nowPayPeriod,
+      options11:[{value:1,label:'第一期'},{value:2,label:'其他期'},],
       tableData: []// 用户信息数据模拟
 
     }
@@ -388,19 +388,7 @@ export default {
         this.loadFlag = false;
       })
     },
-    select1(){          //测试接口
-      let option={
-        header:{
-          ...this.$base,
-          action: this.$store.state.actionMap.OrderPlan,
-          'sessionid': this.sessionid
-        },
-        orderId:'700333'
-      }
-      this.$axios.post('',option).then(res=>{
-        console.log(res,1111)
-      })
-    },
+    
     select () { // 点击查询操作
       this.$store.commit('backMoneyList', this.formInline)
       if (this.flag) {

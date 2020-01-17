@@ -1320,6 +1320,7 @@ export default {
           this.data.order = res.data.data.order;
           this.data.orderExtra = res.data.data.orderExtra;
           this.data.orderList = res.data.data.orderList;
+          console.log(this.data.orderList,'2222')
           this.data.orderMultiCheck = res.data.data.orderMultiCheck;
           this.data.userUrgentContact = res.data.data.userUrgentContact;
           this.data.contactOne = res.data.data.contactOne;

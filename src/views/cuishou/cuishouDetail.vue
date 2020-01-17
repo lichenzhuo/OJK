@@ -1121,12 +1121,14 @@
           <template v-if="data.partialShow=='1'||data.overCouponShow=='1'">
             <div class="radio-select">
               <template>
+                <!-- ------------逾期减免 -->
                 <el-radio
                   v-if="data.overCouponShow=='1'"
                   v-model="radio"
                   label="1"
                   border
                 >{{$t('new.no61')}}</el-radio>
+                <!------------- 部分还款 -->
                 <el-radio
                   v-if="data.partialShow=='1'"
                   v-model="radio"
@@ -1143,9 +1145,15 @@
                 size="medium"
                 label-width="120px"
               >
+              <!-- 部分还款期数 -->
+                <el-form-item :label="$t('new.no62')" prop="money">
+                  <el-button type="primary" size="mini" @click="showbufenPlanstage">部分还款期数</el-button>
+                </el-form-item>
+              <!-- 部分还款金额 -->
                 <el-form-item :label="$t('new.no62')" prop="money">
                   <el-input v-model="part.money" size="medium" style="width:300px"></el-input>
                 </el-form-item>
+                <!-- 还款方式 -->
                 <el-form-item :label="$t('loanAfterManage.payType')" prop="type">
                   <el-select v-model="part.type" :placeholder="$t('public.placeholder')">
                     <el-option
@@ -1156,7 +1164,8 @@
                     ></el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item :label="$t('public.backMoneyDate')" required>
+                <!-- 还款时间 -->
+                <!-- <el-form-item :label="$t('public.backMoneyDate')" required>
                   <el-col :span="11">
                     <el-form-item>
                       <el-date-picker
@@ -1167,10 +1176,12 @@
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-form-item>
+                </el-form-item> -->
+                <!-- 备注 -->
                 <el-form-item :label="$t('public.no37')">
                   <el-input type="textarea" v-model="part.remark" :rows="4"></el-input>
                 </el-form-item>
+                <!-- 提 交 -->
                 <el-form-item>
                   <el-button
                     type="primary"
@@ -1188,6 +1199,11 @@
                 label-width="120px"
                 class="demo-ruleForm"
               >
+              <!-- 申请减免期数 -->
+              <el-form-item :label="$t('new.no62')" prop="money">
+                  <el-button type="primary" size="mini" @click="showjianmiaanPlanstage">申请减免期数</el-button>
+                </el-form-item>
+              <!-- 减免金额 -->
                 <el-form-item :label="$t('new.no63')" prop="money">
                   <el-input v-model="remission.money" size="medium" style="width:300px"></el-input>
                 </el-form-item>
@@ -1208,9 +1224,11 @@
                     </el-form-item>
                   </el-col>
                 </el-form-item> -->
+                <!-- 备注 -->
                 <el-form-item :label="$t('public.no37')">
                   <el-input type="textarea" v-model="remission.remark" :rows="4"></el-input>
                 </el-form-item>
+                <!-- 提 交 -->
                 <el-form-item>
                   <el-button
                     type="primary"
@@ -1248,6 +1266,61 @@
     </el-dialog>
 
 
+<!-- 部分还款分期计划弹框 -->
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible1" width="1000px">
+      <el-table :data="PlanData1" @selection-change="tableselectchange">
+        <el-table-column  align="center" type="selection">
+        </el-table-column>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
+        
+      </el-table>
+      <el-button type="primary" @click="sureselectstages">确定</el-button>
+    </el-dialog>
+
+<!-- 逾期减免分期计划弹框 -->
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible2" width="1000px">
+      <el-table :data="PlanData2" @selection-change="tableselectchange1">
+        <el-table-column  align="center" type="selection">
+        </el-table-column>
+        <el-table-column label="期数" prop="stages" align="center">
+          <template slot-scope="scope">
+            <span>第{{scope.row.stages}}期</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="本期应还时间" prop="dueTime" width="120px" align="center"></el-table-column>
+        <el-table-column label="本期应还本息" prop="amount" align="center"></el-table-column>
+        <el-table-column label="本期逾期天数" prop="overDueDays" align="center"></el-table-column>
+        <el-table-column label="本期逾期罚息" prop="overdueInterest" align="center"></el-table-column>
+        <el-table-column label="本期应还金额" prop="returnMoney" align="center"></el-table-column>
+        <el-table-column label="已还金额" prop="repayAmount" align="center"></el-table-column>
+        <el-table-column label="还款状态" prop="status" align="center">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status==51">已还清</span>
+            <span v-else>未还清</span>
+          </template>
+        </el-table-column>
+        
+      </el-table>
+      <el-button type="primary" @click="yuqisureselectstages">确定</el-button>
+    </el-dialog>
+
+
     <div class="foot"></div>
     <transition name="fade">
       <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
@@ -1279,9 +1352,17 @@ export default {
   },
   data() {
     return {
+      bufenselectarr:[],
+      yuqiselectarr:[],
+      bufenselectstages:'',//部分还款还款计划选中的期数
+      yuqiselectstages:'',
       orderNo:'',
       dialogPlanVisible:false,
+      dialogPlanVisible1:false,
+      dialogPlanVisible2:false,
       PlanData:[],
+      PlanData1:[],
+      PlanData2:[],
       orderUrgentContact: "",
       clickNumber: 0,
       loading: true,
@@ -1383,7 +1464,7 @@ export default {
       part: {
         // 部分还款表单
         money: "",
-        time: [],
+        // time: [],
         type: "",
         remark: ""
       },
@@ -1463,6 +1544,84 @@ export default {
     }
   },
   methods: {
+    // 逾期分期选择确认
+    yuqisureselectstages(){
+      if (this.yuqiselectarr.length>1) {
+        Message.error({
+          message: '不可多选',
+          duration: 1000
+    })
+      }else{
+        this.dialogPlanVisible2=false
+      }
+      
+    },
+    // 部分还款分期选择确认
+    sureselectstages(){
+      if (this.bufenselectarr.length>1) {
+        Message.error({
+          message: '不可多选',
+          duration: 1000
+    })
+      }else{
+        this.dialogPlanVisible1=false
+      }
+      
+    },
+    tableselectchange(e){
+      console.log(e[0].stages)
+      this.bufenselectarr=e
+      this.bufenselectstages=e[0].stages
+    },
+    tableselectchange1(e){
+      console.log(e[0].stages)
+      this.yuqiselectarr=e
+      this.yuqiselectstages=e[0].stages
+    },
+    // 申请减免分期计划弹框
+    showjianmiaanPlanstage(e){
+      console.log(e)
+      let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.orderNo
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          // console.log(res,1111)
+          this.PlanData2=res.data.data
+          this.dialogPlanVisible2=true
+        }else{
+
+        }
+        
+      })
+    },
+    // 申请部分还款分期计划弹框
+    showbufenPlanstage(e){
+      console.log(e)
+      let option={
+        header:{
+          ...this.$base,
+          action: this.$store.state.actionMap.OrderPlan,
+          'sessionid': this.sessionid
+        },
+        orderNo:this.orderNo
+      }
+      this.$axios.post('',option).then(res=>{
+        if (res.data.header.code==0) {
+          // console.log(res,1111)
+          this.PlanData1=res.data.data
+          this.dialogPlanVisible1=true
+        }else{
+
+        }
+        
+      })
+    },
     showPlan(e){
       console.log(e)
       let option={
@@ -1960,7 +2119,8 @@ export default {
           // effectiveTimeBegin: this.remission.time ? this.remission.time[0] : "",
           // effectiveTimeEnd: this.remission.time ? this.remission.time[1] : "",
           couponAmount: this.remission.money,
-          remark: this.remission.remark
+          remark: this.remission.remark,
+          stages:this.yuqiselectstages
         };
         this.$axios.post("", option).then(res => {
           this.flag = true;
@@ -1975,6 +2135,7 @@ export default {
         });
       }
     },
+    // 部分还款提交
     partSubmit() {
       // 部分还款提交
       if (this.flag) {
@@ -1988,11 +2149,13 @@ export default {
           orderId: this.data.orderUserSelf.orderId,
           userId: this.data.orderUserSelf.userId,
           operating: "1",
-          committedRepaymentTime: this.part.time ? this.part.time : "",
+          // 还款时间
+          // committedRepaymentTime: this.part.time ? this.part.time : "",
           couponAmount: this.part.money,
           payType: this.part.type,
           channel: "bluepay",
-          remark: this.part.remark
+          remark: this.part.remark,
+          stages:this.bufenselectstages
         };
         this.$axios.post("", option).then(res => {
           this.flag = true;

@@ -219,8 +219,11 @@
               <p><span>{{$t('public.CreateTime')}}:</span>
                 <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
               </p>
+              <!------------------------ 修改的 -------------------------->
                <p><span>剩余金额:</span>
-                <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
+                <span>{{$store.state.common.id_currency}}
+                  {{$store.getters.moneySplit(data.order.returnMoney)}}
+                  {{$store.state.common.vi_currency}}</span>
               </p>
               <p><span>还款计划:</span>
                 <span @click="showPlan" style="font-size:18px;color:red;cursor:pointer;">{{$t('public.no29')}}</span>

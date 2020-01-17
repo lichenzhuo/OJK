@@ -145,12 +145,12 @@
       <el-form-item label="投资端-年化利率" prop="investmentRate">
         <el-input type="text" v-model="ruleForm2.investmentRate"></el-input>
       </el-form-item>
-      <el-form-item label="借款产品slogan" prop="loanSlogan">
+      <!-- <el-form-item label="借款产品slogan" prop="loanSlogan">
         <el-input type="text" v-model="ruleForm2.loanSlogan"></el-input>
       </el-form-item>
       <el-form-item label="投资产品slogan">
         <el-input type="text" v-model="ruleForm2.investmentSlogan"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm2')">{{$t('public.no41')}}</el-button>
         <el-button @click="addclose">{{$t('public.no50')}}</el-button>
@@ -227,8 +227,8 @@ export default {
         totalPeriod: "", //分期数
         gracePeriod: "", //还款宽限期
         investmentRate: "", //投资端-年化利率
-        loanSlogan: "", //借款产品slogan
-        investmentSlogan: "", //投资产品slogan
+        // loanSlogan: "", //借款产品slogan
+        // investmentSlogan: "", //投资产品slogan
         plans: [] //分期数组
       },
       advanceArr:[{value:1,label:'是'},{value:2,label:'否'}],
@@ -286,7 +286,7 @@ export default {
           { validator: validateNumber2, trigger: "blur", required: true }
         ],
         investmentRate: [{ required: true, trigger: "blur", required: true }],
-        loanSlogan: [{ required: true, trigger: "blur", required: true }],
+        // loanSlogan: [{ required: true, trigger: "blur", required: true }],
         // perTime: [       //每期天数校验
         //   { validator: validateperTime, trigger: 'blur', required: true }
         // ],

@@ -120,6 +120,14 @@
             </el-select>
           </div>
         </template>
+        <!-- 增加的 -->
+        <div class="search-input">
+          <span>当前期数:</span>
+          <el-select size="small" clearable v-model="formInline.stages" :placeholder="$t('public.placeholder')">
+            <el-option v-for="item in currentstages" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </div>
         <div class="search-input ml15">
           <el-button type="primary"  @click="select">{{$t('public.select')}}</el-button>
         </div>
@@ -158,9 +166,9 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="amountDue" label="应还金额">
+          <el-table-column align="center" prop="returnAmount" label="应还金额">
             <template slot-scope="scope">
-              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.amountDue)}}{{$store.state.common.vi_currency}}</span>
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center"  label="已还金额">
@@ -305,6 +313,7 @@ export default {
   name: 'myCollectionOrderList',
   data () {
     return {
+      currentstages:[{value:1,label:'第一期'},{value:2,label:'其他期'},],
       sessionid: '',
       loadFlag: true,
       pageTotal: 0, // 分页总数
@@ -342,7 +351,8 @@ export default {
         callStartTime:'',
         callEndTime:'',
         refundAmountIsZero: '',
-        instalmentType: 1
+        instalmentType: 1,
+        stages:'',
       },
       currentPage: 1, // 当前页下标
       options1: this.$store.state.options.collection_option, // 入催状态下拉选框信息
