@@ -149,7 +149,7 @@
           <span>{{$t($store.getters.loanUse_status(data.orderExtra.loanUse))}}</span></p>
         </div>
         <div class="oneLineHasFour">
-          <p><span>分期计划:</span>
+          <p><span>{{$t('ojk.no4')}}:</span>
             <span style="font-size: 18px;color: red;cursor: pointer;" @click="ShowPlan">{{$t('loanAfterManage.sel')}}</span>
           </p>
         </div>
@@ -159,7 +159,7 @@
     <transition name="fade">
       <app-lightbox :close="closeBox" :imgsource="currentObj" v-if="lightBoxToggle"></app-lightbox>
     </transition>
-     <el-dialog title="分期计划" :visible.sync="dialogPlanVisible1" width="600px">
+     <el-dialog :title="$t('ojk.no4')" :visible.sync="dialogPlanVisible1" width="600px">
       <el-table :data="PlanData1" show-summary>
         <el-table-column label="期数" prop="stages" width="150">
           <template slot-scope="scope">

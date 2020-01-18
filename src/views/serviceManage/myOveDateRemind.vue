@@ -236,7 +236,8 @@
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="160">
             <template slot-scope="scope">
               <template v-if="$store.state.common.permiss.includes('RIGHT_CUSTOMER_SERVICE_REMIND_REMIND')">
-                <template v-if="$store.state.common.lang==='vi'">
+                <template >
+                  <!-- v-if="$store.state.common.lang==='vi'" -->
                   <span 
                     v-if="scope.row.status==51||scope.row.overdueDays>isover"
                   >
@@ -250,7 +251,7 @@
                   {{$t('serviceManage.telNotice')}}
                   </span>
                 </template>
-                <template v-else>
+                <!-- <template v-else>
                   <span 
                     v-if="scope.row.status!=51"
                     class="table_opr"
@@ -263,7 +264,7 @@
                   >
                   {{$t('serviceManage.telNotice')}}
                   </span>
-                </template>
+                </template> -->
               </template>
             </template>
           </el-table-column>

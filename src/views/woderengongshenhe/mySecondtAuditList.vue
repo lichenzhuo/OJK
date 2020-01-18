@@ -145,7 +145,7 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriod" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="totalPeriod" label="分期期数">
+          <el-table-column align="center" prop="totalPeriod" :label="$t('ojk.no1')">
           </el-table-column>
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>

@@ -171,7 +171,7 @@
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no31')+'('+$t('public.no26')+')'" >
           </el-table-column>
           <!-------------- 分期期数 --------------->
-          <el-table-column align="center" prop="totalPeriod" label="分期期数">
+          <el-table-column align="center" prop="totalPeriod" :label="$t('ojk.no1')">
           </el-table-column>
           <template v-if="$store.state.common.lang==='PHL'">
             <el-table-column align="center" prop="instalment" :label="$t('fei.no17')">

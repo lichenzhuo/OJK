@@ -70,7 +70,7 @@
           </el-table-column>
           <el-table-column align="center" prop="productPeriodMax" label="借款周期">
           </el-table-column>
-          <el-table-column align="center" prop="instalment" label="分期期数">
+          <el-table-column align="center" prop="instalment" :label="$t('ojk.no1')">
           </el-table-column>
           <el-table-column align="center" prop="dayInterest" label="日利率">
             <template slot-scope="scope">
@@ -175,7 +175,7 @@
         <el-form-item label="逾期封顶" prop="overdueMaxRate">
           <el-input type="text" v-model="ruleForm2.overdueMaxRate" ></el-input>
         </el-form-item>
-        <el-form-item label="分期期数" prop="instalment">
+        <el-form-item :label="$t('ojk.no1')" prop="instalment">
           <el-input type="text" v-model="ruleForm2.instalment" ></el-input>
         </el-form-item>
         <el-form-item label="日利率" prop="dayInterest">

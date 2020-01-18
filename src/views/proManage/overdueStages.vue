@@ -30,7 +30,7 @@
           </el-table-column>
           <el-table-column align="center" prop="returnMoneyMax" label="应还金额最大值">
           </el-table-column>
-          <el-table-column align="center" prop="instalment" label="分期期数">
+          <el-table-column align="center" prop="instalment" :label="$t('ojk.no1')">
           </el-table-column>
           <el-table-column align="center" prop="instalmentDays" label="每期天数">
           </el-table-column>
@@ -68,7 +68,7 @@
         <el-form-item label="应还金额最大值" prop="returnMoneyMax">
             <el-input type="user" v-model="ruleForm2.returnMoneyMax" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="分期期数" prop="instalment">
+        <el-form-item :label="$t('ojk.no1')" prop="instalment">
             <el-input type="user" v-model="ruleForm2.instalment" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="每期天数" prop="instalmentDays">

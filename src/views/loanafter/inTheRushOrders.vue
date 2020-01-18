@@ -55,7 +55,7 @@
         <div class="search-input">
           <span>{{$t('public.no28')}}:</span>
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysBegin"></el-input>
-          ~
+          
           <el-input size="small" style="width:50px"  label="phone" v-model="formInline.overdueDaysEnd"></el-input>
         </div>
         <div class="search-input" v-if="$store.state.common.lang!=='vi'">
@@ -233,8 +233,10 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center"  label="已还金额">
-            
+          <el-table-column align="center" prop="refundAmount"  label="已还金额">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center"  label="当期期数">
              <template slot-scope="scope">
@@ -274,6 +276,7 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.waitAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column> -->
+          <!-- 最后催收时间 -->
           <el-table-column align="center" prop="strLastTime" :label="$t('loanAfterManage.time')" width="86">
           </el-table-column>
           <template v-if="$store.state.common.lang!=='PHL'">
@@ -284,8 +287,9 @@
             <el-table-column align="center" prop="strLastRefundTime" :label="$t('fei.no38')" width="86">
             </el-table-column>
           </template>
+          <!-- 还款时间 -->
           <template v-else>
-            <el-table-column align="center" prop="strLastRefundTime" :label="$t('public.backMoneyDate')" width="86">
+            <el-table-column align="center" prop="lastRefundTime" :label="$t('public.backMoneyDate')" width="86">
             </el-table-column>
           </template>
           <template v-if="$store.state.common.lang==='PHL'">

@@ -92,18 +92,22 @@
           <el-table-column align="center" prop="productPeriod" :label="$t('public.no25')">
           </el-table-column>
            <!-- 逾期期数 -->
-          <el-table-column align="center"  label="逾期期数">
+          <el-table-column align="center" prop="stages"  label="逾期期数">
           </el-table-column>
           <!-- 当前逾期天数 -->
-          <el-table-column align="center"  label="当前逾期天数">
+          <el-table-column align="center" prop="overdueDays"  label="当前逾期天数">
           </el-table-column>
           <!-- 当前逾期费 -->
-         <el-table-column align="center" label="当前逾期费">
-           
+         <el-table-column align="center" prop=" overdueInterest" label="当前逾期费">
+            <template slot-scope="scope">
+           {{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.overdueInterest)}}{{$store.state.common.vi_currency}}
+           </template>
           </el-table-column>
           <!-- 当前未还金额 -->
-         <el-table-column align="center" label="当前未还金额">
-           
+         <el-table-column align="center" prop="returnMoney" label="当前未还金额">
+            <template slot-scope="scope">
+            {{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnMoney)}}{{$store.state.common.vi_currency}}
+            </template>
           </el-table-column>
           <!-- 逾期天数 -->
           <!-- <el-table-column align="center" prop="overdueDays" :label="$t('public.no28')">
@@ -181,9 +185,12 @@
           </div>
           <div class="detail-line">
             <span>{{$t('public.no24')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.loanAmount)}}{{$store.state.common.vi_currency}}</i></span>
-            <span>{{$t('public.no28')}}: <i>{{modifyData.overdueDays}}{{$t('public.no26')}}</i></span>
-            <span>{{$t('public.no25')}}: <i>{{modifyData.productPeriod}}{{$t('public.no26')}}</i></span>
-            <span>{{$t('public.no27')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.returnMoney)}}{{$store.state.common.vi_currency}}</i></span>
+            <span>借款周期: <i>{{modifyData.productPeriod}}{{$t('public.no26')}}</i></span>
+            <span>本期逾期天数: <i>{{modifyData.overdueDays}}{{$t('public.no26')}}</i></span>
+          </div>
+          <div class="detail-line">
+            <span>本期应还金额: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.returnMoney)}}{{$store.state.common.vi_currency}}</i></span>
+            <span>部分还款期数: <i>{{modifyData.stages}}/{{modifyData.totalPeriod}}</i></span>
           </div>
         </div>
         <div class="detail-main-con">
@@ -238,11 +245,12 @@
           </div>
           <div class="detail-line">
             <span>{{$t('public.no24')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(addCodeData.loanAmount)}}{{$store.state.common.vi_currency}}</i></span>
-            <span>{{$t('public.no28')}}: <i>{{addCodeData.overdueDays}}{{$t('public.no26')}}</i></span>
-            <span>{{$t('public.no25')}}: <i>{{addCodeData.productPeriod}}{{$t('public.no26')}}</i></span>
+            <span>本期逾期天数: <i>{{addCodeData.overdueDays}}{{$t('public.no26')}}</i></span>
+            <span>本期逾期费: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(addCodeData.overdueInterest)}}{{$store.state.common.vi_currency}}</i></span>
           </div>
           <div class="detail-line">
-            <span>{{$t('new.no60')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(addCodeData.couponAmount)}}{{$store.state.common.vi_currency}}</i></span>
+            <span>部分还款期数: <i>{{addCodeData.stages}}/{{addCodeData.totalPeriod}}</i></span>
+            <span>本期部分还款: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(addCodeData.couponAmount)}}{{$store.state.common.vi_currency}}</i></span>
           </div>
         </div>
         <div class="detail-main-con">
@@ -381,7 +389,8 @@ export default {
       this.modifySecondValue = null;
     },
     handleRejectOrResolve () { // 通过申请或者驳回
-      // 验证字段
+    if (this.modifyFirstValue&&this.modifyFirstValue<this.modifyData.returnMoney) {
+       // 验证字段
       for (let x in this.modifyErrorTips) {
         if (this.modifyErrorTips[x] !== '') {
           return;
@@ -413,6 +422,14 @@ export default {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
+    }else{
+      // Message.error({
+      //   message: '申请金额不能大于本期应还金额',
+      //   duration:1000
+      // })
+      this.$message.error('申请金额不能大于本期应还金额');
+    }
+     
     },
 
     handleSizeChange (val) {// 每页条数变化时操作
@@ -477,6 +494,7 @@ export default {
       }
     },
     addCodeOpen(row){
+      console.log(row)
       this.makeCodeFlag = true;
       this.makecodeId = row.id;
       this.addCodeData = row;

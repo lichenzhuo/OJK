@@ -10,7 +10,7 @@
     <div class="table">
       <template>
         <el-table :data="tableData" stripe size="small">
-          <el-table-column align="center" prop="orderNo" :label="$t('public.orderNo')"></el-table-column>
+          <el-table-column align="center" prop="id" :label="$t('public.orderNo')"></el-table-column>
           <el-table-column
             align="center"
             prop="strLastRefundTime"

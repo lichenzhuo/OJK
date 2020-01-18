@@ -78,7 +78,7 @@
         <div class="paixu" style="padding-right:20px;display:flex;justify-content:space-between">
           <!-- <span></span> -->
           <p>{{$t('loanMoney.orderDetail')}}</p>
-          <p @click="showPlan" style="cursor:pointer;">分期计划</p>
+          <p @click="showPlan" style="cursor:pointer;">{{$t('ojk.no4')}}</p>
         </div>
       </el-col>
     </el-row>
@@ -93,7 +93,7 @@
       </div>
       <div class="oneLineHasFour">
         <p><span>{{$t('public.orderNo')}}:</span>
-          <span>{{data.order.orderNo | dataIsTrue}}</span>
+          <span>{{data.order.id | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('public.CreateDate')}}:</span>
           <span>{{data.order.strCreateTime | dataIsTrue}}</span>
@@ -109,9 +109,9 @@
         <p><span>{{$t('public.CreateTime')}}:</span>
           <span>{{data.order.strMustRefundTime | dataIsTrue}}</span>
         </p>
-        <p><span>{{$t('public.no27')}}:</span>
+        <!-- <p><span>{{$t('public.no27')}}:</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.returnMoney)}}{{$store.state.common.vi_currency}}</span>
-        </p>
+        </p> -->
         <p><span>{{$t('proManage.dayInterest')}}:</span>
           <span>{{$store.getters.twoPoint(data.order.dayInterestRate)}}</span>
         </p>
@@ -135,18 +135,22 @@
       </div>
       <!--------- 分期期数、服务费是否先收、利息是否先收、应还金额 -------->
       <div class="oneLineHasFour">
-        <p><span>分期期数:</span>
+        <!-- 分期期数 -->
+        <p><span>{{$t('ojk.no1')}}:</span>
           <span>{{data.order.totalPeriod}}</span>
         </p>
-        <p><span>服务费是否先收:</span>
-          <span v-if="data.order.serviceFeeCharge==1">是</span>
-          <span v-else>否</span>
+        <!-- 服务费是否先收 -->
+        <p><span>{{$t('ojk.no2')}}:</span>
+          <span v-if="data.order.serviceFeeCharge==1">{{$t('operationDetail.no11')}}</span>
+          <span v-else>{{$t('operationDetail.no12')}}</span>
         </p>
-        <p><span>利息是否先收:</span>
-          <span v-if="data.order.interestCharge==1">是</span>
-          <span v-else>否</span>
+        <!-- 利息是否先收 -->
+        <p><span>{{$t('ojk.no3')}}:</span>
+          <span v-if="data.order.interestCharge==1">{{$t('operationDetail.no11')}}</span>
+          <span v-else>{{$t('operationDetail.no12')}}</span>
         </p>
-        <p><span>应还金额:</span>
+        <!-- 应还金额 -->
+        <p><span>{{$t('public.no27')}}::</span>
           <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(data.order.amountDue)}}{{$store.state.common.vi_currency}}</span>
         </p>
       </div>
@@ -165,7 +169,7 @@
         </p>
       </div>
       <div class="oneLineHasFour">
-        <p><span>{{$t('filter.couponName')}}:</span>
+        <!-- <p><span>{{$t('filter.couponName')}}:</span>
           <span>{{data.coupon.couponName | dataIsTrue}}</span>
         </p>
         <p><span>{{$t('filter.couponItem')}}:</span>
@@ -176,8 +180,8 @@
           <span v-else-if="data.coupon.couponType==2">{{data.coupon.couponDays+$t('public.no26')}}</span>
           <span v-else-if="data.coupon.couponType==4">{{data.coupon.couponInterest}}</span>
           <span v-else>{{$store.state.common.nullData}}</span>
-        </p>
-        <p><span>{{$t('filter.interest')}}:</span>
+        </p> -->
+        <p><span>优惠金额:</span>
           <span>{{$store.getters.moneySplit(data.order.couponAmount)}}</span>
         </p>
       </div>
@@ -272,15 +276,15 @@
 
     </table>
     <!------------------- 查看分期计划开始 --------------------->
-    <el-dialog title="分期计划" :visible.sync="dialogPlanVisible" width="600px">
+    <el-dialog :title="$t('ojk.no4')" :visible.sync="dialogPlanVisible" width="600px">
       <el-table :data="PlanData" show-summary>
-        <el-table-column label="期数" prop="stages" width="150">
+        <el-table-column :label="$t('ojk.no5')" prop="stages" width="150">
           <template slot-scope="scope">
-            <span>第{{scope.row.stages}}期</span>
+            <span>{{$t('ojk.no6')}}{{scope.row.stages}}{{$t('ojk.no7')}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="天数分期" prop="instalmentPeriod" width="200"></el-table-column>
-        <el-table-column label="金额分期" prop="amount"></el-table-column>
+        <el-table-column :label="$t('ojk.no8')" prop="instalmentPeriod" width="200"></el-table-column>
+        <el-table-column :label="$t('ojk.no9')" prop="amount"></el-table-column>
       </el-table>
     </el-dialog>
     <!------------------- 查看分期计划结束 --------------------->

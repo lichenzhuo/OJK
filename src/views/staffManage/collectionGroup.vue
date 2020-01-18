@@ -162,7 +162,7 @@
           <div class="detail-con-one">
             <div class="search-input1">
               <span style="width:100px;">{{$t('new.no29')}}:</span>
-              <el-transfer 
+              <el-transfer style="width:600px;"
                 v-model="value1" 
                 :data="group"
                 @change="rightChange"
@@ -539,6 +539,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+// .el-transfer-panel{
+//   width: 180px !important
+// }
 @mixin flex-cen {
   display: flex;
   justify-content: center;
@@ -659,5 +662,6 @@ export default {
     }
   }
 }
+
 
 </style>

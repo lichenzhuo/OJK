@@ -64,7 +64,7 @@
         <el-input type="text" v-model="Amountdue" :disabled="true" style="width:240px"></el-input>
         <!-- <el-button type="primary" size="mini" @click="CalcMoney" style="margin-left: 10px;">计算金额</el-button> -->
       </el-form-item>
-      <el-form-item label="分期期数" prop="totalPeriod">
+      <el-form-item :label="$t('ojk.no1')" prop="totalPeriod">
         <el-select
           v-model="ruleForm2.totalPeriod"
           placeholder="请选择分期数"
@@ -97,7 +97,7 @@
           </template>
         </span>
       </el-form-item>
-      <el-form-item label="每期应还金额" prop="perMoney">
+      <el-form-item label="每期应还金额" prop="perMoney" style="width:450px">
         <span>
           <template v-if="inputArr.length==0">
             <el-input
@@ -112,7 +112,7 @@
             <el-input
               type="text"
               size="mini"
-              style="width:70px;margin-right:10px;margin-bottom:5px"
+              style="width:120px;margin-right:10px;margin-bottom:5px"
               v-for="item in inputArr"
               :key="item.index"
               v-model="item.amount"

@@ -1145,12 +1145,14 @@
                 size="medium"
                 label-width="120px"
               >
+              <!------------------ 部分还款 ------------------->
               <!-- 部分还款期数 -->
-                <el-form-item :label="$t('new.no62')" prop="money">
-                  <el-button type="primary" size="mini" @click="showbufenPlanstage">部分还款期数</el-button>
+                <el-form-item label="申请减免期数" prop="money">
+                  <el-button type="primary" size="mini" @click="showbufenPlanstage">申请减免期数</el-button>
+                  <!-- <el-tag closable>1/3</el-tag> -->
                 </el-form-item>
               <!-- 部分还款金额 -->
-                <el-form-item :label="$t('new.no62')" prop="money">
+                <el-form-item label="部分还款金额" prop="money">
                   <el-input v-model="part.money" size="medium" style="width:300px"></el-input>
                 </el-form-item>
                 <!-- 还款方式 -->
@@ -1165,7 +1167,7 @@
                   </el-select>
                 </el-form-item>
                 <!-- 还款时间 -->
-                <!-- <el-form-item :label="$t('public.backMoneyDate')" required>
+                <el-form-item :label="$t('public.backMoneyDate')" required>
                   <el-col :span="11">
                     <el-form-item>
                       <el-date-picker
@@ -1176,7 +1178,7 @@
                       ></el-date-picker>
                     </el-form-item>
                   </el-col>
-                </el-form-item> -->
+                </el-form-item>
                 <!-- 备注 -->
                 <el-form-item :label="$t('public.no37')">
                   <el-input type="textarea" v-model="part.remark" :rows="4"></el-input>
@@ -1199,12 +1201,13 @@
                 label-width="120px"
                 class="demo-ruleForm"
               >
+              <!-------------------- 逾期减免 --------------------->
               <!-- 申请减免期数 -->
-              <el-form-item :label="$t('new.no62')" prop="money">
+              <el-form-item label="申请减免期数" prop="money">
                   <el-button type="primary" size="mini" @click="showjianmiaanPlanstage">申请减免期数</el-button>
                 </el-form-item>
               <!-- 减免金额 -->
-                <el-form-item :label="$t('new.no63')" prop="money">
+                <el-form-item label="申请减免金额" prop="money">
                   <el-input v-model="remission.money" size="medium" style="width:300px"></el-input>
                 </el-form-item>
                 <!-- <el-form-item :label="$t('filter.usedDate')" required>
@@ -1243,7 +1246,7 @@
       </ul>
     </div>
 
-<el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
+    <el-dialog title="还款计划" :visible.sync="dialogPlanVisible" width="1000px">
       <el-table :data="PlanData">
         <el-table-column label="期数" prop="stages" align="center">
           <template slot-scope="scope">
@@ -1266,10 +1269,24 @@
     </el-dialog>
 
 
-<!-- 部分还款分期计划弹框 -->
+<!----------------- 部分还款分期计划弹框 ---------------->
     <el-dialog title="还款计划" :visible.sync="dialogPlanVisible1" width="1000px">
-      <el-table :data="PlanData1" @selection-change="tableselectchange">
-        <el-table-column  align="center" type="selection">
+      <el-table :data="PlanData1" >
+        <!-- <el-table-column  align="center" type="selection">
+        </el-table-column> -->
+        <el-table-column
+          label="选择"
+          width="50"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-radio
+            :disabled="scope.row.status==51"
+              :label="scope.$index"
+              v-model="choiceAccountItem"
+              @change.native="tableselectchange(scope.$index,scope.row.stages)"
+            >&nbsp;</el-radio>
+          </template>
         </el-table-column>
         <el-table-column label="期数" prop="stages" align="center">
           <template slot-scope="scope">
@@ -1293,11 +1310,24 @@
       <el-button type="primary" @click="sureselectstages">确定</el-button>
     </el-dialog>
 
-<!-- 逾期减免分期计划弹框 -->
+<!------------------- 逾期减免分期计划弹框 -------------->
     <el-dialog title="还款计划" :visible.sync="dialogPlanVisible2" width="1000px">
-      <el-table :data="PlanData2" @selection-change="tableselectchange1">
-        <el-table-column  align="center" type="selection">
+      <el-table :data="PlanData2" >
+          <el-table-column
+          label="选择"
+          width="50"
+          align="center"
+        >
+          <template slot-scope="scope">
+            <el-radio
+            :disabled="scope.row.status==51"
+              :label="scope.$index"
+              v-model="choiceAccountItem"
+              @change.native="tableselectchange1(scope.$index,scope.row.stages)"
+            >&nbsp;</el-radio>
+          </template>
         </el-table-column>
+
         <el-table-column label="期数" prop="stages" align="center">
           <template slot-scope="scope">
             <span>第{{scope.row.stages}}期</span>
@@ -1352,8 +1382,11 @@ export default {
   },
   data() {
     return {
+      choiceAccountItem: '',//单选
+      choiceAccountItem1: '',//单选
+      checkList:[],
       bufenselectarr:[],
-      yuqiselectarr:[],
+      // yuqiselectarr:[],
       bufenselectstages:'',//部分还款还款计划选中的期数
       yuqiselectstages:'',
       orderNo:'',
@@ -1464,7 +1497,7 @@ export default {
       part: {
         // 部分还款表单
         money: "",
-        // time: [],
+        time: '',
         type: "",
         remark: ""
       },
@@ -1544,40 +1577,65 @@ export default {
     }
   },
   methods: {
+    // handleSelectionChange(row){
+    //   this.PlanData2.forEach(item=>{
+    //     if (item.status==51) {
+    //     }else{
+    //       if (item.stages!==row.stages) {
+    //       item.checked = false
+    //       console.log(row.stages)
+    //       }
+    //     }
+        
+    //   })
+      
+    // },
+    boxchange(val){
+      if(this.checkList.indexOf(val) > -1){
+          this.checkList = [];
+          this.checkList.push(val);
+        }
+    },
     // 逾期分期选择确认
     yuqisureselectstages(){
-      if (this.yuqiselectarr.length>1) {
-        Message.error({
-          message: '不可多选',
-          duration: 1000
-    })
-      }else{
+    //   if (this.yuqiselectarr.length>1) {
+    //     Message.error({
+    //       message: '不可多选',
+    //       duration: 1000
+    // })
+    //   }else{
+      //  alert(this.yuqiselectstages ) 
         this.dialogPlanVisible2=false
-      }
+      // }
       
     },
     // 部分还款分期选择确认
     sureselectstages(){
-      if (this.bufenselectarr.length>1) {
-        Message.error({
-          message: '不可多选',
-          duration: 1000
-    })
-      }else{
+    //   if (this.bufenselectarr.length>1) {
+    //     Message.error({
+    //       message: '不可多选',
+    //       duration: 1000
+    // })
+    //   }else{
         this.dialogPlanVisible1=false
-      }
+      // }
       
     },
-    tableselectchange(e){
-      console.log(e[0].stages)
-      this.bufenselectarr=e
-      this.bufenselectstages=e[0].stages
+    tableselectchange(index, val){
+       console.log("单选-----",index,val)
+      // this.yuqiselectarr=e
+      this.bufenselectstages=val
+      console.log(this.bufenselectstages,'部分还款期数')
+      
     },
-    tableselectchange1(e){
-      console.log(e[0].stages)
-      this.yuqiselectarr=e
-      this.yuqiselectstages=e[0].stages
+    //单选
+    tableselectchange1(index, val){
+
+      console.log("单选-----",index,val)
+      this.yuqiselectstages=val
+       console.log(this.yuqiselectstages,'逾期还款期数')
     },
+
     // 申请减免分期计划弹框
     showjianmiaanPlanstage(e){
       console.log(e)
@@ -1592,7 +1650,13 @@ export default {
       this.$axios.post('',option).then(res=>{
         if (res.data.header.code==0) {
           // console.log(res,1111)
+         
+          // res.data.data.forEach(item => {
+          //   item.checked = false
+          // });
+
           this.PlanData2=res.data.data
+          
           this.dialogPlanVisible2=true
         }else{
 
@@ -2150,7 +2214,7 @@ export default {
           userId: this.data.orderUserSelf.userId,
           operating: "1",
           // 还款时间
-          // committedRepaymentTime: this.part.time ? this.part.time : "",
+          committedRepaymentTime: this.part.time ? this.part.time : "",
           couponAmount: this.part.money,
           payType: this.part.type,
           channel: "bluepay",
@@ -2269,6 +2333,12 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+
+.table-simple-checkbox{ // 隐藏 1
+  .el-checkbox__label{
+    display: none;
+  }
+}
 .loansTypeImg {
   width: 100%;
   display: flex;

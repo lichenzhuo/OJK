@@ -171,8 +171,10 @@
               <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.returnAmount)}}{{$store.state.common.vi_currency}}</span>
             </template>
           </el-table-column>
-          <el-table-column align="center"  label="已还金额">
-            
+          <el-table-column align="center" prop="refundAmount" label="已还金额">
+            <template slot-scope="scope">
+              <span>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.refundAmount)}}{{$store.state.common.vi_currency}}</span>
+            </template>
           </el-table-column>
           <el-table-column align="center"  label="当期期数">
              <template slot-scope="scope">
@@ -241,6 +243,7 @@
           </template>
           <el-table-column fixed="right" align="center" prop="operation" :label="$t('public.operation')" min-width="180">
             <template slot-scope="scope">
+              <!-- 催收 -->
               <span 
                 v-if="!(scope.row.status==100||(scope.row.dealStatus>0&&scope.row.dealStatus<3))&&scope.row.overdueDays!==0"
                 class="table_opr"
@@ -249,6 +252,7 @@
               </span>
               <template v-if="$store.state.common.lang==='id'">
                 <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_OTHER_REPAYMENT')">
+                  <!-- 他人替还 -->
                   <span 
                     class="table_opr cl777" 
                     v-if="scope.row.oneStatus!==0">{{$t('yn.no43')}}</span>
@@ -258,6 +262,7 @@
                     @click="openAudit('1',scope.row.userId,scope.row.orderId)">{{$t('yn.no43')}}</span>
                 </template>
                 <template v-if="$store.state.common.permiss.includes('RIGHT_COLLECT_ME_BAD_ATTITUDE')">
+                  <!-- 态度恶劣 -->
                   <span 
                     class="table_opr cl777" 
                     v-if="scope.row.twoStatus!==0">{{$t('yn.no44')}}</span>

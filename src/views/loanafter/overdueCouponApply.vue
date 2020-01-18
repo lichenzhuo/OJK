@@ -90,7 +90,7 @@
           <el-table-column align="center" prop="userPhone" :label="$t('public.userTel')">
           </el-table-column>
           <!-- 借款金额 -->
-          <el-table-column align="center" prop="loanAmount" :label="$t('public.no30')">
+          <el-table-column align="center" prop="loanAmount" :label="$t('public.no24')">
             <template slot-scope="scope">
               <span v-if="scope.row.loanAmount!==null&&scope.row.loanAmount!==undefined&&scope.row.loanAmount!==''">{{$store.state.common.id_currency}}{{$store.getters.moneySplit(scope.row.loanAmount)}}{{$store.state.common.vi_currency}}</span>
               <span v-else>{{$store.state.common.nullData}}</span>
@@ -219,8 +219,13 @@
           </div>
           <div class="detail-line">
             <span>{{$t('public.no24')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.loanAmount)}}{{$store.state.common.vi_currency}}</i></span>
-            <span>{{$t('public.no28')}}: <i>{{modifyData.overdueDays}}{{$t('public.no26')}}</i></span>
-            <span>{{$t('operationDetail.no5')}}: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.overdueInterest)}}{{$store.state.common.vi_currency}}</i></span>
+             <!-- <span>借款周期: <i>{{modifyData.productPeriod}}{{$t('public.no26')}}</i></span> -->
+            <span>本期逾期天数: <i>{{modifyData.overdueDays}}{{$t('public.no26')}}</i></span>
+            <span>本期应还金额: <i>{{$store.state.common.id_currency}}{{$store.getters.moneySplit(modifyData.returnMoney)}}{{$store.state.common.vi_currency}}</i></span>
+           
+          </div>
+          <div class="detail-line">
+             <span>部分还款期数: <i>{{modifyData.stages}}/{{modifyData.totalPeriod}}</i></span>
           </div>
         </div>
         <div class="detail-main-con">
@@ -412,7 +417,8 @@ export default {
     },
 
     handleRejectOrResolve (statusCode) { // 通过申请或者驳回
-      // 验证字段
+      if (this.modifyFirstValue&&this.modifyFirstValue<this.modifyData.returnMoney) {
+        // 验证字段
       for (let x in this.modifyErrorTips) {
         if (this.modifyErrorTips[x] !== '') {
           return;
@@ -444,6 +450,10 @@ export default {
           this.$globalMsg.error(res.data.header.msg);
         }
       })
+      }else{
+        this.$message.error('减免金额不能大于本期应还金额');
+      }
+      
     },
     handleSizeChange (val) {// 每页条数变化时操作
       this.pageNumber = val;

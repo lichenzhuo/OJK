@@ -67,11 +67,11 @@
         type="primary"
         @click.stop="addloans"
       >+{{$t('proManage.add')}}</el-button>
-      <el-button
+      <!-- <el-button
         v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_COPY')"
         type="primary"
         @click.stop="copyPro"
-      >{{$t('proManage.copyPro')}}</el-button>
+      >{{$t('proManage.copyPro')}}</el-button> -->
       <el-button
         v-if="$store.state.common.permiss.includes('RIGHT_PRODUCT_LIST_PACKAGEADD')"
         type="primary"
@@ -152,7 +152,7 @@
           </el-table-column>
           <!-- <el-table-column align="center" prop="appPackage" label="可贷用户类型">
           </el-table-column>-->
-          <el-table-column align="center" prop="plans" label="分期计划">
+          <el-table-column align="center" prop="plans" :label="$t('ojk.no4')">
             <template slot-scope="scope">
               <span class="table_opr" @click="showPlan(scope.row.plans)">{{$t('public.no29')}}</span>
             </template>
@@ -290,7 +290,7 @@
           <el-input type="text" v-model="amount" :disabled="true" style="width:240px"></el-input>
           <!-- <el-button type="primary" size="mini" @click="CalcMoney" style="margin-left: 10px;">计算金额</el-button> -->
         </el-form-item>
-        <el-form-item label="分期期数" prop="totalPeriod">
+        <el-form-item :label="$t('ojk.no1')" prop="totalPeriod">
           <el-select
             v-model="ruleForm2.totalPeriod"
             placeholder="请选择分期数"
@@ -338,7 +338,7 @@
               <el-input
                 type="text"
                 size="mini"
-                style="width:70px;margin-right:10px;margin-bottom:5px"
+                style="width:120px;margin-right:10px;margin-bottom:5px"
                 v-for="item in inputArr"
                 :key="item.index"
                 v-model="item.amount"
@@ -442,7 +442,7 @@
     <!-- ------------------添加包名结束-------------------- -->
 
     <!------------------- 查看分期计划开始 --------------------->
-    <el-dialog title="分期计划" :visible.sync="dialogPlanVisible" width="600px">
+    <el-dialog :title="$t('ojk.no4')" :visible.sync="dialogPlanVisible" width="600px">
       <el-table :data="PlanData" show-summary>
         <el-table-column label="期数" prop="stages" width="150">
           <template slot-scope="scope">
